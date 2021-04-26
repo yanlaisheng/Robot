@@ -874,7 +874,7 @@
                     <item>max_s_lim</item>
                     <item>accel_lim</item>
                     <item>tim_count</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>

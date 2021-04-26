@@ -286,7 +286,7 @@ void MOTOR1_AxisMoveRel(int32_t step, uint32_t accel, uint32_t decel, uint32_t s
   *           减速至停止，使得整个运动距离为指定的步数。如果加减速阶段很短并且
   *           速度很慢，那还没达到最大速度就要开始减速
   */
-void MOTOR1_AxisMoveRel_S(int32_t step, uint32_t speed, uint32_t accel, uint32_t decel)
+void MOTOR1_AxisMoveRel_S(int32_t step, uint32_t speed, uint16_t Dir, uint32_t accel, uint32_t decel)
 {
   __IO uint16_t tim_count;
   // 达到最大速度时的步数
@@ -298,17 +298,22 @@ void MOTOR1_AxisMoveRel_S(int32_t step, uint32_t speed, uint32_t accel, uint32_t
 
   if (Motor1_MotionStatus != STOP) // 只允许步进电机在停止的时候才继续
     return;
-  if (step < 0) // 步数为负数
-  {
-    Motor1_srd.dir = CCW; // 逆时针方向旋转
-    MOTOR1_DIR_REVERSAL();
-    step = -step; // 获取步数绝对值
-  }
-  else
-  {
-    Motor1_srd.dir = CW; // 顺时针方向旋转
+  // if (step < 0) // 步数为负数
+  // {
+  //   Motor1_srd.dir = CCW; // 逆时针方向旋转
+  //   MOTOR1_DIR_REVERSAL();
+  //   step = -step; // 获取步数绝对值
+  // }
+  // else
+  // {
+  //   Motor1_srd.dir = CW; // 顺时针方向旋转
+  //   MOTOR1_DIR_FORWARD();
+  // }
+
+  if (Dir == 0)
     MOTOR1_DIR_FORWARD();
-  }
+  else
+    MOTOR1_DIR_REVERSAL();
 
   if (step > 2 * ACCELERATED_SPEED_LENGTH)
   {
@@ -325,7 +330,33 @@ void MOTOR1_AxisMoveRel_S(int32_t step, uint32_t speed, uint32_t accel, uint32_t
   else if (step == 0)
     return;
 
-  step_to_run_MOTOR1 = step - 2 * acc_speed_len;
+  step_to_run_MOTOR1 = step - 2 * acc_speed_len; //匀速步数
+
+  CalculateSModelLine(fre_MOTOR1, period_MOTOR1, acc_speed_len, speed * SPR / 60, FRE_MIN, 4);
+
+  // 如果最大速度很慢，我们就不需要进行加速运动
+  if (Motor1_srd.step_delay <= Motor1_srd.min_delay)
+  {
+    Motor1_srd.step_delay = Motor1_srd.min_delay;
+    Motor1_srd.run_state = RUN;
+  }
+  else
+  {
+    Motor1_srd.run_state = ACCEL;
+  }
+  // 复位加速度计数值
+  Motor1_srd.accel_count = 0;
+
+  __HAL_TIM_SET_AUTORELOAD(&htim2_MOTOR1, period_MOTOR1[0]);
+  __HAL_TIM_SET_COMPARE(&htim2_MOTOR1, MOTOR1_TIM2_CHANNEL_x, period_MOTOR1[0] >> 1);
+  Motor1_status = 1;
+  Motor1_num = 0;
+
+  step_to_run_MOTOR1 = MaxPosition;
+
+  HAL_TIM_Base_Start(&htim2_MOTOR1);                                     // 使能定时器
+  TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
+  MOTOR1_OUTPUT_ENABLE();
 
   if (step == 1) // 步数为1
   {
@@ -459,8 +490,9 @@ void MOTOR1_TIM2_IRQHandler(void) //定时器中断处理
         }
         break;
       case RUN: //匀速
-        step_to_run_MOTOR1--;
-        if (step_to_run_MOTOR1 < 1)
+        if (step_to_run_MOTOR1 >= 1)
+          step_to_run_MOTOR1--;
+        else
           Motor1_status = 2;
         break;
       case DECEL: //减速
