@@ -74,5 +74,6 @@ extern __IO uint8_t Motor1_MotionStatus;
 void MOTOR1_TIMx_Init(void);
 void MOTOR1_AxisMoveRel(int32_t step, uint32_t accel, uint32_t decel, uint32_t speed);
 
+extern void CalculateSModelLine(float fre[], unsigned short period[], float len, float fre_max, float fre_min, float flexible);
 #endif /* __MOTOR1_TIM_H__ */
 /******************* (C) COPYRIGHT 2020-2021 QINGDAO SANLI *****END OF FILE****/
