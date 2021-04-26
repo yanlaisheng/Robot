@@ -286,13 +286,15 @@ void MOTOR1_AxisMoveRel(int32_t step, uint32_t accel, uint32_t decel, uint32_t s
   *           减速至停止，使得整个运动距离为指定的步数。如果加减速阶段很短并且
   *           速度很慢，那还没达到最大速度就要开始减速
   */
-void MOTOR1_AxisMoveRel_S(int32_t step, uint32_t accel, uint32_t decel, uint32_t speed)
+void MOTOR1_AxisMoveRel_S(int32_t step, uint32_t speed, uint32_t accel, uint32_t decel)
 {
   __IO uint16_t tim_count;
   // 达到最大速度时的步数
   __IO uint32_t max_s_lim;
   // 必须要开始减速的步数（如果加速没有达到最大速度）
   __IO uint32_t accel_lim;
+
+  __IO uint32_t acc_speed_len; //加减速长度
 
   if (Motor1_MotionStatus != STOP) // 只允许步进电机在停止的时候才继续
     return;
@@ -307,6 +309,23 @@ void MOTOR1_AxisMoveRel_S(int32_t step, uint32_t accel, uint32_t decel, uint32_t
     Motor1_srd.dir = CW; // 顺时针方向旋转
     MOTOR1_DIR_FORWARD();
   }
+
+  if (step > 2 * ACCELERATED_SPEED_LENGTH)
+  {
+    acc_speed_len = ACCELERATED_SPEED_LENGTH;
+  }
+  else if ((step > 4) && (step <= ACCELERATED_SPEED_LENGTH))
+  {
+    acc_speed_len = step >> 1;
+  }
+  else if ((step > = 1) && (step < 4))
+  {
+    acc_speed_len = 0;
+  }
+  else if (step == 0)
+    return;
+
+  step_to_run_MOTOR1 = step - 2 * acc_speed_len;
 
   if (step == 1) // 步数为1
   {
