@@ -77,9 +77,9 @@ extern "C"
   void Test_EEPROM(void);
   void Init_EtherCAT(void);
   void Uart_RT(void);
-  void Send_Pulse(unsigned char MotorID, uint32_t MaxPosition, unsigned char Dir, uint32_t MaxSpeed);
+  void Send_Pulse(unsigned char MotorID, uint32_t MaxPosition, uint32_t MaxSpeed, uint16_t Dir, uint16_t Acc_len);
   void Test_Send_Pulse(void);
-  void CalculateSModelLine(float fre[], unsigned short period[], float len, float fre_max, float fre_min, float flexible);
+  void CalculateSModelLine(unsigned short period[], float len, float fre_max, float fre_min, float flexible);
   void MOTOR1_AxisMoveRel(int32_t step, uint32_t accel, uint32_t decel, uint32_t speed);
 
   extern void ParLst_Init(void);

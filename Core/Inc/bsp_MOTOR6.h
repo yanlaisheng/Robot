@@ -3,6 +3,7 @@
 
 /* 包含头文件 ----------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "GlobalConst.h"
 
 /* 类型定义 ------------------------------------------------------------------*/
 
@@ -16,7 +17,7 @@
 #define MOTOR6_TIM5_IRQHandler TIM5_IRQHandler
 
 #define MOTOR6_TIM5_CHANNEL_x TIM_CHANNEL_1
-#define MOTOR6_TIM5_GPIO_CLK_ENABLE() __HAL_RCC_GPIOC_CLK_ENABLE() // 输出控制脉冲给电机驱动器
+#define MOTOR6_TIM5_GPIO_CLK_ENABLE() __HAL_RCC_GPIOA_CLK_ENABLE() // 输出控制脉冲给电机驱动器
 #define MOTOR6_TIM5_PUL_PORT GPIOA                                 // 对应驱动器的PUL-（驱动器使用共阳接法）
 #define MOTOR6_TIM5_PUL_PIN GPIO_PIN_0                             // 而PLU+直接接开发板的VCC
 
@@ -35,9 +36,6 @@
 #define MOTOR6_OUTPUT_ENABLE() HAL_GPIO_WritePin(MOTOR6_ENA_PORT, MOTOR6_ENA_PIN, GPIO_PIN_RESET)
 #define MOTOR6_OUTPUT_DISABLE() HAL_GPIO_WritePin(MOTOR6_ENA_PORT, MOTOR6_ENA_PIN, GPIO_PIN_SET)
 
-// 定义定时器预分频，定时器实际时钟频率为：168MHz/（STEPMOTOR_TIMx_PRESCALER+1）
-#define MOTOR6_TIM_PRESCALER 15 // 步进电机驱动器细分设置为：   64  细分
-
 // 定义定时器周期，输出比较模式周期设置为0xFFFF
 #define MOTOR6_TIM_PERIOD 0xFFFF
 // 定义高级定时器重复计数寄存器值
@@ -47,15 +45,6 @@
 #define TRUE 1
 #define CW 0  // 顺时针
 #define CCW 1 // 逆时针
-
-#define STOP 0                                                        // 加减速曲线状态：停止
-#define ACCEL 1                                                       // 加减速曲线状态：加速阶段
-#define DECEL 2                                                       // 加减速曲线状态：减速阶段
-#define RUN 3                                                         // 加减速曲线状态：匀速阶段
-#define T1_FREQ_MOTOR6 (SystemCoreClock / (MOTOR6_TIM_PRESCALER + 1)) // 频率ft值
-#define FSPR 200                                                      //步进电机单圈步数
-#define MICRO_STEP 64                                                 // 步进电机驱动器细分数
-#define SPR (FSPR * MICRO_STEP)                                       // 旋转一圈需要的脉冲数
 
 // 数学常数
 #define ALPHA ((float)(2 * 3.14159 / SPR)) // α= 2*pi/spr
@@ -69,10 +58,16 @@ extern TIM_HandleTypeDef htim5_MOTOR6;
 extern __IO uint8_t Motor6_status;
 extern __IO int Motor6_num;
 extern __IO uint8_t Motor6_MotionStatus;
+
+extern uint32_t step_to_run_MOTOR6;
+extern unsigned short period_MOTOR6[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 /* 函数声明 ------------------------------------------------------------------*/
 
 void MOTOR6_TIMx_Init(void);
 void MOTOR6_AxisMoveRel(int32_t step, uint32_t accel, uint32_t decel, uint32_t speed);
+
+extern void CalculateSModelLine(unsigned short period[], float len, float fre_max, float fre_min, float flexible);
+extern void MOTOR6_AxisMoveRel_S(int32_t step, uint32_t speed, uint16_t Dir, uint16_t Acc_len);
 
 #endif /* __MOTOR6_TIM_H__ */
 /******************* (C) COPYRIGHT 2020-2021 QINGDAO SANLI *****END OF FILE****/

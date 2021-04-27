@@ -83,7 +83,7 @@ __IO uint32_t step_accel = 10; // 加速度 单位为0.1rad/sec^2
 __IO uint32_t step_decel = 10; // 减速度 单位为0.1rad/sec^2
 
 #if S_ACCEL
-void CalculateSModelLine(float fre[], unsigned short period[], float len, float fre_max, float fre_min, float flexible)
+void CalculateSModelLine(unsigned short period[], float len, float fre_max, float fre_min, float flexible)
 {
 	int i = 0;
 	float deno;
@@ -93,8 +93,8 @@ void CalculateSModelLine(float fre[], unsigned short period[], float len, float 
 	{
 		melo = flexible * (i - len / 2) / (len / 2);
 		deno = 1.0f / (1 + expf(-melo)); //expf is a library function of exponential(e)?
-		fre[i] = delt * deno + fre_min;
-		period[i] = (unsigned short)(10000000.0f / fre[i]); // 10000000 is the timer driver frequency
+		// fre[i] = delt * deno + fre_min;
+		period[i] = (unsigned short)(10000000.0f / (delt * deno + fre_min)); // 10000000 is the timer driver frequency
 	}
 	return;
 }
@@ -238,7 +238,7 @@ int main(void)
 	// Test_EEPROM();
 
 	//EtherCAT初始化
-//	Init_EtherCAT();
+	//	Init_EtherCAT();
 
 	/* USER CODE END 2 */
 
@@ -250,7 +250,27 @@ int main(void)
 		Boot_ParLst(); // 初始化设定参数
 
 		Uart_RT(); //串口收发
-		Test_Send_Pulse();
+		// Test_Send_Pulse();
+		if (Pw_SendPWM == 1)
+		{
+			//Send_Pulse(unsigned char MotorID, uint32_t MaxPosition, uint32_t MaxSpeed, uint16_t Dir, uint16_t Acc_len)
+			if (w_ParLst[0] == 0 && w_ParLst[1] == 0)
+				w_ParLst[0] = 0xFF;
+
+			if (w_ParLst[2] == 0)
+				w_ParLst[2] = ((w_ParLst[1] << 16) + w_ParLst[0]) >> 1;
+
+			if (w_ParLst[3] == 0)
+				w_ParLst[3] = 500;
+
+			Send_Pulse(1, (w_ParLst[1] << 16) + w_ParLst[0], w_ParLst[3], 1, w_ParLst[2]);
+			Send_Pulse(2, (w_ParLst[1] << 16) + w_ParLst[0], w_ParLst[3], 1, w_ParLst[2]);
+			Send_Pulse(3, (w_ParLst[1] << 16) + w_ParLst[0], w_ParLst[3], 1, w_ParLst[2]);
+			Send_Pulse(4, (w_ParLst[1] << 16) + w_ParLst[0], w_ParLst[3], 1, w_ParLst[2]);
+			Send_Pulse(5, (w_ParLst[1] << 16) + w_ParLst[0], w_ParLst[3], 1, w_ParLst[2]);
+			Send_Pulse(6, (w_ParLst[1] << 16) + w_ParLst[0], w_ParLst[3], 1, w_ParLst[2]);
+			Pw_SendPWM = 0;
+		}
 
 		/* USER CODE END WHILE */
 
@@ -912,116 +932,47 @@ void Uart_RT(void)
 }
 
 //发送脉冲函数
-void Send_Pulse(unsigned char MotorID, uint32_t MaxPosition, unsigned char Dir, uint32_t MaxSpeed)
+void Send_Pulse(unsigned char MotorID, uint32_t MaxPosition, uint32_t MaxSpeed, uint16_t Dir, uint16_t Acc_len)
 {
+	if (Acc_len == 0)
+		Acc_len = ACCELERATED_SPEED_LENGTH;
+
 	switch (MotorID)
 	{
 	case 1:
-		CalculateSModelLine(fre_MOTOR1, period_MOTOR1, ACCELERATED_SPEED_LENGTH, FRE_MAX, FRE_MIN, 1);
-		__HAL_TIM_SET_AUTORELOAD(&htim2_MOTOR1, period_MOTOR1[0]);
-		__HAL_TIM_SET_COMPARE(&htim2_MOTOR1, MOTOR1_TIM2_CHANNEL_x, period_MOTOR1[0] >> 1);
-		Motor1_status = 1;
-		Motor1_num = 0;
-
-		step_to_run_MOTOR1 = MaxPosition;
-
-		HAL_TIM_Base_Start(&htim2_MOTOR1);									   // 使能定时器
-		TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
-		MOTOR1_OUTPUT_ENABLE();
-
-		if (Dir == 0)
-			MOTOR1_DIR_FORWARD();
-		else
-			MOTOR1_DIR_REVERSAL();
+		//MOTOR1_AxisMoveRel_S(int32_t step, uint32_t speed, uint16_t Dir)
+		if (MaxSpeed > SPEED_MAX_MOTOR1)
+			MaxSpeed = SPEED_MAX_MOTOR1;
+		MOTOR1_AxisMoveRel_S(MaxPosition, MaxSpeed, Dir, Acc_len);
 
 		break;
 	case 2:
-		CalculateSModelLine(fre_MOTOR2, period_MOTOR2, ACCELERATED_SPEED_LENGTH, FRE_MAX, FRE_MIN, 1);
-		__HAL_TIM_SET_AUTORELOAD(&htim4_MOTOR2, period_MOTOR2[0]);
-		__HAL_TIM_SET_COMPARE(&htim4_MOTOR2, MOTOR2_TIM4_CHANNEL_x, period_MOTOR2[0] >> 1);
-		Motor2_status = 1;
-		Motor2_num = 0;
-
-		step_to_run_MOTOR2 = MaxPosition;
-
-		HAL_TIM_Base_Start(&htim4_MOTOR2);									   // 使能定时器
-		TIM_CCxChannelCmd(MOTOR2_TIM4, MOTOR2_TIM4_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
-		MOTOR2_OUTPUT_ENABLE();
-		if (Dir == 0)
-			MOTOR2_DIR_FORWARD();
-		else
-			MOTOR2_DIR_REVERSAL();
+		if (MaxSpeed > SPEED_MAX_MOTOR2)
+			MaxSpeed = SPEED_MAX_MOTOR2;
+		MOTOR2_AxisMoveRel_S(MaxPosition, MaxSpeed, Dir, Acc_len);
 		break;
 
 	case 3:
-		CalculateSModelLine(fre_MOTOR3, period_MOTOR3, ACCELERATED_SPEED_LENGTH, FRE_MAX, FRE_MIN, 4);
-		__HAL_TIM_SET_AUTORELOAD(&htim8_MOTOR3, period_MOTOR3[0]);
-		__HAL_TIM_SET_COMPARE(&htim8_MOTOR3, MOTOR3_TIM8_CHANNEL_x, period_MOTOR3[0] >> 1);
-		Motor3_status = 1;
-		Motor3_num = 0;
-
-		step_to_run_MOTOR3 = MaxPosition;
-
-		HAL_TIM_Base_Start(&htim8_MOTOR3);									   // 使能定时器
-		TIM_CCxChannelCmd(MOTOR3_TIM8, MOTOR3_TIM8_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
-		MOTOR3_OUTPUT_ENABLE();
-		if (Dir == 0)
-			MOTOR3_DIR_FORWARD();
-		else
-			MOTOR3_DIR_REVERSAL();
+		if (MaxSpeed > SPEED_MAX_MOTOR3)
+			MaxSpeed = SPEED_MAX_MOTOR3;
+		MOTOR3_AxisMoveRel_S(MaxPosition, MaxSpeed, Dir, Acc_len);
 		break;
 
 	case 4:
-		CalculateSModelLine(fre_MOTOR4, period_MOTOR4, ACCELERATED_SPEED_LENGTH, FRE_MAX, FRE_MIN, 1);
-		__HAL_TIM_SET_AUTORELOAD(&htim3_MOTOR4, period_MOTOR4[0]);
-		__HAL_TIM_SET_COMPARE(&htim3_MOTOR4, MOTOR4_TIM3_CHANNEL_x, period_MOTOR4[0] >> 1);
-		Motor4_status = 1;
-		Motor4_num = 0;
-
-		step_to_run_MOTOR4 = MaxPosition;
-
-		HAL_TIM_Base_Start(&htim3_MOTOR4);									   // 使能定时器
-		TIM_CCxChannelCmd(MOTOR4_TIM3, MOTOR4_TIM3_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
-		MOTOR4_OUTPUT_ENABLE();
-		if (Dir == 0)
-			MOTOR4_DIR_FORWARD();
-		else
-			MOTOR4_DIR_REVERSAL();
+		if (MaxSpeed > SPEED_MAX_MOTOR4)
+			MaxSpeed = SPEED_MAX_MOTOR4;
+		MOTOR4_AxisMoveRel_S(MaxPosition, MaxSpeed, Dir, Acc_len);
 		break;
 	case 5:
-		CalculateSModelLine(fre_MOTOR5, period_MOTOR5, ACCELERATED_SPEED_LENGTH, FRE_MAX, FRE_MIN, 1);
-		__HAL_TIM_SET_AUTORELOAD(&htim1_MOTOR5, period_MOTOR5[0]);
-		__HAL_TIM_SET_COMPARE(&htim1_MOTOR5, MOTOR5_TIM1_CHANNEL_x, period_MOTOR5[0] >> 1);
-		Motor5_status = 1;
-		Motor5_num = 0;
-
-		step_to_run_MOTOR5 = MaxPosition;
-
-		HAL_TIM_Base_Start(&htim1_MOTOR5);									   // 使能定时器
-		TIM_CCxChannelCmd(MOTOR5_TIM1, MOTOR5_TIM1_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
-		MOTOR5_OUTPUT_ENABLE();
-		if (Dir == 0)
-			MOTOR5_DIR_FORWARD();
-		else
-			MOTOR5_DIR_REVERSAL();
+		if (MaxSpeed > SPEED_MAX_MOTOR5)
+			MaxSpeed = SPEED_MAX_MOTOR5;
+		MOTOR5_AxisMoveRel_S(MaxPosition, MaxSpeed, Dir, Acc_len);
 		break;
 
 	case 6:
-		CalculateSModelLine(fre_MOTOR6, period_MOTOR6, ACCELERATED_SPEED_LENGTH, FRE_MAX, FRE_MIN, 1);
-		__HAL_TIM_SET_AUTORELOAD(&htim5_MOTOR6, period_MOTOR6[0]);
-		__HAL_TIM_SET_COMPARE(&htim5_MOTOR6, MOTOR6_TIM5_CHANNEL_x, period_MOTOR6[0] >> 1);
-		Motor6_status = 1;
-		Motor6_num = 0;
-
-		step_to_run_MOTOR6 = MaxPosition;
-
-		HAL_TIM_Base_Start(&htim5_MOTOR6);									   // 使能定时器
-		TIM_CCxChannelCmd(MOTOR6_TIM5, MOTOR6_TIM5_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
-		MOTOR6_OUTPUT_ENABLE();
-		if (Dir == 0)
-			MOTOR6_DIR_FORWARD();
-		else
-			MOTOR6_DIR_REVERSAL();
+		if (MaxSpeed > SPEED_MAX_MOTOR6)
+			MaxSpeed = SPEED_MAX_MOTOR6;
+		MOTOR6_AxisMoveRel_S(MaxPosition, MaxSpeed, Dir, Acc_len);
 	}
 }
 

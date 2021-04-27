@@ -1,0 +1,2260 @@
+              definition:  __as_table_start
+              definition:  __as_entries_start
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR1.o.
+              reference :  CalculateSModelLine
+              reference :  HAL_GPIO_Init
+              reference :  HAL_GPIO_WritePin
+              reference :  HAL_NVIC_EnableIRQ
+              reference :  HAL_NVIC_SetPriority
+              reference :  HAL_TIM_Base_Init
+              reference :  HAL_TIM_Base_Start
+              reference :  HAL_TIM_Base_Stop
+              reference :  HAL_TIM_ConfigClockSource
+              reference :  HAL_TIM_OC_ConfigChannel
+              reference :  SystemCoreClock
+              reference :  TIM_CCxChannelCmd
+              reference :  __aeabi_d2f
+              reference :  __aeabi_d2iz
+              reference :  __aeabi_ddiv
+              reference :  __aeabi_dmul
+              reference :  __aeabi_f2d
+              reference :  __aeabi_ui2d
+              reference :  period_MOTOR1
+              reference :  sqrt
+              reference :  step_to_run_MOTOR1
+              definition:  MOTOR1_AxisMoveRel
+              definition:  MOTOR1_AxisMoveRel_S
+              definition:  MOTOR1_TIMx_Init
+              definition:  Motor1_MotionStatus
+              definition:  Motor1_num
+              definition:  Motor1_srd
+              definition:  Motor1_status
+              definition:  Motor1_step_position
+              definition:  TIM2_IRQHandler
+              definition:  acc_speed_len_Motor1
+              definition:  htim2_MOTOR1
+              definition:  tmp1
+              definition:  tmp2
+              definition:  tmp3
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR2.o.
+              reference :  CalculateSModelLine
+              reference :  HAL_GPIO_Init
+              reference :  HAL_GPIO_WritePin
+              reference :  HAL_NVIC_EnableIRQ
+              reference :  HAL_NVIC_SetPriority
+              reference :  HAL_TIM_Base_Init
+              reference :  HAL_TIM_Base_Start
+              reference :  HAL_TIM_ConfigClockSource
+              reference :  HAL_TIM_OC_ConfigChannel
+              reference :  SystemCoreClock
+              reference :  TIM_CCxChannelCmd
+              reference :  __aeabi_d2f
+              reference :  __aeabi_d2iz
+              reference :  __aeabi_ddiv
+              reference :  __aeabi_dmul
+              reference :  __aeabi_f2d
+              reference :  __aeabi_ui2d
+              reference :  period_MOTOR2
+              reference :  sqrt
+              reference :  step_to_run_MOTOR2
+              definition:  MOTOR2_AxisMoveRel
+              definition:  MOTOR2_AxisMoveRel_S
+              definition:  MOTOR2_TIMx_Init
+              definition:  MOTOR2_srd
+              definition:  MOTOR2_step_position
+              definition:  Motor2_MotionStatus
+              definition:  Motor2_num
+              definition:  Motor2_status
+              definition:  TIM4_IRQHandler
+              definition:  acc_speed_len_Motor2
+              definition:  htim4_MOTOR2
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR3.o.
+              reference :  CalculateSModelLine
+              reference :  HAL_GPIO_Init
+              reference :  HAL_GPIO_WritePin
+              reference :  HAL_NVIC_EnableIRQ
+              reference :  HAL_NVIC_SetPriority
+              reference :  HAL_TIM_Base_Init
+              reference :  HAL_TIM_Base_Start
+              reference :  HAL_TIM_ConfigClockSource
+              reference :  HAL_TIM_OC_ConfigChannel
+              reference :  SystemCoreClock
+              reference :  TIM_CCxChannelCmd
+              reference :  __aeabi_d2f
+              reference :  __aeabi_d2iz
+              reference :  __aeabi_ddiv
+              reference :  __aeabi_dmul
+              reference :  __aeabi_f2d
+              reference :  __aeabi_ui2d
+              reference :  period_MOTOR3
+              reference :  sqrt
+              reference :  step_to_run_MOTOR3
+              definition:  MOTOR3_AxisMoveRel
+              definition:  MOTOR3_AxisMoveRel_S
+              definition:  MOTOR3_TIMx_Init
+              definition:  Motor3_MotionStatus
+              definition:  Motor3_num
+              definition:  Motor3_srd
+              definition:  Motor3_status
+              definition:  Motor3_step_position
+              definition:  TIM8_CC_IRQHandler
+              definition:  acc_speed_len_Motor3
+              definition:  htim8_MOTOR3
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR4.o.
+              reference :  CalculateSModelLine
+              reference :  HAL_GPIO_Init
+              reference :  HAL_GPIO_WritePin
+              reference :  HAL_NVIC_EnableIRQ
+              reference :  HAL_NVIC_SetPriority
+              reference :  HAL_TIM_Base_Init
+              reference :  HAL_TIM_Base_Start
+              reference :  HAL_TIM_ConfigClockSource
+              reference :  HAL_TIM_OC_ConfigChannel
+              reference :  SystemCoreClock
+              reference :  TIM_CCxChannelCmd
+              reference :  __aeabi_d2f
+              reference :  __aeabi_d2iz
+              reference :  __aeabi_ddiv
+              reference :  __aeabi_dmul
+              reference :  __aeabi_f2d
+              reference :  __aeabi_ui2d
+              reference :  period_MOTOR4
+              reference :  sqrt
+              reference :  step_to_run_MOTOR4
+              definition:  MOTOR4_AxisMoveRel
+              definition:  MOTOR4_AxisMoveRel_S
+              definition:  MOTOR4_TIMx_Init
+              definition:  MOTOR4_srd
+              definition:  MOTOR4_step_position
+              definition:  Motor4_MotionStatus
+              definition:  Motor4_num
+              definition:  Motor4_status
+              definition:  TIM3_IRQHandler
+              definition:  acc_speed_len_Motor4
+              definition:  htim3_MOTOR4
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR5.o.
+              reference :  CalculateSModelLine
+              reference :  HAL_GPIO_Init
+              reference :  HAL_GPIO_WritePin
+              reference :  HAL_NVIC_EnableIRQ
+              reference :  HAL_NVIC_SetPriority
+              reference :  HAL_TIM_Base_Init
+              reference :  HAL_TIM_Base_Start
+              reference :  HAL_TIM_ConfigClockSource
+              reference :  HAL_TIM_OC_ConfigChannel
+              reference :  SystemCoreClock
+              reference :  TIM_CCxChannelCmd
+              reference :  __aeabi_d2f
+              reference :  __aeabi_d2iz
+              reference :  __aeabi_ddiv
+              reference :  __aeabi_dmul
+              reference :  __aeabi_f2d
+              reference :  __aeabi_ui2d
+              reference :  period_MOTOR5
+              reference :  sqrt
+              reference :  step_to_run_MOTOR5
+              definition:  MOTOR5_AxisMoveRel
+              definition:  MOTOR5_AxisMoveRel_S
+              definition:  MOTOR5_TIMx_Init
+              definition:  MOTOR5_srd
+              definition:  MOTOR5_step_position
+              definition:  Motor5_MotionStatus
+              definition:  Motor5_num
+              definition:  Motor5_status
+              definition:  TIM1_CC_IRQHandler
+              definition:  acc_speed_len_Motor5
+              definition:  htim1_MOTOR5
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR6.o.
+              reference :  CalculateSModelLine
+              reference :  HAL_GPIO_Init
+              reference :  HAL_GPIO_WritePin
+              reference :  HAL_NVIC_EnableIRQ
+              reference :  HAL_NVIC_SetPriority
+              reference :  HAL_TIM_Base_Init
+              reference :  HAL_TIM_Base_Start
+              reference :  HAL_TIM_ConfigClockSource
+              reference :  HAL_TIM_OC_ConfigChannel
+              reference :  SystemCoreClock
+              reference :  TIM_CCxChannelCmd
+              reference :  __aeabi_d2f
+              reference :  __aeabi_d2iz
+              reference :  __aeabi_ddiv
+              reference :  __aeabi_dmul
+              reference :  __aeabi_f2d
+              reference :  __aeabi_ui2d
+              reference :  period_MOTOR6
+              reference :  sqrt
+              reference :  step_to_run_MOTOR6
+              definition:  MOTOR6_AxisMoveRel
+              definition:  MOTOR6_AxisMoveRel_S
+              definition:  MOTOR6_TIMx_Init
+              definition:  MOTOR6_srd
+              definition:  MOTOR6_step_position
+              definition:  Motor6_MotionStatus
+              definition:  Motor6_num
+              definition:  Motor6_status
+              definition:  TIM5_IRQHandler
+              definition:  acc_speed_len_Motor6
+              definition:  htim5_MOTOR6
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\com1_232.o.
+              reference :  B_Com1Cmd01
+              reference :  B_Com1Cmd03
+              reference :  B_Com1Cmd06
+              reference :  B_Com1Cmd16
+              reference :  BakRcv1Count
+              reference :  C_NoRcv1Count
+              reference :  F_ModRealTime
+              reference :  HAL_GPIO_TogglePin
+              reference :  HAL_UART_Receive_IT
+              reference :  HAL_UART_Transmit
+              reference :  Rcv1Buffer
+              reference :  Rcv1Counter
+              reference :  SoftClock
+              reference :  T_NoRcv1Count
+              reference :  Tmp_Rxd1Buffer
+              reference :  Txd1Buffer
+              reference :  Txd1Counter
+              reference :  Txd1Max
+              reference :  huart1
+              reference :  w_Com1RegAddr
+              reference :  w_ModRealTimeNo
+              reference :  w_ParLst
+              reference :  w_ParLst_Drive
+              reference :  w_Txd1ChkSum
+              definition:  CRC16
+              definition:  CRC_H
+              definition:  CRC_L
+              definition:  Com1_RcvProcess
+              definition:  Com1_SlaveSend
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\com2_232.o.
+              reference :  B_Com2Cmd01
+              reference :  B_Com2Cmd03
+              reference :  B_Com2Cmd06
+              reference :  B_Com2Cmd16
+              reference :  BakRcv2Count
+              reference :  CRC16
+              reference :  C_NoRcv2Count
+              reference :  F_ModRealTime
+              reference :  HAL_GPIO_TogglePin
+              reference :  HAL_UART_Receive_IT
+              reference :  HAL_UART_Transmit
+              reference :  Rcv2Buffer
+              reference :  Rcv2Counter
+              reference :  SoftClock
+              reference :  T_NoRcv2Count
+              reference :  Tmp_Rxd2Buffer
+              reference :  Txd2Buffer
+              reference :  Txd2Counter
+              reference :  Txd2Max
+              reference :  huart2
+              reference :  w_Com2RegAddr
+              reference :  w_ModRealTimeNo
+              reference :  w_ParLst
+              reference :  w_ParLst_Drive
+              reference :  w_Txd2ChkSum
+              definition:  Com2_RcvProcess
+              definition:  Com2_SlaveSend
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\com3_232.o.
+              reference :  B_Com3Cmd01
+              reference :  B_Com3Cmd03
+              reference :  B_Com3Cmd06
+              reference :  B_Com3Cmd16
+              reference :  BakRcv3Count
+              reference :  CRC16
+              reference :  C_NoRcv3Count
+              reference :  F_ModRealTime
+              reference :  HAL_GPIO_TogglePin
+              reference :  HAL_UART_Receive_IT
+              reference :  HAL_UART_Transmit
+              reference :  Rcv3Buffer
+              reference :  Rcv3Counter
+              reference :  SoftClock
+              reference :  T_NoRcv3Count
+              reference :  Tmp_Rxd3Buffer
+              reference :  Txd3Buffer
+              reference :  Txd3Counter
+              reference :  Txd3Max
+              reference :  huart3
+              reference :  w_Com3RegAddr
+              reference :  w_ModRealTimeNo
+              reference :  w_ParLst
+              reference :  w_ParLst_Drive
+              reference :  w_Txd3ChkSum
+              definition:  Com3_RcvProcess
+              definition:  Com3_SlaveSend
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\com4_232.o.
+              reference :  B_Com4Cmd01
+              reference :  B_Com4Cmd03
+              reference :  B_Com4Cmd06
+              reference :  B_Com4Cmd16
+              reference :  BakRcv4Count
+              reference :  CRC16
+              reference :  C_NoRcv4Count
+              reference :  F_ModRealTime
+              reference :  HAL_GPIO_TogglePin
+              reference :  HAL_UART_Receive_IT
+              reference :  HAL_UART_Transmit
+              reference :  Rcv4Buffer
+              reference :  Rcv4Counter
+              reference :  SoftClock
+              reference :  T_NoRcv4Count
+              reference :  Tmp_Rxd4Buffer
+              reference :  Txd4Buffer
+              reference :  Txd4Counter
+              reference :  Txd4Max
+              reference :  huart4
+              reference :  w_Com4RegAddr
+              reference :  w_ModRealTimeNo
+              reference :  w_ParLst
+              reference :  w_ParLst_Drive
+              reference :  w_Txd4ChkSum
+              definition:  Com4_RcvProcess
+              definition:  Com4_SlaveSend
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\com5_232.o.
+              reference :  B_Com5Cmd01
+              reference :  B_Com5Cmd03
+              reference :  B_Com5Cmd06
+              reference :  B_Com5Cmd16
+              reference :  BakRcv5Count
+              reference :  CRC16
+              reference :  C_NoRcv5Count
+              reference :  F_ModRealTime
+              reference :  HAL_GPIO_TogglePin
+              reference :  HAL_UART_Receive_IT
+              reference :  HAL_UART_Transmit
+              reference :  Rcv5Buffer
+              reference :  Rcv5Counter
+              reference :  SoftClock
+              reference :  T_NoRcv5Count
+              reference :  Tmp_Rxd5Buffer
+              reference :  Txd5Buffer
+              reference :  Txd5Counter
+              reference :  Txd5Max
+              reference :  huart5
+              reference :  w_Com5RegAddr
+              reference :  w_ModRealTimeNo
+              reference :  w_ParLst
+              reference :  w_ParLst_Drive
+              reference :  w_Txd5ChkSum
+              definition:  Com5_RcvProcess
+              definition:  Com5_SlaveSend
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\com6_232.o.
+              reference :  B_Com6Cmd01
+              reference :  B_Com6Cmd03
+              reference :  B_Com6Cmd06
+              reference :  B_Com6Cmd16
+              reference :  BakRcv6Count
+              reference :  CRC16
+              reference :  C_NoRcv6Count
+              reference :  F_ModRealTime
+              reference :  HAL_GPIO_TogglePin
+              reference :  HAL_UART_Receive_IT
+              reference :  HAL_UART_Transmit
+              reference :  Rcv6Buffer
+              reference :  Rcv6Counter
+              reference :  SoftClock
+              reference :  T_NoRcv6Count
+              reference :  Tmp_Rxd6Buffer
+              reference :  Txd6Buffer
+              reference :  Txd6Counter
+              reference :  Txd6Max
+              reference :  huart6
+              reference :  w_Com6RegAddr
+              reference :  w_ModRealTimeNo
+              reference :  w_ParLst
+              reference :  w_ParLst_Drive
+              reference :  w_Txd6ChkSum
+              definition:  Com6_RcvProcess
+              definition:  Com6_SlaveSend
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\DoWith.o.
+              reference :  C_Driver1_delayCount
+              reference :  C_Driver2_delayCount
+              reference :  C_Driver3_delayCount
+              reference :  C_Driver4_delayCount
+              reference :  C_Driver5_delayCount
+              reference :  C_Driver6_delayCount
+              reference :  C_NoRcv1Count
+              reference :  C_NoRcv2Count
+              reference :  C_NoRcv3Count
+              reference :  C_NoRcv4Count
+              reference :  C_NoRcv5Count
+              reference :  C_NoRcv6Count
+              reference :  DInb
+              reference :  DOutb
+              reference :  Driver1_Pos_Start_Sort
+              reference :  Driver1_Status_Sort
+              reference :  Driver1_Write_Sort
+              reference :  Driver2_Pos_Start_Sort
+              reference :  Driver2_Write_Sort
+              reference :  Driver3_Pos_Start_Sort
+              reference :  Driver3_Write_Sort
+              reference :  Driver4_Pos_Start_Sort
+              reference :  Driver4_Write_Sort
+              reference :  Driver5_Pos_Start_Sort
+              reference :  Driver5_Write_Sort
+              reference :  Driver6_Pos_Start_Sort
+              reference :  Driver6_Write_Sort
+              reference :  F_AllRdy
+              reference :  F_AskForceReset
+              reference :  F_AskReset
+              reference :  F_AskStop
+              reference :  F_Encoder_Read
+              reference :  F_ForceReseting
+              reference :  F_ManualRunStop
+              reference :  F_ModRealTime
+              reference :  F_PowerOnRun
+              reference :  F_Reseting
+              reference :  F_SendStopCMD2
+              reference :  F_Starting
+              reference :  F_StepMode
+              reference :  F_Stoping
+              reference :  F_TouchForceReSet
+              reference :  F_TouchRunStop
+              reference :  K_StopRun
+              reference :  Q_VfStop
+              reference :  RealClock
+              reference :  SoftClock
+              reference :  T_Driver1_delay
+              reference :  T_Driver2_delay
+              reference :  T_Driver3_delay
+              reference :  T_Driver4_delay
+              reference :  T_Driver5_delay
+              reference :  T_Driver6_delay
+              reference :  arr_p1
+              reference :  arrp_p1_Last
+              reference :  w_ModRealTimeNo
+              reference :  w_ParLst
+              reference :  w_ParLst_Drive
+              definition:  AI_Sel
+              definition:  B_DI1
+              definition:  B_DI2
+              definition:  B_DI3
+              definition:  B_DI4
+              definition:  B_ForceSavPar
+              definition:  Boot_ParLst
+              definition:  C_BootParLst
+              definition:  C_BootParLst2
+              definition:  C_ForceSavPar
+              definition:  C_KglInPrompt
+              definition:  C_KglOutPrompt
+              definition:  C_ModRealTime
+              definition:  C_ReadRealTime
+              definition:  C_SaveDelay
+              definition:  C_SavePar
+              definition:  C_TimeWriteRec
+              definition:  C_VADelay
+              definition:  C_bDoWith
+              definition:  DIConfigValue
+              definition:  DOConfigValue
+              definition:  DigitalIn
+              definition:  EquipStatus
+              definition:  F_KglInPrompt
+              definition:  F_KglOutPrompt
+              definition:  F_ReadMemoryBoardNoNum
+              definition:  FilterDI
+              definition:  FilterNo
+              definition:  ForceSavePar
+              definition:  KglStatus
+              definition:  Old_K_StopRun
+              definition:  Old_Pos_Group_Select
+              definition:  Old_Run_Mode
+              definition:  ParArrayRead
+              definition:  ParArrayRead_Word
+              definition:  ParLimit
+              definition:  ParLst_Init
+              definition:  ParLst_Init_Group
+              definition:  ParLst_Init_Pos2Zero
+              definition:  PmupRunTimeH
+              definition:  ReadWriteRealTime
+              definition:  S_BootParLst
+              definition:  S_KglInPrompt
+              definition:  S_KglOutPrompt
+              definition:  S_ModRealTime
+              definition:  S_SavePar
+              definition:  SavePar_Prompt
+              definition:  T_BootParLst
+              definition:  T_BootParLst2
+              definition:  T_ComErr
+              definition:  T_DoWith
+              definition:  T_ForceSavPar
+              definition:  T_KglInPrompt
+              definition:  T_KglOutPrompt
+              definition:  T_ModRealTime
+              definition:  T_ReadRealTime
+              definition:  T_SaveDelay
+              definition:  T_SavePar
+              definition:  T_TimeWriteRec
+              definition:  T_VADelay
+              definition:  Time_Output
+              definition:  Variable_Init
+              definition:  w_DI1StableCounter
+              definition:  w_DI2StableCounter
+              definition:  w_DI3StableCounter
+              definition:  w_DI4StableCounter
+              definition:  w_DIStableCounter
+              definition:  w_ParBootLst
+              definition:  w_ParBootLst_Drive
+              definition:  w_SaveAI
+              definition:  w_SaveAI1
+              definition:  w_SaveAI2
+              definition:  w_SaveAI3
+              definition:  w_SaveAI4
+              definition:  w_SaveAI5
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\ecm_opcmd.o.
+              reference :  ECMSPIReadWrite
+              reference :  HAL_GPIO_ReadPin
+              definition:  AxisGroup
+              definition:  CMD00_ALL_GET_STATUS
+              definition:  CMD00_GET_STATUS
+              definition:  CMD01_SET_STATE
+              definition:  CMD02_SET_AXIS
+              definition:  CMD03_SET_DC
+              definition:  CMD06_DRIVE_MODE
+              definition:  CMD07_SDO_RD
+              definition:  CMD08_SDO_WR
+              definition:  CMD10_ALMCLR
+              definition:  CMD11_SVON
+              definition:  CMD12_SVOFF
+              definition:  CMD13_IORD
+              definition:  CMD14_IOWR
+              definition:  CMD15_CSP
+              definition:  CMD16_CSV
+              definition:  CMD17_CST
+              definition:  CMD18_GO_HOME
+              definition:  CMD21_LIO_RD
+              definition:  CMD22_LIO_WR
+              definition:  CMD_Parameter
+              definition:  CMD_Parameter_Size
+              definition:  CMD_Parameter_Value
+              definition:  CMD_Phase
+              definition:  CMD_Pulse
+              definition:  CMD_Pulse2
+              definition:  CMD_Torque
+              definition:  CMD_Velocity
+              definition:  CMDindex
+              definition:  CMDvalue
+              definition:  CycleTime
+              definition:  DC_Offset
+              definition:  DRIVE_TYPE
+              definition:  DriveGoHome
+              definition:  Drive_Axis
+              definition:  HomeMethod
+              definition:  HomeOffset
+              definition:  HomeSwitchSpeed
+              definition:  HomeZeroSpeed
+              definition:  IO_Axis
+              definition:  IO_Input
+              definition:  IO_Output
+              definition:  IO_Output2
+              definition:  LIO_SetData
+              definition:  LIO_WriteData
+              definition:  OP_Mode
+              definition:  Output_test
+              definition:  RetryNum
+              definition:  SDOch
+              definition:  SPI_exchange
+              definition:  SPI_exchange_polling
+              definition:  State
+              definition:  Timer_sec
+              definition:  Timer_usec
+              definition:  Topology1
+              definition:  Topology2
+              definition:  bHomeEnable
+              definition:  bSPIDMADone
+              definition:  b_SDOWrite
+              definition:  g_au32TimeStamp
+              definition:  g_p16DestinationData
+              definition:  g_p16SourceData
+              definition:  g_p8DestinationData
+              definition:  g_p8SourceData
+              definition:  g_u32RxDataCount
+              definition:  g_u32TxDataCount
+              definition:  g_u8TEST_COUNTByN
+              definition:  k
+              definition:  rbuff
+              definition:  sbuff
+              definition:  send_cmd_make
+              definition:  spi3_SendByte
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\gpio.o.
+              reference :  HAL_GPIO_Init
+              reference :  HAL_GPIO_WritePin
+              reference :  HAL_NVIC_EnableIRQ
+              reference :  HAL_NVIC_SetPriority
+              reference :  __aeabi_memclr4
+              definition:  MX_GPIO_Init
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\main.o.
+              reference :  Boot_ParLst
+              reference :  CMD00_ALL_GET_STATUS
+              reference :  CMD01_SET_STATE
+              reference :  CMD02_SET_AXIS
+              reference :  CMD03_SET_DC
+              reference :  CMD06_DRIVE_MODE
+              reference :  CMD11_SVON
+              reference :  CMD15_CSP
+              reference :  Com1_RcvProcess
+              reference :  Com1_SlaveSend
+              reference :  Com2_RcvProcess
+              reference :  Com2_SlaveSend
+              reference :  Com3_RcvProcess
+              reference :  Com3_SlaveSend
+              reference :  Com4_RcvProcess
+              reference :  Com4_SlaveSend
+              reference :  Com5_RcvProcess
+              reference :  Com5_SlaveSend
+              reference :  Com6_RcvProcess
+              reference :  Com6_SlaveSend
+              reference :  HAL_Delay
+              reference :  HAL_GPIO_ReadPin
+              reference :  HAL_GPIO_TogglePin
+              reference :  HAL_GPIO_WritePin
+              reference :  HAL_Init
+              reference :  HAL_RCC_ClockConfig
+              reference :  HAL_RCC_OscConfig
+              reference :  HAL_SPI_TransmitReceive
+              reference :  HAL_TIM_PWM_Start_DMA
+              reference :  HAL_TIM_PWM_Stop_DMA
+              reference :  HAL_UART_Receive
+              reference :  HAL_UART_Receive_IT
+              reference :  HAL_UART_Transmit
+              reference :  MOTOR1_AxisMoveRel
+              reference :  MOTOR1_AxisMoveRel_S
+              reference :  MOTOR1_TIMx_Init
+              reference :  MOTOR2_AxisMoveRel
+              reference :  MOTOR2_AxisMoveRel_S
+              reference :  MOTOR2_TIMx_Init
+              reference :  MOTOR3_AxisMoveRel
+              reference :  MOTOR3_AxisMoveRel_S
+              reference :  MOTOR3_TIMx_Init
+              reference :  MOTOR4_AxisMoveRel
+              reference :  MOTOR4_AxisMoveRel_S
+              reference :  MOTOR4_TIMx_Init
+              reference :  MOTOR5_AxisMoveRel
+              reference :  MOTOR5_AxisMoveRel_S
+              reference :  MOTOR5_TIMx_Init
+              reference :  MOTOR6_AxisMoveRel
+              reference :  MOTOR6_AxisMoveRel_S
+              reference :  MOTOR6_TIMx_Init
+              reference :  MX_GPIO_Init
+              reference :  MX_SPI1_Init
+              reference :  MX_SPI2_Init
+              reference :  MX_SPI3_Init
+              reference :  MX_TIM1_Init
+              reference :  MX_TIM2_Init
+              reference :  MX_TIM3_Init
+              reference :  MX_TIM4_Init
+              reference :  MX_TIM5_Init
+              reference :  MX_TIM7_Init
+              reference :  MX_TIM8_Init
+              reference :  MX_UART4_Init
+              reference :  MX_UART5_Init
+              reference :  MX_USART1_UART_Init
+              reference :  MX_USART2_UART_Init
+              reference :  MX_USART3_UART_Init
+              reference :  MX_USART6_UART_Init
+              reference :  Motor1_MotionStatus
+              reference :  Motor2_MotionStatus
+              reference :  Motor3_MotionStatus
+              reference :  Motor4_MotionStatus
+              reference :  Motor5_MotionStatus
+              reference :  Motor6_MotionStatus
+              reference :  ParLimit
+              reference :  ParLst_Init
+              reference :  SPI_FLASH_BufferWrite
+              reference :  SPI_exchange_polling
+              reference :  Variable_Init
+              reference :  W25qxx_EraseSector
+              reference :  W25qxx_Init
+              reference :  W25qxx_ReadBytes
+              reference :  W25qxx_ReadID
+              reference :  W25qxx_WriteBytes_Page
+              reference :  WK2XXX_SPI_Init
+              reference :  Wk2xxxInit
+              reference :  Wk2xxxReadReg
+              reference :  Wk2xxxSetBaud
+              reference :  Wk2xxxWriteReg
+              reference :  WkPort1_RcvBuffer
+              reference :  WkPort2_RcvBuffer
+              reference :  WkPort3_RcvBuffer
+              reference :  WkPort4_RcvBuffer
+              reference :  __aeabi_memclr4
+              reference :  abs
+              reference :  delay_ms
+              reference :  expf
+              reference :  hspi3
+              reference :  htim1
+              reference :  htim2
+              reference :  huart1
+              reference :  huart2
+              reference :  huart3
+              reference :  huart4
+              reference :  huart5
+              reference :  huart6
+              reference :  printf
+              reference :  rbuff
+              reference :  wk_RxChars
+              definition:  B_Com1Cmd01
+              definition:  B_Com1Cmd03
+              definition:  B_Com1Cmd06
+              definition:  B_Com1Cmd16
+              definition:  B_Com2Cmd01
+              definition:  B_Com2Cmd03
+              definition:  B_Com2Cmd06
+              definition:  B_Com2Cmd16
+              definition:  B_Com3Cmd01
+              definition:  B_Com3Cmd03
+              definition:  B_Com3Cmd06
+              definition:  B_Com3Cmd16
+              definition:  B_Com4Cmd01
+              definition:  B_Com4Cmd03
+              definition:  B_Com4Cmd06
+              definition:  B_Com4Cmd16
+              definition:  B_Com5Cmd01
+              definition:  B_Com5Cmd03
+              definition:  B_Com5Cmd06
+              definition:  B_Com5Cmd16
+              definition:  B_Com6Cmd01
+              definition:  B_Com6Cmd03
+              definition:  B_Com6Cmd06
+              definition:  B_Com6Cmd16
+              definition:  B_ComErrWithLLJ
+              definition:  B_ComErrWithModule1
+              definition:  B_ComErrWithModule2
+              definition:  B_ComErrWithVvvf
+              definition:  B_ComErrorPump1
+              definition:  B_ComErrorPump2
+              definition:  B_ComErrorPump3
+              definition:  B_ComErrorPump4
+              definition:  B_MaxSupplyStop1
+              definition:  B_MaxSupplyStop2
+              definition:  B_MaxSupplyStop3
+              definition:  B_MaxSupplyStop4
+              definition:  B_ModSelParValue
+              definition:  B_PumpBad
+              definition:  B_PumpManu
+              definition:  B_ReadVfPar
+              definition:  B_RemoteStop1
+              definition:  B_RemoteStop2
+              definition:  B_RemoteStop3
+              definition:  B_RemoteStop4
+              definition:  B_SaveSetP
+              definition:  B_SaveVoiceValue
+              definition:  B_SelCS
+              definition:  BakRcv1Count
+              definition:  BakRcv2Count
+              definition:  BakRcv3Count
+              definition:  BakRcv4Count
+              definition:  BakRcv5Count
+              definition:  BakRcv6Count
+              definition:  C_AllStop
+              definition:  C_DO_Open_delayCount
+              definition:  C_DO_delayCount
+              definition:  C_Driver1_FillCMD
+              definition:  C_Driver1_WriteCMD
+              definition:  C_Driver1_delayCount
+              definition:  C_Driver2_FillCMD
+              definition:  C_Driver2_WriteCMD
+              definition:  C_Driver2_delayCount
+              definition:  C_Driver3_FillCMD
+              definition:  C_Driver3_WriteCMD
+              definition:  C_Driver3_delayCount
+              definition:  C_Driver4_FillCMD
+              definition:  C_Driver4_WriteCMD
+              definition:  C_Driver4_delayCount
+              definition:  C_Driver5_FillCMD
+              definition:  C_Driver5_WriteCMD
+              definition:  C_Driver5_delayCount
+              definition:  C_Driver6_FillCMD
+              definition:  C_Driver6_WriteCMD
+              definition:  C_Driver6_delayCount
+              definition:  C_NoRcv1Count
+              definition:  C_NoRcv2Count
+              definition:  C_NoRcv3Count
+              definition:  C_NoRcv4Count
+              definition:  C_NoRcv5Count
+              definition:  C_NoRcv6Count
+              definition:  C_ResetDelay
+              definition:  C_ResetDelay2
+              definition:  C_ResetDelay3
+              definition:  C_Reset_Driver
+              definition:  C_Reset_Driver2
+              definition:  C_SavePos_Delay1
+              definition:  C_SavePos_Delay2
+              definition:  C_SavePos_Delay3
+              definition:  C_SavePos_Delay4
+              definition:  C_SavePos_Delay5
+              definition:  C_SavePos_Delay6
+              definition:  C_T_StepAutoDelayDelay
+              definition:  C_T_StepAutoDelayDelay2
+              definition:  CalculateSModelLine
+              definition:  Com1_Driver1_Write_BUFF
+              definition:  Com1_Driver2_Write_BUFF
+              definition:  Com1_LAST_CMD_BUFF
+              definition:  Com2_Driver3_Write_BUFF
+              definition:  Com2_Driver4_Write_BUFF
+              definition:  Com2_LAST_CMD_BUFF
+              definition:  Com3_Driver5_Write_BUFF
+              definition:  Com3_Driver6_Write_BUFF
+              definition:  Com3_LAST_CMD_BUFF
+              definition:  Com4_LAST_CMD_BUFF
+              definition:  Com4_Write_BUFF
+              definition:  Com_Write_p
+              definition:  DInb
+              definition:  DO_delay_F
+              definition:  DOutb
+              definition:  Driver12_arr_p
+              definition:  Driver1_Cmd_Data
+              definition:  Driver1_Cmd_PosNo
+              definition:  Driver1_Cmd_Status
+              definition:  Driver1_Pos_Start_Sort
+              definition:  Driver1_Save_P
+              definition:  Driver1_Status_Sort
+              definition:  Driver1_Write_Sort
+              definition:  Driver1_delay_F
+              definition:  Driver1_delay_ms_Count
+              definition:  Driver2_Cmd_Data
+              definition:  Driver2_Cmd_PosNo
+              definition:  Driver2_Cmd_Status
+              definition:  Driver2_Pos_Start_Sort
+              definition:  Driver2_Save_P
+              definition:  Driver2_Status_Sort
+              definition:  Driver2_Write_Sort
+              definition:  Driver2_delay_ms_Count
+              definition:  Driver34_arr_p
+              definition:  Driver3_Cmd_Data
+              definition:  Driver3_Cmd_PosNo
+              definition:  Driver3_Cmd_Status
+              definition:  Driver3_Pos_Start_Sort
+              definition:  Driver3_Save_P
+              definition:  Driver3_Status_Sort
+              definition:  Driver3_Write_Sort
+              definition:  Driver3_delay_ms_Count
+              definition:  Driver4_Cmd_Data
+              definition:  Driver4_Cmd_PosNo
+              definition:  Driver4_Cmd_Status
+              definition:  Driver4_Pos_Start_Sort
+              definition:  Driver4_Save_P
+              definition:  Driver4_Status_Sort
+              definition:  Driver4_Write_Sort
+              definition:  Driver4_delay_ms_Count
+              definition:  Driver56_arr_p
+              definition:  Driver5_Cmd_Data
+              definition:  Driver5_Cmd_PosNo
+              definition:  Driver5_Cmd_Status
+              definition:  Driver5_Pos_Start_Sort
+              definition:  Driver5_Save_P
+              definition:  Driver5_Status_Sort
+              definition:  Driver5_Write_Sort
+              definition:  Driver5_delay_ms_Count
+              definition:  Driver6_Cmd_Data
+              definition:  Driver6_Cmd_PosNo
+              definition:  Driver6_Cmd_Status
+              definition:  Driver6_Pos_Start_Sort
+              definition:  Driver6_Save_P
+              definition:  Driver6_Status_Sort
+              definition:  Driver6_Write_Sort
+              definition:  Driver6_delay_ms_Count
+              definition:  ECMSPIReadWrite
+              definition:  Error_Handler
+              definition:  F_AllPumpBad
+              definition:  F_AllRdy
+              definition:  F_AllRun
+              definition:  F_AskForceReset
+              definition:  F_AskReset
+              definition:  F_AskStop
+              definition:  F_AskStop1
+              definition:  F_AutoReset
+              definition:  F_BcqErr
+              definition:  F_Close_Hand
+              definition:  F_Com2RCVCommandOk
+              definition:  F_Com2SendNext
+              definition:  F_ComErrWithLLJ
+              definition:  F_ComErrWithModule1
+              definition:  F_ComErrWithModule2
+              definition:  F_ComErrWithVvvf
+              definition:  F_ComErrorPump1
+              definition:  F_ComErrorPump2
+              definition:  F_ComErrorPump3
+              definition:  F_ComErrorPump4
+              definition:  F_CycleCheck
+              definition:  F_DealSmall
+              definition:  F_Driver1_Cmd_Con_Err
+              definition:  F_Driver1_Cmd_Err
+              definition:  F_Driver1_Send_Cmd
+              definition:  F_Driver1_Timeout
+              definition:  F_Driver1_WrPos_ErrStatus
+              definition:  F_Driver1_notBrake
+              definition:  F_Driver2_Cmd_Con_Err
+              definition:  F_Driver2_Cmd_Err
+              definition:  F_Driver2_Send_Cmd
+              definition:  F_Driver2_Timeout
+              definition:  F_Driver2_WrPos_ErrStatus
+              definition:  F_Driver2_notBrake
+              definition:  F_Driver3_Cmd_Con_Err
+              definition:  F_Driver3_Cmd_Err
+              definition:  F_Driver3_Send_Cmd
+              definition:  F_Driver3_Timeout
+              definition:  F_Driver3_WrPos_ErrStatus
+              definition:  F_Driver3_notBrake
+              definition:  F_Driver4_Cmd_Con_Err
+              definition:  F_Driver4_Cmd_Err
+              definition:  F_Driver4_Send_Cmd
+              definition:  F_Driver4_Timeout
+              definition:  F_Driver4_WrPos_ErrStatus
+              definition:  F_Driver4_notBrake
+              definition:  F_Driver5_Cmd_Con_Err
+              definition:  F_Driver5_Cmd_Err
+              definition:  F_Driver5_Send_Cmd
+              definition:  F_Driver5_Timeout
+              definition:  F_Driver5_WrPos_ErrStatus
+              definition:  F_Driver5_notBrake
+              definition:  F_Driver6_Cmd_Con_Err
+              definition:  F_Driver6_Cmd_Err
+              definition:  F_Driver6_Send_Cmd
+              definition:  F_Driver6_Timeout
+              definition:  F_Driver6_WrPos_ErrStatus
+              definition:  F_Driver6_notBrake
+              definition:  F_Driver_All_notBrake
+              definition:  F_Encoder_Read
+              definition:  F_Fire
+              definition:  F_FirstPowerNoPlayNoWater
+              definition:  F_FlashRecNoNum
+              definition:  F_ForceReseting
+              definition:  F_Hand_Status
+              definition:  F_HardOverP
+              definition:  F_HaveDriver_Cmd_Con_Err
+              definition:  F_HaveDriver_Cmd_Err
+              definition:  F_HaveWater_MaxSupply
+              definition:  F_HengVfPanDuan_L
+              definition:  F_HengVfPanDuan_S
+              definition:  F_HengYa
+              definition:  F_HighYCSetP
+              definition:  F_InPBigOutStop
+              definition:  F_InPBigSetStop
+              definition:  F_InPPid
+              definition:  F_Inital
+              definition:  F_ManualAuto
+              definition:  F_ManualRunStop
+              definition:  F_MaxSupplyStop
+              definition:  F_ModRealTime
+              definition:  F_NoWater
+              definition:  F_Open_Hand
+              definition:  F_OutMeterBad
+              definition:  F_PSensorProtectStop
+              definition:  F_PhHigh
+              definition:  F_PhLow
+              definition:  F_PowerFault
+              definition:  F_PowerOnRun
+              definition:  F_Pump1RunOverTime
+              definition:  F_Pump2RunOverTime
+              definition:  F_Pump3RunOverTime
+              definition:  F_Pump4RunOverTime
+              definition:  F_PumpExit
+              definition:  F_RemoteStop
+              definition:  F_Reseted
+              definition:  F_Reseting
+              definition:  F_Resetting
+              definition:  F_Rtcf
+              definition:  F_SendStopCMD
+              definition:  F_SendStopCMD2
+              definition:  F_SlaveNoRcvMasterCMD
+              definition:  F_SmallBad
+              definition:  F_SmallBetween
+              definition:  F_SmallStop
+              definition:  F_SoftOverP
+              definition:  F_Starting
+              definition:  F_Status_Read
+              definition:  F_StepMode
+              definition:  F_Stoping
+              definition:  F_Sync_6_axis
+              definition:  F_TimePwdStop
+              definition:  F_TimeREC
+              definition:  F_TimeRunStop
+              definition:  F_TimerExchange
+              definition:  F_TouchAutoManu
+              definition:  F_TouchForceReSet
+              definition:  F_TouchReSet
+              definition:  F_TouchRunStop
+              definition:  F_VfToGp
+              definition:  F_VfToVf
+              definition:  F_VvvfAlarm
+              definition:  F_VvvfAlarmREC
+              definition:  F_VvvfBad
+              definition:  F_WaterLeverHigh
+              definition:  F_YeJianSmall
+              definition:  F_YuLvHigh
+              definition:  F_ZhuoDuHigh
+              definition:  F_waterYeWeiHigh
+              definition:  HAL_GPIO_EXTI_Callback
+              definition:  HAL_SYSTICK_Callback
+              definition:  HAL_TIM_PWM_PulseFinishedCallback
+              definition:  HAL_UART_RxCpltCallback
+              definition:  HAL_UART_TxCpltCallback
+              definition:  Init_EtherCAT
+              definition:  K_1PumpGp
+              definition:  K_1PumpManu
+              definition:  K_1PumpVf
+              definition:  K_2PumpGp
+              definition:  K_2PumpManu
+              definition:  K_2PumpVf
+              definition:  K_3PumpGp
+              definition:  K_3PumpManu
+              definition:  K_3PumpVf
+              definition:  K_4PumpGp
+              definition:  K_4PumpManu
+              definition:  K_4PumpVf
+              definition:  K_5PumpGp
+              definition:  K_5PumpManu
+              definition:  K_5PumpVf
+              definition:  K_BCQErr
+              definition:  K_DDFClose
+              definition:  K_DDFOpen
+              definition:  K_DDPluseOn
+              definition:  K_Fire
+              definition:  K_FluxPluseOn
+              definition:  K_HaveWater
+              definition:  K_ManuAuto
+              definition:  K_NoWater
+              definition:  K_OverP
+              definition:  K_PowerErr
+              definition:  K_PumpHot
+              definition:  K_ResetVvvf
+              definition:  K_StopRun
+              definition:  K_Term13
+              definition:  K_Term14
+              definition:  K_Term15
+              definition:  K_VvvfERR
+              definition:  K_WaterLeverHigh
+              definition:  Master_CMD
+              definition:  Master_state
+              definition:  Pos_CMD_Sort_Queue
+              definition:  PowerDelay
+              definition:  PumpExit
+              definition:  Q_AlarmError
+              definition:  Q_BcqErr
+              definition:  Q_FanMotor
+              definition:  Q_GpOn
+              definition:  Q_PowerOnModem
+              definition:  Q_RstOn
+              definition:  Q_RunGPRS
+              definition:  Q_VfOn
+              definition:  Q_VfStop
+              definition:  Rcv1Buffer
+              definition:  Rcv1Counter
+              definition:  Rcv2Buffer
+              definition:  Rcv2Counter
+              definition:  Rcv3Buffer
+              definition:  Rcv3Counter
+              definition:  Rcv4Buffer
+              definition:  Rcv4Counter
+              definition:  Rcv5Buffer
+              definition:  Rcv5Counter
+              definition:  Rcv6Buffer
+              definition:  Rcv6Counter
+              definition:  RealClock
+              definition:  Reset_time_Max
+              definition:  S_HighYCSetP
+              definition:  Send_Pulse
+              definition:  SoftClock
+              definition:  SystemClock_Config
+              definition:  TEXT_Buffer
+              definition:  T_DO_Open_delay
+              definition:  T_DO_delay
+              definition:  T_Driver1_FillCMD
+              definition:  T_Driver1_WriteCMD
+              definition:  T_Driver1_delay
+              definition:  T_Driver2_FillCMD
+              definition:  T_Driver2_WriteCMD
+              definition:  T_Driver2_delay
+              definition:  T_Driver3_FillCMD
+              definition:  T_Driver3_WriteCMD
+              definition:  T_Driver3_delay
+              definition:  T_Driver4_FillCMD
+              definition:  T_Driver4_WriteCMD
+              definition:  T_Driver4_delay
+              definition:  T_Driver5_FillCMD
+              definition:  T_Driver5_WriteCMD
+              definition:  T_Driver5_delay
+              definition:  T_Driver6_FillCMD
+              definition:  T_Driver6_WriteCMD
+              definition:  T_Driver6_delay
+              definition:  T_NoRcv1Count
+              definition:  T_NoRcv2Count
+              definition:  T_NoRcv3Count
+              definition:  T_NoRcv4Count
+              definition:  T_NoRcv5Count
+              definition:  T_NoRcv6Count
+              definition:  T_ResetDelay
+              definition:  T_ResetDelay2
+              definition:  T_ResetDelay3
+              definition:  T_Reset_Driver
+              definition:  T_Reset_Driver2
+              definition:  T_SavePos_Delay1
+              definition:  T_SavePos_Delay2
+              definition:  T_SavePos_Delay3
+              definition:  T_SavePos_Delay4
+              definition:  T_SavePos_Delay5
+              definition:  T_SavePos_Delay6
+              definition:  T_StepAutoDelay
+              definition:  T_StepAutoDelay2
+              definition:  Test_EEPROM
+              definition:  Test_Ext_Serial
+              definition:  Test_Send_Pulse
+              definition:  Tmp_Rxd1Buffer
+              definition:  Tmp_Rxd2Buffer
+              definition:  Tmp_Rxd3Buffer
+              definition:  Tmp_Rxd4Buffer
+              definition:  Tmp_Rxd5Buffer
+              definition:  Tmp_Rxd6Buffer
+              definition:  Tmp_Txd1Buffer
+              definition:  Tmp_Txd2Buffer
+              definition:  Tmp_Txd3Buffer
+              definition:  Tmp_Txd4Buffer
+              definition:  Tmp_Txd5Buffer
+              definition:  Tmp_Txd6Buffer
+              definition:  Txd1Buffer
+              definition:  Txd1Counter
+              definition:  Txd1Max
+              definition:  Txd2Buffer
+              definition:  Txd2Counter
+              definition:  Txd2Max
+              definition:  Txd3Buffer
+              definition:  Txd3Counter
+              definition:  Txd3Max
+              definition:  Txd4Buffer
+              definition:  Txd4Counter
+              definition:  Txd4Max
+              definition:  Txd5Buffer
+              definition:  Txd5Counter
+              definition:  Txd5Max
+              definition:  Txd6Buffer
+              definition:  Txd6Counter
+              definition:  Txd6Max
+              definition:  Uart_RT
+              definition:  VfNext
+              definition:  VfNo
+              definition:  Vf_No
+              definition:  arr_p1
+              definition:  arrp_p1_Last
+              definition:  asc
+              definition:  bNetworkMap
+              definition:  current_Pos
+              definition:  current_Pos2
+              definition:  current_state
+              definition:  dir
+              definition:  distance
+              definition:  f_I_Mx
+              definition:  fgetc
+              definition:  fputc
+              definition:  main
+              definition:  period_MOTOR1
+              definition:  period_MOTOR2
+              definition:  period_MOTOR3
+              definition:  period_MOTOR4
+              definition:  period_MOTOR5
+              definition:  period_MOTOR6
+              definition:  send_Buf
+              definition:  set_speed
+              definition:  step_accel
+              definition:  step_decel
+              definition:  step_to_run_MOTOR1
+              definition:  step_to_run_MOTOR2
+              definition:  step_to_run_MOTOR3
+              definition:  step_to_run_MOTOR4
+              definition:  step_to_run_MOTOR5
+              definition:  step_to_run_MOTOR6
+              definition:  targetp
+              definition:  temp1
+              definition:  temp2
+              definition:  temp3
+              definition:  temp4
+              definition:  test_GPIO
+              definition:  w_AI
+              definition:  w_Com1RegAddr
+              definition:  w_Com2RegAddr
+              definition:  w_Com3RegAddr
+              definition:  w_Com4RegAddr
+              definition:  w_Com5RegAddr
+              definition:  w_Com6RegAddr
+              definition:  w_FaultNo
+              definition:  w_MinRunFreqHex
+              definition:  w_ModRealTimeNo
+              definition:  w_ParLst
+              definition:  w_ParLst_Drive
+              definition:  w_PreRecNo
+              definition:  w_PreVoiceVal
+              definition:  w_Txd1ChkSum
+              definition:  w_Txd2ChkSum
+              definition:  w_Txd3ChkSum
+              definition:  w_Txd4ChkSum
+              definition:  w_Txd5ChkSum
+              definition:  w_Txd6ChkSum
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\spi.o.
+              reference :  Error_Handler
+              reference :  HAL_GPIO_DeInit
+              reference :  HAL_GPIO_Init
+              reference :  HAL_SPI_Init
+              reference :  HAL_SPI_TransmitReceive
+              reference :  __aeabi_memclr4
+              definition:  HAL_SPI_MspDeInit
+              definition:  HAL_SPI_MspInit
+              definition:  MX_SPI1_Init
+              definition:  MX_SPI2_Init
+              definition:  MX_SPI3_Init
+              definition:  SPI1_ReadWriteByte
+              definition:  SPI2_ReadWriteByte
+              definition:  SPI3_ReadWriteByte
+              definition:  hspi1
+              definition:  hspi2
+              definition:  hspi3
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o.
+              reference :  __iar_program_start
+              reference :  SystemInit
+              definition:  __vector_table
+              weak def  :  Reset_Handler
+              weak def  :  NMI_Handler
+              weak def  :  HardFault_Handler
+              weak def  :  MemManage_Handler
+              weak def  :  BusFault_Handler
+              weak def  :  UsageFault_Handler
+              weak def  :  SVC_Handler
+              weak def  :  DebugMon_Handler
+              weak def  :  PendSV_Handler
+              weak def  :  SysTick_Handler
+              weak def  :  WWDG_IRQHandler
+              weak def  :  PVD_IRQHandler
+              weak def  :  TAMP_STAMP_IRQHandler
+              weak def  :  RTC_WKUP_IRQHandler
+              weak def  :  FLASH_IRQHandler
+              weak def  :  RCC_IRQHandler
+              weak def  :  EXTI0_IRQHandler
+              weak def  :  EXTI1_IRQHandler
+              weak def  :  EXTI2_IRQHandler
+              weak def  :  EXTI3_IRQHandler
+              weak def  :  EXTI4_IRQHandler
+              weak def  :  DMA1_Stream0_IRQHandler
+              weak def  :  DMA1_Stream1_IRQHandler
+              weak def  :  DMA1_Stream2_IRQHandler
+              weak def  :  DMA1_Stream3_IRQHandler
+              weak def  :  DMA1_Stream4_IRQHandler
+              weak def  :  DMA1_Stream5_IRQHandler
+              weak def  :  DMA1_Stream6_IRQHandler
+              weak def  :  ADC_IRQHandler
+              weak def  :  CAN1_TX_IRQHandler
+              weak def  :  CAN1_RX0_IRQHandler
+              weak def  :  CAN1_RX1_IRQHandler
+              weak def  :  CAN1_SCE_IRQHandler
+              weak def  :  EXTI9_5_IRQHandler
+              weak def  :  TIM1_BRK_TIM9_IRQHandler
+              weak def  :  TIM1_UP_TIM10_IRQHandler
+              weak def  :  TIM1_TRG_COM_TIM11_IRQHandler
+              weak def  :  TIM1_CC_IRQHandler
+              weak def  :  TIM2_IRQHandler
+              weak def  :  TIM3_IRQHandler
+              weak def  :  TIM4_IRQHandler
+              weak def  :  I2C1_EV_IRQHandler
+              weak def  :  I2C1_ER_IRQHandler
+              weak def  :  I2C2_EV_IRQHandler
+              weak def  :  I2C2_ER_IRQHandler
+              weak def  :  SPI1_IRQHandler
+              weak def  :  SPI2_IRQHandler
+              weak def  :  USART1_IRQHandler
+              weak def  :  USART2_IRQHandler
+              weak def  :  USART3_IRQHandler
+              weak def  :  EXTI15_10_IRQHandler
+              weak def  :  RTC_Alarm_IRQHandler
+              weak def  :  OTG_FS_WKUP_IRQHandler
+              weak def  :  TIM8_BRK_TIM12_IRQHandler
+              weak def  :  TIM8_UP_TIM13_IRQHandler
+              weak def  :  TIM8_TRG_COM_TIM14_IRQHandler
+              weak def  :  TIM8_CC_IRQHandler
+              weak def  :  DMA1_Stream7_IRQHandler
+              weak def  :  FSMC_IRQHandler
+              weak def  :  SDIO_IRQHandler
+              weak def  :  TIM5_IRQHandler
+              weak def  :  SPI3_IRQHandler
+              weak def  :  UART4_IRQHandler
+              weak def  :  UART5_IRQHandler
+              weak def  :  TIM6_DAC_IRQHandler
+              weak def  :  TIM7_IRQHandler
+              weak def  :  DMA2_Stream0_IRQHandler
+              weak def  :  DMA2_Stream1_IRQHandler
+              weak def  :  DMA2_Stream2_IRQHandler
+              weak def  :  DMA2_Stream3_IRQHandler
+              weak def  :  DMA2_Stream4_IRQHandler
+              weak def  :  ETH_IRQHandler
+              weak def  :  ETH_WKUP_IRQHandler
+              weak def  :  CAN2_TX_IRQHandler
+              weak def  :  CAN2_RX0_IRQHandler
+              weak def  :  CAN2_RX1_IRQHandler
+              weak def  :  CAN2_SCE_IRQHandler
+              weak def  :  OTG_FS_IRQHandler
+              weak def  :  DMA2_Stream5_IRQHandler
+              weak def  :  DMA2_Stream6_IRQHandler
+              weak def  :  DMA2_Stream7_IRQHandler
+              weak def  :  USART6_IRQHandler
+              weak def  :  I2C3_EV_IRQHandler
+              weak def  :  I2C3_ER_IRQHandler
+              weak def  :  OTG_HS_EP1_OUT_IRQHandler
+              weak def  :  OTG_HS_EP1_IN_IRQHandler
+              weak def  :  OTG_HS_WKUP_IRQHandler
+              weak def  :  OTG_HS_IRQHandler
+              weak def  :  DCMI_IRQHandler
+              weak def  :  HASH_RNG_IRQHandler
+              weak def  :  FPU_IRQHandler
+              reference :  CSTACK$$Limit
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal.o.
+              reference :  HAL_NVIC_SetPriority
+              reference :  HAL_NVIC_SetPriorityGrouping
+              reference :  HAL_SYSTICK_Config
+              reference :  SystemCoreClock
+              definition:  HAL_DBGMCU_DisableDBGSleepMode
+              definition:  HAL_DBGMCU_DisableDBGStandbyMode
+              definition:  HAL_DBGMCU_DisableDBGStopMode
+              definition:  HAL_DBGMCU_EnableDBGSleepMode
+              definition:  HAL_DBGMCU_EnableDBGStandbyMode
+              definition:  HAL_DBGMCU_EnableDBGStopMode
+              definition:  HAL_DeInit
+              weak def  :  HAL_Delay
+              definition:  HAL_DisableCompensationCell
+              definition:  HAL_EnableCompensationCell
+              definition:  HAL_GetDEVID
+              definition:  HAL_GetHalVersion
+              definition:  HAL_GetREVID
+              weak def  :  HAL_GetTick
+              definition:  HAL_GetTickFreq
+              definition:  HAL_GetTickPrio
+              definition:  HAL_GetUIDw0
+              definition:  HAL_GetUIDw1
+              definition:  HAL_GetUIDw2
+              weak def  :  HAL_IncTick
+              definition:  HAL_Init
+              weak def  :  HAL_InitTick
+              weak def  :  HAL_MspDeInit
+              weak def  :  HAL_MspInit
+              weak def  :  HAL_ResumeTick
+              definition:  HAL_SetTickFreq
+              weak def  :  HAL_SuspendTick
+              definition:  uwTick
+              definition:  uwTickFreq
+              definition:  uwTickPrio
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_cortex.o.
+              definition:  HAL_MPU_ConfigRegion
+              definition:  HAL_MPU_Disable
+              definition:  HAL_MPU_Enable
+              definition:  HAL_NVIC_ClearPendingIRQ
+              definition:  HAL_NVIC_DisableIRQ
+              definition:  HAL_NVIC_EnableIRQ
+              definition:  HAL_NVIC_GetActive
+              definition:  HAL_NVIC_GetPendingIRQ
+              definition:  HAL_NVIC_GetPriority
+              definition:  HAL_NVIC_GetPriorityGrouping
+              definition:  HAL_NVIC_SetPendingIRQ
+              definition:  HAL_NVIC_SetPriority
+              definition:  HAL_NVIC_SetPriorityGrouping
+              definition:  HAL_NVIC_SystemReset
+              definition:  HAL_SYSTICK_CLKSourceConfig
+              weak def  :  HAL_SYSTICK_Callback
+              definition:  HAL_SYSTICK_Config
+              definition:  HAL_SYSTICK_IRQHandler
+              definition:  __iar_cc..0xe556ee26 51b0c2d1
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_dma.o.
+              reference :  HAL_GetTick
+              reference :  SystemCoreClock
+              definition:  HAL_DMA_Abort
+              definition:  HAL_DMA_Abort_IT
+              definition:  HAL_DMA_DeInit
+              definition:  HAL_DMA_GetError
+              definition:  HAL_DMA_GetState
+              definition:  HAL_DMA_IRQHandler
+              definition:  HAL_DMA_Init
+              definition:  HAL_DMA_PollForTransfer
+              definition:  HAL_DMA_RegisterCallback
+              definition:  HAL_DMA_Start
+              definition:  HAL_DMA_Start_IT
+              definition:  HAL_DMA_UnRegisterCallback
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_dma_ex.o.
+              definition:  HAL_DMAEx_ChangeMemory
+              definition:  HAL_DMAEx_MultiBufferStart
+              definition:  HAL_DMAEx_MultiBufferStart_IT
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_exti.o.
+              definition:  HAL_EXTI_ClearConfigLine
+              definition:  HAL_EXTI_ClearPending
+              definition:  HAL_EXTI_GenerateSWI
+              definition:  HAL_EXTI_GetConfigLine
+              definition:  HAL_EXTI_GetHandle
+              definition:  HAL_EXTI_GetPending
+              definition:  HAL_EXTI_IRQHandler
+              definition:  HAL_EXTI_RegisterCallback
+              definition:  HAL_EXTI_SetConfigLine
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_flash.o.
+              reference :  FLASH_Erase_Sector
+              reference :  FLASH_FlushCaches
+              reference :  HAL_GetTick
+              definition:  FLASH_WaitForLastOperation
+              weak def  :  HAL_FLASH_EndOfOperationCallback
+              definition:  HAL_FLASH_GetError
+              definition:  HAL_FLASH_IRQHandler
+              definition:  HAL_FLASH_Lock
+              definition:  HAL_FLASH_OB_Launch
+              definition:  HAL_FLASH_OB_Lock
+              definition:  HAL_FLASH_OB_Unlock
+              weak def  :  HAL_FLASH_OperationErrorCallback
+              definition:  HAL_FLASH_Program
+              definition:  HAL_FLASH_Program_IT
+              definition:  HAL_FLASH_Unlock
+              definition:  pFlash
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_flash_ex.o.
+              reference :  FLASH_WaitForLastOperation
+              reference :  pFlash
+              definition:  FLASH_Erase_Sector
+              definition:  FLASH_FlushCaches
+              definition:  HAL_FLASHEx_Erase
+              definition:  HAL_FLASHEx_Erase_IT
+              definition:  HAL_FLASHEx_OBGetConfig
+              definition:  HAL_FLASHEx_OBProgram
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_flash_ramfunc.o.
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_gpio.o.
+              definition:  HAL_GPIO_DeInit
+              weak def  :  HAL_GPIO_EXTI_Callback
+              definition:  HAL_GPIO_EXTI_IRQHandler
+              definition:  HAL_GPIO_Init
+              definition:  HAL_GPIO_LockPin
+              definition:  HAL_GPIO_ReadPin
+              definition:  HAL_GPIO_TogglePin
+              definition:  HAL_GPIO_WritePin
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_msp.o.
+              reference :  HAL_NVIC_SetPriorityGrouping
+              definition:  HAL_MspInit
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_pwr.o.
+              definition:  HAL_PWR_ConfigPVD
+              definition:  HAL_PWR_DeInit
+              definition:  HAL_PWR_DisableBkUpAccess
+              definition:  HAL_PWR_DisablePVD
+              definition:  HAL_PWR_DisableSEVOnPend
+              definition:  HAL_PWR_DisableSleepOnExit
+              definition:  HAL_PWR_DisableWakeUpPin
+              definition:  HAL_PWR_EnableBkUpAccess
+              definition:  HAL_PWR_EnablePVD
+              definition:  HAL_PWR_EnableSEVOnPend
+              definition:  HAL_PWR_EnableSleepOnExit
+              definition:  HAL_PWR_EnableWakeUpPin
+              definition:  HAL_PWR_EnterSLEEPMode
+              definition:  HAL_PWR_EnterSTANDBYMode
+              definition:  HAL_PWR_EnterSTOPMode
+              weak def  :  HAL_PWR_PVDCallback
+              definition:  HAL_PWR_PVD_IRQHandler
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_pwr_ex.o.
+              reference :  HAL_GetTick
+              definition:  HAL_PWREx_ControlVoltageScaling
+              definition:  HAL_PWREx_DisableBkUpReg
+              definition:  HAL_PWREx_DisableFlashPowerDown
+              definition:  HAL_PWREx_EnableBkUpReg
+              definition:  HAL_PWREx_EnableFlashPowerDown
+              definition:  HAL_PWREx_GetVoltageRange
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_rcc.o.
+              reference :  AHBPrescTable
+              reference :  APBPrescTable
+              reference :  HAL_GPIO_Init
+              reference :  HAL_GetTick
+              reference :  HAL_InitTick
+              reference :  SystemCoreClock
+              reference :  __aeabi_uldivmod
+              reference :  uwTickPrio
+              weak def  :  HAL_RCC_CSSCallback
+              definition:  HAL_RCC_ClockConfig
+              weak def  :  HAL_RCC_DeInit
+              definition:  HAL_RCC_DisableCSS
+              definition:  HAL_RCC_EnableCSS
+              definition:  HAL_RCC_GetClockConfig
+              definition:  HAL_RCC_GetHCLKFreq
+              weak def  :  HAL_RCC_GetOscConfig
+              definition:  HAL_RCC_GetPCLK1Freq
+              definition:  HAL_RCC_GetPCLK2Freq
+              weak def  :  HAL_RCC_GetSysClockFreq
+              definition:  HAL_RCC_MCOConfig
+              definition:  HAL_RCC_NMI_IRQHandler
+              weak def  :  HAL_RCC_OscConfig
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_rcc_ex.o.
+              reference :  HAL_GetTick
+              reference :  HAL_InitTick
+              reference :  SystemCoreClock
+              reference :  uwTickPrio
+              definition:  HAL_RCCEx_DisablePLLI2S
+              definition:  HAL_RCCEx_EnablePLLI2S
+              definition:  HAL_RCCEx_GetPeriphCLKConfig
+              definition:  HAL_RCCEx_GetPeriphCLKFreq
+              definition:  HAL_RCCEx_PeriphCLKConfig
+              definition:  HAL_RCC_DeInit
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_spi.o.
+              reference :  HAL_DMA_Abort
+              reference :  HAL_DMA_Abort_IT
+              reference :  HAL_DMA_Start_IT
+              reference :  HAL_GetTick
+              reference :  SystemCoreClock
+              definition:  HAL_SPI_Abort
+              weak def  :  HAL_SPI_AbortCpltCallback
+              definition:  HAL_SPI_Abort_IT
+              definition:  HAL_SPI_DMAPause
+              definition:  HAL_SPI_DMAResume
+              definition:  HAL_SPI_DMAStop
+              definition:  HAL_SPI_DeInit
+              weak def  :  HAL_SPI_ErrorCallback
+              definition:  HAL_SPI_GetError
+              definition:  HAL_SPI_GetState
+              definition:  HAL_SPI_IRQHandler
+              definition:  HAL_SPI_Init
+              weak def  :  HAL_SPI_MspDeInit
+              weak def  :  HAL_SPI_MspInit
+              definition:  HAL_SPI_Receive
+              definition:  HAL_SPI_Receive_DMA
+              definition:  HAL_SPI_Receive_IT
+              weak def  :  HAL_SPI_RxCpltCallback
+              weak def  :  HAL_SPI_RxHalfCpltCallback
+              definition:  HAL_SPI_Transmit
+              definition:  HAL_SPI_TransmitReceive
+              definition:  HAL_SPI_TransmitReceive_DMA
+              definition:  HAL_SPI_TransmitReceive_IT
+              definition:  HAL_SPI_Transmit_DMA
+              definition:  HAL_SPI_Transmit_IT
+              weak def  :  HAL_SPI_TxCpltCallback
+              weak def  :  HAL_SPI_TxHalfCpltCallback
+              weak def  :  HAL_SPI_TxRxCpltCallback
+              weak def  :  HAL_SPI_TxRxHalfCpltCallback
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_tim.o.
+              reference :  HAL_DMA_Abort_IT
+              reference :  HAL_DMA_Start_IT
+              reference :  HAL_TIMEx_BreakCallback
+              reference :  HAL_TIMEx_CommutCallback
+              reference :  TIMEx_DMACommutationCplt
+              reference :  TIMEx_DMACommutationHalfCplt
+              definition:  HAL_TIM_Base_DeInit
+              definition:  HAL_TIM_Base_GetState
+              definition:  HAL_TIM_Base_Init
+              weak def  :  HAL_TIM_Base_MspDeInit
+              weak def  :  HAL_TIM_Base_MspInit
+              definition:  HAL_TIM_Base_Start
+              definition:  HAL_TIM_Base_Start_DMA
+              definition:  HAL_TIM_Base_Start_IT
+              definition:  HAL_TIM_Base_Stop
+              definition:  HAL_TIM_Base_Stop_DMA
+              definition:  HAL_TIM_Base_Stop_IT
+              definition:  HAL_TIM_ConfigClockSource
+              definition:  HAL_TIM_ConfigOCrefClear
+              definition:  HAL_TIM_ConfigTI1Input
+              definition:  HAL_TIM_DMABurstState
+              definition:  HAL_TIM_DMABurst_MultiReadStart
+              definition:  HAL_TIM_DMABurst_MultiWriteStart
+              definition:  HAL_TIM_DMABurst_ReadStart
+              definition:  HAL_TIM_DMABurst_ReadStop
+              definition:  HAL_TIM_DMABurst_WriteStart
+              definition:  HAL_TIM_DMABurst_WriteStop
+              definition:  HAL_TIM_Encoder_DeInit
+              definition:  HAL_TIM_Encoder_GetState
+              definition:  HAL_TIM_Encoder_Init
+              weak def  :  HAL_TIM_Encoder_MspDeInit
+              weak def  :  HAL_TIM_Encoder_MspInit
+              definition:  HAL_TIM_Encoder_Start
+              definition:  HAL_TIM_Encoder_Start_DMA
+              definition:  HAL_TIM_Encoder_Start_IT
+              definition:  HAL_TIM_Encoder_Stop
+              definition:  HAL_TIM_Encoder_Stop_DMA
+              definition:  HAL_TIM_Encoder_Stop_IT
+              weak def  :  HAL_TIM_ErrorCallback
+              definition:  HAL_TIM_GenerateEvent
+              definition:  HAL_TIM_GetActiveChannel
+              definition:  HAL_TIM_GetChannelState
+              weak def  :  HAL_TIM_IC_CaptureCallback
+              weak def  :  HAL_TIM_IC_CaptureHalfCpltCallback
+              definition:  HAL_TIM_IC_ConfigChannel
+              definition:  HAL_TIM_IC_DeInit
+              definition:  HAL_TIM_IC_GetState
+              definition:  HAL_TIM_IC_Init
+              weak def  :  HAL_TIM_IC_MspDeInit
+              weak def  :  HAL_TIM_IC_MspInit
+              definition:  HAL_TIM_IC_Start
+              definition:  HAL_TIM_IC_Start_DMA
+              definition:  HAL_TIM_IC_Start_IT
+              definition:  HAL_TIM_IC_Stop
+              definition:  HAL_TIM_IC_Stop_DMA
+              definition:  HAL_TIM_IC_Stop_IT
+              definition:  HAL_TIM_IRQHandler
+              definition:  HAL_TIM_OC_ConfigChannel
+              definition:  HAL_TIM_OC_DeInit
+              weak def  :  HAL_TIM_OC_DelayElapsedCallback
+              definition:  HAL_TIM_OC_GetState
+              definition:  HAL_TIM_OC_Init
+              weak def  :  HAL_TIM_OC_MspDeInit
+              weak def  :  HAL_TIM_OC_MspInit
+              definition:  HAL_TIM_OC_Start
+              definition:  HAL_TIM_OC_Start_DMA
+              definition:  HAL_TIM_OC_Start_IT
+              definition:  HAL_TIM_OC_Stop
+              definition:  HAL_TIM_OC_Stop_DMA
+              definition:  HAL_TIM_OC_Stop_IT
+              definition:  HAL_TIM_OnePulse_ConfigChannel
+              definition:  HAL_TIM_OnePulse_DeInit
+              definition:  HAL_TIM_OnePulse_GetState
+              definition:  HAL_TIM_OnePulse_Init
+              weak def  :  HAL_TIM_OnePulse_MspDeInit
+              weak def  :  HAL_TIM_OnePulse_MspInit
+              definition:  HAL_TIM_OnePulse_Start
+              definition:  HAL_TIM_OnePulse_Start_IT
+              definition:  HAL_TIM_OnePulse_Stop
+              definition:  HAL_TIM_OnePulse_Stop_IT
+              definition:  HAL_TIM_PWM_ConfigChannel
+              definition:  HAL_TIM_PWM_DeInit
+              definition:  HAL_TIM_PWM_GetState
+              definition:  HAL_TIM_PWM_Init
+              weak def  :  HAL_TIM_PWM_MspDeInit
+              weak def  :  HAL_TIM_PWM_MspInit
+              weak def  :  HAL_TIM_PWM_PulseFinishedCallback
+              weak def  :  HAL_TIM_PWM_PulseFinishedHalfCpltCallback
+              definition:  HAL_TIM_PWM_Start
+              definition:  HAL_TIM_PWM_Start_DMA
+              definition:  HAL_TIM_PWM_Start_IT
+              definition:  HAL_TIM_PWM_Stop
+              definition:  HAL_TIM_PWM_Stop_DMA
+              definition:  HAL_TIM_PWM_Stop_IT
+              weak def  :  HAL_TIM_PeriodElapsedCallback
+              weak def  :  HAL_TIM_PeriodElapsedHalfCpltCallback
+              definition:  HAL_TIM_ReadCapturedValue
+              definition:  HAL_TIM_SlaveConfigSynchro
+              definition:  HAL_TIM_SlaveConfigSynchro_IT
+              weak def  :  HAL_TIM_TriggerCallback
+              weak def  :  HAL_TIM_TriggerHalfCpltCallback
+              definition:  TIM_Base_SetConfig
+              definition:  TIM_CCxChannelCmd
+              definition:  TIM_DMACaptureCplt
+              definition:  TIM_DMACaptureHalfCplt
+              definition:  TIM_DMADelayPulseHalfCplt
+              definition:  TIM_DMAError
+              definition:  TIM_ETR_SetConfig
+              definition:  TIM_OC2_SetConfig
+              definition:  TIM_TI1_SetConfig
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_tim_ex.o.
+              reference :  HAL_DMA_Abort_IT
+              reference :  HAL_DMA_Start_IT
+              reference :  HAL_TIM_ErrorCallback
+              reference :  HAL_TIM_PWM_PulseFinishedCallback
+              reference :  TIM_Base_SetConfig
+              reference :  TIM_CCxChannelCmd
+              reference :  TIM_DMACaptureCplt
+              reference :  TIM_DMACaptureHalfCplt
+              reference :  TIM_DMADelayPulseHalfCplt
+              reference :  TIM_DMAError
+              reference :  TIM_OC2_SetConfig
+              reference :  TIM_TI1_SetConfig
+              weak def  :  HAL_TIMEx_BreakCallback
+              weak def  :  HAL_TIMEx_CommutCallback
+              weak def  :  HAL_TIMEx_CommutHalfCpltCallback
+              definition:  HAL_TIMEx_ConfigBreakDeadTime
+              definition:  HAL_TIMEx_ConfigCommutEvent
+              definition:  HAL_TIMEx_ConfigCommutEvent_DMA
+              definition:  HAL_TIMEx_ConfigCommutEvent_IT
+              definition:  HAL_TIMEx_GetChannelNState
+              definition:  HAL_TIMEx_HallSensor_DeInit
+              definition:  HAL_TIMEx_HallSensor_GetState
+              definition:  HAL_TIMEx_HallSensor_Init
+              weak def  :  HAL_TIMEx_HallSensor_MspDeInit
+              weak def  :  HAL_TIMEx_HallSensor_MspInit
+              definition:  HAL_TIMEx_HallSensor_Start
+              definition:  HAL_TIMEx_HallSensor_Start_DMA
+              definition:  HAL_TIMEx_HallSensor_Start_IT
+              definition:  HAL_TIMEx_HallSensor_Stop
+              definition:  HAL_TIMEx_HallSensor_Stop_DMA
+              definition:  HAL_TIMEx_HallSensor_Stop_IT
+              definition:  HAL_TIMEx_MasterConfigSynchronization
+              definition:  HAL_TIMEx_OCN_Start
+              definition:  HAL_TIMEx_OCN_Start_DMA
+              definition:  HAL_TIMEx_OCN_Start_IT
+              definition:  HAL_TIMEx_OCN_Stop
+              definition:  HAL_TIMEx_OCN_Stop_DMA
+              definition:  HAL_TIMEx_OCN_Stop_IT
+              definition:  HAL_TIMEx_OnePulseN_Start
+              definition:  HAL_TIMEx_OnePulseN_Start_IT
+              definition:  HAL_TIMEx_OnePulseN_Stop
+              definition:  HAL_TIMEx_OnePulseN_Stop_IT
+              definition:  HAL_TIMEx_PWMN_Start
+              definition:  HAL_TIMEx_PWMN_Start_DMA
+              definition:  HAL_TIMEx_PWMN_Start_IT
+              definition:  HAL_TIMEx_PWMN_Stop
+              definition:  HAL_TIMEx_PWMN_Stop_DMA
+              definition:  HAL_TIMEx_PWMN_Stop_IT
+              definition:  HAL_TIMEx_RemapConfig
+              definition:  TIMEx_DMACommutationCplt
+              definition:  TIMEx_DMACommutationHalfCplt
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_uart.o.
+              reference :  HAL_DMA_Abort
+              reference :  HAL_DMA_Abort_IT
+              reference :  HAL_DMA_GetError
+              reference :  HAL_DMA_Start_IT
+              reference :  HAL_GetTick
+              reference :  HAL_RCC_GetPCLK1Freq
+              reference :  HAL_RCC_GetPCLK2Freq
+              reference :  __aeabi_uldivmod
+              definition:  HAL_HalfDuplex_EnableReceiver
+              definition:  HAL_HalfDuplex_EnableTransmitter
+              definition:  HAL_HalfDuplex_Init
+              definition:  HAL_LIN_Init
+              definition:  HAL_LIN_SendBreak
+              definition:  HAL_MultiProcessor_EnterMuteMode
+              definition:  HAL_MultiProcessor_ExitMuteMode
+              definition:  HAL_MultiProcessor_Init
+              definition:  HAL_UARTEx_ReceiveToIdle
+              definition:  HAL_UARTEx_ReceiveToIdle_DMA
+              definition:  HAL_UARTEx_ReceiveToIdle_IT
+              weak def  :  HAL_UARTEx_RxEventCallback
+              definition:  HAL_UART_Abort
+              weak def  :  HAL_UART_AbortCpltCallback
+              definition:  HAL_UART_AbortReceive
+              weak def  :  HAL_UART_AbortReceiveCpltCallback
+              definition:  HAL_UART_AbortReceive_IT
+              definition:  HAL_UART_AbortTransmit
+              weak def  :  HAL_UART_AbortTransmitCpltCallback
+              definition:  HAL_UART_AbortTransmit_IT
+              definition:  HAL_UART_Abort_IT
+              definition:  HAL_UART_DMAPause
+              definition:  HAL_UART_DMAResume
+              definition:  HAL_UART_DMAStop
+              definition:  HAL_UART_DeInit
+              weak def  :  HAL_UART_ErrorCallback
+              definition:  HAL_UART_GetError
+              definition:  HAL_UART_GetState
+              definition:  HAL_UART_IRQHandler
+              definition:  HAL_UART_Init
+              weak def  :  HAL_UART_MspDeInit
+              weak def  :  HAL_UART_MspInit
+              definition:  HAL_UART_Receive
+              definition:  HAL_UART_Receive_DMA
+              definition:  HAL_UART_Receive_IT
+              weak def  :  HAL_UART_RxCpltCallback
+              weak def  :  HAL_UART_RxHalfCpltCallback
+              definition:  HAL_UART_Transmit
+              definition:  HAL_UART_Transmit_DMA
+              definition:  HAL_UART_Transmit_IT
+              weak def  :  HAL_UART_TxCpltCallback
+              weak def  :  HAL_UART_TxHalfCpltCallback
+              definition:  UART_Start_Receive_DMA
+              definition:  UART_Start_Receive_IT
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o.
+              reference :  HAL_GPIO_EXTI_IRQHandler
+              reference :  HAL_IncTick
+              reference :  HAL_UART_IRQHandler
+              reference :  SoftClock
+              reference :  huart1
+              reference :  huart2
+              reference :  huart3
+              reference :  huart4
+              reference :  huart5
+              reference :  huart6
+              definition:  BusFault_Handler
+              definition:  DebugMon_Handler
+              definition:  EXTI0_IRQHandler
+              definition:  HardFault_Handler
+              definition:  MemManage_Handler
+              definition:  NMI_Handler
+              definition:  PendSV_Handler
+              definition:  SVC_Handler
+              definition:  SysTick_Handler
+              definition:  UART4_IRQHandler
+              definition:  UART5_IRQHandler
+              definition:  USART1_IRQHandler
+              definition:  USART2_IRQHandler
+              definition:  USART3_IRQHandler
+              definition:  USART6_IRQHandler
+              definition:  UsageFault_Handler
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\system_stm32f4xx.o.
+              definition:  AHBPrescTable
+              definition:  APBPrescTable
+              definition:  SystemCoreClock
+              definition:  SystemCoreClockUpdate
+              definition:  SystemInit
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\tim.o.
+              reference :  Error_Handler
+              reference :  HAL_GPIO_Init
+              reference :  HAL_NVIC_DisableIRQ
+              reference :  HAL_NVIC_EnableIRQ
+              reference :  HAL_NVIC_SetPriority
+              reference :  HAL_TIMEx_ConfigBreakDeadTime
+              reference :  HAL_TIMEx_MasterConfigSynchronization
+              reference :  HAL_TIM_Base_Init
+              reference :  HAL_TIM_Base_Start
+              reference :  HAL_TIM_Base_Stop
+              reference :  HAL_TIM_ConfigClockSource
+              reference :  HAL_TIM_OC_ConfigChannel
+              reference :  HAL_TIM_OC_Init
+              reference :  __aeabi_memclr4
+              definition:  HAL_TIM_Base_MspDeInit
+              definition:  HAL_TIM_Base_MspInit
+              definition:  HAL_TIM_MspPostInit
+              definition:  MX_TIM1_Init
+              definition:  MX_TIM2_Init
+              definition:  MX_TIM3_Init
+              definition:  MX_TIM4_Init
+              definition:  MX_TIM5_Init
+              definition:  MX_TIM7_Init
+              definition:  MX_TIM8_Init
+              definition:  delay_ms
+              definition:  delay_us
+              definition:  htim1
+              definition:  htim2
+              definition:  htim3
+              definition:  htim4
+              definition:  htim5
+              definition:  htim7
+              definition:  htim8
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\usart.o.
+              reference :  Error_Handler
+              reference :  HAL_GPIO_DeInit
+              reference :  HAL_GPIO_Init
+              reference :  HAL_NVIC_DisableIRQ
+              reference :  HAL_NVIC_EnableIRQ
+              reference :  HAL_NVIC_SetPriority
+              reference :  HAL_UART_Init
+              reference :  HAL_UART_Receive_IT
+              reference :  Tmp_Rxd1Buffer
+              reference :  Tmp_Rxd2Buffer
+              reference :  Tmp_Rxd3Buffer
+              reference :  Tmp_Rxd4Buffer
+              reference :  Tmp_Rxd5Buffer
+              reference :  Tmp_Rxd6Buffer
+              reference :  __aeabi_memclr4
+              definition:  HAL_UART_MspDeInit
+              definition:  HAL_UART_MspInit
+              definition:  MX_UART4_Init
+              definition:  MX_UART5_Init
+              definition:  MX_USART1_UART_Init
+              definition:  MX_USART2_UART_Init
+              definition:  MX_USART3_UART_Init
+              definition:  MX_USART6_UART_Init
+              definition:  huart1
+              definition:  huart2
+              definition:  huart3
+              definition:  huart4
+              definition:  huart5
+              definition:  huart6
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\w25qxx.o.
+              reference :  B_SelCS
+              reference :  HAL_Delay
+              reference :  HAL_GPIO_WritePin
+              reference :  HAL_GetTick
+              reference :  HAL_SPI_Receive
+              reference :  HAL_SPI_Transmit
+              reference :  HAL_SPI_TransmitReceive
+              reference :  hspi2
+              definition:  SPI_FLASH_BufferWrite
+              definition:  SPI_FLASH_CS_HIGH
+              definition:  SPI_FLASH_CS_LOW
+              definition:  SPI_FLASH_SendByte
+              definition:  SPI_FLASH_WaitForWriteEnd
+              definition:  SPI_FLASH_WriteEnable
+              definition:  SPI_FMRAM_BufferRead
+              definition:  SPI_FMRAM_BufferWrite
+              definition:  W25QXX_BUFFER
+              definition:  W25QXX_Write_NoCheck
+              definition:  W25QXX_Write_WithErase
+              definition:  W25qxx_BlockToPage
+              definition:  W25qxx_EraseBlock
+              definition:  W25qxx_EraseChip
+              definition:  W25qxx_EraseSector
+              definition:  W25qxx_Init
+              definition:  W25qxx_IsEmptyBlock
+              definition:  W25qxx_IsEmptyPage
+              definition:  W25qxx_IsEmptySector
+              definition:  W25qxx_PageToBlock
+              definition:  W25qxx_PageToSector
+              definition:  W25qxx_ReadBlock
+              definition:  W25qxx_ReadByte
+              definition:  W25qxx_ReadBytes
+              definition:  W25qxx_ReadID
+              definition:  W25qxx_ReadPage
+              definition:  W25qxx_ReadSector
+              definition:  W25qxx_ReadStatusRegister
+              definition:  W25qxx_ReadUniqID
+              definition:  W25qxx_SectorToBlock
+              definition:  W25qxx_SectorToPage
+              definition:  W25qxx_Spi
+              definition:  W25qxx_WaitForWriteEnd
+              definition:  W25qxx_WriteBlock
+              definition:  W25qxx_WriteByte
+              definition:  W25qxx_WriteBytes_Page
+              definition:  W25qxx_WriteDisable
+              definition:  W25qxx_WriteEnable
+              definition:  W25qxx_WritePage
+              definition:  W25qxx_WriteSector
+              definition:  W25qxx_WriteStatusRegister
+              definition:  w25qxx
+              definition:  __iar_cc..0x532df2bb 968b61e6
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\wk2xxx.o.
+              reference :  HAL_GPIO_Init
+              reference :  HAL_GPIO_WritePin
+              reference :  MX_SPI1_Init
+              reference :  SPI1_ReadWriteByte
+              reference :  __aeabi_memclr4
+              definition:  SPI_BUS_Init
+              definition:  SPI_CS_H
+              definition:  SPI_CS_Init
+              definition:  SPI_CS_L
+              definition:  WK2XXX_SPI_Init
+              definition:  Wk2xxxClose
+              definition:  Wk2xxxGetBuf
+              definition:  Wk2xxxInit
+              definition:  Wk2xxxReadFifo
+              definition:  Wk2xxxReadReg
+              definition:  Wk2xxxSendBuf
+              definition:  Wk2xxxSetBaud
+              definition:  Wk2xxxWriteFifo
+              definition:  Wk2xxxWriteReg
+              definition:  wk_RxChars
+              definition:  wk_TxChars
+Loading object D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\wk_port1.o.
+              definition:  WkPort1_RcvBuffer
+              definition:  WkPort1_RcvCounter
+              definition:  WkPort1_RegAddr
+              definition:  WkPort1_TxdBuffer
+              definition:  WkPort1_TxdChkSum
+              definition:  WkPort1_TxdCounter
+              definition:  WkPort1_TxdMax
+              definition:  WkPort1_bakRcvCount
+              definition:  WkPort2_RcvBuffer
+              definition:  WkPort3_RcvBuffer
+              definition:  WkPort4_RcvBuffer
+Applying system library config.
+              reference :  __iar_init_vfp
+Selecting member cstartup_M.o(rt7M_tl.a) to define __iar_program_start.
+              reference :  __cmain
+              reference :  __vector_table
+              weak ref  :  __iar_init_core
+              weak ref  :  __iar_init_vfp
+              definition:  __iar_program_start
+Selecting member DblToFlt.o(m7M_tls.a) to define __aeabi_d2f.
+              definition:  __aeabi_d2f
+Selecting member DblToS32.o(m7M_tls.a) to define __aeabi_d2iz.
+              definition:  __aeabi_d2iz
+Selecting member DblDiv.o(m7M_tls.a) to define __aeabi_ddiv.
+              definition:  __aeabi_ddiv
+Selecting member DblMul.o(m7M_tls.a) to define __aeabi_dmul.
+              definition:  __aeabi_dmul
+Selecting member FltToDbl.o(m7M_tls.a) to define __aeabi_f2d.
+              definition:  __aeabi_f2d
+Selecting member U32ToDbl.o(m7M_tls.a) to define __aeabi_ui2d.
+              definition:  __aeabi_ui2d
+Selecting member sqrt.o(m7M_tls.a) to define __iar_vfp_sqrt.
+              weak ref  :  __iar_errno_set_EDOM
+              definition:  __iar_vfp_sqrt
+              definition:  __iar_vfp___iar_sqrt64
+              definition:  __iar_vfp_sqrtl
+              definition:  sqrt
+              definition:  __iar_sqrt64
+              definition:  sqrtl
+Selecting member ABImemclr4.o(rt7M_tl.a) to define __aeabi_memclr4.
+              reference :  __iar_Memset4_word
+              definition:  __aeabi_memclr4
+Selecting member abs.o(dl7M_tlf.a) to define abs.
+              definition:  abs
+Selecting member expf.o(m7M_tls.a) to define expf.
+              reference :  __iar_xexpf
+              reference :  __iar_expf_cTab
+              weak ref  :  __iar_errno_set_ERANGE
+              definition:  expf
+              definition:  __iar_exp32
+              definition:  __iar_softfp_expf
+              definition:  __iar_softfp___iar_exp32
+              definition:  __iar_expf_OutBnd
+Selecting member printf.o(dl7M_tlf.a) to define printf.
+              reference :  _PrintfFull
+              reference :  _Prout
+              definition:  printf
+Selecting member I64DivMod.o(rt7M_tl.a) to define __aeabi_uldivmod.
+              reference :  __aeabi_ldiv0
+              definition:  __aeabi_ldivmod
+              definition:  __aeabi_uldivmod
+Selecting member fpinit_M.o(m7M_tls.a) to define __iar_init_vfp.
+              definition:  __iar_init_vfp
+Selecting member cmain.o(rt7M_tl.a) to define __cmain.
+              weak ref  :  __iar_data_init3
+              weak ref  :  __iar_argc_argv
+              weak ref  :  __iar_data_init_done
+              reference :  __low_level_init
+              reference :  main
+              reference :  exit
+              definition:  __cmain
+              definition:  ?main
+              definition:  _main
+              definition:  _call_main
+Selecting member ABImemset48.o(rt7M_tl.a) to define __iar_Memset4_word.
+              definition:  __aeabi_memset4
+              definition:  __aeabi_memset8
+              definition:  __iar_Memset4_word
+              definition:  __iar_Memset8_word
+Selecting member xexpf.o(m7M_tls.a) to define __iar_xexpf.
+              weak ref  :  __iar_errno_set_ERANGE
+              definition:  __iar_xexpf
+              definition:  __iar_xexp2f
+              definition:  __iar_xsinhf
+              definition:  __iar_expf_cTab
+Selecting member xprintffull.o(dl7M_tlf.a) to define _PrintfFull.
+              reference :  __aeabi_cdcmple
+              reference :  __aeabi_cdrcmple
+              reference :  __aeabi_d2iz
+              reference :  __aeabi_d2uiz
+              reference :  __aeabi_ddiv
+              reference :  __aeabi_dmul
+              reference :  __aeabi_dsub
+              reference :  __aeabi_i2d
+              reference :  __aeabi_memcpy
+              reference :  __aeabi_ui2d
+              reference :  __aeabi_uldivmod
+              reference :  __iar_Fail_s
+              reference :  __iar_Mbcurmax
+              reference :  _gLocale_mblen
+              reference :  _gLocale_wctomb
+              reference :  frexp
+              reference :  localeconv
+              reference :  memchr
+              reference :  scalbn
+              reference :  strchr
+              reference :  strlen
+              definition:  _PrintfFull
+Selecting member xprout.o(dl7M_tlf.a) to define _Prout.
+              reference :  putchar
+              definition:  _Prout
+Selecting member I64DivZer.o(rt7M_tl.a) to define __aeabi_ldiv0.
+              definition:  __aeabi_ldiv0
+Selecting member low_level_init.o(dl7M_tlf.a) to define __low_level_init.
+              definition:  __low_level_init
+Selecting member exit.o(dl7M_tlf.a) to define exit.
+              reference :  _exit
+              definition:  exit
+Selecting member DblCmpLe.o(m7M_tls.a) to define __aeabi_cdcmple.
+              definition:  __aeabi_cdcmple
+Selecting member DblCmpGe.o(m7M_tls.a) to define __aeabi_cdrcmple.
+              definition:  __aeabi_cdrcmple
+Selecting member DblToU32.o(m7M_tls.a) to define __aeabi_d2uiz.
+              definition:  __aeabi_d2uiz
+Selecting member DblSub.o(m7M_tls.a) to define __aeabi_dsub.
+              reference :  __iar_dsub
+              definition:  __aeabi_dsub
+              definition:  __iar_dadd
+Selecting member S32ToDbl.o(m7M_tls.a) to define __aeabi_i2d.
+              definition:  __aeabi_i2d
+Selecting member ABImemcpy.o(rt7M_tl.a) to define __aeabi_memcpy.
+              definition:  __aeabi_memcpy
+              definition:  __aeabi_memcpy4
+              definition:  __aeabi_memcpy8
+Selecting member xfail_s.o(dl7M_tlf.a) to define __iar_Fail_s.
+              weak ref  :  __iar_Locksyslock_Malloc
+              weak ref  :  __iar_Unlocksyslock_Malloc
+              reference :  abort
+              definition:  __iar_Fail_s
+              definition:  ignore_handler_s
+              definition:  set_constraint_handler_s
+Selecting member xmbcurmax.o(dl7M_tlf.a) to define __iar_Mbcurmax.
+              reference :  __iar_global_Locale
+              definition:  __iar_Mbcurmax
+Selecting member xlocale_c.o(dl7M_tlf.a) to define _gLocale_mblen.
+              reference :  _Encoding_8859_1_Mbrlen
+              reference :  _Encoding_8859_1_Mbtowc
+              reference :  _Encoding_8859_1_Wctomb
+              reference :  _Encoding_8859_1_name
+              reference :  __iar_CStrxfrm
+              definition:  _LocaleC
+              definition:  _LocaleC_isalpha
+              definition:  _LocaleC_iscntrl
+              definition:  _LocaleC_islower
+              definition:  _LocaleC_ispunct
+              definition:  _LocaleC_isspace
+              definition:  _LocaleC_isupper
+              definition:  _LocaleC_tolower
+              definition:  _LocaleC_toupper
+              definition:  __iar_global_Locale
+              definition:  __iar_global_Profile
+              definition:  __iar_localeC_Tinfo
+              definition:  _gLocale_mblen
+              definition:  _gLocale_mblenInt
+              definition:  _gLocale_mbtowc
+              definition:  _gLocale_mbtowcInt
+              definition:  _gLocale_wctomb
+              definition:  _gLocale_wctombInt
+              definition:  localeconv
+Selecting member frexp.o(m7M_tls.a) to define __iar_softfp_frexp.
+              definition:  frexp
+              definition:  __iar_frexp64
+              definition:  __iar_frexp
+              definition:  __iar_softfp_frexp
+              definition:  __iar_softfp___iar_frexp64
+              definition:  frexpl
+              definition:  __iar_softfp_frexpl
+              definition:  __iar_frexpl
+Selecting member memchr.o(rt7M_tl.a) to define memchr.
+              definition:  memchr
+              definition:  __iar_Memchr
+Selecting member ldexp.o(m7M_tls.a) to define scalbn.
+              weak ref  :  __iar_errno_set_ERANGE
+              definition:  __iar_vfp_ldexp
+              definition:  __iar_vfp___iar_ldexp64
+              definition:  __iar_vfp_scalbn
+              definition:  __iar_vfp___iar_scalbn64
+              definition:  __iar_vfp_scalbln
+              definition:  __iar_vfp___iar_scalbln64
+              definition:  __iar_vfp_ldexpl
+              definition:  __iar_vfp_scalbnl
+              definition:  __iar_vfp_scalblnl
+              definition:  ldexp
+              definition:  __iar_ldexp64
+              definition:  scalbn
+              definition:  __iar_scalbn64
+              definition:  scalbln
+              definition:  __iar_scalbln64
+              definition:  ldexpl
+              definition:  scalbnl
+              definition:  scalblnl
+Selecting member strchr.o(rt7M_tl.a) to define strchr.
+              definition:  strchr
+              definition:  __iar_Strchr
+Selecting member strlen.o(rt7M_tl.a) to define strlen.
+              definition:  strlen
+Selecting member putchar.o(dl7M_tlf.a) to define putchar.
+              reference :  __iar_Stdout
+              reference :  fputc
+              definition:  putchar
+Selecting member cexit.o(rt7M_tl.a) to define _exit.
+              weak ref  :  __call_dtors
+              weak ref  :  _Close_all
+              weak ref  :  __iar_clearlocks
+              reference :  __exit
+              definition:  _exit
+              definition:  __cexit_call_dtors
+              definition:  __cexit_closeall
+              definition:  __cexit_clearlocks
+Selecting member DblAdd.o(m7M_tls.a) to define __iar_dsub.
+              reference :  __iar_dadd
+              definition:  __aeabi_dadd
+              definition:  __iar_dsub
+              definition:  __iar_dsubStart
+Selecting member abort.o(dl7M_tlf.a) to define abort.
+              reference :  __exit
+              definition:  abort
+Selecting member xencoding_8859_1.o(dl7M_tlf.a) to define _Encoding_8859_1_Mbrlen.
+              definition:  _Encoding_8859_1_Mbrlen
+              definition:  _Encoding_8859_1_Mbtowc
+              definition:  _Encoding_8859_1_Wctomb
+              definition:  _Encoding_8859_1_name
+Selecting member xstrxfrm.o(dl7M_tlf.a) to define __iar_CStrxfrm.
+              definition:  __iar_CStrxfrm
+Selecting member xfiles.o(dl7M_tlf.a) to define __iar_Stdout.
+              definition:  _Files
+              definition:  _PJP_C_Copyright
+              definition:  __aeabi_BUFSIZ
+              definition:  __aeabi_FILENAME_MAX
+              definition:  __aeabi_FOPEN_MAX
+              definition:  __aeabi_IOFBF
+              definition:  __aeabi_IOLBF
+              definition:  __aeabi_IONBF
+              definition:  __aeabi_L_tmpnam
+              definition:  __aeabi_TMP_MAX
+              definition:  __aeabi_stderr
+              definition:  __aeabi_stdin
+              definition:  __aeabi_stdout
+              definition:  __iar_Stderr
+              definition:  __iar_Stdin
+              definition:  __iar_Stdout
+              definition:  __iar_file_FOPEN_MAX
+              definition:  __iar_file_mtx
+Selecting member exit.o(shb_l.a) to define __exit.
+              weak ref  :  __iar_close_ttio
+              definition:  __exit
+Selecting member data_init.o(rt7M_tl.a) to define __iar_data_init3 (optional).
+              definition:  __iar_data_init3
+              reference :  Region$$Table$$Base
+              reference :  Region$$Table$$Limit
+Selecting member zero_init3.o(rt7M_tl.a) to define __iar_zero_init3.
+              definition:  __iar_zero_init3
+Selecting member copy_init3.o(rt7M_tl.a) to define __iar_copy_init3.
+              definition:  __iar_copy_init3
+Selecting member rle_init_single.o(rt7M_tl.a) to define __iar_rle_init_single3.
+              definition:  __iar_rle_init_single3
+Selecting member rle_init.o(rt7M_tl.a) to define __iar_rle_init3.
+              reference :  abort
+              definition:  __iar_rle_init3
+Selecting member packbits_init_single.o(rt7M_tl.a) to define __iar_packbits_init_single3.
+              definition:  __iar_packbits_init_single3
+Selecting member packbits_init.o(rt7M_tl.a) to define __iar_packbits_init3.
+              reference :  abort
+              definition:  __iar_packbits_init3
+Selecting member lz77_init_single.o(rt7M_tl.a) to define __iar_lz77_init_single3.
+              definition:  __iar_lz77_init_single3
+Selecting member lz77_init.o(rt7M_tl.a) to define __iar_lz77_init3.
+              reference :  abort
+              definition:  __iar_lz77_init3
+Resolving duplicate symbol definitions
+  Picking HAL_SYSTICK_Callback [s470 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\main.o]
+    Suppressing HAL_SYSTICK_Callback [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_cortex.o]
+  Picking TIM1_CC_IRQHandler [s15 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR5.o]
+    Suppressing TIM1_CC_IRQHandler [s45 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking USART2_IRQHandler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing USART2_IRQHandler [s56 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking DebugMon_Handler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing DebugMon_Handler [s15 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking HAL_UART_RxCpltCallback [s470 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\main.o]
+    Suppressing HAL_UART_RxCpltCallback [s12 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_uart.o]
+  Picking TIM2_IRQHandler [s15 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR1.o]
+    Suppressing TIM2_IRQHandler [s46 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking HAL_SPI_MspDeInit [s11 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\spi.o]
+    Suppressing HAL_SPI_MspDeInit [s9 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_spi.o]
+  Picking NMI_Handler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing NMI_Handler [s9 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking TIM4_IRQHandler [s15 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR2.o]
+    Suppressing TIM4_IRQHandler [s48 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking TIM3_IRQHandler [s15 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR4.o]
+    Suppressing TIM3_IRQHandler [s47 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking TIM5_IRQHandler [s15 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR6.o]
+    Suppressing TIM5_IRQHandler [s68 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking USART3_IRQHandler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing USART3_IRQHandler [s57 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking TIM8_CC_IRQHandler [s15 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\bsp_MOTOR3.o]
+    Suppressing TIM8_CC_IRQHandler [s64 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking HAL_GPIO_EXTI_Callback [s470 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\main.o]
+    Suppressing HAL_GPIO_EXTI_Callback [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_gpio.o]
+  Picking HAL_MspInit [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_msp.o]
+    Suppressing HAL_MspInit [s11 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal.o]
+  Picking HAL_RCC_DeInit [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_rcc_ex.o]
+    Suppressing HAL_RCC_DeInit [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_rcc.o]
+  Picking HAL_SPI_MspInit [s11 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\spi.o]
+    Suppressing HAL_SPI_MspInit [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_spi.o]
+  Picking HAL_TIM_PWM_PulseFinishedCallback [s470 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\main.o]
+    Suppressing HAL_TIM_PWM_PulseFinishedCallback [s25 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_tim.o]
+  Picking PendSV_Handler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing PendSV_Handler [s16 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking HAL_UART_TxCpltCallback [s470 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\main.o]
+    Suppressing HAL_UART_TxCpltCallback [s10 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_uart.o]
+  Picking BusFault_Handler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing BusFault_Handler [s12 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking EXTI0_IRQHandler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing EXTI0_IRQHandler [s24 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking HardFault_Handler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing HardFault_Handler [s10 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking MemManage_Handler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing MemManage_Handler [s11 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking SVC_Handler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing SVC_Handler [s14 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking SysTick_Handler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing SysTick_Handler [s17 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking UsageFault_Handler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing UsageFault_Handler [s13 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking UART4_IRQHandler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing UART4_IRQHandler [s70 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking HAL_UART_MspInit [s14 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\usart.o]
+    Suppressing HAL_UART_MspInit [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_uart.o]
+  Picking UART5_IRQHandler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing UART5_IRQHandler [s71 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking USART1_IRQHandler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing USART1_IRQHandler [s55 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking USART6_IRQHandler [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_it.o]
+    Suppressing USART6_IRQHandler [s89 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\startup_stm32f407xx.o]
+  Picking HAL_TIM_Base_MspDeInit [s15 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\tim.o]
+    Suppressing HAL_TIM_Base_MspDeInit [s9 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_tim.o]
+  Picking HAL_TIM_Base_MspInit [s15 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\tim.o]
+    Suppressing HAL_TIM_Base_MspInit [s8 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_tim.o]
+  Picking HAL_UART_MspDeInit [s14 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\usart.o]
+    Suppressing HAL_UART_MspDeInit [s9 D:\YLS\robotcontrol - 04.20\EWARM\robotcontrol\Obj\stm32f4xx_hal_uart.o]

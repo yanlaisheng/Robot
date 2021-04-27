@@ -3,6 +3,7 @@
 
 /* 包含头文件 ----------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
+#include "GlobalConst.h"
 
 /* 类型定义 ------------------------------------------------------------------*/
 typedef struct
@@ -30,12 +31,12 @@ typedef struct
 #define MOTOR3_TIM8_PUL_PORT GPIOC                                 // 对应驱动器的PUL-（驱动器使用共阳接法）
 #define MOTOR3_TIM8_PUL_PIN GPIO_PIN_6                             // 而PLU+直接接开发板的VCC
 
-#define MOTOR3_DIR_GPIO_CLK_ENABLE() __HAL_RCC_GPIOD_CLK_ENABLE() // 电机旋转方向控制，如果悬空不接默认正转
+#define MOTOR3_DIR_GPIO_CLK_ENABLE() __HAL_RCC_GPIOG_CLK_ENABLE() // 电机旋转方向控制，如果悬空不接默认正转
 #define MOTOR3_DIR_PORT GPIOG                                     // 对应驱动器的DIR-（驱动器使用共阳接法）
 #define MOTOR3_DIR_PIN GPIO_PIN_5                                 // 而DIR+直接接开发板的VCC
 // #define GPIO_PIN_AF_AS_SYS GPIO_AF0_RTC_50Hz                      // 引脚不作为复用功能使用
 
-#define MOTOR3_ENA_GPIO_CLK_ENABLE() __HAL_RCC_GPIOD_CLK_ENABLE() // 电机脱机使能控制，如果悬空不接默认使能电机
+#define MOTOR3_ENA_GPIO_CLK_ENABLE() __HAL_RCC_GPIOG_CLK_ENABLE() // 电机脱机使能控制，如果悬空不接默认使能电机
 #define MOTOR3_ENA_PORT GPIOG                                     // 对应驱动器的ENA-（驱动器使用共阳接法）
 #define MOTOR3_ENA_PIN GPIO_PIN_4                                 // 而ENA+直接接开发板的VCC
 
@@ -58,15 +59,6 @@ typedef struct
 #define CW 0  // 顺时针
 #define CCW 1 // 逆时针
 
-#define STOP 0                                                        // 加减速曲线状态：停止
-#define ACCEL 1                                                       // 加减速曲线状态：加速阶段
-#define DECEL 2                                                       // 加减速曲线状态：减速阶段
-#define RUN 3                                                         // 加减速曲线状态：匀速阶段
-#define T1_FREQ_MOTOR3 (SystemCoreClock / (MOTOR3_TIM_PRESCALER + 1)) // 频率ft值
-#define FSPR 200                                                      //步进电机单圈步数
-#define MICRO_STEP 64                                                 // 步进电机驱动器细分数
-#define SPR (FSPR * MICRO_STEP)                                       // 旋转一圈需要的脉冲数
-
 // 数学常数
 #define ALPHA ((float)(2 * 3.14159 / SPR)) // α= 2*pi/spr
 #define A_T_x10 ((float)(10 * ALPHA * T1_FREQ_MOTOR3))
@@ -80,10 +72,16 @@ extern __IO uint8_t Motor3_status;
 extern __IO int Motor3_num;
 extern __IO int32_t Motor3_step_position; // 当前位置
 extern __IO uint8_t Motor3_MotionStatus;  //是否在运动？0：停止，1：运动
+
+extern uint32_t step_to_run_MOTOR3;
+extern unsigned short period_MOTOR3[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 /* 函数声明 ------------------------------------------------------------------*/
 
 void MOTOR3_TIMx_Init(void);
 void MOTOR3_AxisMoveRel(int32_t step, uint32_t accel, uint32_t decel, uint32_t speed);
+
+extern void CalculateSModelLine(unsigned short period[], float len, float fre_max, float fre_min, float flexible);
+extern void MOTOR3_AxisMoveRel_S(int32_t step, uint32_t speed, uint16_t Dir, uint16_t Acc_len);
 
 #endif /* __MOTOR3_TIM_H__ */
 /******************* (C) COPYRIGHT 2020-2021 QINGDAO SANLI *****END OF FILE****/

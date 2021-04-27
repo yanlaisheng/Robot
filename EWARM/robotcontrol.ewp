@@ -752,7 +752,7 @@
                 </option>
                 <option>
                     <name>IlinkLogFile</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkLogInitialization</name>
@@ -760,7 +760,7 @@
                 </option>
                 <option>
                     <name>IlinkLogModule</name>
-                    <state>0</state>
+                    <state>1</state>
                 </option>
                 <option>
                     <name>IlinkLogSection</name>

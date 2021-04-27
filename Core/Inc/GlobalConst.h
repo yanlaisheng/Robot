@@ -190,9 +190,62 @@
 #define S_ACCEL 1
 #define T_ACCEL 0
 /* S型加速参数 */
+#define FSPR 200                                                      //步进电机单圈步数
+#define MICRO_STEP 50                                                 // 步进电机驱动器细分数
+#define SPR (FSPR * MICRO_STEP)                                       // 旋转一圈需要的脉冲数
+
 #define ACCELERATED_SPEED_LENGTH 3000 //定义加速度的点数（其实也是3000个细分步的意思），调这个参数改变加速点
-#define FRE_MIN 500                   //最低的运行频率，调这个参数调节最低运行速度
-#define FRE_MAX 35000                 //最高的运行频率，调这个参数调节匀速时的最高速度35000
+
+#define SPEED_MIN_MOTOR1 50
+#define SPEED_MAX_MOTOR1 3000
+#define FRE_MIN_MOTOR1 SPEED_MIN_MOTOR1 *SPR / 60 //最低的运行频率，调这个参数调节最低运行速度
+#define FRE_MAX_MOTOR1 SPEED_MAX_MOTOR1 *SPR / 60 //最高的运行频率，调这个参数调节匀速时的最高速度35000
+
+#define SPEED_MIN_MOTOR2 50
+#define SPEED_MAX_MOTOR2 3000
+#define FRE_MIN_MOTOR2 SPEED_MIN_MOTOR2 *SPR / 60 //最低的运行频率，调这个参数调节最低运行速度
+#define FRE_MAX_MOTOR2 SPEED_MAX_MOTOR2 *SPR / 60 //最高的运行频率，调这个参数调节匀速时的最高速度35000
+
+#define SPEED_MIN_MOTOR3 50
+#define SPEED_MAX_MOTOR3 3000
+#define FRE_MIN_MOTOR3 SPEED_MIN_MOTOR3 *SPR / 60 //最低的运行频率，调这个参数调节最低运行速度
+#define FRE_MAX_MOTOR3 SPEED_MAX_MOTOR3 *SPR / 60 //最高的运行频率，调这个参数调节匀速时的最高速度35000
+
+#define SPEED_MIN_MOTOR4 50
+#define SPEED_MAX_MOTOR4 3000
+#define FRE_MIN_MOTOR4 SPEED_MIN_MOTOR4 *SPR / 60 //最低的运行频率，调这个参数调节最低运行速度
+#define FRE_MAX_MOTOR4 SPEED_MAX_MOTOR4 *SPR / 60 //最高的运行频率，调这个参数调节匀速时的最高速度35000
+
+#define SPEED_MIN_MOTOR5 50
+#define SPEED_MAX_MOTOR5 3000
+#define FRE_MIN_MOTOR5 SPEED_MIN_MOTOR5 *SPR / 60 //最低的运行频率，调这个参数调节最低运行速度
+#define FRE_MAX_MOTOR5 SPEED_MAX_MOTOR5 *SPR / 60 //最高的运行频率，调这个参数调节匀速时的最高速度35000
+
+#define SPEED_MIN_MOTOR6 50
+#define SPEED_MAX_MOTOR6 3000
+#define FRE_MIN_MOTOR6 SPEED_MIN_MOTOR6 *SPR / 60 //最低的运行频率，调这个参数调节最低运行速度
+#define FRE_MAX_MOTOR6 SPEED_MAX_MOTOR6 *SPR / 60 //最高的运行频率，调这个参数调节匀速时的最高速度35000
+
+#define STOP 0                                                        // 加减速曲线状态：停止
+#define ACCEL 1                                                       // 加减速曲线状态：加速阶段
+#define DECEL 2                                                       // 加减速曲线状态：减速阶段
+#define RUN 3                                                         // 加减速曲线状态：匀速阶段
+
+// 定义定时器预分频，定时器实际时钟频率为：168MHz/（STEPMOTOR_TIMx_PRESCALER+1）
+#define MOTOR1_TIM_PRESCALER 15 // 步进电机驱动器细分设置为：   16  细分
+#define MOTOR2_TIM_PRESCALER 15 // 步进电机驱动器细分设置为：   16  细分
+#define MOTOR3_TIM_PRESCALER 15 // 步进电机驱动器细分设置为：   16  细分
+#define MOTOR4_TIM_PRESCALER 15 // 步进电机驱动器细分设置为：   16  细分
+#define MOTOR5_TIM_PRESCALER 15 // 步进电机驱动器细分设置为：   16  细分
+#define MOTOR6_TIM_PRESCALER 15 // 步进电机驱动器细分设置为：   16  细分
+
+
+#define T1_FREQ_MOTOR1 (SystemCoreClock / (MOTOR1_TIM_PRESCALER + 1)) // 频率ft值
+#define T1_FREQ_MOTOR2 (SystemCoreClock / (MOTOR2_TIM_PRESCALER + 1)) // 频率ft值
+#define T1_FREQ_MOTOR3 (SystemCoreClock / (MOTOR3_TIM_PRESCALER + 1)) // 频率ft值
+#define T1_FREQ_MOTOR4 (SystemCoreClock / (MOTOR4_TIM_PRESCALER + 1)) // 频率ft值
+#define T1_FREQ_MOTOR5 (SystemCoreClock / (MOTOR5_TIM_PRESCALER + 1)) // 频率ft值
+#define T1_FREQ_MOTOR6 (SystemCoreClock / (MOTOR6_TIM_PRESCALER + 1)) // 频率ft值
 
 // 定义设定参数
 #define Pw_OutPDecMax w_ParLst[0]        // 出水表量程。初始化值1660，对应1.66MP

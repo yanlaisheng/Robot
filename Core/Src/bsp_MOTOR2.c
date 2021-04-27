@@ -23,6 +23,7 @@ __IO uint8_t Motor2_MotionStatus = 0;                 //是否在运动？0：停止，1：
 
 __IO uint8_t Motor2_status = 1;
 __IO int Motor2_num = 0;
+__IO uint32_t acc_speed_len_Motor2; //加减速长度
 
 /* 扩展变量 ------------------------------------------------------------------*/
 extern TIM_HandleTypeDef htim4_MOTOR2;
@@ -272,9 +273,77 @@ void MOTOR2_AxisMoveRel(int32_t step, uint32_t accel, uint32_t decel, uint32_t s
   HAL_TIM_Base_Start(&htim4_MOTOR2);                                                              // 使能定时器
   MOTOR2_OUTPUT_ENABLE();
 }
+
+/**
+  * 函数功能: 相对位置运动：运动给定的步数
+  * 输入参数: step：移动的步数 (正数为顺时针，负数为逆时针).
+              accel  加速度,实际值为accel*0.1*rad/sec^2
+              decel  减速度,实际值为decel*0.1*rad/sec^2
+              speed  最大速度,实际值为speed*0.1*rad/sec
+  * 返 回 值: 无
+  * 说    明: 以给定的步数移动步进电机，先加速到最大速度，然后在合适位置开始
+  *           减速至停止，使得整个运动距离为指定的步数。如果加减速阶段很短并且
+  *           速度很慢，那还没达到最大速度就要开始减速
+  */
+void MOTOR2_AxisMoveRel_S(int32_t step, uint32_t speed, uint16_t Dir, uint16_t Acc_len)
+{
+  uint32_t fre_Set; //设定频率
+
+  if (Motor2_MotionStatus != STOP) // 只允许步进电机在停止的时候才继续
+    return;
+
+  if (Dir == 0)
+    MOTOR2_DIR_FORWARD();
+  else
+    MOTOR2_DIR_REVERSAL();
+
+  if (Acc_len > ACCELERATED_SPEED_LENGTH)
+    Acc_len = ACCELERATED_SPEED_LENGTH;
+
+  if (step > 2 * Acc_len)
+  {
+    acc_speed_len_Motor2 = Acc_len;
+  }
+  else if ((step > 4) && (step <= Acc_len))
+  {
+    acc_speed_len_Motor2 = step >> 1;
+  }
+  else if ((step >= 1) && (step < 4))
+  {
+    acc_speed_len_Motor2 = 0;
+  }
+  else if (step == 0)
+    return;
+
+  step_to_run_MOTOR2 = step - 2 * acc_speed_len_Motor2; //匀速步数
+
+  fre_Set = speed * SPR / 60; //转换为运行频率
+  // 如果最大速度很慢，<最低频率，则不需要进行加速运动
+  if ((fre_Set > FRE_MIN_MOTOR2) && (acc_speed_len_Motor2 != 0))
+  {
+    CalculateSModelLine(period_MOTOR2, acc_speed_len_Motor2, acc_speed_len_Motor2 * fre_Set / ACCELERATED_SPEED_LENGTH, FRE_MIN_MOTOR2, 4);
+    Motor2_status = ACCEL;
+  }
+  else
+  {
+    step_to_run_MOTOR2 = step; //全部为匀速运动
+    Motor2_status = RUN;
+  }
+
+  // 复位加速度计数值
+  // Motor2_srd.accel_count = 0;
+  Motor2_num = 0;
+
+  __HAL_TIM_SET_AUTORELOAD(&htim4_MOTOR2, period_MOTOR2[0]);
+  __HAL_TIM_SET_COMPARE(&htim4_MOTOR2, MOTOR2_TIM4_CHANNEL_x, period_MOTOR2[0] >> 1);
+  TIM_CCxChannelCmd(MOTOR2_TIM4, MOTOR2_TIM4_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
+  HAL_TIM_Base_Start(&htim4_MOTOR2);                                     // 使能定时器
+  MOTOR2_OUTPUT_ENABLE();
+}
+
 #if S_ACCEL
 extern uint32_t step_to_run_MOTOR2;
-extern float fre_MOTOR2[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
+// extern float fre_MOTOR2[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
 extern unsigned short period_MOTOR2[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 
 #endif

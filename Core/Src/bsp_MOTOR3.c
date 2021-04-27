@@ -21,7 +21,7 @@ __IO uint8_t Motor3_MotionStatus = 0;                 //是否在运动？0：停止，1：
 
 __IO uint8_t Motor3_status = 1;
 __IO int Motor3_num = 0;
-
+__IO uint32_t acc_speed_len_Motor3; //加减速长度
 /* 扩展变量 ------------------------------------------------------------------*/
 /* 私有函数原形 --------------------------------------------------------------*/
 
@@ -269,12 +269,76 @@ void MOTOR3_AxisMoveRel(int32_t step, uint32_t accel, uint32_t decel, uint32_t s
   HAL_TIM_Base_Start(&htim8_MOTOR3);                                                              // 使能定时器
   MOTOR3_OUTPUT_ENABLE();
 }
-#if S_ACCEL
-extern uint32_t step_to_run_MOTOR3;
-extern float fre_MOTOR3[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-extern unsigned short period_MOTOR3[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 
-#endif
+/**
+  * 函数功能: 相对位置运动：运动给定的步数
+  * 输入参数: step：移动的步数 (正数为顺时针，负数为逆时针).
+              accel  加速度,实际值为accel*0.1*rad/sec^2
+              decel  减速度,实际值为decel*0.1*rad/sec^2
+              speed  最大速度,实际值为speed*0.1*rad/sec
+  * 返 回 值: 无
+  * 说    明: 以给定的步数移动步进电机，先加速到最大速度，然后在合适位置开始
+  *           减速至停止，使得整个运动距离为指定的步数。如果加减速阶段很短并且
+  *           速度很慢，那还没达到最大速度就要开始减速
+  */
+void MOTOR3_AxisMoveRel_S(int32_t step, uint32_t speed, uint16_t Dir, uint16_t Acc_len)
+{
+  uint32_t fre_Set; //设定频率
+
+  if (Motor3_MotionStatus != STOP) // 只允许步进电机在停止的时候才继续
+    return;
+
+  if (Dir == 0)
+    MOTOR3_DIR_FORWARD();
+  else
+    MOTOR3_DIR_REVERSAL();
+
+  if (Acc_len > ACCELERATED_SPEED_LENGTH)
+    Acc_len = ACCELERATED_SPEED_LENGTH;
+
+  if (step > 2 * Acc_len)
+  {
+    acc_speed_len_Motor3 = Acc_len;
+  }
+  else if ((step > 4) && (step <= Acc_len))
+  {
+    acc_speed_len_Motor3 = step >> 1;
+  }
+  else if ((step >= 1) && (step < 4))
+  {
+    acc_speed_len_Motor3 = 0;
+  }
+  else if (step == 0)
+    return;
+
+  step_to_run_MOTOR3 = step - 2 * acc_speed_len_Motor3; //匀速步数
+
+  fre_Set = speed * SPR / 60; //转换为运行频率
+  // 如果最大速度很慢，<最低频率，则不需要进行加速运动
+  if ((fre_Set > FRE_MIN_MOTOR3) && (acc_speed_len_Motor3 != 0))
+  {
+    CalculateSModelLine(period_MOTOR3, acc_speed_len_Motor3, acc_speed_len_Motor3 * fre_Set / ACCELERATED_SPEED_LENGTH, FRE_MIN_MOTOR3, 4);
+    Motor3_status = ACCEL;
+  }
+  else
+  {
+    step_to_run_MOTOR3 = step; //全部为匀速运动
+    Motor3_status = RUN;
+  }
+
+  // 复位加速度计数值
+  // Motor3_srd.accel_count = 0;
+  Motor3_num = 0;
+
+  __HAL_TIM_SET_AUTORELOAD(&htim8_MOTOR3, period_MOTOR3[0]);
+  __HAL_TIM_SET_COMPARE(&htim8_MOTOR3, MOTOR3_TIM8_CHANNEL_x, period_MOTOR3[0] >> 1);
+  TIM_CCxChannelCmd(MOTOR3_TIM8, MOTOR3_TIM8_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
+  HAL_TIM_Base_Start(&htim8_MOTOR3);                                     // 使能定时器
+  MOTOR3_OUTPUT_ENABLE();
+}
+extern uint32_t step_to_run_MOTOR3;
+// extern float fre_MOTOR3[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
+extern unsigned short period_MOTOR3[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 
 /**
   * 函数功能: 定时器中断服务函数

@@ -23,6 +23,7 @@ __IO uint8_t Motor1_MotionStatus = 0;                 //是否在运动？0：停止，1：
 
 __IO uint8_t Motor1_status = 1;
 __IO int Motor1_num = 0;
+__IO uint32_t acc_speed_len_Motor1; //加减速长度
 
 /* 扩展变量 ------------------------------------------------------------------*/
 extern TIM_HandleTypeDef htim2_MOTOR1;
@@ -98,7 +99,7 @@ void MOTOR1_TIMx_Init(void)
   HAL_TIM_ConfigClockSource(&htim2_MOTOR1, &sClockSourceConfig);
 
   /* 定时器比较输出配置 */
-  sConfigOC.OCMode = TIM_OCMODE_TOGGLE;            // 比较输出模式：反转输出
+  sConfigOC.OCMode = TIM_OCMODE_PWM2;              // 比较输出模式：反转输出   TIM_OCMODE_TOGGLE
   sConfigOC.Pulse = 0xFFFF;                        // 脉冲数
   sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;       // 输出极性
   sConfigOC.OCNPolarity = TIM_OCNPOLARITY_LOW;     // 互补通道输出极性
@@ -286,167 +287,80 @@ void MOTOR1_AxisMoveRel(int32_t step, uint32_t accel, uint32_t decel, uint32_t s
   *           减速至停止，使得整个运动距离为指定的步数。如果加减速阶段很短并且
   *           速度很慢，那还没达到最大速度就要开始减速
   */
-void MOTOR1_AxisMoveRel_S(int32_t step, uint32_t speed, uint16_t Dir, uint32_t accel, uint32_t decel)
-{
-  __IO uint16_t tim_count;
-  // 达到最大速度时的步数
-  __IO uint32_t max_s_lim;
-  // 必须要开始减速的步数（如果加速没有达到最大速度）
-  __IO uint32_t accel_lim;
+uint32_t tmp1, tmp2, tmp3;
 
-  __IO uint32_t acc_speed_len; //加减速长度
+void MOTOR1_AxisMoveRel_S(int32_t step, uint32_t speed, uint16_t Dir, uint16_t Acc_len)
+{
+  uint32_t fre_Set, fre_Set2; //设定频率
 
   if (Motor1_MotionStatus != STOP) // 只允许步进电机在停止的时候才继续
     return;
-  // if (step < 0) // 步数为负数
-  // {
-  //   Motor1_srd.dir = CCW; // 逆时针方向旋转
-  //   MOTOR1_DIR_REVERSAL();
-  //   step = -step; // 获取步数绝对值
-  // }
-  // else
-  // {
-  //   Motor1_srd.dir = CW; // 顺时针方向旋转
-  //   MOTOR1_DIR_FORWARD();
-  // }
 
   if (Dir == 0)
     MOTOR1_DIR_FORWARD();
   else
     MOTOR1_DIR_REVERSAL();
 
-  if (step > 2 * ACCELERATED_SPEED_LENGTH)
+  if (Acc_len > ACCELERATED_SPEED_LENGTH)
+    Acc_len = ACCELERATED_SPEED_LENGTH;
+
+  if (step > 2 * Acc_len)
   {
-    acc_speed_len = ACCELERATED_SPEED_LENGTH;
+    acc_speed_len_Motor1 = Acc_len;
   }
-  else if ((step > 4) && (step <= ACCELERATED_SPEED_LENGTH))
+  else if ((step > 4) && (step <= 2 * Acc_len))
   {
-    acc_speed_len = step >> 1;
+    acc_speed_len_Motor1 = step >> 1;
   }
-  else if ((step > = 1) && (step < 4))
+  else if ((step >= 1) && (step < 4))
   {
-    acc_speed_len = 0;
+    acc_speed_len_Motor1 = 0;
   }
   else if (step == 0)
     return;
 
-  step_to_run_MOTOR1 = step - 2 * acc_speed_len; //匀速步数
+  if (step > 2 * acc_speed_len_Motor1)
+    step_to_run_MOTOR1 = step - 2 * acc_speed_len_Motor1; //匀速步数
+  else
+    step_to_run_MOTOR1 = 0;
 
-  CalculateSModelLine(fre_MOTOR1, period_MOTOR1, acc_speed_len, speed * SPR / 60, FRE_MIN, 4);
-
-  // 如果最大速度很慢，我们就不需要进行加速运动
-  if (Motor1_srd.step_delay <= Motor1_srd.min_delay)
+  fre_Set = speed * SPR / 60; //转换为运行频率
+  fre_Set2 = fre_Set * acc_speed_len_Motor1 / Acc_len;
+  // 如果最大速度很慢，<最低频率，则不需要进行加速运动
+  if ((fre_Set2 > FRE_MIN_MOTOR1) && (acc_speed_len_Motor1 != 0))
   {
-    Motor1_srd.step_delay = Motor1_srd.min_delay;
-    Motor1_srd.run_state = RUN;
+    CalculateSModelLine(period_MOTOR1, acc_speed_len_Motor1, fre_Set2, FRE_MIN_MOTOR1, 4);
+    Motor1_status = ACCEL;
+
+    // 复位加速度计数值
+    // Motor1_srd.accel_count = 0;
+    Motor1_num = 0;
+
+    __HAL_TIM_SET_AUTORELOAD(&htim2_MOTOR1, period_MOTOR1[0]);
+    __HAL_TIM_SET_COMPARE(&htim2_MOTOR1, MOTOR1_TIM2_CHANNEL_x, period_MOTOR1[0] >> 1);
+    TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
+    HAL_TIM_Base_Start(&htim2_MOTOR1);                                     // 使能定时器
+    MOTOR1_OUTPUT_ENABLE();
   }
   else
   {
-    Motor1_srd.run_state = ACCEL;
-  }
-  // 复位加速度计数值
-  Motor1_srd.accel_count = 0;
+    step_to_run_MOTOR1 = step; //全部为匀速运动
+    Motor1_status = RUN;
 
-  __HAL_TIM_SET_AUTORELOAD(&htim2_MOTOR1, period_MOTOR1[0]);
-  __HAL_TIM_SET_COMPARE(&htim2_MOTOR1, MOTOR1_TIM2_CHANNEL_x, period_MOTOR1[0] >> 1);
-  Motor1_status = 1;
-  Motor1_num = 0;
-
-  step_to_run_MOTOR1 = MaxPosition;
-
-  HAL_TIM_Base_Start(&htim2_MOTOR1);                                     // 使能定时器
-  TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
-  MOTOR1_OUTPUT_ENABLE();
-
-  if (step == 1) // 步数为1
-  {
-    Motor1_srd.accel_count = -1;  // 只移动一步
-    Motor1_srd.run_state = DECEL; // 减速状态.
-    Motor1_srd.step_delay = 1000; // 短延时
-  }
-  else if (step != 0) // 如果目标运动步数不为0
-  {
-    // 我们的电机控制专题指导手册有详细的计算及推导过程
-
-    // 设置最大速度极限, 计算得到min_delay用于定时器的计数器的值。
-    // min_delay = (alpha / tt)/ w
-    Motor1_srd.min_delay = (int32_t)(A_T_x10_MOTOR1 / speed);
-
-    // 通过计算第一个(c0) 的步进延时来设定加速度，其中accel单位为0.1rad/sec^2
-    // step_delay = 1/tt * sqrt(2*alpha/accel)
-    // step_delay = ( tfreq*0.676/10 )*10 * sqrt( (2*alpha*100000) / (accel*10) )/100
-    Motor1_srd.step_delay = (int32_t)((T1_FREQ_148_MOTOR1 * sqrt(A_SQ / accel)) / 10);
-
-    // 计算多少步之后达到最大速度的限制
-    //     max_s_lim = speed*speed / (20*ALPHA*accel);
-    max_s_lim = (uint32_t)(speed * speed / (A_x200 * accel / 10));
-
-    // 如果达到最大速度小于0.5步，我们将四舍五入为0
-    // 但实际我们必须移动至少一步才能达到想要的速度
-    if (max_s_lim == 0)
-    {
-      max_s_lim = 1;
-    }
-
-    // 计算多少步之后我们必须开始减速
-    // n1 = (n1+n2)decel / (accel + decel)
-    accel_lim = (uint32_t)(step * decel / (accel + decel));
-    // 我们必须加速至少1步才能才能开始减速.
-    if (accel_lim == 0)
-    {
-      accel_lim = 1;
-    }
-
-    // 使用限制条件我们可以计算出减速阶段步数
-    if (accel_lim <= max_s_lim)
-    {
-      Motor1_srd.decel_val = accel_lim - step;
-    }
-    else
-    {
-      Motor1_srd.decel_val = -(max_s_lim * accel / decel);
-    }
-    // 当只剩下一步我们必须减速
-    if (Motor1_srd.decel_val == 0)
-    {
-      Motor1_srd.decel_val = -1;
-    }
-    Motor1_srd.min_delay = (int32_t)(A_T_x10_MOTOR1 / speed);
-    Motor1_srd.step_delay = (int32_t)((T1_FREQ_148_MOTOR1 * sqrt(A_SQ / accel)) / 10);
-
-    //     max_s_lim = 0x18de3;//9B6CC4;
-    //     accel_lim = 0x82355;
-    //     Motor1_srd.decel_val = accel_lim - step;
-    // 计算开始减速时的步数
-    Motor1_srd.decel_start = step + Motor1_srd.decel_val;
-
-    // 如果最大速度很慢，我们就不需要进行加速运动
-    if (Motor1_srd.step_delay <= Motor1_srd.min_delay)
-    {
-      Motor1_srd.step_delay = Motor1_srd.min_delay;
-      Motor1_srd.run_state = RUN;
-    }
-    else
-    {
-      Motor1_srd.run_state = ACCEL;
-    }
     // 复位加速度计数值
-    Motor1_srd.accel_count = 0;
+    // Motor1_srd.accel_count = 0;
+    Motor1_num = 0;
+
+    tmp1 = T1_FREQ_MOTOR1;
+    tmp2 = FRE_MIN_MOTOR1;
+    tmp3 = tmp1 / tmp2;
+    __HAL_TIM_SET_AUTORELOAD(&htim2_MOTOR1, tmp3);
+    __HAL_TIM_SET_COMPARE(&htim2_MOTOR1, MOTOR1_TIM2_CHANNEL_x, tmp3 >> 1);
+    TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
+    HAL_TIM_Base_Start(&htim2_MOTOR1);                                     // 使能定时器
+    MOTOR1_OUTPUT_ENABLE();
   }
-  Motor1_MotionStatus = 1; // 电机为运动状态
-  tim_count = __HAL_TIM_GET_COUNTER(&htim2_MOTOR1);
-  __HAL_TIM_SET_COMPARE(&htim2_MOTOR1, MOTOR1_TIM2_CHANNEL_x, tim_count + Motor1_srd.step_delay); // 设置定时器比较值
-  TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_ENABLE);                          // 使能定时器通道
-  HAL_TIM_Base_Start(&htim2_MOTOR1);                                                              // 使能定时器
-  MOTOR1_OUTPUT_ENABLE();
 }
-
-#if S_ACCEL
-extern uint32_t step_to_run_MOTOR1;
-extern float fre_MOTOR1[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-extern unsigned short period_MOTOR1[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
-
-#endif
 
 /**
   * 函数功能: 定时器中断服务函数
@@ -476,35 +390,51 @@ void MOTOR1_TIM2_IRQHandler(void) //定时器中断处理
     __HAL_TIM_CLEAR_IT(&htim2_MOTOR1, MOTOR1_TIM2_IT_CCx);
     i++;
 #if S_ACCEL
-    if (i % 2 == 0) //每进入两次中断才是一个完整脉冲
+    //     if (i % 2 == 0) //每进入两次中断才是一个完整脉冲
     {
       switch (Motor1_status)
       {
-      case ACCEL: //加速
+      case ACCEL: //加速 ACCEL=1
         __HAL_TIM_SET_AUTORELOAD(&htim2_MOTOR1, period_MOTOR1[Motor1_num]);
         __HAL_TIM_SET_COMPARE(&htim2_MOTOR1, MOTOR1_TIM2_CHANNEL_x, period_MOTOR1[Motor1_num] >> 1);
         Motor1_num++;
-        if (Motor1_num >= ACCELERATED_SPEED_LENGTH)
+        if (Motor1_num >= acc_speed_len_Motor1)
         {
-          Motor1_status = 3;
+          Motor1_status = RUN; //RUN=3
         }
         break;
       case RUN: //匀速
-        if (step_to_run_MOTOR1 >= 1)
+        if (step_to_run_MOTOR1 > 1)
           step_to_run_MOTOR1--;
         else
-          Motor1_status = 2;
+        {
+          if (Motor1_num == 0)
+          {
+            Motor1_status = STOP; //STOP=0
+            TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_DISABLE);
+            HAL_TIM_Base_Stop(&htim2_MOTOR1); // 禁止定时器
+            __HAL_TIM_CLEAR_FLAG(&htim2_MOTOR1, MOTOR1_TIM2_FLAG_CCx);
+            MOTOR1_OUTPUT_DISABLE();
+            break;
+          }
+          else
+            Motor1_status = DECEL; //DECEL=2
+        }
         break;
       case DECEL: //减速
-        Motor1_num--;
-        __HAL_TIM_SET_AUTORELOAD(&htim2_MOTOR1, period_MOTOR1[Motor1_num]);
-        __HAL_TIM_SET_COMPARE(&htim2_MOTOR1, MOTOR1_TIM2_CHANNEL_x, period_MOTOR1[Motor1_num] >> 1);
-        if (Motor1_num < 1)
-          Motor1_status = 0;
+        if (Motor1_num >= 1)
+        {
+          Motor1_num--;
+          __HAL_TIM_SET_AUTORELOAD(&htim2_MOTOR1, period_MOTOR1[Motor1_num]);
+          __HAL_TIM_SET_COMPARE(&htim2_MOTOR1, MOTOR1_TIM2_CHANNEL_x, period_MOTOR1[Motor1_num] >> 1);
+        }
+        else
+          Motor1_status = STOP; //STOP=0
         break;
       case STOP: //停止
                  // 关闭通道
         TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_DISABLE);
+        HAL_TIM_Base_Stop(&htim2_MOTOR1); // 禁止定时器
         __HAL_TIM_CLEAR_FLAG(&htim2_MOTOR1, MOTOR1_TIM2_FLAG_CCx);
         MOTOR1_OUTPUT_DISABLE();
         break;
@@ -530,7 +460,7 @@ void MOTOR1_TIM2_IRQHandler(void) //定时器中断处理
         __HAL_TIM_CLEAR_IT(&htim2_MOTOR1, MOTOR1_TIM2_IT_CCx);
         __HAL_TIM_CLEAR_FLAG(&htim2_MOTOR1, MOTOR1_TIM2_FLAG_CCx);
         TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_DISABLE);
-        HAL_TIM_Base_Stop(&htim2_MOTOR1); // 使能定时器
+        HAL_TIM_Base_Stop(&htim2_MOTOR1); // 禁止定时器
         __HAL_TIM_CLEAR_FLAG(&htim2_MOTOR1, MOTOR1_TIM2_FLAG_CCx);
         __HAL_TIM_CLEAR_IT(&htim2_MOTOR1, MOTOR1_TIM2_IT_CCx);
         MOTOR1_OUTPUT_DISABLE();
