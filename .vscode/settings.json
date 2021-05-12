@@ -1,0 +1,14 @@
+{
+    "files.associations": {
+        "globalconst.h": "c",
+        "spi_flash.h": "c",
+        "com1_232.h": "c",
+        "typedef.h": "c",
+        "stdio.h": "c",
+        "bsp_motor3.h": "c",
+        "bsp_motor1.h": "c",
+        "globalv.h": "c",
+        "bsp_motor4.h": "c",
+        "macro.h": "c"
+    }
+}
