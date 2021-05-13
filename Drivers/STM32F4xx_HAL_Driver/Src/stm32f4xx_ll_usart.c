@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -23,7 +23,7 @@
 #include "stm32f4xx_ll_usart.h"
 #include "stm32f4xx_ll_rcc.h"
 #include "stm32f4xx_ll_bus.h"
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
@@ -33,7 +33,7 @@
   * @{
   */
 
-#if defined (USART1) || defined (USART2) || defined (USART3) || defined (USART6) || defined (UART4) || defined (UART5) || defined (UART7) || defined (UART8) || defined (UART9) || defined (UART10)
+#if defined(USART1) || defined(USART2) || defined(USART3) || defined(USART6) || defined(UART4) || defined(UART5) || defined(UART7) || defined(UART8) || defined(UART9) || defined(UART10)
 
 /** @addtogroup USART_LL
   * @{
@@ -50,7 +50,6 @@
   * @}
   */
 
-
 /* Private macros ------------------------------------------------------------*/
 /** @addtogroup USART_LL_Private_Macros
   * @{
@@ -63,42 +62,25 @@
 /* __VALUE__ In case of oversampling by 16 and 8, BRR content must be greater than or equal to 16d. */
 #define IS_LL_USART_BRR_MIN(__VALUE__) ((__VALUE__) >= 16U)
 
-#define IS_LL_USART_DIRECTION(__VALUE__) (((__VALUE__) == LL_USART_DIRECTION_NONE) \
-                                       || ((__VALUE__) == LL_USART_DIRECTION_RX) \
-                                       || ((__VALUE__) == LL_USART_DIRECTION_TX) \
-                                       || ((__VALUE__) == LL_USART_DIRECTION_TX_RX))
+#define IS_LL_USART_DIRECTION(__VALUE__) (((__VALUE__) == LL_USART_DIRECTION_NONE) || ((__VALUE__) == LL_USART_DIRECTION_RX) || ((__VALUE__) == LL_USART_DIRECTION_TX) || ((__VALUE__) == LL_USART_DIRECTION_TX_RX))
 
-#define IS_LL_USART_PARITY(__VALUE__) (((__VALUE__) == LL_USART_PARITY_NONE) \
-                                    || ((__VALUE__) == LL_USART_PARITY_EVEN) \
-                                    || ((__VALUE__) == LL_USART_PARITY_ODD))
+#define IS_LL_USART_PARITY(__VALUE__) (((__VALUE__) == LL_USART_PARITY_NONE) || ((__VALUE__) == LL_USART_PARITY_EVEN) || ((__VALUE__) == LL_USART_PARITY_ODD))
 
-#define IS_LL_USART_DATAWIDTH(__VALUE__) (((__VALUE__) == LL_USART_DATAWIDTH_8B) \
-                                       || ((__VALUE__) == LL_USART_DATAWIDTH_9B))
+#define IS_LL_USART_DATAWIDTH(__VALUE__) (((__VALUE__) == LL_USART_DATAWIDTH_8B) || ((__VALUE__) == LL_USART_DATAWIDTH_9B))
 
-#define IS_LL_USART_OVERSAMPLING(__VALUE__) (((__VALUE__) == LL_USART_OVERSAMPLING_16) \
-                                          || ((__VALUE__) == LL_USART_OVERSAMPLING_8))
+#define IS_LL_USART_OVERSAMPLING(__VALUE__) (((__VALUE__) == LL_USART_OVERSAMPLING_16) || ((__VALUE__) == LL_USART_OVERSAMPLING_8))
 
-#define IS_LL_USART_LASTBITCLKOUTPUT(__VALUE__) (((__VALUE__) == LL_USART_LASTCLKPULSE_NO_OUTPUT) \
-                                              || ((__VALUE__) == LL_USART_LASTCLKPULSE_OUTPUT))
+#define IS_LL_USART_LASTBITCLKOUTPUT(__VALUE__) (((__VALUE__) == LL_USART_LASTCLKPULSE_NO_OUTPUT) || ((__VALUE__) == LL_USART_LASTCLKPULSE_OUTPUT))
 
-#define IS_LL_USART_CLOCKPHASE(__VALUE__) (((__VALUE__) == LL_USART_PHASE_1EDGE) \
-                                        || ((__VALUE__) == LL_USART_PHASE_2EDGE))
+#define IS_LL_USART_CLOCKPHASE(__VALUE__) (((__VALUE__) == LL_USART_PHASE_1EDGE) || ((__VALUE__) == LL_USART_PHASE_2EDGE))
 
-#define IS_LL_USART_CLOCKPOLARITY(__VALUE__) (((__VALUE__) == LL_USART_POLARITY_LOW) \
-                                           || ((__VALUE__) == LL_USART_POLARITY_HIGH))
+#define IS_LL_USART_CLOCKPOLARITY(__VALUE__) (((__VALUE__) == LL_USART_POLARITY_LOW) || ((__VALUE__) == LL_USART_POLARITY_HIGH))
 
-#define IS_LL_USART_CLOCKOUTPUT(__VALUE__) (((__VALUE__) == LL_USART_CLOCK_DISABLE) \
-                                         || ((__VALUE__) == LL_USART_CLOCK_ENABLE))
+#define IS_LL_USART_CLOCKOUTPUT(__VALUE__) (((__VALUE__) == LL_USART_CLOCK_DISABLE) || ((__VALUE__) == LL_USART_CLOCK_ENABLE))
 
-#define IS_LL_USART_STOPBITS(__VALUE__) (((__VALUE__) == LL_USART_STOPBITS_0_5) \
-                                      || ((__VALUE__) == LL_USART_STOPBITS_1) \
-                                      || ((__VALUE__) == LL_USART_STOPBITS_1_5) \
-                                      || ((__VALUE__) == LL_USART_STOPBITS_2))
+#define IS_LL_USART_STOPBITS(__VALUE__) (((__VALUE__) == LL_USART_STOPBITS_0_5) || ((__VALUE__) == LL_USART_STOPBITS_1) || ((__VALUE__) == LL_USART_STOPBITS_1_5) || ((__VALUE__) == LL_USART_STOPBITS_2))
 
-#define IS_LL_USART_HWCONTROL(__VALUE__) (((__VALUE__) == LL_USART_HWCONTROL_NONE) \
-                                       || ((__VALUE__) == LL_USART_HWCONTROL_RTS) \
-                                       || ((__VALUE__) == LL_USART_HWCONTROL_CTS) \
-                                       || ((__VALUE__) == LL_USART_HWCONTROL_RTS_CTS))
+#define IS_LL_USART_HWCONTROL(__VALUE__) (((__VALUE__) == LL_USART_HWCONTROL_NONE) || ((__VALUE__) == LL_USART_HWCONTROL_RTS) || ((__VALUE__) == LL_USART_HWCONTROL_CTS) || ((__VALUE__) == LL_USART_HWCONTROL_RTS_CTS))
 
 /**
   * @}
@@ -361,8 +343,7 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
        - valid baud rate value (different from 0) is required
        - Peripheral clock as returned by RCC service, should be valid (different from 0).
     */
-    if ((periphclk != LL_RCC_PERIPH_FREQUENCY_NO)
-        && (USART_InitStruct->BaudRate != 0U))
+    if ((periphclk != LL_RCC_PERIPH_FREQUENCY_NO) && (USART_InitStruct->BaudRate != 0U))
     {
       status = SUCCESS;
       LL_USART_SetBaudRate(USARTx,
@@ -389,13 +370,13 @@ ErrorStatus LL_USART_Init(USART_TypeDef *USARTx, LL_USART_InitTypeDef *USART_Ini
 void LL_USART_StructInit(LL_USART_InitTypeDef *USART_InitStruct)
 {
   /* Set USART_InitStruct fields to default values */
-  USART_InitStruct->BaudRate            = 9600U;
-  USART_InitStruct->DataWidth           = LL_USART_DATAWIDTH_8B;
-  USART_InitStruct->StopBits            = LL_USART_STOPBITS_1;
-  USART_InitStruct->Parity              = LL_USART_PARITY_NONE ;
-  USART_InitStruct->TransferDirection   = LL_USART_DIRECTION_TX_RX;
+  USART_InitStruct->BaudRate = 9600U;
+  USART_InitStruct->DataWidth = LL_USART_DATAWIDTH_8B;
+  USART_InitStruct->StopBits = LL_USART_STOPBITS_1;
+  USART_InitStruct->Parity = LL_USART_PARITY_NONE;
+  USART_InitStruct->TransferDirection = LL_USART_DIRECTION_TX_RX;
   USART_InitStruct->HardwareFlowControl = LL_USART_HWCONTROL_NONE;
-  USART_InitStruct->OverSampling        = LL_USART_OVERSAMPLING_16;
+  USART_InitStruct->OverSampling = LL_USART_OVERSAMPLING_16;
 }
 
 /**
@@ -451,7 +432,7 @@ ErrorStatus LL_USART_ClockInit(USART_TypeDef *USARTx, LL_USART_ClockInitTypeDef 
       MODIFY_REG(USARTx->CR2,
                  USART_CR2_CLKEN | USART_CR2_CPHA | USART_CR2_CPOL | USART_CR2_LBCL,
                  USART_CR2_CLKEN | USART_ClockInitStruct->ClockPolarity |
-                 USART_ClockInitStruct->ClockPhase | USART_ClockInitStruct->LastBitClockPulse);
+                     USART_ClockInitStruct->ClockPhase | USART_ClockInitStruct->LastBitClockPulse);
     }
   }
   /* Else (USART not in Disabled state => return ERROR */
@@ -472,10 +453,10 @@ ErrorStatus LL_USART_ClockInit(USART_TypeDef *USARTx, LL_USART_ClockInitTypeDef 
 void LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
 {
   /* Set LL_USART_ClockInitStruct fields with default values */
-  USART_ClockInitStruct->ClockOutput       = LL_USART_CLOCK_DISABLE;
-  USART_ClockInitStruct->ClockPolarity     = LL_USART_POLARITY_LOW;            /* Not relevant when ClockOutput = LL_USART_CLOCK_DISABLE */
-  USART_ClockInitStruct->ClockPhase        = LL_USART_PHASE_1EDGE;             /* Not relevant when ClockOutput = LL_USART_CLOCK_DISABLE */
-  USART_ClockInitStruct->LastBitClockPulse = LL_USART_LASTCLKPULSE_NO_OUTPUT;  /* Not relevant when ClockOutput = LL_USART_CLOCK_DISABLE */
+  USART_ClockInitStruct->ClockOutput = LL_USART_CLOCK_DISABLE;
+  USART_ClockInitStruct->ClockPolarity = LL_USART_POLARITY_LOW;               /* Not relevant when ClockOutput = LL_USART_CLOCK_DISABLE */
+  USART_ClockInitStruct->ClockPhase = LL_USART_PHASE_1EDGE;                   /* Not relevant when ClockOutput = LL_USART_CLOCK_DISABLE */
+  USART_ClockInitStruct->LastBitClockPulse = LL_USART_LASTCLKPULSE_NO_OUTPUT; /* Not relevant when ClockOutput = LL_USART_CLOCK_DISABLE */
 }
 
 /**
@@ -498,5 +479,4 @@ void LL_USART_ClockStructInit(LL_USART_ClockInitTypeDef *USART_ClockInitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

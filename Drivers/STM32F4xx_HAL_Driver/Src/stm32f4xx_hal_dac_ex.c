@@ -31,7 +31,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -41,7 +41,6 @@
   *
   ******************************************************************************
   */
-
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
@@ -99,7 +98,6 @@
 HAL_StatusTypeDef HAL_DACEx_DualStart(DAC_HandleTypeDef *hdac)
 {
   uint32_t tmp_swtrig = 0UL;
-
 
   /* Process locked */
   __HAL_LOCK(hdac);
@@ -366,7 +364,6 @@ __weak void HAL_DACEx_DMAUnderrunCallbackCh2(DAC_HandleTypeDef *hdac)
 }
 #endif /* DAC_CHANNEL2_SUPPORT */
 
-
 /**
   * @}
   */
@@ -494,4 +491,4 @@ void DAC_DMAErrorCh2(DMA_HandleTypeDef *hdma)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

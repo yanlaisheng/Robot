@@ -26,7 +26,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -124,7 +124,6 @@ void HAL_FMPSMBUSEx_DisableFastModePlus(uint32_t ConfigFastModePlus)
   CLEAR_BIT(SYSCFG->CFGR, (uint32_t)ConfigFastModePlus);
 }
 
-
 /**
   * @}
   */
@@ -143,4 +142,4 @@ void HAL_FMPSMBUSEx_DisableFastModePlus(uint32_t ConfigFastModePlus)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

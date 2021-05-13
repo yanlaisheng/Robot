@@ -187,7 +187,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -472,74 +472,74 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
   {
     switch (CallbackID)
     {
-      case HAL_IRDA_TX_HALFCOMPLETE_CB_ID :
-        hirda->TxHalfCpltCallback = pCallback;
-        break;
+    case HAL_IRDA_TX_HALFCOMPLETE_CB_ID:
+      hirda->TxHalfCpltCallback = pCallback;
+      break;
 
-      case HAL_IRDA_TX_COMPLETE_CB_ID :
-        hirda->TxCpltCallback = pCallback;
-        break;
+    case HAL_IRDA_TX_COMPLETE_CB_ID:
+      hirda->TxCpltCallback = pCallback;
+      break;
 
-      case HAL_IRDA_RX_HALFCOMPLETE_CB_ID :
-        hirda->RxHalfCpltCallback = pCallback;
-        break;
+    case HAL_IRDA_RX_HALFCOMPLETE_CB_ID:
+      hirda->RxHalfCpltCallback = pCallback;
+      break;
 
-      case HAL_IRDA_RX_COMPLETE_CB_ID :
-        hirda->RxCpltCallback = pCallback;
-        break;
+    case HAL_IRDA_RX_COMPLETE_CB_ID:
+      hirda->RxCpltCallback = pCallback;
+      break;
 
-      case HAL_IRDA_ERROR_CB_ID :
-        hirda->ErrorCallback = pCallback;
-        break;
+    case HAL_IRDA_ERROR_CB_ID:
+      hirda->ErrorCallback = pCallback;
+      break;
 
-      case HAL_IRDA_ABORT_COMPLETE_CB_ID :
-        hirda->AbortCpltCallback = pCallback;
-        break;
+    case HAL_IRDA_ABORT_COMPLETE_CB_ID:
+      hirda->AbortCpltCallback = pCallback;
+      break;
 
-      case HAL_IRDA_ABORT_TRANSMIT_COMPLETE_CB_ID :
-        hirda->AbortTransmitCpltCallback = pCallback;
-        break;
+    case HAL_IRDA_ABORT_TRANSMIT_COMPLETE_CB_ID:
+      hirda->AbortTransmitCpltCallback = pCallback;
+      break;
 
-      case HAL_IRDA_ABORT_RECEIVE_COMPLETE_CB_ID :
-        hirda->AbortReceiveCpltCallback = pCallback;
-        break;
+    case HAL_IRDA_ABORT_RECEIVE_COMPLETE_CB_ID:
+      hirda->AbortReceiveCpltCallback = pCallback;
+      break;
 
-      case HAL_IRDA_MSPINIT_CB_ID :
-        hirda->MspInitCallback = pCallback;
-        break;
+    case HAL_IRDA_MSPINIT_CB_ID:
+      hirda->MspInitCallback = pCallback;
+      break;
 
-      case HAL_IRDA_MSPDEINIT_CB_ID :
-        hirda->MspDeInitCallback = pCallback;
-        break;
+    case HAL_IRDA_MSPDEINIT_CB_ID:
+      hirda->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (hirda->gState == HAL_IRDA_STATE_RESET)
   {
     switch (CallbackID)
     {
-      case HAL_IRDA_MSPINIT_CB_ID :
-        hirda->MspInitCallback = pCallback;
-        break;
+    case HAL_IRDA_MSPINIT_CB_ID:
+      hirda->MspInitCallback = pCallback;
+      break;
 
-      case HAL_IRDA_MSPDEINIT_CB_ID :
-        hirda->MspDeInitCallback = pCallback;
-        break;
+    case HAL_IRDA_MSPDEINIT_CB_ID:
+      hirda->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -548,7 +548,7 @@ HAL_StatusTypeDef HAL_IRDA_RegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRDA_
     hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -586,74 +586,74 @@ HAL_StatusTypeDef HAL_IRDA_UnRegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRD
   {
     switch (CallbackID)
     {
-      case HAL_IRDA_TX_HALFCOMPLETE_CB_ID :
-        hirda->TxHalfCpltCallback = HAL_IRDA_TxHalfCpltCallback;               /* Legacy weak  TxHalfCpltCallback       */
-        break;
+    case HAL_IRDA_TX_HALFCOMPLETE_CB_ID:
+      hirda->TxHalfCpltCallback = HAL_IRDA_TxHalfCpltCallback; /* Legacy weak  TxHalfCpltCallback       */
+      break;
 
-      case HAL_IRDA_TX_COMPLETE_CB_ID :
-        hirda->TxCpltCallback = HAL_IRDA_TxCpltCallback;                       /* Legacy weak TxCpltCallback            */
-        break;
+    case HAL_IRDA_TX_COMPLETE_CB_ID:
+      hirda->TxCpltCallback = HAL_IRDA_TxCpltCallback; /* Legacy weak TxCpltCallback            */
+      break;
 
-      case HAL_IRDA_RX_HALFCOMPLETE_CB_ID :
-        hirda->RxHalfCpltCallback = HAL_IRDA_RxHalfCpltCallback;               /* Legacy weak RxHalfCpltCallback        */
-        break;
+    case HAL_IRDA_RX_HALFCOMPLETE_CB_ID:
+      hirda->RxHalfCpltCallback = HAL_IRDA_RxHalfCpltCallback; /* Legacy weak RxHalfCpltCallback        */
+      break;
 
-      case HAL_IRDA_RX_COMPLETE_CB_ID :
-        hirda->RxCpltCallback = HAL_IRDA_RxCpltCallback;                       /* Legacy weak RxCpltCallback            */
-        break;
+    case HAL_IRDA_RX_COMPLETE_CB_ID:
+      hirda->RxCpltCallback = HAL_IRDA_RxCpltCallback; /* Legacy weak RxCpltCallback            */
+      break;
 
-      case HAL_IRDA_ERROR_CB_ID :
-        hirda->ErrorCallback = HAL_IRDA_ErrorCallback;                         /* Legacy weak ErrorCallback             */
-        break;
+    case HAL_IRDA_ERROR_CB_ID:
+      hirda->ErrorCallback = HAL_IRDA_ErrorCallback; /* Legacy weak ErrorCallback             */
+      break;
 
-      case HAL_IRDA_ABORT_COMPLETE_CB_ID :
-        hirda->AbortCpltCallback = HAL_IRDA_AbortCpltCallback;                 /* Legacy weak AbortCpltCallback         */
-        break;
+    case HAL_IRDA_ABORT_COMPLETE_CB_ID:
+      hirda->AbortCpltCallback = HAL_IRDA_AbortCpltCallback; /* Legacy weak AbortCpltCallback         */
+      break;
 
-      case HAL_IRDA_ABORT_TRANSMIT_COMPLETE_CB_ID :
-        hirda->AbortTransmitCpltCallback = HAL_IRDA_AbortTransmitCpltCallback; /* Legacy weak AbortTransmitCpltCallback */
-        break;
+    case HAL_IRDA_ABORT_TRANSMIT_COMPLETE_CB_ID:
+      hirda->AbortTransmitCpltCallback = HAL_IRDA_AbortTransmitCpltCallback; /* Legacy weak AbortTransmitCpltCallback */
+      break;
 
-      case HAL_IRDA_ABORT_RECEIVE_COMPLETE_CB_ID :
-        hirda->AbortReceiveCpltCallback = HAL_IRDA_AbortReceiveCpltCallback;   /* Legacy weak AbortReceiveCpltCallback  */
-        break;
+    case HAL_IRDA_ABORT_RECEIVE_COMPLETE_CB_ID:
+      hirda->AbortReceiveCpltCallback = HAL_IRDA_AbortReceiveCpltCallback; /* Legacy weak AbortReceiveCpltCallback  */
+      break;
 
-      case HAL_IRDA_MSPINIT_CB_ID :
-        hirda->MspInitCallback = HAL_IRDA_MspInit;                             /* Legacy weak MspInitCallback           */
-        break;
+    case HAL_IRDA_MSPINIT_CB_ID:
+      hirda->MspInitCallback = HAL_IRDA_MspInit; /* Legacy weak MspInitCallback           */
+      break;
 
-      case HAL_IRDA_MSPDEINIT_CB_ID :
-        hirda->MspDeInitCallback = HAL_IRDA_MspDeInit;                         /* Legacy weak MspDeInitCallback         */
-        break;
+    case HAL_IRDA_MSPDEINIT_CB_ID:
+      hirda->MspDeInitCallback = HAL_IRDA_MspDeInit; /* Legacy weak MspDeInitCallback         */
+      break;
 
-      default :
-        /* Update the error code */
-        hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (HAL_IRDA_STATE_RESET == hirda->gState)
   {
     switch (CallbackID)
     {
-      case HAL_IRDA_MSPINIT_CB_ID :
-        hirda->MspInitCallback = HAL_IRDA_MspInit;
-        break;
+    case HAL_IRDA_MSPINIT_CB_ID:
+      hirda->MspInitCallback = HAL_IRDA_MspInit;
+      break;
 
-      case HAL_IRDA_MSPDEINIT_CB_ID :
-        hirda->MspDeInitCallback = HAL_IRDA_MspDeInit;
-        break;
+    case HAL_IRDA_MSPDEINIT_CB_ID:
+      hirda->MspDeInitCallback = HAL_IRDA_MspDeInit;
+      break;
 
-      default :
-        /* Update the error code */
-        hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -662,7 +662,7 @@ HAL_StatusTypeDef HAL_IRDA_UnRegisterCallback(IRDA_HandleTypeDef *hirda, HAL_IRD
     hirda->ErrorCode |= HAL_IRDA_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -777,7 +777,7 @@ HAL_StatusTypeDef HAL_IRDA_Transmit(IRDA_HandleTypeDef *hirda, uint8_t *pData, u
   {
     if ((pData == NULL) || (Size == 0U))
     {
-      return  HAL_ERROR;
+      return HAL_ERROR;
     }
 
     /* Process Locked */
@@ -800,7 +800,7 @@ HAL_StatusTypeDef HAL_IRDA_Transmit(IRDA_HandleTypeDef *hirda, uint8_t *pData, u
         {
           return HAL_TIMEOUT;
         }
-        tmp = (uint16_t *) pData;
+        tmp = (uint16_t *)pData;
         hirda->Instance->DR = (*tmp & (uint16_t)0x01FF);
         if (hirda->Init.Parity == IRDA_PARITY_NONE)
         {
@@ -862,7 +862,7 @@ HAL_StatusTypeDef HAL_IRDA_Receive(IRDA_HandleTypeDef *hirda, uint8_t *pData, ui
   {
     if ((pData == NULL) || (Size == 0U))
     {
-      return  HAL_ERROR;
+      return HAL_ERROR;
     }
 
     /* Process Locked */
@@ -888,7 +888,7 @@ HAL_StatusTypeDef HAL_IRDA_Receive(IRDA_HandleTypeDef *hirda, uint8_t *pData, ui
         {
           return HAL_TIMEOUT;
         }
-        tmp = (uint16_t *) pData ;
+        tmp = (uint16_t *)pData;
         if (hirda->Init.Parity == IRDA_PARITY_NONE)
         {
           *tmp = (uint16_t)(hirda->Instance->DR & (uint16_t)0x01FF);
@@ -1544,7 +1544,7 @@ HAL_StatusTypeDef HAL_IRDA_Abort_IT(IRDA_HandleTypeDef *hirda)
     hirda->ErrorCode = HAL_IRDA_ERROR_NONE;
 
     /* Restore hirda->gState and hirda->RxState to Ready */
-    hirda->gState  = HAL_IRDA_STATE_READY;
+    hirda->gState = HAL_IRDA_STATE_READY;
     hirda->RxState = HAL_IRDA_STATE_READY;
 
     /* As no DMA to be aborted, call directly user Abort complete callback */
@@ -1723,9 +1723,9 @@ HAL_StatusTypeDef HAL_IRDA_AbortReceive_IT(IRDA_HandleTypeDef *hirda)
   */
 void HAL_IRDA_IRQHandler(IRDA_HandleTypeDef *hirda)
 {
-  uint32_t isrflags   = READ_REG(hirda->Instance->SR);
-  uint32_t cr1its     = READ_REG(hirda->Instance->CR1);
-  uint32_t cr3its     = READ_REG(hirda->Instance->CR3);
+  uint32_t isrflags = READ_REG(hirda->Instance->SR);
+  uint32_t cr1its = READ_REG(hirda->Instance->CR1);
+  uint32_t cr3its = READ_REG(hirda->Instance->CR3);
   uint32_t errorflags = 0x00U;
   uint32_t dmarequest = 0x00U;
 
@@ -2056,15 +2056,14 @@ uint32_t HAL_IRDA_GetError(IRDA_HandleTypeDef *hirda)
 void IRDA_InitCallbacksToDefault(IRDA_HandleTypeDef *hirda)
 {
   /* Init the IRDA Callback settings */
-  hirda->TxHalfCpltCallback        = HAL_IRDA_TxHalfCpltCallback;        /* Legacy weak TxHalfCpltCallback        */
-  hirda->TxCpltCallback            = HAL_IRDA_TxCpltCallback;            /* Legacy weak TxCpltCallback            */
-  hirda->RxHalfCpltCallback        = HAL_IRDA_RxHalfCpltCallback;        /* Legacy weak RxHalfCpltCallback        */
-  hirda->RxCpltCallback            = HAL_IRDA_RxCpltCallback;            /* Legacy weak RxCpltCallback            */
-  hirda->ErrorCallback             = HAL_IRDA_ErrorCallback;             /* Legacy weak ErrorCallback             */
-  hirda->AbortCpltCallback         = HAL_IRDA_AbortCpltCallback;         /* Legacy weak AbortCpltCallback         */
+  hirda->TxHalfCpltCallback = HAL_IRDA_TxHalfCpltCallback;               /* Legacy weak TxHalfCpltCallback        */
+  hirda->TxCpltCallback = HAL_IRDA_TxCpltCallback;                       /* Legacy weak TxCpltCallback            */
+  hirda->RxHalfCpltCallback = HAL_IRDA_RxHalfCpltCallback;               /* Legacy weak RxHalfCpltCallback        */
+  hirda->RxCpltCallback = HAL_IRDA_RxCpltCallback;                       /* Legacy weak RxCpltCallback            */
+  hirda->ErrorCallback = HAL_IRDA_ErrorCallback;                         /* Legacy weak ErrorCallback             */
+  hirda->AbortCpltCallback = HAL_IRDA_AbortCpltCallback;                 /* Legacy weak AbortCpltCallback         */
   hirda->AbortTransmitCpltCallback = HAL_IRDA_AbortTransmitCpltCallback; /* Legacy weak AbortTransmitCpltCallback */
-  hirda->AbortReceiveCpltCallback  = HAL_IRDA_AbortReceiveCpltCallback;  /* Legacy weak AbortReceiveCpltCallback  */
-
+  hirda->AbortReceiveCpltCallback = HAL_IRDA_AbortReceiveCpltCallback;   /* Legacy weak AbortReceiveCpltCallback  */
 }
 #endif /* USE_HAL_IRDA_REGISTER_CALLBACKS */
 
@@ -2238,7 +2237,7 @@ static HAL_StatusTypeDef IRDA_WaitOnFlagUntilTimeout(IRDA_HandleTypeDef *hirda, 
         CLEAR_BIT(hirda->Instance->CR1, (USART_CR1_RXNEIE | USART_CR1_PEIE | USART_CR1_TXEIE));
         CLEAR_BIT(hirda->Instance->CR3, USART_CR3_EIE);
 
-        hirda->gState  = HAL_IRDA_STATE_READY;
+        hirda->gState = HAL_IRDA_STATE_READY;
         hirda->RxState = HAL_IRDA_STATE_READY;
 
         /* Process Unlocked */
@@ -2332,7 +2331,7 @@ static void IRDA_DMATxAbortCallback(DMA_HandleTypeDef *hdma)
   hirda->ErrorCode = HAL_IRDA_ERROR_NONE;
 
   /* Restore hirda->gState and hirda->RxState to Ready */
-  hirda->gState  = HAL_IRDA_STATE_READY;
+  hirda->gState = HAL_IRDA_STATE_READY;
   hirda->RxState = HAL_IRDA_STATE_READY;
 
   /* Call user Abort complete callback */
@@ -2376,7 +2375,7 @@ static void IRDA_DMARxAbortCallback(DMA_HandleTypeDef *hdma)
   hirda->ErrorCode = HAL_IRDA_ERROR_NONE;
 
   /* Restore hirda->gState and hirda->RxState to Ready */
-  hirda->gState  = HAL_IRDA_STATE_READY;
+  hirda->gState = HAL_IRDA_STATE_READY;
   hirda->RxState = HAL_IRDA_STATE_READY;
 
   /* Call user Abort complete callback */
@@ -2458,7 +2457,7 @@ static HAL_StatusTypeDef IRDA_Transmit_IT(IRDA_HandleTypeDef *hirda)
   {
     if (hirda->Init.WordLength == IRDA_WORDLENGTH_9B)
     {
-      tmp = (uint16_t *) hirda->pTxBuffPtr;
+      tmp = (uint16_t *)hirda->pTxBuffPtr;
       hirda->Instance->DR = (uint16_t)(*tmp & (uint16_t)0x01FF);
       if (hirda->Init.Parity == IRDA_PARITY_NONE)
       {
@@ -2528,15 +2527,15 @@ static HAL_StatusTypeDef IRDA_EndTransmit_IT(IRDA_HandleTypeDef *hirda)
 static HAL_StatusTypeDef IRDA_Receive_IT(IRDA_HandleTypeDef *hirda)
 {
   uint16_t *tmp;
-  uint16_t  uhdata;
+  uint16_t uhdata;
 
   /* Check that a Rx process is ongoing */
   if (hirda->RxState == HAL_IRDA_STATE_BUSY_RX)
   {
-    uhdata = (uint16_t) READ_REG(hirda->Instance->DR);
+    uhdata = (uint16_t)READ_REG(hirda->Instance->DR);
     if (hirda->Init.WordLength == IRDA_WORDLENGTH_9B)
     {
-      tmp = (uint16_t *) hirda->pRxBuffPtr;
+      tmp = (uint16_t *)hirda->pRxBuffPtr;
       if (hirda->Init.Parity == IRDA_PARITY_NONE)
       {
         *tmp = (uint16_t)(uhdata & (uint16_t)0x01FF);
@@ -2631,19 +2630,19 @@ static void IRDA_SetConfig(IRDA_HandleTypeDef *hirda)
 
   /*-------------------------- USART BRR Configuration -----------------------*/
 #if defined(USART6) && defined(UART9) && defined(UART10)
-   if ((hirda->Instance == USART1) || (hirda->Instance == USART6) || (hirda->Instance == UART9) || (hirda->Instance == UART10))
-   {
+  if ((hirda->Instance == USART1) || (hirda->Instance == USART6) || (hirda->Instance == UART9) || (hirda->Instance == UART10))
+  {
     pclk = HAL_RCC_GetPCLK2Freq();
     SET_BIT(hirda->Instance->BRR, IRDA_BRR(pclk, hirda->Init.BaudRate));
-   }
+  }
 #elif defined(USART6)
-  if((hirda->Instance == USART1) || (hirda->Instance == USART6))
+  if ((hirda->Instance == USART1) || (hirda->Instance == USART6))
   {
     pclk = HAL_RCC_GetPCLK2Freq();
     SET_BIT(hirda->Instance->BRR, IRDA_BRR(pclk, hirda->Init.BaudRate));
   }
 #else
-  if(hirda->Instance == USART1)
+  if (hirda->Instance == USART1)
   {
     pclk = HAL_RCC_GetPCLK2Freq();
     SET_BIT(hirda->Instance->BRR, IRDA_BRR(pclk, hirda->Init.BaudRate));
@@ -2669,4 +2668,4 @@ static void IRDA_SetConfig(IRDA_HandleTypeDef *hirda)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

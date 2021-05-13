@@ -1,22 +1,26 @@
 //包含头文件
-#include "include.h" 
+#include "include.h"
 //#include "ringbuffer.h"
 
-MOTOR_CONTROL_S motor1;	     	 
-MOTOR_CONTROL_S motor2;	     	 
-MOTOR_CONTROL_S motor3;	      
-MOTOR_CONTROL_SPTA motor4;
+MOTOR_CONTROL_S motor1;
+MOTOR_CONTROL_S motor2;
+MOTOR_CONTROL_S motor3;
+MOTOR_CONTROL_S motor4;
+MOTOR_CONTROL_S motor5;
+MOTOR_CONTROL_S motor6;
+// MOTOR_CONTROL_SPTA motor4;
 
 /*简单的延时函数*/
 void TimerDly(unsigned int Time)
 {
-	unsigned int i=0;
-	while(Time)
+	unsigned int i = 0;
+	while (Time)
 	{
-		for(i=0;i<8000;i++);
+		for (i = 0; i < 8000; i++)
+			;
 		Time--;
 	}
-} 
+}
 
 ///*系统时钟初始化*/
 //void RCC_Configuration(void)
@@ -76,51 +80,51 @@ void TimerDly(unsigned int Time)
 
 ///*电机驱动测试*/
 //int motortest(void)
-//{	
+//{
 //	System_Init(); 				//系统时钟初始化 72M主频，HCLK 72M   PCLK2 72M  PCLK1 36M
-//	
+//
 //	/*初始化电机控制的GPIO口，一部分是普通的GPIO，一部分是用于PWM输出的GPIO口*/
-//	Initial_MotorIO();    		//电机IO口初始化 
-//	
+//	Initial_MotorIO();    		//电机IO口初始化
+//
 //	//设置各个输出的PWM参数
-//	Initial_PWM_Motor1();				//初始化电机1的PWM 
+//	Initial_PWM_Motor1();				//初始化电机1的PWM
 //	Initial_PWM_Motor2();				//初始化电机2的PWM
 //	Initial_PWM_Motor3();				//初始化电机3的PWM
 //	Initial_PWM_Motor4();				//初始化电机4的TIM
-//	
+//
 //	/*初始化电机运行参数，主要是根据S型曲线参数生成表格*/
 //	MotorRunParaInitial();
-//	
+//
 //	/*将电机的驱动细分，通过控制连接THB6128的GPIO引脚的电平实现
 //	此外还有指定各个电机使用的定时器，GPIO，电机顺时针方向数值等参数*/
-//	Initial_Motor(1,M1DIV,73600);   	
-//  Initial_Motor(2,M2DIV,73600);   		
-//	Initial_Motor(3,M3DIV,73600); 	
-//  Initial_Motor(4,M4DIV,73600);  	
-//	
+//	Initial_Motor(1,M1DIV,73600);
+//  Initial_Motor(2,M2DIV,73600);
+//	Initial_Motor(3,M3DIV,73600);
+//  Initial_Motor(4,M4DIV,73600);
+//
 //	/*外部中断初始化，电机复位时使用*/
-//	EXTI_Configuration();	
-//	
+//	EXTI_Configuration();
+//
 //	/*串口初始化，调试使用*/
-//	USART1_Initial(); 
+//	USART1_Initial();
 //	//USART2_Initial();
 //	USART1_Printfstr("APP Start\r\n");
 ////	rt_ringbuffer_init(&rb_recv,(unsigned char *)USART1_RxBuffer,USART1RXSIZE);
 //
 //	/*单个电机启动控制*/
-///*	
-//	Start_Motor_S(1,M1_CLOCKWISE,200*70);  		 
+///*
+//	Start_Motor_S(1,M1_CLOCKWISE,200*70);
 //	while(motor1.running==1);
-//	TimerDly(500); 
-//	Start_Motor_S(1,M1_UNCLOCKWISE,200*300);  		 
+//	TimerDly(500);
+//	Start_Motor_S(1,M1_UNCLOCKWISE,200*300);
 //	while(motor1.running==1);
-//	TimerDly(500); 		 
+//	TimerDly(500);
 //  			 */
 ////	Start_Motor_S(2,M2_CLOCKWISE,50);
 ////	while(motor2.running==1);
-////	Start_Motor_S(2,M2_UNCLOCKWISE,50);  		 
+////	Start_Motor_S(2,M2_UNCLOCKWISE,50);
 ////	while(motor2.running==1);
-////	TimerDly(500); 
+////	TimerDly(500);
 //		Start_Motor_S(2,M2_UNCLOCKWISE,100*1);
 //			while(motor2.running==1);
 //	//	Start_Motor_S(2,M2_CLOCKWISE,200*1);
@@ -129,40 +133,39 @@ void TimerDly(unsigned int Time)
 //			while(motor2.running==1);
 //		Start_Motor_S(2,M2_CLOCKWISE,200*15);
 //			while(motor2.running==1);
-//		Start_Motor_S(2,M2_UNCLOCKWISE,200*15);  		 
+//		Start_Motor_S(2,M2_UNCLOCKWISE,200*15);
 //	while(motor2.running==1);
-//	TimerDly(500); 
-// 	 
-//	Start_Motor_S(3,M3_CLOCKWISE,3200);  		 
+//	TimerDly(500);
+//
+//	Start_Motor_S(3,M3_CLOCKWISE,3200);
 //	while(motor3.running==1);
-//	TimerDly(500); 
-//	Start_Motor_S(3,M3_UNCLOCKWISE,3200);  	 
-//	while(motor3.running==1); 
-//	TimerDly(500); 
+//	TimerDly(500);
+//	Start_Motor_S(3,M3_UNCLOCKWISE,3200);
+//	while(motor3.running==1);
+//	TimerDly(500);
 //   		  */
 //	/*
-//	Start_Motor_SPTA(4,M4_CLOCKWISE,200*100);  		 
+//	Start_Motor_SPTA(4,M4_CLOCKWISE,200*100);
 //	while(motor4.running==1);
-//	TimerDly(500); 
-//	Start_Motor_SPTA(4,M4_UNCLOCKWISE,200*100);  	 
-//	while(motor4.running==1); 
-//	TimerDly(500);	 
+//	TimerDly(500);
+//	Start_Motor_SPTA(4,M4_UNCLOCKWISE,200*100);
+//	while(motor4.running==1);
+//	TimerDly(500);
 // 	*/
 //#if 0
 //	/*电机1电机2同步控制*/
-//	Start_Motor12(1,500,1,10000); 
-//	while(motor1.running==1); 
-//	while(motor2.running==1); 
+//	Start_Motor12(1,500,1,10000);
+//	while(motor1.running==1);
+//	while(motor2.running==1);
 //	/*电机1电机2同步控制*/
-//	Start_Motor12(1,5000,1,10000); 
-//	while(motor1.running==1); 
-//	while(motor2.running==1); 
-//#endif	
+//	Start_Motor12(1,5000,1,10000);
+//	while(motor1.running==1);
+//	while(motor2.running==1);
+//#endif
 //	/*电机串口命令控制*/
 //	while(1)
-//	{		
-//		//Deal_Cmd();		
+//	{
+//		//Deal_Cmd();
 //	}
 //}
 //
-

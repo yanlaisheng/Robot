@@ -25,7 +25,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2017 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -103,18 +103,18 @@ void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
   /* This setting must be done with both audio block (A & B) disabled         */
   switch (hsai->Init.SynchroExt)
   {
-    case SAI_SYNCEXT_DISABLE :
-      tmpregisterGCR = 0U;
-      break;
-    case SAI_SYNCEXT_OUTBLOCKA_ENABLE :
-      tmpregisterGCR = SAI_GCR_SYNCOUT_0;
-      break;
-    case SAI_SYNCEXT_OUTBLOCKB_ENABLE :
-      tmpregisterGCR = SAI_GCR_SYNCOUT_1;
-      break;
-    default:
-      tmpregisterGCR = 0U;
-      break;
+  case SAI_SYNCEXT_DISABLE:
+    tmpregisterGCR = 0U;
+    break;
+  case SAI_SYNCEXT_OUTBLOCKA_ENABLE:
+    tmpregisterGCR = SAI_GCR_SYNCOUT_0;
+    break;
+  case SAI_SYNCEXT_OUTBLOCKB_ENABLE:
+    tmpregisterGCR = SAI_GCR_SYNCOUT_1;
+    break;
+  default:
+    tmpregisterGCR = 0U;
+    break;
   }
 
   if ((hsai->Init.Synchro) == SAI_SYNCHRONOUS_EXT_SAI2)
@@ -136,18 +136,18 @@ void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai)
   /* This setting must be done with both audio block (A & B) disabled         */
   switch (hsai->Init.SynchroExt)
   {
-    case SAI_SYNCEXT_DISABLE :
-      tmpregisterGCR = 0U;
-      break;
-    case SAI_SYNCEXT_OUTBLOCKA_ENABLE :
-      tmpregisterGCR = SAI_GCR_SYNCOUT_0;
-      break;
-    case SAI_SYNCEXT_OUTBLOCKB_ENABLE :
-      tmpregisterGCR = SAI_GCR_SYNCOUT_1;
-      break;
-    default:
-      tmpregisterGCR = 0U;
-      break;
+  case SAI_SYNCEXT_DISABLE:
+    tmpregisterGCR = 0U;
+    break;
+  case SAI_SYNCEXT_OUTBLOCKA_ENABLE:
+    tmpregisterGCR = SAI_GCR_SYNCOUT_0;
+    break;
+  case SAI_SYNCEXT_OUTBLOCKB_ENABLE:
+    tmpregisterGCR = SAI_GCR_SYNCOUT_1;
+    break;
+  default:
+    tmpregisterGCR = 0U;
+    break;
   }
   SAI1->GCR = tmpregisterGCR;
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F469xx || STM32F479xx || STM32F413xx || STM32F423xx */
@@ -174,7 +174,7 @@ uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
   }
 #endif /* STM32F446xx */
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx) || \
-  defined(STM32F469xx) || defined(STM32F479xx) || defined(STM32F413xx) || defined(STM32F423xx)
+    defined(STM32F469xx) || defined(STM32F479xx) || defined(STM32F413xx) || defined(STM32F423xx)
   uint32_t vcoinput = 0U, tmpreg = 0U;
 
   /* Check the SAI Block parameters */
@@ -216,7 +216,6 @@ uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
     tmpreg = (((RCC->DCKCFGR & RCC_DCKCFGR_PLLDIVR) >> 8U) + 1U);
 
     saiclocksource = saiclocksource / (tmpreg);
-
   }
   else if (hsai->Init.ClockSource == SAI_CLKSOURCE_PLLI2S)
   {
@@ -262,7 +261,6 @@ uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
     /* SAI_CLK_x = SAI_CLK(first level)/PLLSAIDIVQ */
     tmpreg = (((RCC->DCKCFGR & RCC_DCKCFGR_PLLSAIDIVQ) >> 8U) + 1U);
     saiclocksource = saiclocksource / (tmpreg);
-
   }
   else if (hsai->Init.ClockSource == SAI_CLKSOURCE_PLLI2S)
   {
@@ -308,4 +306,4 @@ uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

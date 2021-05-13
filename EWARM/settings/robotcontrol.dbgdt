@@ -924,7 +924,7 @@
                     <item>htim2_MOTOR1</item>
                     <item>w_ParLst_Drive[27]</item>
                     <item>w_ParLst_Drive[44]</item>
-                    <item></item>
+                    <item />
                 </expressions>
                 <col-names>
                     <item>Expression</item>

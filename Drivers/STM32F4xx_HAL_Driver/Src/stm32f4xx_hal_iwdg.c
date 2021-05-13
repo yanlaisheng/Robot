@@ -83,7 +83,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -119,8 +119,8 @@
    the LSI_VALUE constant. The value of this constant can be changed by the user
    to take into account possible LSI clock period variations.
    The timeout value is multiplied by 1000 to be converted in milliseconds. */
-#define HAL_IWDG_DEFAULT_TIMEOUT        ((6UL * 256UL * 1000UL) / LSI_VALUE)
-#define IWDG_KERNEL_UPDATE_FLAGS        (IWDG_SR_RVU | IWDG_SR_PVU)
+#define HAL_IWDG_DEFAULT_TIMEOUT ((6UL * 256UL * 1000UL) / LSI_VALUE)
+#define IWDG_KERNEL_UPDATE_FLAGS (IWDG_SR_RVU | IWDG_SR_PVU)
 /**
   * @}
   */
@@ -207,11 +207,9 @@ HAL_StatusTypeDef HAL_IWDG_Init(IWDG_HandleTypeDef *hiwdg)
   return HAL_OK;
 }
 
-
 /**
   * @}
   */
-
 
 /** @addtogroup IWDG_Exported_Functions_Group2
   *  @brief   IO operation functions
@@ -242,7 +240,6 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg)
   return HAL_OK;
 }
 
-
 /**
   * @}
   */
@@ -260,4 +257,4 @@ HAL_StatusTypeDef HAL_IWDG_Refresh(IWDG_HandleTypeDef *hiwdg)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

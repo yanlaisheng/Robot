@@ -81,7 +81,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -99,7 +99,7 @@
   * @{
   */
 
-#if defined (RNG)
+#if defined(RNG)
 
 /** @addtogroup RNG
   * @brief RNG HAL module driver.
@@ -115,7 +115,7 @@
 /** @defgroup RNG_Private_Constants RNG Private Constants
   * @{
   */
-#define RNG_TIMEOUT_VALUE     2U
+#define RNG_TIMEOUT_VALUE 2U
 /**
   * @}
   */
@@ -168,8 +168,8 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
     /* Allocate lock resource and initialize it */
     hrng->Lock = HAL_UNLOCKED;
 
-    hrng->ReadyDataCallback  = HAL_RNG_ReadyDataCallback;  /* Legacy weak ReadyDataCallback  */
-    hrng->ErrorCallback      = HAL_RNG_ErrorCallback;      /* Legacy weak ErrorCallback      */
+    hrng->ReadyDataCallback = HAL_RNG_ReadyDataCallback; /* Legacy weak ReadyDataCallback  */
+    hrng->ErrorCallback = HAL_RNG_ErrorCallback;         /* Legacy weak ErrorCallback      */
 
     if (hrng->MspInitCallback == NULL)
     {
@@ -192,7 +192,6 @@ HAL_StatusTypeDef HAL_RNG_Init(RNG_HandleTypeDef *hrng)
 
   /* Change RNG peripheral state */
   hrng->State = HAL_RNG_STATE_BUSY;
-
 
   /* Enable the RNG Peripheral */
   __HAL_RNG_ENABLE(hrng);
@@ -313,44 +312,44 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
   {
     switch (CallbackID)
     {
-      case HAL_RNG_ERROR_CB_ID :
-        hrng->ErrorCallback = pCallback;
-        break;
+    case HAL_RNG_ERROR_CB_ID:
+      hrng->ErrorCallback = pCallback;
+      break;
 
-      case HAL_RNG_MSPINIT_CB_ID :
-        hrng->MspInitCallback = pCallback;
-        break;
+    case HAL_RNG_MSPINIT_CB_ID:
+      hrng->MspInitCallback = pCallback;
+      break;
 
-      case HAL_RNG_MSPDEINIT_CB_ID :
-        hrng->MspDeInitCallback = pCallback;
-        break;
+    case HAL_RNG_MSPDEINIT_CB_ID:
+      hrng->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+    default:
+      /* Update the error code */
+      hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (HAL_RNG_STATE_RESET == hrng->State)
   {
     switch (CallbackID)
     {
-      case HAL_RNG_MSPINIT_CB_ID :
-        hrng->MspInitCallback = pCallback;
-        break;
+    case HAL_RNG_MSPINIT_CB_ID:
+      hrng->MspInitCallback = pCallback;
+      break;
 
-      case HAL_RNG_MSPDEINIT_CB_ID :
-        hrng->MspDeInitCallback = pCallback;
-        break;
+    case HAL_RNG_MSPDEINIT_CB_ID:
+      hrng->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+    default:
+      /* Update the error code */
+      hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -358,7 +357,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Call
     /* Update the error code */
     hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -388,44 +387,44 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Ca
   {
     switch (CallbackID)
     {
-      case HAL_RNG_ERROR_CB_ID :
-        hrng->ErrorCallback = HAL_RNG_ErrorCallback;          /* Legacy weak ErrorCallback  */
-        break;
+    case HAL_RNG_ERROR_CB_ID:
+      hrng->ErrorCallback = HAL_RNG_ErrorCallback; /* Legacy weak ErrorCallback  */
+      break;
 
-      case HAL_RNG_MSPINIT_CB_ID :
-        hrng->MspInitCallback = HAL_RNG_MspInit;              /* Legacy weak MspInit  */
-        break;
+    case HAL_RNG_MSPINIT_CB_ID:
+      hrng->MspInitCallback = HAL_RNG_MspInit; /* Legacy weak MspInit  */
+      break;
 
-      case HAL_RNG_MSPDEINIT_CB_ID :
-        hrng->MspDeInitCallback = HAL_RNG_MspDeInit;          /* Legacy weak MspDeInit  */
-        break;
+    case HAL_RNG_MSPDEINIT_CB_ID:
+      hrng->MspDeInitCallback = HAL_RNG_MspDeInit; /* Legacy weak MspDeInit  */
+      break;
 
-      default :
-        /* Update the error code */
-        hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+    default:
+      /* Update the error code */
+      hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (HAL_RNG_STATE_RESET == hrng->State)
   {
     switch (CallbackID)
     {
-      case HAL_RNG_MSPINIT_CB_ID :
-        hrng->MspInitCallback = HAL_RNG_MspInit;              /* Legacy weak MspInit  */
-        break;
+    case HAL_RNG_MSPINIT_CB_ID:
+      hrng->MspInitCallback = HAL_RNG_MspInit; /* Legacy weak MspInit  */
+      break;
 
-      case HAL_RNG_MSPDEINIT_CB_ID :
-        hrng->MspDeInitCallback = HAL_RNG_MspDeInit;          /* Legacy weak MspInit  */
-        break;
+    case HAL_RNG_MSPDEINIT_CB_ID:
+      hrng->MspDeInitCallback = HAL_RNG_MspDeInit; /* Legacy weak MspInit  */
+      break;
 
-      default :
-        /* Update the error code */
-        hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+    default:
+      /* Update the error code */
+      hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -433,7 +432,7 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterCallback(RNG_HandleTypeDef *hrng, HAL_RNG_Ca
     /* Update the error code */
     hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -470,7 +469,7 @@ HAL_StatusTypeDef HAL_RNG_RegisterReadyDataCallback(RNG_HandleTypeDef *hrng, pRN
     /* Update the error code */
     hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -500,7 +499,7 @@ HAL_StatusTypeDef HAL_RNG_UnRegisterReadyDataCallback(RNG_HandleTypeDef *hrng)
     /* Update the error code */
     hrng->ErrorCode = HAL_RNG_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -801,7 +800,6 @@ __weak void HAL_RNG_ErrorCallback(RNG_HandleTypeDef *hrng)
   * @}
   */
 
-
 /** @addtogroup RNG_Exported_Functions_Group3
  *  @brief   Peripheral State functions
  *
@@ -846,7 +844,6 @@ uint32_t HAL_RNG_GetError(RNG_HandleTypeDef *hrng)
   * @}
   */
 
-
 #endif /* HAL_RNG_MODULE_ENABLED */
 /**
   * @}
@@ -858,4 +855,4 @@ uint32_t HAL_RNG_GetError(RNG_HandleTypeDef *hrng)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

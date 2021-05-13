@@ -35,7 +35,7 @@ __IO int Motor5_num = 0;
   * 返 回 值: 无
   * 说    明: 无
   */
-static void MOTOR5_GPIO_Init(void)
+void MOTOR5_GPIO_Init(void)
 {
   GPIO_InitTypeDef GPIO_InitStruct;
 
@@ -288,7 +288,7 @@ void MOTOR5_TIM1_IRQHandler(void) //定时器中断处理
 {
   __IO uint16_t tim_count = 0;
   // 保存新（下）一个延时周期
-//  uint16_t new_step_delay = 0;
+  //  uint16_t new_step_delay = 0;
   // 加速过程中最后一次延时（脉冲周期）.
   __IO static uint16_t last_accel_delay = 0;
   // 总移动步数计数器

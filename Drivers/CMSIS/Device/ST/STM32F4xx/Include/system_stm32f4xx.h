@@ -6,7 +6,7 @@
   ******************************************************************************  
   * @attention
   *
-  * <h2><center>&copy; COPYRIGHT(c) 2017 STMicroelectronics</center></h2>
+  * <h2><center>&copy; COPYRIGHT(c) 2017 QINGDAO SANLI</center></h2>
   *
   * Redistribution and use in source and binary forms, with or without modification,
   * are permitted provided that the following conditions are met:
@@ -15,7 +15,7 @@
   *   2. Redistributions in binary form must reproduce the above copyright notice,
   *      this list of conditions and the following disclaimer in the documentation
   *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  *   3. Neither the name of QINGDAO SANLI nor the names of its contributors
   *      may be used to endorse or promote products derived from this software
   *      without specific prior written permission.
   *
@@ -31,7 +31,7 @@
   * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
   *
   ******************************************************************************  
-  */ 
+  */
 
 /** @addtogroup CMSIS
   * @{
@@ -39,8 +39,8 @@
 
 /** @addtogroup stm32f4xx_system
   * @{
-  */  
-  
+  */
+
 /**
   * @brief Define to prevent recursive inclusion
   */
@@ -48,19 +48,19 @@
 #define __SYSTEM_STM32F4XX_H
 
 #ifdef __cplusplus
- extern "C" {
-#endif 
+extern "C"
+{
+#endif
 
-/** @addtogroup STM32F4xx_System_Includes
+  /** @addtogroup STM32F4xx_System_Includes
   * @{
   */
 
-/**
+  /**
   * @}
   */
 
-
-/** @addtogroup STM32F4xx_System_Exported_types
+  /** @addtogroup STM32F4xx_System_Exported_types
   * @{
   */
   /* This variable is updated in three ways:
@@ -71,38 +71,38 @@
                is no need to call the 2 first functions listed above, since SystemCoreClock
                variable is updated automatically.
   */
-extern uint32_t SystemCoreClock;          /*!< System Clock Frequency (Core Clock) */
+  extern uint32_t SystemCoreClock; /*!< System Clock Frequency (Core Clock) */
 
-extern const uint8_t  AHBPrescTable[16];    /*!< AHB prescalers table values */
-extern const uint8_t  APBPrescTable[8];     /*!< APB prescalers table values */
+  extern const uint8_t AHBPrescTable[16]; /*!< AHB prescalers table values */
+  extern const uint8_t APBPrescTable[8];  /*!< APB prescalers table values */
 
-/**
+  /**
   * @}
   */
 
-/** @addtogroup STM32F4xx_System_Exported_Constants
+  /** @addtogroup STM32F4xx_System_Exported_Constants
   * @{
   */
 
-/**
+  /**
   * @}
   */
 
-/** @addtogroup STM32F4xx_System_Exported_Macros
+  /** @addtogroup STM32F4xx_System_Exported_Macros
   * @{
   */
 
-/**
+  /**
   * @}
   */
 
-/** @addtogroup STM32F4xx_System_Exported_Functions
+  /** @addtogroup STM32F4xx_System_Exported_Functions
   * @{
   */
-  
-extern void SystemInit(void);
-extern void SystemCoreClockUpdate(void);
-/**
+
+  extern void SystemInit(void);
+  extern void SystemCoreClockUpdate(void);
+  /**
   * @}
   */
 
@@ -115,8 +115,8 @@ extern void SystemCoreClockUpdate(void);
 /**
   * @}
   */
-  
+
 /**
   * @}
-  */  
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+  */
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

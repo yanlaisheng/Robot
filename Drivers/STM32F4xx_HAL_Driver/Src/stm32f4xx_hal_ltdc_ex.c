@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -26,7 +26,7 @@
 
 #if defined(HAL_LTDC_MODULE_ENABLED) && defined(HAL_DSI_MODULE_ENABLED)
 
-#if defined (LTDC) && defined (DSI)
+#if defined(LTDC) && defined(DSI)
 
 /** @defgroup LTDCEx LTDCEx
   * @brief LTDC HAL module driver
@@ -86,10 +86,10 @@ HAL_StatusTypeDef HAL_LTDCEx_StructInitFromVideoConfig(LTDC_HandleTypeDef *hltdc
      hltdc->Init.HSPolarity = VidCfg->HSPolarity << 29; */
 
   /* Retrieve vertical timing parameters from DSI */
-  hltdc->Init.VerticalSync       = VidCfg->VerticalSyncActive - 1U;
-  hltdc->Init.AccumulatedVBP     = VidCfg->VerticalSyncActive + VidCfg->VerticalBackPorch - 1U;
+  hltdc->Init.VerticalSync = VidCfg->VerticalSyncActive - 1U;
+  hltdc->Init.AccumulatedVBP = VidCfg->VerticalSyncActive + VidCfg->VerticalBackPorch - 1U;
   hltdc->Init.AccumulatedActiveH = VidCfg->VerticalSyncActive + VidCfg->VerticalBackPorch + VidCfg->VerticalActive - 1U;
-  hltdc->Init.TotalHeigh         = VidCfg->VerticalSyncActive + VidCfg->VerticalBackPorch + VidCfg->VerticalActive + VidCfg->VerticalFrontPorch - 1U;
+  hltdc->Init.TotalHeigh = VidCfg->VerticalSyncActive + VidCfg->VerticalBackPorch + VidCfg->VerticalActive + VidCfg->VerticalFrontPorch - 1U;
 
   return HAL_OK;
 }
@@ -146,4 +146,4 @@ HAL_StatusTypeDef HAL_LTDCEx_StructInitFromAdaptedCommandConfig(LTDC_HandleTypeD
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -22,7 +22,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_ll_fmpi2c.h"
 #include "stm32f4xx_ll_bus.h"
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
@@ -32,7 +32,7 @@
   * @{
   */
 
-#if defined (FMPI2C1)
+#if defined(FMPI2C1)
 
 /** @defgroup FMPI2C_LL FMPI2C
   * @{
@@ -46,23 +46,23 @@
   * @{
   */
 
-#define IS_LL_FMPI2C_PERIPHERAL_MODE(__VALUE__)    (((__VALUE__) == LL_FMPI2C_MODE_I2C)          || \
-                                                 ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_HOST)   || \
+#define IS_LL_FMPI2C_PERIPHERAL_MODE(__VALUE__) (((__VALUE__) == LL_FMPI2C_MODE_I2C) ||          \
+                                                 ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_HOST) ||   \
                                                  ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_DEVICE) || \
                                                  ((__VALUE__) == LL_FMPI2C_MODE_SMBUS_DEVICE_ARP))
 
-#define IS_LL_FMPI2C_ANALOG_FILTER(__VALUE__)      (((__VALUE__) == LL_FMPI2C_ANALOGFILTER_ENABLE) || \
-                                                 ((__VALUE__) == LL_FMPI2C_ANALOGFILTER_DISABLE))
+#define IS_LL_FMPI2C_ANALOG_FILTER(__VALUE__) (((__VALUE__) == LL_FMPI2C_ANALOGFILTER_ENABLE) || \
+                                               ((__VALUE__) == LL_FMPI2C_ANALOGFILTER_DISABLE))
 
-#define IS_LL_FMPI2C_DIGITAL_FILTER(__VALUE__)     ((__VALUE__) <= 0x0000000FU)
+#define IS_LL_FMPI2C_DIGITAL_FILTER(__VALUE__) ((__VALUE__) <= 0x0000000FU)
 
-#define IS_LL_FMPI2C_OWN_ADDRESS1(__VALUE__)       ((__VALUE__) <= 0x000003FFU)
+#define IS_LL_FMPI2C_OWN_ADDRESS1(__VALUE__) ((__VALUE__) <= 0x000003FFU)
 
-#define IS_LL_FMPI2C_TYPE_ACKNOWLEDGE(__VALUE__)   (((__VALUE__) == LL_FMPI2C_ACK) || \
-                                                 ((__VALUE__) == LL_FMPI2C_NACK))
+#define IS_LL_FMPI2C_TYPE_ACKNOWLEDGE(__VALUE__) (((__VALUE__) == LL_FMPI2C_ACK) || \
+                                                  ((__VALUE__) == LL_FMPI2C_NACK))
 
-#define IS_LL_FMPI2C_OWN_ADDRSIZE(__VALUE__)       (((__VALUE__) == LL_FMPI2C_OWNADDRESS1_7BIT) || \
-                                                 ((__VALUE__) == LL_FMPI2C_OWNADDRESS1_10BIT))
+#define IS_LL_FMPI2C_OWN_ADDRSIZE(__VALUE__) (((__VALUE__) == LL_FMPI2C_OWNADDRESS1_7BIT) || \
+                                              ((__VALUE__) == LL_FMPI2C_OWNADDRESS1_10BIT))
 /**
   * @}
   */
@@ -187,13 +187,13 @@ ErrorStatus LL_FMPI2C_Init(FMPI2C_TypeDef *FMPI2Cx, LL_FMPI2C_InitTypeDef *FMPI2
 void LL_FMPI2C_StructInit(LL_FMPI2C_InitTypeDef *FMPI2C_InitStruct)
 {
   /* Set FMPI2C_InitStruct fields to default values */
-  FMPI2C_InitStruct->PeripheralMode  = LL_FMPI2C_MODE_I2C;
-  FMPI2C_InitStruct->Timing          = 0U;
-  FMPI2C_InitStruct->AnalogFilter    = LL_FMPI2C_ANALOGFILTER_ENABLE;
-  FMPI2C_InitStruct->DigitalFilter   = 0U;
-  FMPI2C_InitStruct->OwnAddress1     = 0U;
+  FMPI2C_InitStruct->PeripheralMode = LL_FMPI2C_MODE_I2C;
+  FMPI2C_InitStruct->Timing = 0U;
+  FMPI2C_InitStruct->AnalogFilter = LL_FMPI2C_ANALOGFILTER_ENABLE;
+  FMPI2C_InitStruct->DigitalFilter = 0U;
+  FMPI2C_InitStruct->OwnAddress1 = 0U;
   FMPI2C_InitStruct->TypeAcknowledge = LL_FMPI2C_NACK;
-  FMPI2C_InitStruct->OwnAddrSize     = LL_FMPI2C_OWNADDRESS1_7BIT;
+  FMPI2C_InitStruct->OwnAddrSize = LL_FMPI2C_OWNADDRESS1_7BIT;
 }
 
 /**
@@ -217,4 +217,4 @@ void LL_FMPI2C_StructInit(LL_FMPI2C_InitTypeDef *FMPI2C_InitStruct)
 #endif /* FMPI2C_CR1_PE */
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

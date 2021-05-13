@@ -31,7 +31,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -226,8 +226,8 @@ __weak void HAL_CRC_MspDeInit(CRC_HandleTypeDef *hcrc)
   */
 uint32_t HAL_CRC_Accumulate(CRC_HandleTypeDef *hcrc, uint32_t pBuffer[], uint32_t BufferLength)
 {
-  uint32_t index;      /* CRC input data buffer index */
-  uint32_t temp = 0U;  /* CRC output (read from hcrc->Instance->DR register) */
+  uint32_t index;     /* CRC input data buffer index */
+  uint32_t temp = 0U; /* CRC output (read from hcrc->Instance->DR register) */
 
   /* Change CRC peripheral state */
   hcrc->State = HAL_CRC_STATE_BUSY;
@@ -256,8 +256,8 @@ uint32_t HAL_CRC_Accumulate(CRC_HandleTypeDef *hcrc, uint32_t pBuffer[], uint32_
   */
 uint32_t HAL_CRC_Calculate(CRC_HandleTypeDef *hcrc, uint32_t pBuffer[], uint32_t BufferLength)
 {
-  uint32_t index;      /* CRC input data buffer index */
-  uint32_t temp = 0U;  /* CRC output (read from hcrc->Instance->DR register) */
+  uint32_t index;     /* CRC input data buffer index */
+  uint32_t temp = 0U; /* CRC output (read from hcrc->Instance->DR register) */
 
   /* Change CRC peripheral state */
   hcrc->State = HAL_CRC_STATE_BUSY;
@@ -317,7 +317,6 @@ HAL_CRC_StateTypeDef HAL_CRC_GetState(CRC_HandleTypeDef *hcrc)
   * @}
   */
 
-
 #endif /* HAL_CRC_MODULE_ENABLED */
 /**
   * @}
@@ -327,4 +326,4 @@ HAL_CRC_StateTypeDef HAL_CRC_GetState(CRC_HandleTypeDef *hcrc)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

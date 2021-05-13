@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -22,7 +22,7 @@
 #include "stm32f4xx_ll_crc.h"
 #include "stm32f4xx_ll_bus.h"
 
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
@@ -32,7 +32,7 @@
   * @{
   */
 
-#if defined (CRC)
+#if defined(CRC)
 
 /** @addtogroup CRC_LL
   * @{
@@ -103,5 +103,4 @@ ErrorStatus LL_CRC_DeInit(CRC_TypeDef *CRCx)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

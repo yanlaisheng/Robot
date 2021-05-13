@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2021 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -78,35 +78,14 @@ uint8_t bNetworkMap[42] = {DRIVE, None, None, None, None, None, None, None};
 #define NUM 1000
 uint32_t send_Buf[NUM] = {0};
 
-// 速度最大值由驱动器和电机决定，有些最大是1800，有些可以达到4000
-__IO uint32_t set_speed = 180; // 速度 单位为0.1rad/sec
 // 加速度和减速度选取一般根据实际需要，值越大速度变化越快，加减速阶段比较抖动
 // 所以加速度和减速度值一般是在实际应用中多尝试出来的结果
 __IO uint32_t step_accel = 10; // 加速度 单位为0.1rad/sec^2
 __IO uint32_t step_decel = 10; // 减速度 单位为0.1rad/sec^2
 
-#if S_ACCEL
-void CalculateSModelLine(float fre[], unsigned short period[], float len, float fre_max, float fre_min, float flexible)
-{
-	int i = 0;
-	float deno;
-	float melo;
-	float delt = fre_max - fre_min;
-	for (; i < len; i++)
-	{
-		melo = flexible * (i - len / 2) / (len / 2);
-		deno = 1.0f / (1 + expf(-melo)); //expf is a library function of exponential(e)?
-		fre[i] = delt * deno + fre_min;
-		period[i] = (unsigned short)(10000000.0f / fre[i]); // 10000000 is the timer driver frequency
-	}
-	return;
-}
-#endif
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
-void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 static int startflag = 0;
 int32_t targetp;
@@ -131,7 +110,7 @@ struct rbuff_st
 }; /* Receive Buffer */
 extern struct rbuff_st rbuff[];
 
-//要写入到W25Q64的字符串数组
+//要写入到W25Q16的字符串数组
 const u8 TEXT_Buffer[] = {"Explorer STM32F4 SPI TEST"};
 #define SIZE sizeof(TEXT_Buffer)
 
@@ -161,16 +140,7 @@ int ECMSPIReadWrite(uint8_t *rdata, uint8_t *wdata, int rwlength)
 	while (HAL_GPIO_ReadPin(BUSY_GPIO_Port, BUSY_Pin))
 		;
 	HAL_GPIO_WritePin(SPI3_CS_GPIO_Port, SPI3_CS_Pin, GPIO_PIN_RESET);
-#if 1
 	HAL_SPI_TransmitReceive(&hspi3, wdata, rdata, rwlength, 10);
-#else
-	for (int i = 0; i < rwlength; i++)
-	{
-		*((uint8_t *)pRxBuffPtr) = spi3_SendByte(*((uint8_t *)pTxBuffPtr));
-		pTxBuffPtr += sizeof(uint8_t);
-		pRxBuffPtr += sizeof(uint8_t);
-	}
-#endif
 	HAL_GPIO_WritePin(SPI3_CS_GPIO_Port, SPI3_CS_Pin, GPIO_PIN_SET);
 	return 0;
 }
@@ -183,20 +153,6 @@ int ECMSPIReadWrite(uint8_t *rdata, uint8_t *wdata, int rwlength)
 int main(void)
 {
 	/* USER CODE BEGIN 1 */
-	//wk2xxx相关定义
-	uint8_t gena;
-	static unsigned char dat1, dat2, dat3, dat4;
-
-	u8 datatemp[SIZE];
-	u32 FLASH_SIZE;
-	u8 i;
-	u16 j;
-
-	uint8_t read_buf[10] = {0};
-	uint8_t write_buf[10] = {0};
-
-	GPIO_TypeDef *GPIOTEST;
-	//	uint32_t temp1, temp2, temp3;
 
 	/* USER CODE END 1 */
 
@@ -236,37 +192,33 @@ int main(void)
 	MX_TIM7_Init();
 	/* USER CODE BEGIN 2 */
 
+	//测试EEPROM
+	// Test_EEPROM();
+
 	//EtherCAT初始化
 	// Init_EtherCAT();
 
-	/* 配置定时器输出脉冲 */
-	//	MOTOR3_TIMx_Init();
-	// MOTOR1_TIMx_Init();
-	//	MOTOR2_TIMx_Init();
-	//	MOTOR4_TIMx_Init();
-	//	MOTOR5_TIMx_Init();
-	//	MOTOR6_TIMx_Init();
-
 	Initial_PWM_Motor1(); //初始化电机1的PWM
-	// Initial_PWM_Motor2(); //初始化电机2的PWM
-	// Initial_PWM_Motor3(); //初始化电机3的PWM
+	Initial_PWM_Motor2(); //初始化电机2的PWM
+	Initial_PWM_Motor3(); //初始化电机3的PWM
 	Initial_PWM_Motor4(); //初始化电机4的PWM
+	Initial_PWM_Motor5(); //初始化电机5的PWM
+	Initial_PWM_Motor6(); //初始化电机6的PWM
 
-	ParLimit();
+	ParLst_Init();	 // RAM中设定参数表列初始化，FLASH——>RAM
+	Boot_ParLst();	 // 初始化STM32设定参数
+	Variable_Init(); // Initialize VARIABLE
+	ParLimit();		 // 参数限制
 	/*初始化电机运行参数，主要是根据S型曲线参数生成表格*/
 	MotorRunParaInitial();
 
-	/*将电机的驱动细分，通过控制连接THB6128的GPIO引脚的电平实现
-	此外还有指定各个电机使用的定时器，GPIO，电机顺时针方向数值等参数*/
+	//指定各个电机使用的定时器，GPIO，电机顺时针方向数值等参数
 	Initial_Motor(1, M1DIV, 73600);
+	Initial_Motor(2, M2DIV, 73600);
+	Initial_Motor(3, M3DIV, 73600);
 	Initial_Motor(4, M4DIV, 73600);
-
-	C_NoRcv1Count = 0;
-	C_NoRcv2Count = 0;
-	C_NoRcv3Count = 0;
-	C_NoRcv4Count = 0;
-	C_NoRcv5Count = 0;
-	C_NoRcv6Count = 0;
+	Initial_Motor(5, M5DIV, 73600);
+	Initial_Motor(6, M6DIV, 73600);
 
 	/* USER CODE END 2 */
 
@@ -275,33 +227,10 @@ int main(void)
 	while (1)
 	{
 		ParLimit();
-
-		Com1_RcvProcess(); // 串口1接收处理
-		Com1_SlaveSend();  // 串口1从机发送
-
-		Com2_RcvProcess(); // 串口2接收处理
-		Com2_SlaveSend();  // 串口2从机发送
-
-		Com3_RcvProcess(); // 串口3接收处理
-		Com3_SlaveSend();  // 串口3从机发送
-
-		Com4_RcvProcess(); // 串口4接收处理
-		Com4_SlaveSend();  // 串口4从机发送
-
-		Com5_RcvProcess(); // 串口5接收处理
-		Com5_SlaveSend();  // 串口5从机发送
-
-		Com6_RcvProcess(); // 串口6接收处理
-		Com6_SlaveSend();  // 串口6从机发送
-
-		// if (Pw_Driver1_Enable == 0)
-		// {
-		// 	HAL_GPIO_WritePin(DO10_GPIO_Port, DO10_Pin, GPIO_PIN_SET);
-		// }
-		// else
-		// {
-		// 	HAL_GPIO_WritePin(DO10_GPIO_Port, DO10_Pin, GPIO_PIN_RESET);
-		// }
+		UART_TX();
+		//测试WK扩展串口
+		// TEST_WK_Uart();
+		// test_GPIO();
 
 		if (Pw_Driver1_Enable == 1)
 		{
@@ -310,72 +239,18 @@ int main(void)
 			Pw_Motor1_FRE_AA = (Pw_Driver1_Speed * PULSENUM / 60 - Pw_Motor1_FRE_START) / (M_XiShu_1 * M_T_AA * M_T_AA + M_T_AA * M_T_UA + M_XiShu_1 * M_T_AA * M_T_RA);
 			CalcMotorPeriStep_CPF(Pw_Motor1_FRE_START, Pw_Motor1_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor1TimeTable, Motor1StepTable);
 			Initial_Motor(1, M1DIV, 73600);
-			Pw_SendPWM = 1;
-		}
 
-		if (Pw_SendPWM == 1)
-		{
-			Pw_SendPWM = 0;
 			Start_Motor_S(1, M1_CLOCKWISE, (Pw_Driver1_Pluse_HW << 16) + Pw_Driver1_Pluse, Pw_Driver1_Speed, Pw_Driver1_AccTime);
 			//void Start_Motor_SPTA(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA);
-			Start_Motor_SPTA(4, M4_CLOCKWISE, (Pw_Motor4SendPulse_HW << 16) + Pw_Motor4SendPulse, (Pw_Motor4_SetSpeed_HW << 16) + Pw_Motor4_SetSpeed, (Pw_Motor4_ACCSpeed_HW << 16) + Pw_Motor4_ACCSpeed);
+			// Start_Motor_SPTA(4, M4_CLOCKWISE, (Pw_Motor4SendPulse_HW << 16) + Pw_Motor4SendPulse, (Pw_Motor4_SetSpeed_HW << 16) + Pw_Motor4_SetSpeed, (Pw_Motor4_ACCSpeed_HW << 16) + Pw_Motor4_ACCSpeed);
 		}
 
-//测试扩展串口
-#if 0
-      LED_Blue_Toggle;
-		//HAL_GPIO_TogglePin(LedBlue_GPIO_Port, LedBlue_Pin);
-		  
-			HAL_Delay(500);
-//			delay_ms(500);
-		  
-		if((Wk2xxxReadReg(WK2XXX_PORT1,WK2XXX_FSR)&WK2XXX_RDAT))//读取FIFO状态，判断是否为空
-		{
-			dat1=Wk2xxxReadReg(WK2XXX_PORT1,WK2XXX_FDAT);//读FIFO数据
-			Wk2xxxWriteReg(WK2XXX_PORT1,WK2XXX_FDAT,dat1);//将读取FIFO数据通过TX发送出去
-		}
-		else if((Wk2xxxReadReg(WK2XXX_PORT2,WK2XXX_FSR)&WK2XXX_RDAT))//读取FIFO状态，判断是否为空
-		{
-			dat2=Wk2xxxReadReg(WK2XXX_PORT2,WK2XXX_FDAT);//读FIFO数据
-			Wk2xxxWriteReg(WK2XXX_PORT2,WK2XXX_FDAT,dat2);//将读取FIFO数据通过TX发送出去
-		}
-		else if((Wk2xxxReadReg(WK2XXX_PORT3,WK2XXX_FSR)&WK2XXX_RDAT))//读取FIFO状态，判断是否为空
-		{
-			dat3=Wk2xxxReadReg(WK2XXX_PORT3,WK2XXX_FDAT);//读FIFO数据
-			Wk2xxxWriteReg(WK2XXX_PORT3,WK2XXX_FDAT,dat3);//将读取FIFO数据通过TX发送出去
-		}
-		else if((Wk2xxxReadReg(WK2XXX_PORT4,WK2XXX_FSR)&WK2XXX_RDAT))//读取FIFO状态，判断是否为空
-		{
-			dat4=Wk2xxxReadReg(WK2XXX_PORT4,WK2XXX_FDAT);//读FIFO数据
-			Wk2xxxWriteReg(WK2XXX_PORT4,WK2XXX_FDAT,dat4);//将读取FIFO数据通过TX发送出去
-		}
+		/* USER CODE END WHILE */
 
-		
-	//    printf("12345\n");
-		delay_ms(500);  
-	//      PBout(12)=1;
-	//      HAL_Delay(500);
-	//      PBout(12)=0;
-	//      HAL_Delay(500); 
+		/* USER CODE BEGIN 3 */
 
-	
-	  
-    /* USER CODE END WHILE */
-
-    /* USER CODE BEGIN 3 */
-	//测试延时是否准确
-	HAL_GPIO_TogglePin(GPIOG,GPIO_PIN_2);		//每1us*1000=1ms反转1次，用示波器看是否准确
-//	delay_us(1000);
-	HAL_Delay(1000);
-		
-	//测试TIM DMA发送PWM脉冲
-	 HAL_GPIO_WritePin(LED_H64_GPIO_Port, LED_H64_Pin, GPIO_PIN_RESET); 
-	 HAL_Delay(200);
-	 HAL_GPIO_WritePin(LED_H64_GPIO_Port, LED_H64_Pin, GPIO_PIN_SET); 
-	 HAL_Delay(200);
-	 HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1,(uint32_t*)send_Buf,NUM);
-
-#endif
+		//测试TIM DMA发送PWM脉冲
+		// HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, (uint32_t *)send_Buf, NUM);
 	}
 	/* USER CODE END 3 */
 }
@@ -426,7 +301,6 @@ void SystemClock_Config(void)
 //延时1us
 void PowerDelay(uint16_t nCount) //2015.9.12
 {
-	//ZCL 2015.9.12 测试 unsigned int = uint32_t 可以大于65535，对于ARM STM32来说
 	unsigned int i = 36;
 	while (nCount--)
 	{
@@ -440,7 +314,6 @@ void HAL_SYSTICK_Callback(void)
 {
 	static uint8_t time = 0;
 	static uint32_t kk = 0;
-	//	int32_t tmp1;
 	if (startflag)
 	{
 		//		targetp+=1000;
@@ -819,6 +692,137 @@ void HAL_UART_TxCpltCallback(UART_HandleTypeDef *huart)
 	//	}
 }
 
+//测试EEPROM-W25Q16
+void Test_EEPROM(void)
+{
+	//wk2xxx相关定义
+	uint8_t gena;
+	u8 datatemp[SIZE];
+	u32 FLASH_SIZE;
+	u8 i;
+	u16 j;
+	uint8_t read_buf[10] = {0};
+	uint8_t write_buf[10] = {0};
+	uint32_t device_id;
+
+	W25qxx_Init();
+
+	while ((W25qxx_ReadID() & 0x0000FFFF) != _W25Q64) //检测不到W25Q16
+	{
+		printf("W25Q16 Check Failed!");
+		delay_ms(500);
+		printf("Please Check!      ");
+		delay_ms(500);
+		HAL_GPIO_TogglePin(LED_H63_GPIO_Port, LED_H63_Pin); //DS0闪烁
+	}
+
+	printf("W25Q16 Ready!");
+	FLASH_SIZE = 64 * 1024 * 1024;
+	printf("Start Write W25Q16....");
+	SPI_FLASH_BufferWrite((u8 *)TEXT_Buffer, FLASH_SIZE - 100, SIZE); //从倒数第100个地址处开始,写入SIZE长度的数据
+	printf("W25Q16 Write Finished!");								  //提示传送完成
+
+	printf("Start Read W25Q16.... ");
+	W25qxx_ReadBytes(datatemp, FLASH_SIZE - 100, SIZE); //从倒数第100个地址处开始,读出SIZE个字节
+	printf("The Data Readed Is:   ");					//提示传送完成
+	for (i = 0; i < sizeof(datatemp); i++)
+		printf(" %d ", datatemp[i]); //显示读到的字符串
+
+	//另外一段测试读写W25Q26的程序
+	printf("W25Q64 SPI Flash Test By Mculover666\r\n");
+	device_id = W25qxx_ReadID();
+	printf("W25Q64 Device ID is 0x%04x\r\n", device_id);
+
+	/* 为了验证，首先读取要写入地址处的数据 */
+	printf("-------- read data before write -----------\r\n");
+	W25qxx_ReadBytes(read_buf, 0, 10);
+
+	for (i = 0; i < 10; i++)
+	{
+		printf("[0x%08x]:0x%02x\r\n", i, *(read_buf + i));
+	}
+
+	/* 擦除该扇区 */
+	printf("-------- erase sector 0 -----------\r\n");
+	W25qxx_EraseSector(0);
+
+	/* 再次读数据 */
+	printf("-------- read data after erase -----------\r\n");
+	W25qxx_ReadBytes(read_buf, 0, 10);
+	for (i = 0; i < 10; i++)
+	{
+		printf("[0x%08x]:0x%02x\r\n", i, *(read_buf + i));
+	}
+
+	/* 写数据 */
+	printf("-------- write data -----------\r\n");
+	for (i = 0; i < 10; i++)
+	{
+		write_buf[i] = i;
+	}
+	W25qxx_WriteBytes_Page(write_buf, 0, 10);
+
+	/* 再次读数据 */
+	printf("-------- read data after write -----------\r\n");
+	W25qxx_ReadBytes(read_buf, 0, 10);
+	for (i = 0; i < 10; i++)
+	{
+		printf("[0x%08x]:0x%02x\r\n", i, *(read_buf + i));
+	}
+
+	//    WK2XXX_RST_Init();
+	WK2XXX_SPI_Init();
+	//	WK2XXX_Reset_Init();
+	Wk2xxxInit(WK2XXX_PORT1);
+	Wk2xxxInit(WK2XXX_PORT2);
+	Wk2xxxInit(WK2XXX_PORT3);
+	Wk2xxxInit(WK2XXX_PORT4);
+	Wk2xxxSetBaud(WK2XXX_PORT1, B57600);
+	Wk2xxxSetBaud(WK2XXX_PORT2, B57600);
+	Wk2xxxSetBaud(WK2XXX_PORT3, B57600);
+	Wk2xxxSetBaud(WK2XXX_PORT4, B57600);
+	////	调试程序时，通过读GENA寄存器的值，判断主接口通信是否正常，未初始化，默认值读出来为0x30，正常0x3F
+	gena = Wk2xxxReadReg(WK2XXX_GPORT, WK2XXX_GENA);
+	printf("gena=%x\n", gena);
+
+	hspi3.Instance->SR = (uint16_t)(~SPI_FLAG_RXNE);
+	SPI_CS_OFF;
+
+	//填充发送脉冲，占空比=send_Buf[j]/ARR
+	for (j = 0; j < NUM; j++)
+	{
+		send_Buf[j] = 20 * (j + 1);
+	}
+}
+
+//测试WK扩展串口
+void TEST_WK_Uart(void)
+{
+	static unsigned char dat1, dat2, dat3, dat4;
+
+	if ((Wk2xxxReadReg(WK2XXX_PORT1, WK2XXX_FSR) & WK2XXX_RDAT)) //读取FIFO状态，判断是否为空
+	{
+		dat1 = Wk2xxxReadReg(WK2XXX_PORT1, WK2XXX_FDAT); //读FIFO数据
+		Wk2xxxWriteReg(WK2XXX_PORT1, WK2XXX_FDAT, dat1); //将读取FIFO数据通过TX发送出去
+	}
+	else if ((Wk2xxxReadReg(WK2XXX_PORT2, WK2XXX_FSR) & WK2XXX_RDAT)) //读取FIFO状态，判断是否为空
+	{
+		dat2 = Wk2xxxReadReg(WK2XXX_PORT2, WK2XXX_FDAT); //读FIFO数据
+		Wk2xxxWriteReg(WK2XXX_PORT2, WK2XXX_FDAT, dat2); //将读取FIFO数据通过TX发送出去
+	}
+	else if ((Wk2xxxReadReg(WK2XXX_PORT3, WK2XXX_FSR) & WK2XXX_RDAT)) //读取FIFO状态，判断是否为空
+	{
+		dat3 = Wk2xxxReadReg(WK2XXX_PORT3, WK2XXX_FDAT); //读FIFO数据
+		Wk2xxxWriteReg(WK2XXX_PORT3, WK2XXX_FDAT, dat3); //将读取FIFO数据通过TX发送出去
+	}
+	else if ((Wk2xxxReadReg(WK2XXX_PORT4, WK2XXX_FSR) & WK2XXX_RDAT)) //读取FIFO状态，判断是否为空
+	{
+		dat4 = Wk2xxxReadReg(WK2XXX_PORT4, WK2XXX_FDAT); //读FIFO数据
+		Wk2xxxWriteReg(WK2XXX_PORT4, WK2XXX_FDAT, dat4); //将读取FIFO数据通过TX发送出去
+	}
+}
+
+//初始化EtherCAT
 void Init_EtherCAT(void)
 {
 	/*模式配置*/
@@ -852,6 +856,27 @@ void Init_EtherCAT(void)
 	startflag = 1;
 	dir = 1;
 	distance = 0;
+}
+
+void UART_TX(void)
+{
+	Com1_RcvProcess(); // 串口1接收处理
+	Com1_SlaveSend();  // 串口1从机发送
+
+	Com2_RcvProcess(); // 串口2接收处理
+	Com2_SlaveSend();  // 串口2从机发送
+
+	Com3_RcvProcess(); // 串口3接收处理
+	Com3_SlaveSend();  // 串口3从机发送
+
+	Com4_RcvProcess(); // 串口4接收处理
+	Com4_SlaveSend();  // 串口4从机发送
+
+	Com5_RcvProcess(); // 串口5接收处理
+	Com5_SlaveSend();  // 串口5从机发送
+
+	Com6_RcvProcess(); // 串口6接收处理
+	Com6_SlaveSend();  // 串口6从机发送
 }
 
 /* USER CODE END 4 */
@@ -888,4 +913,4 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

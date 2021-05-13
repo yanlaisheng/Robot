@@ -5,6 +5,8 @@
 #include "bsp_MOTOR2.h"
 #include "bsp_MOTOR3.h"
 #include "bsp_MOTOR4.h"
+#include "bsp_MOTOR5.h"
+#include "bsp_MOTOR6.h"
 #include "GlobalConst.h"
 // #include "GlobalV.h"
 #include "Macro.h"
@@ -34,6 +36,12 @@ uint16_t Motor2TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
 uint16_t Motor2StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
 uint16_t Motor3TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
 uint16_t Motor3StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor4TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor4StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor5TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor5StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor6TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
+uint16_t Motor6StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
 
 int i_M1;
 float fi_M1[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
@@ -41,6 +49,11 @@ float tua_temp1;
 
 unsigned long long Get_Time_Cost(unsigned char MotorID);
 extern void MOTOR1_GPIO_Init(void);
+extern void MOTOR2_GPIO_Init(void);
+extern void MOTOR3_GPIO_Init(void);
+extern void MOTOR4_GPIO_Init(void);
+extern void MOTOR5_GPIO_Init(void);
+extern void MOTOR6_GPIO_Init(void);
 
 extern uint16_t w_ParLst[840]; // 参数字列表区
 ////USART1时钟初始化
@@ -321,55 +334,10 @@ void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int m
 	MOTOR_CONTROL_SPTA *pmotor_spta = NULL;
 	uint16_t *MotorTimeTable;
 	uint16_t *MotorStepTable;
-	switch (StepDive)
-	{
-	case 1:
-		i = 0x00;
-		break;
-	case 2:
-		i = 0x01;
-		break;
-	case 4:
-		i = 0x02;
-		break;
-	case 8:
-		i = 0x03;
-		break;
-	case 16:
-		i = 0x04;
-		break;
-	case 32:
-		i = 0x05;
-		break;
-	case 64:
-		i = 0x06;
-		break;
-	case 128:
-		i = 0x07;
-		break;
-	default:
-		i = 0x00;
-		break;
-	}
 
 	switch (MotorID)
 	{
 	case 1:
-		if (i & 0x01)
-		{
-			//			 GPIO_SetBits(GPIOA,GPIO_Pin_11);
-		}
-		if (i & 0x02)
-		{
-			//			 GPIO_SetBits(GPIOA,GPIO_Pin_12);
-		}
-
-		if (i & 0x04)
-		{
-			//				GPIO_SetBits(GPIOE,GPIO_Pin_7);
-		}
-		//			GPIO_SetBits(GPIOE,GPIO_Pin_8);
-
 		pmotor = &motor1;
 		motor1.id = 1;
 		motor1.clockwise = M1_CLOCKWISE;
@@ -378,20 +346,6 @@ void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int m
 		MotorStepTable = Motor1StepTable;
 		break;
 	case 2:
-		if (i & 0x01)
-		{
-			//			 GPIO_SetBits(GPIOC,GPIO_Pin_0);
-		}
-		if (i & 0x02)
-		{
-			//			 GPIO_SetBits(GPIOC,GPIO_Pin_1);
-		}
-
-		if (i & 0x04)
-		{
-			//				GPIO_SetBits(GPIOC,GPIO_Pin_2);
-		}
-		//			GPIO_SetBits(GPIOC,GPIO_Pin_3);
 		pmotor = &motor2;
 		motor2.id = 2;
 		motor2.clockwise = M2_CLOCKWISE;
@@ -400,20 +354,6 @@ void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int m
 		MotorStepTable = Motor2StepTable;
 		break;
 	case 3:
-		if (i & 0x01)
-		{
-			//			 GPIO_SetBits(GPIOA,GPIO_Pin_3);
-		}
-		if (i & 0x02)
-		{
-			//			 GPIO_SetBits(GPIOA,GPIO_Pin_4);
-		}
-
-		if (i & 0x04)
-		{
-			//				GPIO_SetBits(GPIOA,GPIO_Pin_5);
-		}
-		//			GPIO_SetBits(GPIOC,GPIO_Pin_4);
 		pmotor = &motor3;
 		motor3.id = 3;
 		motor3.clockwise = M3_CLOCKWISE;
@@ -422,32 +362,34 @@ void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int m
 		MotorStepTable = Motor3StepTable;
 		break;
 	case 4:
-		if (i & 0x01)
-		{
-			//			   GPIO_SetBits(GPIOD,GPIO_Pin_7);
-		}
-		if (i & 0x02)
-		{
-			//			   GPIO_SetBits(GPIOB,GPIO_Pin_5);
-		}
-
-		if (i & 0x04)
-		{
-			//			    GPIO_SetBits(GPIOB,GPIO_Pin_7);
-		}
-		//			 GPIO_SetBits(GPIOB,GPIO_Pin_8);
+		pmotor = &motor4;
 		motor4.id = 4;
 		motor4.clockwise = M4_CLOCKWISE;
-		motor4.TIMx = TIM3; //YLS 2021.04.28 TIM3
-		motor4.divnum = StepDive;
-		motor4.GPIOBASE = GPIOB;	 //YLS 2021.04.28 GPIOB
-		motor4.PWMGPIO = GPIO_PIN_1; //YLS 2021.04.28 GPIO_PIN_1
-		pmotor_spta = &motor4;
+		motor4.TIMx = TIM3;
+		MotorTimeTable = Motor4TimeTable;
+		MotorStepTable = Motor4StepTable;
+		break;
+	case 5:
+		pmotor = &motor5;
+		motor5.id = 5;
+		motor5.clockwise = M5_CLOCKWISE;
+		motor5.TIMx = TIM3;
+		MotorTimeTable = Motor5TimeTable;
+		MotorStepTable = Motor5StepTable;
+		break;
+	case 6:
+		pmotor = &motor6;
+		motor6.id = 6;
+		motor6.clockwise = M6_CLOCKWISE;
+		motor6.TIMx = TIM3;
+		MotorTimeTable = Motor6TimeTable;
+		MotorStepTable = Motor6StepTable;
 		break;
 	default:
 		break;
 	}
-	if (MotorID <= 3 && MotorID >= 1)
+
+	if (MotorID <= 6 && MotorID >= 1)
 	{
 		pmotor->divnum = StepDive;
 		pmotor->MaxPosition = maxposition;
@@ -486,12 +428,21 @@ void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int m
 			pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
 			pmotor->TIMx->CNT = 0;
 		}
-	}
-	if (MotorID == 4)
-	{
-		pmotor_spta->divnum = StepDive;
-		pmotor_spta->MaxPosition = maxposition;
-		pmotor_spta->MaxPosition_Pulse = maxposition * StepDive;
+		else if (pmotor->TIMx == TIM3)
+		{
+			pmotor->TIMx->CCR4 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
+			pmotor->TIMx->CNT = 0;
+		}
+		else if (pmotor->TIMx == TIM1)
+		{
+			pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
+			pmotor->TIMx->CNT = 0;
+		}
+		else if (pmotor->TIMx == TIM5)
+		{
+			pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
+			pmotor->TIMx->CNT = 0;
+		}
 	}
 }
 
@@ -515,6 +466,15 @@ unsigned long long Get_TimeCost_ReverDot_S(unsigned char MotorID)
 		break;
 	case 3:
 		pmotor = &motor3;
+		break;
+	case 4:
+		pmotor = &motor4;
+		break;
+	case 5:
+		pmotor = &motor5;
+		break;
+	case 6:
+		pmotor = &motor6;
 		break;
 	default:
 		return 0;
@@ -603,6 +563,15 @@ void Motor_Reinitial(unsigned char MotorID)
 	case 3:
 		pmotor = &motor3;
 		break;
+	case 4:
+		pmotor = &motor4;
+		break;
+	case 5:
+		pmotor = &motor5;
+		break;
+	case 6:
+		pmotor = &motor6;
+		break;
 	default:
 		return;
 	}
@@ -628,6 +597,21 @@ void Motor_Reinitial(unsigned char MotorID)
 		pmotor->TIMx->CNT = 0;
 	}
 	else if (pmotor->TIMx == TIM8)
+	{
+		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
+		pmotor->TIMx->CNT = 0;
+	}
+	else if (pmotor->TIMx == TIM3)
+	{
+		pmotor->TIMx->CCR4 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
+		pmotor->TIMx->CNT = 0;
+	}
+	else if (pmotor->TIMx == TIM1)
+	{
+		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
+		pmotor->TIMx->CNT = 0;
+	}
+	else if (pmotor->TIMx == TIM5)
 	{
 		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
 		pmotor->TIMx->CNT = 0;
@@ -701,40 +685,6 @@ void CalcMotorPeriStep_CPF(float fstart, float faa, float taa, float tua, float 
 	}
 }
 
-// /*计算S型曲线算法的每一步定时器周期及步进数*/
-// void CalcMotorPeriStep_CPF(float fstart, float faa, float taa, float tua, float tra, uint16_t MotorTimeTable[], uint16_t MotorStepTable[])
-// {
-// 	int i;
-// 	float fi;
-
-// 	for (i = 0; i < STEP_AA; i++)
-// 	{
-// 		fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa / STEP_AA * i);
-// 		MotorTimeTable[i] = F2TIME_PARA / fi;							//每步的时间周期，这个地方要注意，容易溢出！——YLS 2021.05.07
-// 		MotorStepTable[i] = fi * (taa / STEP_AA) / Pw_Motor1_STEP_PARA; //每个时钟周期运行的步数
-// 	}
-// 	for (i = STEP_AA; i < STEP_AA + STEP_UA; i++)
-// 	{
-// 		fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa + (tua / STEP_UA) * (i - STEP_AA));
-// 		MotorTimeTable[i] = F2TIME_PARA / fi;
-// 		MotorStepTable[i] = fi * (tua / STEP_UA) / Pw_Motor1_STEP_PARA;
-// 	}
-// 	for (i = STEP_AA + STEP_UA; i < STEP_AA + STEP_UA + STEP_RA; i++)
-// 	{
-// 		fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa + tua + tra / STEP_RA * (i - STEP_AA - STEP_UA));
-// 		MotorTimeTable[i] = F2TIME_PARA / fi;
-// 		MotorStepTable[i] = fi * (tra / STEP_RA) / Pw_Motor1_STEP_PARA;
-// 	}
-// 	fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa + tua + tra);
-// 	MotorTimeTable[STEP_AA + STEP_UA + STEP_RA] = F2TIME_PARA / fi;
-// 	MotorStepTable[STEP_AA + STEP_UA + STEP_RA] = fi * (tra / STEP_RA) / Pw_Motor1_STEP_PARA;
-
-// 	for (i = STEP_AA + STEP_UA + STEP_RA + 1; i < 2 * (STEP_AA + STEP_UA + STEP_RA) + 1; i++)
-// 	{
-// 		MotorTimeTable[i] = MotorTimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) - i];
-// 		MotorStepTable[i] = MotorStepTable[2 * (STEP_AA + STEP_UA + STEP_RA) - i];
-// 	}
-// }
 /**************************************************************************************
 电机运行参数初始化*/
 void MotorRunParaInitial(void)
@@ -744,6 +694,9 @@ void MotorRunParaInitial(void)
 	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor1TimeTable, Motor1StepTable);
 	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor2TimeTable, Motor2StepTable);
 	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor3TimeTable, Motor3StepTable);
+	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor4TimeTable, Motor4StepTable);
+	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor5TimeTable, Motor5StepTable);
+	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor6TimeTable, Motor6StepTable);
 }
 
 /**************************************************************************************
@@ -891,37 +844,44 @@ void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, ui
 	case 1:
 		pmotor = &motor1;
 		if (0 == dir)
-		{
-			//		    GPIO_SetBits(GPIOE,GPIO_Pin_9);
 			MOTOR1_DIR_FORWARD();
-		}
 		else
-		{
-			//		    GPIO_ResetBits(GPIOE,GPIO_Pin_9);
 			MOTOR1_DIR_REVERSAL();
-		}
 		break;
 	case 2:
 		pmotor = &motor2;
 		if (1 == dir)
-		{
-			//		    GPIO_SetBits(GPIOA,GPIO_Pin_1);
-		}
+			MOTOR2_DIR_FORWARD();
 		else
-		{
-			//		    GPIO_ResetBits(GPIOA,GPIO_Pin_1);
-		}
+			MOTOR2_DIR_REVERSAL();
 		break;
 	case 3:
 		pmotor = &motor3;
 		if (0 == dir)
-		{
-			//		    GPIO_SetBits(GPIOA,GPIO_Pin_7);
-		}
+			MOTOR3_DIR_FORWARD();
 		else
-		{
-			//		    GPIO_ResetBits(GPIOA,GPIO_Pin_7);
-		}
+			MOTOR3_DIR_REVERSAL();
+		break;
+	case 4:
+		pmotor = &motor4;
+		if (0 == dir)
+			MOTOR4_DIR_FORWARD();
+		else
+			MOTOR4_DIR_REVERSAL();
+		break;
+	case 5:
+		pmotor = &motor5;
+		if (0 == dir)
+			MOTOR5_DIR_FORWARD();
+		else
+			MOTOR5_DIR_REVERSAL();
+		break;
+	case 6:
+		pmotor = &motor6;
+		if (0 == dir)
+			MOTOR6_DIR_FORWARD();
+		else
+			MOTOR6_DIR_REVERSAL();
 		break;
 	default:
 		return;
@@ -954,6 +914,21 @@ void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, ui
 		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
 		pmotor->TIMx->CNT = 0;
 	}
+	else if (pmotor->TIMx == TIM3)
+	{
+		pmotor->TIMx->CCR4 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
+		pmotor->TIMx->CNT = 0;
+	}
+	else if (pmotor->TIMx == TIM1)
+	{
+		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
+		pmotor->TIMx->CNT = 0;
+	}
+	else if (pmotor->TIMx == TIM5)
+	{
+		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
+		pmotor->TIMx->CNT = 0;
+	}
 	// TIM_Cmd(pmotor->TIMx, ENABLE);				  //DISABLE
 	switch (MotorID)
 	{
@@ -961,75 +936,86 @@ void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, ui
 		pmotor = &motor1;
 		htim2_MOTOR1.Instance = pmotor->TIMx;
 		HAL_TIM_Base_Start(&htim2_MOTOR1);
-		// TIM_CCxChannelCmd(htim2_MOTOR1.Instance, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
 		break;
 	case 2:
 		pmotor = &motor2;
 		htim4_MOTOR2.Instance = pmotor->TIMx;
 		HAL_TIM_Base_Start(&htim4_MOTOR2);
-		// TIM_CCxChannelCmd(htim4_MOTOR2.Instance, MOTOR2_TIM4_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
-
 		break;
 	case 3:
 		pmotor = &motor3;
 		htim8_MOTOR3.Instance = pmotor->TIMx;
 		HAL_TIM_Base_Start(&htim8_MOTOR3);
-		// TIM_CCxChannelCmd(htim8_MOTOR3.Instance, MOTOR3_TIM8_CHANNEL_x, TIM_CCx_ENABLE); // 使能定时器通道
+		break;
+	case 4:
+		pmotor = &motor4;
+		htim3_MOTOR4.Instance = pmotor->TIMx;
+		HAL_TIM_Base_Start(&htim3_MOTOR4);
+		break;
+	case 5:
+		pmotor = &motor5;
+		htim1_MOTOR5.Instance = pmotor->TIMx;
+		HAL_TIM_Base_Start(&htim1_MOTOR5);
+		break;
+	case 6:
+		pmotor = &motor6;
+		htim5_MOTOR6.Instance = pmotor->TIMx;
+		HAL_TIM_Base_Start(&htim5_MOTOR6);
 		break;
 	default:
 		return;
 	}; // 禁止使能定时器     YLS 04.22
 }
 
-/*启动电机按照SPTA方式运行*/
-void Start_Motor_SPTA(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA)
-{
-	unsigned int PulsesGiven = 0;
-	MOTOR_CONTROL_SPTA *pmotor = NULL;
-	if (Degree == 0)
-	{
-		return;
-	}
-	switch (MotorID)
-	{
-	case 4:
-		pmotor = &motor4;
-		if (0 == dir)
-		{
-			//		    GPIO_SetBits(GPIOB,GPIO_Pin_9);
-			MOTOR4_DIR_FORWARD();
-		}
-		else
-		{
-			//		    GPIO_ResetBits(GPIOB,GPIO_Pin_9);
-			MOTOR4_DIR_REVERSAL();
-		}
-		break;
-	default:
-		return;
-	}
+// /*启动电机按照SPTA方式运行*/
+// void Start_Motor_SPTA(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA)
+// {
+// 	unsigned int PulsesGiven = 0;
+// 	MOTOR_CONTROL_SPTA *pmotor = NULL;
+// 	if (Degree == 0)
+// 	{
+// 		return;
+// 	}
+// 	switch (MotorID)
+// 	{
+// 	case 4:
+// 		pmotor = &motor4;
+// 		if (0 == dir)
+// 		{
+// 			//		    GPIO_SetBits(GPIOB,GPIO_Pin_9);
+// 			MOTOR4_DIR_FORWARD();
+// 		}
+// 		else
+// 		{
+// 			//		    GPIO_ResetBits(GPIOB,GPIO_Pin_9);
+// 			MOTOR4_DIR_REVERSAL();
+// 		}
+// 		break;
+// 	default:
+// 		return;
+// 	}
 
-	pmotor->en = 1;
-	pmotor->dir = dir;
-	pmotor->running = 1;
-	pmotor->speedenbale = 0;
-	PulsesGiven = Degree;
-	pmotor->step_move = PulsesGiven * pmotor->divnum;
-	pmotor->step_middle = pmotor->step_move >> 1;
-	/*FIXME:这两个参数可以由用户自行改变测试*/
-	pmotor->step_spmax = MaxSpeed_SPTA; //SPTA最大速度 MAXSPEED_SPTA
-	pmotor->step_accel = AccSpeed_SPTA; //SPTA加速度 ACCSPEED_SPTA
-	pmotor->step_state = ACCELERATING;
-	pmotor->step_frac = 0;
-	pmotor->speed_frac = 0;
-	pmotor->step_acced = 0;
-	pmotor->step_speed = 0;
-	pmotor->step_count = 0;
+// 	pmotor->en = 1;
+// 	pmotor->dir = dir;
+// 	pmotor->running = 1;
+// 	pmotor->speedenbale = 0;
+// 	PulsesGiven = Degree;
+// 	pmotor->step_move = PulsesGiven * pmotor->divnum;
+// 	pmotor->step_middle = pmotor->step_move >> 1;
+// 	/*FIXME:这两个参数可以由用户自行改变测试*/
+// 	pmotor->step_spmax = MaxSpeed_SPTA; //SPTA最大速度 MAXSPEED_SPTA
+// 	pmotor->step_accel = AccSpeed_SPTA; //SPTA加速度 ACCSPEED_SPTA
+// 	pmotor->step_state = ACCELERATING;
+// 	pmotor->step_frac = 0;
+// 	pmotor->speed_frac = 0;
+// 	pmotor->step_acced = 0;
+// 	pmotor->step_speed = 0;
+// 	pmotor->step_count = 0;
 
-	// TIM_Cmd(pmotor->TIMx, ENABLE);
-	htim3_MOTOR4.Instance = pmotor->TIMx;
-	HAL_TIM_Base_Start(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.22
-}
+// 	// TIM_Cmd(pmotor->TIMx, ENABLE);
+// 	htim3_MOTOR4.Instance = pmotor->TIMx;
+// 	HAL_TIM_Base_Start(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.22
+// }
 
 /*启动电机，根据电机号决定调用哪个*/
 void Start_Motor(unsigned char MotorID, unsigned char dir, unsigned int Degree, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA)
@@ -1061,7 +1047,13 @@ void Reposition_Motor(unsigned char MotorID, unsigned int NewPos, uint32_t MaxSp
 		pmotor_s = &motor3;
 		break;
 	case 4:
-		pmotor_spta = &motor4;
+		pmotor_s = &motor4;
+		break;
+	case 5:
+		pmotor_s = &motor5;
+		break;
+	case 6:
+		pmotor_s = &motor6;
 		break;
 	default:
 		return;
@@ -1077,22 +1069,6 @@ void Reposition_Motor(unsigned char MotorID, unsigned int NewPos, uint32_t MaxSp
 			else
 			{
 				// Start_Motor_S(MotorID, !pmotor_s->clockwise, pmotor_s->CurrentPosition - NewPos);
-			}
-			while (pmotor_s->running == 1)
-				;
-		}
-	}
-	if (pmotor_spta != NULL)
-	{
-		if (NewPos <= pmotor_spta->MaxPosition && NewPos != pmotor_spta->CurrentPosition)
-		{
-			if (NewPos > pmotor_spta->CurrentPosition)
-			{
-				Start_Motor_SPTA(MotorID, pmotor_spta->clockwise, NewPos - pmotor_spta->CurrentPosition, MaxSpeed_SPTA, AccSpeed_SPTA);
-			}
-			else
-			{
-				Start_Motor_SPTA(MotorID, !pmotor_spta->clockwise, pmotor_spta->CurrentPosition - NewPos, MaxSpeed_SPTA, AccSpeed_SPTA);
 			}
 			while (pmotor_s->running == 1)
 				;
@@ -1167,7 +1143,19 @@ void SetSpeed(unsigned char MotorID, signed char speedindex)
 		HAL_TIM_Base_Stop(&htim8_MOTOR3); // 禁止使能定时器     YLS 04.29
 		break;
 	case 4:
-		pmotor_spta = &motor4;
+		pmotor_s = &motor4;
+		htim3_MOTOR4.Instance = pmotor_s->TIMx;
+		HAL_TIM_Base_Stop(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.29
+		break;
+	case 5:
+		pmotor_s = &motor5;
+		htim1_MOTOR5.Instance = pmotor_s->TIMx;
+		HAL_TIM_Base_Stop(&htim1_MOTOR5); // 禁止使能定时器     YLS 04.29
+		break;
+	case 6:
+		pmotor_s = &motor6;
+		htim5_MOTOR6.Instance = pmotor_s->TIMx;
+		HAL_TIM_Base_Stop(&htim5_MOTOR6); // 禁止使能定时器     YLS 04.29
 		break;
 	default:
 		return;
@@ -1257,75 +1245,23 @@ void SetSpeed(unsigned char MotorID, signed char speedindex)
 			HAL_TIM_Base_Start(&htim8_MOTOR3); // 禁止使能定时器     YLS 04.29
 			break;
 		case 4:
-			pmotor_spta = &motor4;
+			pmotor_s = &motor4;
+			htim3_MOTOR4.Instance = pmotor_s->TIMx;
+			HAL_TIM_Base_Start(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.29
+			break;
+		case 5:
+			pmotor_s = &motor5;
+			htim1_MOTOR5.Instance = pmotor_s->TIMx;
+			HAL_TIM_Base_Start(&htim1_MOTOR5); // 禁止使能定时器     YLS 04.29
+			break;
+		case 6:
+			pmotor_s = &motor6;
+			htim5_MOTOR6.Instance = pmotor_s->TIMx;
+			HAL_TIM_Base_Start(&htim5_MOTOR6); // 禁止使能定时器     YLS 04.29
 			break;
 		default:
 			return;
 		}
-	}
-
-	if (pmotor_spta != NULL)
-	{
-		// TIM_Cmd(pmotor_spta->TIMx, DISABLE);
-		htim3_MOTOR4.Instance = pmotor_spta->TIMx;
-		HAL_TIM_Base_Stop(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.22
-		if (speedindex > 0 && speedindex <= STEP_SPTA)
-		{
-			destspeed = speedindex * MAXSPEED_SPTA / STEP_SPTA;
-			if (destspeed == pmotor_spta->step_spmax)
-			{
-				// TIM_Cmd(pmotor_spta->TIMx, ENABLE);
-				htim3_MOTOR4.Instance = pmotor_spta->TIMx;
-				HAL_TIM_Base_Start(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.22
-				return;
-			}
-			if (pmotor_spta->step_state == IDLE)
-			{
-				/*如果电机已经停止，那么电机的运行参数就要复位，否则参数不变
-				   在现有的基础上做速度调整*/
-				pmotor_spta->step_frac = 0;
-				pmotor_spta->speed_frac = 0;
-				pmotor_spta->step_acced = 0;
-				pmotor_spta->step_speed = 0;
-				pmotor_spta->step_count = 0;
-			}
-			if (destspeed < pmotor_spta->step_spmax)
-			{
-				if (pmotor_spta->step_state != IDLE)
-				{
-					pmotor_spta->step_state = DECELERATING;
-				}
-				else
-				{
-					pmotor_spta->step_state = ACCELERATING;
-				}
-			}
-			else
-			{
-				pmotor_spta->step_state = ACCELERATING;
-			}
-
-			pmotor_spta->step_accel = ACCSPEED_SPTA;
-			pmotor_spta->step_spmax = destspeed;
-			pmotor_spta->speedenbale = 1;
-			pmotor_spta->running = 1;
-			pmotor_spta->en = 1;
-		}
-		else
-		{
-			//停止电机,
-			if (pmotor_spta->running == 0)
-			{
-				//已经停止
-				return;
-			}
-			pmotor_spta->speedenbale = 0;
-			pmotor_spta->step_state = DECELERATING;
-			pmotor_spta->step_move = pmotor_spta->step_count + pmotor_spta->step_acced;
-		}
-		// TIM_Cmd(pmotor_spta->TIMx, ENABLE);
-		htim3_MOTOR4.Instance = pmotor_spta->TIMx;
-		HAL_TIM_Base_Start(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.22
 	}
 }
 
@@ -1346,7 +1282,13 @@ void SetPosition(unsigned char MotorID, unsigned int dest, uint32_t MaxSpeed_SPT
 		pmotor_s = &motor3;
 		break;
 	case 4:
-		pmotor_spta = &motor4;
+		pmotor_s = &motor4;
+		break;
+	case 5:
+		pmotor_s = &motor5;
+		break;
+	case 6:
+		pmotor_s = &motor6;
 		break;
 	default:
 		return;
@@ -1364,22 +1306,6 @@ void SetPosition(unsigned char MotorID, unsigned int dest, uint32_t MaxSpeed_SPT
 				// Start_Motor_S(MotorID, !pmotor_s->clockwise, pmotor_s->CurrentPosition - dest);
 			}
 			while (pmotor_s->running == 1)
-				;
-		}
-	}
-	else if (pmotor_spta != NULL)
-	{
-		if (dest <= pmotor_spta->MaxPosition && dest != pmotor_spta->CurrentPosition)
-		{
-			if (dest > pmotor_spta->CurrentPosition)
-			{
-				Start_Motor_SPTA(MotorID, pmotor_spta->clockwise, dest - pmotor_spta->CurrentPosition, MaxSpeed_SPTA, AccSpeed_SPTA);
-			}
-			else
-			{
-				Start_Motor_SPTA(MotorID, !pmotor_spta->clockwise, pmotor_spta->CurrentPosition - dest, MaxSpeed_SPTA, AccSpeed_SPTA);
-			}
-			while (pmotor_spta->running == 1)
 				;
 		}
 	}
@@ -1402,7 +1328,13 @@ void Do_Reset(unsigned char MotorID)
 		pmotor_s = &motor3;
 		break;
 	case 4:
-		pmotor_spta = &motor4;
+		pmotor_s = &motor4;
+		break;
+	case 5:
+		pmotor_s = &motor5;
+		break;
+	case 6:
+		pmotor_s = &motor6;
 		break;
 	default:
 		return;
@@ -1414,14 +1346,6 @@ void Do_Reset(unsigned char MotorID)
 		pmotor_s->running = 1;
 		SetSpeed(MotorID, 16);
 		while (pmotor_s->running == 1)
-			;
-	}
-	if (pmotor_spta != NULL)
-	{
-		pmotor_spta->rstflg = 1;
-		pmotor_spta->running = 1;
-		SetSpeed(MotorID, 16);
-		while (pmotor_spta->running == 1)
 			;
 	}
 }
@@ -1490,38 +1414,12 @@ void Deal_Cmd(void)
 /*电机1的PWM输出初始化，使用的是定时器4*/
 void Initial_PWM_Motor1(void)
 {
-	//	TIM_ClockConfigTypeDef sClockSourceConfig; // 定时器时钟
 	TIM_OC_InitTypeDef sConfigOC; // 定时器通道比较输出
-	// TIM_TimeBaseInitTypeDef TIM_BaseInitStructure;
-	// NVIC_InitTypeDef NVIC_InitStructure;
-	// TIM_OCInitTypeDef TIM_OCInitStructure;
 
 	MOTOR1_TIM2_RCC_CLK_ENABLE();
 
 	/* STEPMOTOR相关GPIO初始化配置 */
 	MOTOR1_GPIO_Init();
-
-	// TIM_DeInit(TIM1);
-	// htim2_MOTOR1.Instance = MOTOR1_TIM2; // 定时器编号
-	// HAL_TIM_Base_DeInit(&htim2_MOTOR1);
-
-	// NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;
-	// NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = PWM1_PreemptionPriority;
-	// NVIC_InitStructure.NVIC_IRQChannelSubPriority = PWM1_SubPriority;
-	// NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-	// NVIC_Init(&NVIC_InitStructure);
-
-	// 	TIM_BaseInitStructure.TIM_Period = 1000;
-	// #ifdef OUTPUT_DATA
-	// 	TIM_BaseInitStructure.TIM_Prescaler = 710000; //71000
-	// #else
-	// 	TIM_BaseInitStructure.TIM_Prescaler = 5; //72000000/(5+1)=12000000	12M的晶振频率
-	// #endif
-
-	// 	TIM_BaseInitStructure.TIM_ClockDivision = 0;
-	// 	TIM_BaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
-	// 	TIM_BaseInitStructure.TIM_RepetitionCounter = 0;
-	// 	TIM_TimeBaseInit(TIM1, &TIM_BaseInitStructure);
 
 	/* 定时器基本环境配置 */
 	htim2_MOTOR1.Instance = MOTOR1_TIM2;					  // 定时器编号
@@ -1531,28 +1429,14 @@ void Initial_PWM_Motor1(void)
 	htim2_MOTOR1.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1; // 时钟分频
 	HAL_TIM_Base_Init(&htim2_MOTOR1);
 
-	// TIM_OCInitStructure.TIM_OCMode = TIM_OCMode_PWM2;				//PWM2模式
-	// TIM_OCInitStructure.TIM_OutputState = TIM_OutputState_Enable;	//信号输出到对应的输出引脚
-	// TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable; //互补信号输出到对应的输出引脚
-	// TIM_OCInitStructure.TIM_Pulse = 50;								//脉冲宽度
-	// TIM_OCInitStructure.TIM_OCPolarity = TIM_OCPolarity_Low;		//互补输出高电平有效
-	// TIM_OCInitStructure.TIM_OCNPolarity = TIM_OCNPolarity_High;		//互补输出高电平有效
-	// TIM_OCInitStructure.TIM_OCIdleState = TIM_OCIdleState_Reset;	//输出空闲状态为1
-	// TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;	//互补输出空闲状态为0
-	// TIM_OC1Init(TIM1, &TIM_OCInitStructure);						//OC1通道初始化
-
-	// TIM_OC1PreloadConfig(TIM1, TIM_OCPreload_Enable);
-	// TIM_ARRPreloadConfig(TIM1, ENABLE);
-
 	/* 定时器比较输出配置 */
 	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
-	sConfigOC.Pulse = 50;							 // 脉冲数
+	sConfigOC.Pulse = 500;							 // 脉冲数
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
 	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
 	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
-	// HAL_TIM_OC_ConfigChannel(&htim2_MOTOR1, &sConfigOC, MOTOR1_TIM2_CHANNEL_x);
 	HAL_TIM_PWM_ConfigChannel(&htim2_MOTOR1, &sConfigOC, MOTOR1_TIM2_CHANNEL_x);
 	/* 使能比较输出通道 */
 	TIM_CCxChannelCmd(MOTOR1_TIM2, MOTOR1_TIM2_CHANNEL_x, TIM_CCx_ENABLE);
@@ -1578,124 +1462,108 @@ void Initial_PWM_Motor1(void)
 	__HAL_TIM_MOE_ENABLE(&htim2_MOTOR1);
 }
 
-//void Initial_PWM_Motor2(void)
-//{
-//    TIM_TimeBaseInitTypeDef TIM_BaseInitStructure;
-//	NVIC_InitTypeDef NVIC_InitStructure;
-//	TIM_OCInitTypeDef  TIM_OCInitStructure;
+void Initial_PWM_Motor2(void)
+{
+	TIM_OC_InitTypeDef sConfigOC; // 定时器通道比较输出
+
+	MOTOR2_TIM4_RCC_CLK_ENABLE();
+
+	/* STEPMOTOR相关GPIO初始化配置 */
+	MOTOR2_GPIO_Init();
+
+	/* 定时器基本环境配置 */
+	htim4_MOTOR2.Instance = MOTOR2_TIM4;					  // 定时器编号
+	htim4_MOTOR2.Init.Prescaler = MOTOR2_TIM_PRESCALER;		  // 定时器预分频器
+	htim4_MOTOR2.Init.CounterMode = TIM_COUNTERMODE_UP;		  // 计数方向：向上计数
+	htim4_MOTOR2.Init.Period = 1000;						  // 定时器周期MOTOR2_TIM_PERIOD
+	htim4_MOTOR2.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1; // 时钟分频
+	HAL_TIM_Base_Init(&htim4_MOTOR2);
+
+	/* 定时器比较输出配置 */
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;							 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
+	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
+	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
+	HAL_TIM_PWM_ConfigChannel(&htim4_MOTOR2, &sConfigOC, MOTOR2_TIM4_CHANNEL_x);
+	/* 使能比较输出通道 */
+	TIM_CCxChannelCmd(MOTOR2_TIM4, MOTOR2_TIM4_CHANNEL_x, TIM_CCx_ENABLE);
+
+	/* 配置定时器中断优先级并使能 */
+	HAL_NVIC_SetPriority(MOTOR2_TIM4_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(MOTOR2_TIM4_IRQn);
+
+	//清中断，以免一启用中断后立即产生中断
+	__HAL_TIM_CLEAR_FLAG(&htim4_MOTOR2, MOTOR2_TIM4_FLAG_CCx);
+	__HAL_TIM_CLEAR_FLAG(&htim4_MOTOR2, TIM_IT_UPDATE);
+
+	//使能TIM1中断源
+	// TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE);
+	// __HAL_TIM_ENABLE_IT(&htim4_MOTOR2, MOTOR2_TIM4_IT_CCx);
+	__HAL_TIM_ENABLE_IT(&htim4_MOTOR2, TIM_IT_UPDATE);
+
+	/* Enable the main output */
+	// TIM_Cmd(TIM1, DISABLE);
+	// TIM_CtrlPWMOutputs(TIM1, ENABLE); //使能PWM输出
+	HAL_TIM_Base_Stop(&htim4_MOTOR2); // 使能定时器
+	__HAL_TIM_MOE_ENABLE(&htim4_MOTOR2);
+}
 //
-//    RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM2, ENABLE);
-//	TIM_DeInit(TIM2);
-//     //中断NVIC设置：允许中断，设置优先级
-//	NVIC_InitStructure.NVIC_IRQChannel = TIM2_IRQn;    //更新事件 	TIM2_IRQHandler
-//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority =PWM2_PreemptionPriority;   //抢占优先级3
-//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = PWM2_SubPriority;          //响应优先级1
-//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;             //允许中断
-//	NVIC_Init(&NVIC_InitStructure);
-//	TIM_BaseInitStructure.TIM_Period =1000;
-//#ifdef OUTPUT_DATA
-//	TIM_BaseInitStructure.TIM_Prescaler =710000; //71000
-//#else
-//	TIM_BaseInitStructure.TIM_Prescaler =5;
-//#endif
-//	TIM_BaseInitStructure.TIM_ClockDivision = 0;
-//	TIM_BaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
-//	TIM_BaseInitStructure.TIM_RepetitionCounter = 0;
-//	TIM_TimeBaseInit(TIM2, &TIM_BaseInitStructure);
-//
-//	TIM_OCInitStructure.TIM_OCMode       = TIM_OCMode_PWM2;       //PWM2模式
-//    TIM_OCInitStructure.TIM_OutputState  = TIM_OutputState_Enable;  //信号输出到对应的输出引脚
-//    TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable; //互补信号输出到对应的输出引脚
-//    TIM_OCInitStructure.TIM_Pulse =50;   //脉冲宽度
-//    TIM_OCInitStructure.TIM_OCPolarity   = TIM_OCPolarity_Low;   //互补输出高电平有效
-//    TIM_OCInitStructure.TIM_OCNPolarity  = TIM_OCNPolarity_High;    //互补输出高电平有效
-//    TIM_OCInitStructure.TIM_OCIdleState  = TIM_OCIdleState_Reset;  //输出空闲状态为1
-//    TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;   //互补输出空闲状态为0
-//    TIM_OC1Init(TIM2,&TIM_OCInitStructure);   //OC1通道初始化
-//
-//    TIM_OC1PreloadConfig(TIM2, TIM_OCPreload_Enable);
-//    TIM_ARRPreloadConfig(TIM2, ENABLE);
-//	//清中断，以免一启用中断后立即产生中断
-//    TIM_ClearFlag(TIM2, TIM_FLAG_Update);
-//    //使能TIM1中断源
-//    TIM_ITConfig(TIM2, TIM_IT_Update, ENABLE);
-//    TIM_Cmd(TIM2, DISABLE);
-//    //TIM_CtrlPWMOutputs(TIM2,ENABLE); //使能PWM输出
-//}
-//
-//void Initial_PWM_Motor3(void)
-//{
-//	TIM_TimeBaseInitTypeDef TIM_BaseInitStructure;
-//	NVIC_InitTypeDef NVIC_InitStructure;
-//	TIM_OCInitTypeDef  TIM_OCInitStructure;
-//
-//  RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM3, ENABLE);
-//	TIM_DeInit(TIM3);
-//     //中断NVIC设置：允许中断，设置优先级
-//	NVIC_InitStructure.NVIC_IRQChannel = TIM3_IRQn;    //更新事件 	TIM3_IRQHandler
-//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority =PWM3_PreemptionPriority;   //抢占优先级3
-//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = PWM3_SubPriority;          //响应优先级1
-//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;             //允许中断
-//	NVIC_Init(&NVIC_InitStructure);
-//	TIM_BaseInitStructure.TIM_Period =1000;						//自动装载周期值
-//#ifdef OUTPUT_DATA
-//	TIM_BaseInitStructure.TIM_Prescaler =710000; //71000			预分频器
-//#else
-//	TIM_BaseInitStructure.TIM_Prescaler =5;
-//#endif
-//	TIM_BaseInitStructure.TIM_ClockDivision = 0;
-//	TIM_BaseInitStructure.TIM_CounterMode = TIM_CounterMode_Up;
-//	TIM_BaseInitStructure.TIM_RepetitionCounter = 0;
-//	TIM_TimeBaseInit(TIM3, &TIM_BaseInitStructure);
-//
-//	TIM_OCInitStructure.TIM_OCMode       = TIM_OCMode_PWM2;       //PWM2模式
-//	TIM_OCInitStructure.TIM_OutputState  = TIM_OutputState_Enable;  //信号输出到对应的输出引脚
-//	TIM_OCInitStructure.TIM_OutputNState = TIM_OutputNState_Enable; //互补信号输出到对应的输出引脚
-//	TIM_OCInitStructure.TIM_Pulse =50;   //脉冲宽度
-//	TIM_OCInitStructure.TIM_OCPolarity   = TIM_OCPolarity_Low;   //互补输出高电平有效
-//	TIM_OCInitStructure.TIM_OCNPolarity  = TIM_OCNPolarity_High;    //互补输出高电平有效
-//	TIM_OCInitStructure.TIM_OCIdleState  = TIM_OCIdleState_Reset;  //输出空闲状态为1
-//	TIM_OCInitStructure.TIM_OCNIdleState = TIM_OCIdleState_Reset;   //互补输出空闲状态为0
-//	TIM_OC1Init(TIM3,&TIM_OCInitStructure);   //OC1通道初始化
-//
-//	TIM_OC1PreloadConfig(TIM3, TIM_OCPreload_Enable);
-//	TIM_ARRPreloadConfig(TIM3, ENABLE);
-//	//清中断，以免一启用中断后立即产生中断
-//	TIM_ClearFlag(TIM3, TIM_FLAG_Update);
-//	//使能TIM1中断源
-//	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
-//	TIM_Cmd(TIM3, DISABLE);
-//	//TIM_CtrlPWMOutputs(TIM3,ENABLE); //使能PWM输出
-//}
+void Initial_PWM_Motor3(void)
+{
+	TIM_OC_InitTypeDef sConfigOC; // 定时器通道比较输出
+
+	MOTOR3_TIM8_RCC_CLK_ENABLE();
+
+	/* STEPMOTOR相关GPIO初始化配置 */
+	MOTOR3_GPIO_Init();
+
+	/* 定时器基本环境配置 */
+	htim8_MOTOR3.Instance = MOTOR3_TIM8;					  // 定时器编号
+	htim8_MOTOR3.Init.Prescaler = MOTOR3_TIM_PRESCALER;		  // 定时器预分频器
+	htim8_MOTOR3.Init.CounterMode = TIM_COUNTERMODE_UP;		  // 计数方向：向上计数
+	htim8_MOTOR3.Init.Period = 1000;						  // 定时器周期MOTOR3_TIM_PERIOD
+	htim8_MOTOR3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1; // 时钟分频
+	HAL_TIM_Base_Init(&htim8_MOTOR3);
+
+	/* 定时器比较输出配置 */
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;							 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
+	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
+	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
+	HAL_TIM_PWM_ConfigChannel(&htim8_MOTOR3, &sConfigOC, MOTOR3_TIM8_CHANNEL_x);
+	/* 使能比较输出通道 */
+	TIM_CCxChannelCmd(MOTOR3_TIM8, MOTOR3_TIM8_CHANNEL_x, TIM_CCx_ENABLE);
+
+	/* 配置定时器中断优先级并使能 */
+	HAL_NVIC_SetPriority(MOTOR3_TIM8_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(MOTOR3_TIM8_IRQn);
+
+	//清中断，以免一启用中断后立即产生中断
+	// TIM_ClearFlag(TIM8, TIM_FLAG_Update);
+	__HAL_TIM_CLEAR_FLAG(&htim8_MOTOR3, MOTOR3_TIM8_FLAG_CCx);
+	__HAL_TIM_CLEAR_FLAG(&htim8_MOTOR3, TIM_IT_UPDATE);
+
+	//使能TIM8中断源
+	// TIM_ITConfig(TIM8, TIM_IT_Update, ENABLE);
+	// __HAL_TIM_ENABLE_IT(&htim8_MOTOR3, MOTOR3_TIM8_IT_CCx);
+	__HAL_TIM_ENABLE_IT(&htim8_MOTOR3, TIM_IT_UPDATE);
+
+	/* Enable the main output */
+	// TIM_Cmd(TIM8, DISABLE);
+	// TIM_CtrlPWMOutputs(TIM8, ENABLE); //使能PWM输出
+	HAL_TIM_Base_Stop(&htim8_MOTOR3); // 使能定时器
+	__HAL_TIM_MOE_ENABLE(&htim8_MOTOR3);
+}
 //
 void Initial_PWM_Motor4(void)
 {
-	// TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
-	// NVIC_InitTypeDef NVIC_InitStructure;
-
-	// RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
-	//中断NVIC设置：允许中断，设置优先级
-	// NVIC_InitStructure.NVIC_IRQChannel = TIM4_IRQn;									//更新事件
-	// NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = PWM4_PreemptionPriority; //抢占优先级3
-	// NVIC_InitStructure.NVIC_IRQChannelSubPriority = PWM4_SubPriority;				//响应优先级1
-	// NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;									//允许中断
-	// NVIC_Init(&NVIC_InitStructure);
-
-	// TIM_TimeBaseStructure.TIM_Period = 29; //自动装载计数器周期值
-	// #ifdef OUTPUT_DATA
-	// 	TIM_TimeBaseStructure.TIM_Prescaler = 2800; //2800                    //预分频值	 29
-	// #else
-	// 	TIM_TimeBaseStructure.TIM_Prescaler = 14; //2800                    //预分频值	 29
-	// #endif
-	// TIM_TimeBaseStructure.TIM_ClockDivision = 0;				//时钟分隔
-	// TIM_TimeBaseStructure.TIM_CounterMode = TIM_CounterMode_Up; //计数模式
-	// TIM_TimeBaseInit(TIM4, &TIM_TimeBaseStructure);				//初始化
-	// TIM_ClearFlag(TIM4, TIM_FLAG_Update);
-	// TIM_ITConfig(TIM4, TIM_IT_Update, ENABLE);
-	// TIM_Cmd(TIM4, DISABLE);
-
-	//	TIM_ClockConfigTypeDef sClockSourceConfig; // 定时器时钟
-	//	TIM_OC_InitTypeDef sConfigOC;			   // 定时器通道比较输出
+	TIM_OC_InitTypeDef sConfigOC; // 定时器通道比较输出
 
 	MOTOR4_TIM3_RCC_CLK_ENABLE();
 
@@ -1706,30 +1574,141 @@ void Initial_PWM_Motor4(void)
 	htim3_MOTOR4.Instance = MOTOR4_TIM3;					  // 定时器编号
 	htim3_MOTOR4.Init.Prescaler = MOTOR4_TIM_PRESCALER;		  // 定时器预分频器
 	htim3_MOTOR4.Init.CounterMode = TIM_COUNTERMODE_UP;		  // 计数方向：向上计数
-	htim3_MOTOR4.Init.Period = 29;							  // 定时器周期MOTOR1_TIM_PERIOD
+	htim3_MOTOR4.Init.Period = 1000;						  // 定时器周期MOTOR4_TIM_PERIOD
 	htim3_MOTOR4.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1; // 时钟分频
 	HAL_TIM_Base_Init(&htim3_MOTOR4);
+
+	/* 定时器比较输出配置 */
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;							 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
+	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
+	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
+	HAL_TIM_PWM_ConfigChannel(&htim3_MOTOR4, &sConfigOC, MOTOR4_TIM3_CHANNEL_x);
+	/* 使能比较输出通道 */
+	TIM_CCxChannelCmd(MOTOR4_TIM3, MOTOR4_TIM3_CHANNEL_x, TIM_CCx_ENABLE);
 
 	/* 配置定时器中断优先级并使能 */
 	HAL_NVIC_SetPriority(MOTOR4_TIM3_IRQn, 0, 0);
 	HAL_NVIC_EnableIRQ(MOTOR4_TIM3_IRQn);
 
 	//清中断，以免一启用中断后立即产生中断
-	// TIM_ClearFlag(TIM1, TIM_FLAG_Update);
-	// __HAL_TIM_CLEAR_FLAG(&htim3_MOTOR4, MOTOR4_TIM3_FLAG_CCx);
+	// TIM_ClearFlag(TIM3, TIM_FLAG_Update);
+	__HAL_TIM_CLEAR_FLAG(&htim3_MOTOR4, MOTOR4_TIM3_FLAG_CCx);
 	__HAL_TIM_CLEAR_FLAG(&htim3_MOTOR4, TIM_IT_UPDATE);
+
+	//使能TIM3中断源
+	// TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
+	// __HAL_TIM_ENABLE_IT(&htim3_MOTOR4, MOTOR4_TIM3_IT_CCx);
+	__HAL_TIM_ENABLE_IT(&htim3_MOTOR4, TIM_IT_UPDATE);
+
+	/* Enable the main output */
+	// TIM_Cmd(TIM3, DISABLE);
+	// TIM_CtrlPWMOutputs(TIM3, ENABLE); //使能PWM输出
+	HAL_TIM_Base_Stop(&htim3_MOTOR4); // 使能定时器
+	__HAL_TIM_MOE_ENABLE(&htim3_MOTOR4);
+}
+
+void Initial_PWM_Motor5(void)
+{
+	TIM_OC_InitTypeDef sConfigOC; // 定时器通道比较输出
+
+	MOTOR5_TIM1_RCC_CLK_ENABLE();
+
+	/* STEPMOTOR相关GPIO初始化配置 */
+	MOTOR5_GPIO_Init();
+
+	/* 定时器基本环境配置 */
+	htim1_MOTOR5.Instance = MOTOR5_TIM1;					  // 定时器编号
+	htim1_MOTOR5.Init.Prescaler = MOTOR5_TIM_PRESCALER;		  // 定时器预分频器
+	htim1_MOTOR5.Init.CounterMode = TIM_COUNTERMODE_UP;		  // 计数方向：向上计数
+	htim1_MOTOR5.Init.Period = 1000;						  // 定时器周期MOTOR5_TIM_PERIOD
+	htim1_MOTOR5.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1; // 时钟分频
+	HAL_TIM_Base_Init(&htim1_MOTOR5);
+
+	/* 定时器比较输出配置 */
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;							 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
+	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
+	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
+	HAL_TIM_PWM_ConfigChannel(&htim1_MOTOR5, &sConfigOC, MOTOR5_TIM1_CHANNEL_x);
+	/* 使能比较输出通道 */
+	TIM_CCxChannelCmd(MOTOR5_TIM1, MOTOR5_TIM1_CHANNEL_x, TIM_CCx_ENABLE);
+
+	/* 配置定时器中断优先级并使能 */
+	HAL_NVIC_SetPriority(MOTOR5_TIM1_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(MOTOR5_TIM1_IRQn);
+
+	//清中断，以免一启用中断后立即产生中断
+	// TIM_ClearFlag(TIM1, TIM_FLAG_Update);
+	__HAL_TIM_CLEAR_FLAG(&htim1_MOTOR5, MOTOR5_TIM1_FLAG_CCx);
+	__HAL_TIM_CLEAR_FLAG(&htim1_MOTOR5, TIM_IT_UPDATE);
 
 	//使能TIM1中断源
 	// TIM_ITConfig(TIM1, TIM_IT_Update, ENABLE);
-	// __HAL_TIM_ENABLE_IT(&htim2_MOTOR1, MOTOR1_TIM2_IT_CCx);
-	__HAL_TIM_ENABLE_IT(&htim3_MOTOR4, TIM_IT_UPDATE);
+	// __HAL_TIM_ENABLE_IT(&htim1_MOTOR5, MOTOR5_TIM1_IT_CCx);
+	__HAL_TIM_ENABLE_IT(&htim1_MOTOR5, TIM_IT_UPDATE);
 
 	/* Enable the main output */
 	// TIM_Cmd(TIM1, DISABLE);
 	// TIM_CtrlPWMOutputs(TIM1, ENABLE); //使能PWM输出
-	HAL_TIM_Base_Stop(&htim3_MOTOR4); // 使能定时器
+	HAL_TIM_Base_Stop(&htim1_MOTOR5); // 使能定时器
+	__HAL_TIM_MOE_ENABLE(&htim1_MOTOR5);
+}
 
-	// __HAL_TIM_MOE_ENABLE(&htim3_MOTOR4);
+void Initial_PWM_Motor6(void)
+{
+	TIM_OC_InitTypeDef sConfigOC; // 定时器通道比较输出
+
+	MOTOR6_TIM5_RCC_CLK_ENABLE();
+
+	/* STEPMOTOR相关GPIO初始化配置 */
+	MOTOR6_GPIO_Init();
+
+	/* 定时器基本环境配置 */
+	htim5_MOTOR6.Instance = MOTOR6_TIM5;					  // 定时器编号
+	htim5_MOTOR6.Init.Prescaler = MOTOR6_TIM_PRESCALER;		  // 定时器预分频器
+	htim5_MOTOR6.Init.CounterMode = TIM_COUNTERMODE_UP;		  // 计数方向：向上计数
+	htim5_MOTOR6.Init.Period = 1000;						  // 定时器周期MOTOR6_TIM_PERIOD
+	htim5_MOTOR6.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1; // 时钟分频
+	HAL_TIM_Base_Init(&htim5_MOTOR6);
+
+	/* 定时器比较输出配置 */
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;							 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
+	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
+	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
+	HAL_TIM_PWM_ConfigChannel(&htim5_MOTOR6, &sConfigOC, MOTOR6_TIM5_CHANNEL_x);
+	/* 使能比较输出通道 */
+	TIM_CCxChannelCmd(MOTOR6_TIM5, MOTOR6_TIM5_CHANNEL_x, TIM_CCx_ENABLE);
+
+	/* 配置定时器中断优先级并使能 */
+	HAL_NVIC_SetPriority(MOTOR6_TIM5_IRQn, 0, 0);
+	HAL_NVIC_EnableIRQ(MOTOR6_TIM5_IRQn);
+
+	//清中断，以免一启用中断后立即产生中断
+	// TIM_ClearFlag(TIM5, TIM_FLAG_Update);
+	__HAL_TIM_CLEAR_FLAG(&htim5_MOTOR6, MOTOR6_TIM5_FLAG_CCx);
+	__HAL_TIM_CLEAR_FLAG(&htim5_MOTOR6, TIM_IT_UPDATE);
+
+	//使能TIM5中断源
+	// TIM_ITConfig(TIM5, TIM_IT_Update, ENABLE);
+	// __HAL_TIM_ENABLE_IT(&htim5_MOTOR6, MOTOR6_TIM5_IT_CCx);
+	__HAL_TIM_ENABLE_IT(&htim5_MOTOR6, TIM_IT_UPDATE);
+
+	/* Enable the main output */
+	// TIM_Cmd(TIM5, DISABLE);
+	// TIM_CtrlPWMOutputs(TIM5, ENABLE); //使能PWM输出
+	HAL_TIM_Base_Stop(&htim5_MOTOR6); // 使能定时器
+	__HAL_TIM_MOE_ENABLE(&htim5_MOTOR6);
 }
 //void EXTI_Configuration(void)
 //{

@@ -12,7 +12,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2017 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -32,13 +32,13 @@
 
 /** @addtogroup HAL_TimeBase_TIM
   * @{
-  */ 
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-TIM_HandleTypeDef        TimHandle;
+TIM_HandleTypeDef TimHandle;
 /* Private function prototypes -----------------------------------------------*/
 void TIM6_DAC_IRQHandler(void);
 /* Private functions ---------------------------------------------------------*/
@@ -52,13 +52,13 @@ void TIM6_DAC_IRQHandler(void);
   * @param  TickPriority Tick interrupt priority.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
+HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
-  RCC_ClkInitTypeDef    clkconfig;
-  uint32_t              uwTimclock, uwAPB1Prescaler = 0U;
-  uint32_t              uwPrescalerValue = 0U;
-  uint32_t              pFLatency;
-  HAL_StatusTypeDef     status;
+  RCC_ClkInitTypeDef clkconfig;
+  uint32_t uwTimclock, uwAPB1Prescaler = 0U;
+  uint32_t uwPrescalerValue = 0U;
+  uint32_t pFLatency;
+  HAL_StatusTypeDef status;
 
   /* Enable TIM6 clock */
   __HAL_RCC_TIM6_CLK_ENABLE();
@@ -80,7 +80,7 @@ HAL_StatusTypeDef HAL_InitTick (uint32_t TickPriority)
   }
 
   /* Compute the prescaler value to have TIM6 counter clock equal to 1MHz */
-  uwPrescalerValue = (uint32_t) ((uwTimclock / 1000000U) - 1U);
+  uwPrescalerValue = (uint32_t)((uwTimclock / 1000000U) - 1U);
 
   /* Initialize TIM6 */
   TimHandle.Instance = TIM6;
@@ -169,10 +169,10 @@ void TIM6_DAC_IRQHandler(void)
 
 /**
   * @}
-  */ 
+  */
 
 /**
   * @}
-  */ 
+  */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

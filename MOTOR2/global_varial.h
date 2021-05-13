@@ -118,6 +118,10 @@ typedef __packed struct
 #define M3_UNCLOCKWISE 1
 #define M4_CLOCKWISE 0
 #define M4_UNCLOCKWISE 1
+#define M5_CLOCKWISE 0
+#define M5_UNCLOCKWISE 1
+#define M6_CLOCKWISE 0
+#define M6_UNCLOCKWISE 1
 
 #define PWM1_PreemptionPriority 1 //阶级
 #define PWM1_SubPriority 0		  //阶层
@@ -133,7 +137,10 @@ typedef __packed struct
 extern MOTOR_CONTROL_S motor1;
 extern MOTOR_CONTROL_S motor2;
 extern MOTOR_CONTROL_S motor3;
-extern MOTOR_CONTROL_SPTA motor4;
+extern MOTOR_CONTROL_S motor4;
+extern MOTOR_CONTROL_S motor5;
+extern MOTOR_CONTROL_S motor6;
+// extern MOTOR_CONTROL_SPTA motor4;
 
 extern volatile uint8_t USART1_TxBuffer[USART1TXSIZE]; //串口1发送缓冲区
 extern volatile uint16_t PTxBufferUSART11;			   //串口1发送前向位置

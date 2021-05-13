@@ -752,6 +752,13 @@ void Variable_Init(void) //	变量初始化
 	Pr_AllDriver_Cmd_OK_F = 0;
 	Pr_HaveDriver_Cmd_Err_F = 0;
 	Pr_OverMaxPos_F = 0;
+
+	C_NoRcv1Count = 0;
+	C_NoRcv2Count = 0;
+	C_NoRcv3Count = 0;
+	C_NoRcv4Count = 0;
+	C_NoRcv5Count = 0;
+	C_NoRcv6Count = 0;
 }
 
 // RAM中参数表列 初始化 (读出)

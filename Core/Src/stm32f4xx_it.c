@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2021 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2021 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -292,7 +292,7 @@ void TIM3_IRQHandler(void)
 
   /* USER CODE BEGIN TIM3_IRQn 1 */
   TIM3->SR = (u16)~TIM_FLAG_UPDATE;
-  TIMX_IRQHandler_SPTA(&motor4);
+  TIMX_UP_IRQHandler_S(&motor4); //YLS-04.22
   /* USER CODE END TIM3_IRQn 1 */
 }
 
@@ -425,4 +425,4 @@ void USART6_IRQHandler(void)
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

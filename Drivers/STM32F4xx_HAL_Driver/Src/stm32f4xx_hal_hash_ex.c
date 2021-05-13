@@ -71,7 +71,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -85,13 +85,10 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
-
-
-
 /** @addtogroup STM32F4xx_HAL_Driver
   * @{
   */
-#if defined (HASH)
+#if defined(HASH)
 
 /** @defgroup HASHEx HASHEx
   * @brief HASH HAL extended module driver.
@@ -101,7 +98,7 @@
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private functions ---------------------------------------------------------*/
-#if defined (HASH_CR_MDMAT)
+#if defined(HASH_CR_MDMAT)
 
 /** @defgroup HASHEx_Exported_Functions HASH Extended Exported Functions
   * @{
@@ -135,7 +132,6 @@
 @endverbatim
   * @{
   */
-
 
 /**
   * @brief  Initialize the HASH peripheral in SHA224 mode, next process pInBuffer then
@@ -176,7 +172,7 @@ HAL_StatusTypeDef HAL_HASHEx_SHA224_Start(HASH_HandleTypeDef *hhash, uint8_t *pI
   */
 HAL_StatusTypeDef HAL_HASHEx_SHA224_Accmlt(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
-  return  HASH_Accumulate(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
+  return HASH_Accumulate(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
 }
 
 /**
@@ -234,7 +230,7 @@ HAL_StatusTypeDef HAL_HASHEx_SHA256_Start(HASH_HandleTypeDef *hhash, uint8_t *pI
   */
 HAL_StatusTypeDef HAL_HASHEx_SHA256_Accmlt(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
-  return  HASH_Accumulate(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
+  return HASH_Accumulate(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
 }
 
 /**
@@ -279,7 +275,6 @@ HAL_StatusTypeDef HAL_HASHEx_SHA256_Accmlt_End(HASH_HandleTypeDef *hhash, uint8_
   * @{
   */
 
-
 /**
   * @brief  Initialize the HASH peripheral in SHA224 mode, next process pInBuffer then
   *         read the computed digest in interruption mode.
@@ -316,7 +311,7 @@ HAL_StatusTypeDef HAL_HASHEx_SHA224_Start_IT(HASH_HandleTypeDef *hhash, uint8_t 
   */
 HAL_StatusTypeDef HAL_HASHEx_SHA224_Accmlt_IT(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
-  return  HASH_Accumulate_IT(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
+  return HASH_Accumulate_IT(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
 }
 
 /**
@@ -370,7 +365,7 @@ HAL_StatusTypeDef HAL_HASHEx_SHA256_Start_IT(HASH_HandleTypeDef *hhash, uint8_t 
   */
 HAL_StatusTypeDef HAL_HASHEx_SHA256_Accmlt_IT(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
-  return  HASH_Accumulate_IT(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
+  return HASH_Accumulate_IT(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
 }
 
 /**
@@ -420,9 +415,6 @@ HAL_StatusTypeDef HAL_HASHEx_SHA256_Accmlt_End_IT(HASH_HandleTypeDef *hhash, uin
 @endverbatim
   * @{
   */
-
-
-
 
 /**
   * @brief  Initialize the HASH peripheral in SHA224 mode then initiate a DMA transfer
@@ -506,8 +498,6 @@ HAL_StatusTypeDef HAL_HASHEx_SHA256_Finish(HASH_HandleTypeDef *hhash, uint8_t *p
   * @{
   */
 
-
-
 /**
   * @brief  Initialize the HASH peripheral in HMAC SHA224 mode, next process pInBuffer then
   *         read the computed digest.
@@ -550,7 +540,6 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Start(HASH_HandleTypeDef *hhash, uint8_t *pI
   * @}
   */
 
-
 /** @defgroup HASHEx_Exported_Functions_Group5 HMAC extended processing functions in interrupt mode
   *  @brief   HMAC extended processing functions using interruption mode.
   *
@@ -569,8 +558,6 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Start(HASH_HandleTypeDef *hhash, uint8_t *pI
   * @{
   */
 
-
-
 /**
   * @brief  Initialize the HASH peripheral in HMAC SHA224 mode, next process pInBuffer then
   *         read the computed digest in interrupt mode.
@@ -586,7 +573,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Start(HASH_HandleTypeDef *hhash, uint8_t *pI
 HAL_StatusTypeDef HAL_HMACEx_SHA224_Start_IT(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size,
                                              uint8_t *pOutBuffer)
 {
-  return  HMAC_Start_IT(hhash, pInBuffer, Size, pOutBuffer, HASH_ALGOSELECTION_SHA224);
+  return HMAC_Start_IT(hhash, pInBuffer, Size, pOutBuffer, HASH_ALGOSELECTION_SHA224);
 }
 
 /**
@@ -604,16 +591,12 @@ HAL_StatusTypeDef HAL_HMACEx_SHA224_Start_IT(HASH_HandleTypeDef *hhash, uint8_t 
 HAL_StatusTypeDef HAL_HMACEx_SHA256_Start_IT(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size,
                                              uint8_t *pOutBuffer)
 {
-  return  HMAC_Start_IT(hhash, pInBuffer, Size, pOutBuffer, HASH_ALGOSELECTION_SHA256);
+  return HMAC_Start_IT(hhash, pInBuffer, Size, pOutBuffer, HASH_ALGOSELECTION_SHA256);
 }
-
-
-
 
 /**
   * @}
   */
-
 
 /** @defgroup HASHEx_Exported_Functions_Group6 HMAC extended processing functions in DMA mode
   *  @brief   HMAC extended processing functions using DMA mode.
@@ -638,8 +621,6 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Start_IT(HASH_HandleTypeDef *hhash, uint8_t 
   * @{
   */
 
-
-
 /**
   * @brief  Initialize the HASH peripheral in HMAC SHA224 mode then initiate the required
   *         DMA transfers to feed the key and the input buffer to the Peripheral.
@@ -661,7 +642,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Start_IT(HASH_HandleTypeDef *hhash, uint8_t 
   */
 HAL_StatusTypeDef HAL_HMACEx_SHA224_Start_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
 }
 
 /**
@@ -685,9 +666,8 @@ HAL_StatusTypeDef HAL_HMACEx_SHA224_Start_DMA(HASH_HandleTypeDef *hhash, uint8_t
   */
 HAL_StatusTypeDef HAL_HMACEx_SHA256_Start_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
 }
-
 
 /**
   * @}
@@ -762,7 +742,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Start_DMA(HASH_HandleTypeDef *hhash, uint8_t
 HAL_StatusTypeDef HAL_HMACEx_MD5_Step1_2_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
   hhash->DigestCalculationDisable = SET;
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_MD5);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_MD5);
 }
 
 /**
@@ -786,7 +766,7 @@ HAL_StatusTypeDef HAL_HMACEx_MD5_Step2_DMA(HASH_HandleTypeDef *hhash, uint8_t *p
   {
     return HAL_ERROR;
   }
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_MD5);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_MD5);
 }
 
 /**
@@ -809,9 +789,8 @@ HAL_StatusTypeDef HAL_HMACEx_MD5_Step2_DMA(HASH_HandleTypeDef *hhash, uint8_t *p
 HAL_StatusTypeDef HAL_HMACEx_MD5_Step2_3_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
   hhash->DigestCalculationDisable = RESET;
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_MD5);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_MD5);
 }
-
 
 /**
   * @brief  SHA1 HMAC step 1 completion and step 2 start in multi-buffer DMA mode.
@@ -832,7 +811,7 @@ HAL_StatusTypeDef HAL_HMACEx_MD5_Step2_3_DMA(HASH_HandleTypeDef *hhash, uint8_t 
 HAL_StatusTypeDef HAL_HMACEx_SHA1_Step1_2_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
   hhash->DigestCalculationDisable = SET;
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA1);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA1);
 }
 
 /**
@@ -856,7 +835,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA1_Step2_DMA(HASH_HandleTypeDef *hhash, uint8_t *
   {
     return HAL_ERROR;
   }
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA1);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA1);
 }
 
 /**
@@ -879,7 +858,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA1_Step2_DMA(HASH_HandleTypeDef *hhash, uint8_t *
 HAL_StatusTypeDef HAL_HMACEx_SHA1_Step2_3_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
   hhash->DigestCalculationDisable = RESET;
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA1);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA1);
 }
 
 /**
@@ -901,7 +880,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA1_Step2_3_DMA(HASH_HandleTypeDef *hhash, uint8_t
 HAL_StatusTypeDef HAL_HMACEx_SHA224_Step1_2_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
   hhash->DigestCalculationDisable = SET;
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
 }
 
 /**
@@ -925,7 +904,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA224_Step2_DMA(HASH_HandleTypeDef *hhash, uint8_t
   {
     return HAL_ERROR;
   }
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
 }
 
 /**
@@ -948,7 +927,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA224_Step2_DMA(HASH_HandleTypeDef *hhash, uint8_t
 HAL_StatusTypeDef HAL_HMACEx_SHA224_Step2_3_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
   hhash->DigestCalculationDisable = RESET;
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA224);
 }
 
 /**
@@ -970,7 +949,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA224_Step2_3_DMA(HASH_HandleTypeDef *hhash, uint8
 HAL_StatusTypeDef HAL_HMACEx_SHA256_Step1_2_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
   hhash->DigestCalculationDisable = SET;
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
 }
 
 /**
@@ -994,7 +973,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Step2_DMA(HASH_HandleTypeDef *hhash, uint8_t
   {
     return HAL_ERROR;
   }
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
 }
 
 /**
@@ -1017,7 +996,7 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Step2_DMA(HASH_HandleTypeDef *hhash, uint8_t
 HAL_StatusTypeDef HAL_HMACEx_SHA256_Step2_3_DMA(HASH_HandleTypeDef *hhash, uint8_t *pInBuffer, uint32_t Size)
 {
   hhash->DigestCalculationDisable = RESET;
-  return  HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
+  return HMAC_Start_DMA(hhash, pInBuffer, Size, HASH_ALGOSELECTION_SHA256);
 }
 
 /**
@@ -1038,6 +1017,4 @@ HAL_StatusTypeDef HAL_HMACEx_SHA256_Step2_3_DMA(HASH_HandleTypeDef *hhash, uint8
   * @}
   */
 
-
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

@@ -8,7 +8,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2017 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -17,7 +17,7 @@
   *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
-  */ 
+  */
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
@@ -50,7 +50,6 @@
   */
 void HAL_MspInit(void)
 {
-
 }
 
 /**
@@ -61,7 +60,6 @@ void HAL_MspInit(void)
   */
 void HAL_MspDeInit(void)
 {
-
 }
 
 /**
@@ -72,7 +70,6 @@ void HAL_MspDeInit(void)
   */
 void HAL_PPP_MspInit(void)
 {
-
 }
 
 /**
@@ -83,7 +80,6 @@ void HAL_PPP_MspInit(void)
   */
 void HAL_PPP_MspDeInit(void)
 {
-
 }
 
 /**
@@ -98,4 +94,4 @@ void HAL_PPP_MspDeInit(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

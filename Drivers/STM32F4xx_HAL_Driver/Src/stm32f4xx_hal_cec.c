@@ -98,7 +98,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -121,7 +121,7 @@
   * @{
   */
 #ifdef HAL_CEC_MODULE_ENABLED
-#if defined (CEC)
+#if defined(CEC)
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -204,9 +204,9 @@ HAL_StatusTypeDef HAL_CEC_Init(CEC_HandleTypeDef *hcec)
     /* Allocate lock resource and initialize it */
     hcec->Lock = HAL_UNLOCKED;
 
-    hcec->TxCpltCallback  = HAL_CEC_TxCpltCallback;  /* Legacy weak TxCpltCallback  */
-    hcec->RxCpltCallback = HAL_CEC_RxCpltCallback;   /* Legacy weak RxCpltCallback */
-    hcec->ErrorCallback = HAL_CEC_ErrorCallback;     /* Legacy weak ErrorCallback */
+    hcec->TxCpltCallback = HAL_CEC_TxCpltCallback; /* Legacy weak TxCpltCallback  */
+    hcec->RxCpltCallback = HAL_CEC_RxCpltCallback; /* Legacy weak RxCpltCallback */
+    hcec->ErrorCallback = HAL_CEC_ErrorCallback;   /* Legacy weak ErrorCallback */
 
     if (hcec->MspInitCallback == NULL)
     {
@@ -232,9 +232,9 @@ HAL_StatusTypeDef HAL_CEC_Init(CEC_HandleTypeDef *hcec)
   __HAL_CEC_DISABLE(hcec);
 
   /* Write to CEC Control Register */
-  hcec->Instance->CFGR = hcec->Init.SignalFreeTime | hcec->Init.Tolerance | hcec->Init.BRERxStop | \
-                         hcec->Init.BREErrorBitGen | hcec->Init.LBPEErrorBitGen | hcec->Init.BroadcastMsgNoErrorBitGen | \
-                         hcec->Init.SignalFreeTimeOption | ((uint32_t)(hcec->Init.OwnAddress) << 16U) | \
+  hcec->Instance->CFGR = hcec->Init.SignalFreeTime | hcec->Init.Tolerance | hcec->Init.BRERxStop |
+                         hcec->Init.BREErrorBitGen | hcec->Init.LBPEErrorBitGen | hcec->Init.BroadcastMsgNoErrorBitGen |
+                         hcec->Init.SignalFreeTimeOption | ((uint32_t)(hcec->Init.OwnAddress) << 16U) |
                          hcec->Init.ListenMode;
 
   /* Enable the following CEC Transmission/Reception interrupts as
@@ -253,7 +253,7 @@ HAL_StatusTypeDef HAL_CEC_Init(CEC_HandleTypeDef *hcec)
     * Tx-Buffer Underrun IT
     * Tx arbitration lost   */
   __HAL_CEC_ENABLE_IT(hcec, CEC_IT_RXBR | CEC_IT_RXEND | CEC_IER_RX_ALL_ERR | CEC_IT_TXBR | CEC_IT_TXEND |
-                      CEC_IER_TX_ALL_ERR);
+                                CEC_IER_TX_ALL_ERR);
 
   /* Enable the CEC Peripheral */
   __HAL_CEC_ENABLE(hcec);
@@ -319,7 +319,7 @@ HAL_StatusTypeDef HAL_CEC_DeInit(CEC_HandleTypeDef *hcec)
     * Tx-Buffer Underrun IT
     * Tx arbitration lost   */
   __HAL_CEC_DISABLE_IT(hcec, CEC_IT_RXBR | CEC_IT_RXEND | CEC_IER_RX_ALL_ERR | CEC_IT_TXBR | CEC_IT_TXEND |
-                       CEC_IER_TX_ALL_ERR);
+                                 CEC_IER_TX_ALL_ERR);
 
   hcec->ErrorCode = HAL_CEC_ERROR_NONE;
   hcec->gState = HAL_CEC_STATE_RESET;
@@ -370,7 +370,7 @@ HAL_StatusTypeDef HAL_CEC_SetDeviceAddress(CEC_HandleTypeDef *hcec, uint16_t CEC
     /* Enable the Peripheral */
     __HAL_CEC_ENABLE(hcec);
 
-    return  HAL_OK;
+    return HAL_OK;
   }
   else
   {
@@ -437,48 +437,48 @@ HAL_StatusTypeDef HAL_CEC_RegisterCallback(CEC_HandleTypeDef *hcec, HAL_CEC_Call
   {
     switch (CallbackID)
     {
-      case HAL_CEC_TX_CPLT_CB_ID :
-        hcec->TxCpltCallback = pCallback;
-        break;
+    case HAL_CEC_TX_CPLT_CB_ID:
+      hcec->TxCpltCallback = pCallback;
+      break;
 
-      case HAL_CEC_ERROR_CB_ID :
-        hcec->ErrorCallback = pCallback;
-        break;
+    case HAL_CEC_ERROR_CB_ID:
+      hcec->ErrorCallback = pCallback;
+      break;
 
-      case HAL_CEC_MSPINIT_CB_ID :
-        hcec->MspInitCallback = pCallback;
-        break;
+    case HAL_CEC_MSPINIT_CB_ID:
+      hcec->MspInitCallback = pCallback;
+      break;
 
-      case HAL_CEC_MSPDEINIT_CB_ID :
-        hcec->MspDeInitCallback = pCallback;
-        break;
+    case HAL_CEC_MSPDEINIT_CB_ID:
+      hcec->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+    default:
+      /* Update the error code */
+      hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (hcec->gState == HAL_CEC_STATE_RESET)
   {
     switch (CallbackID)
     {
-      case HAL_CEC_MSPINIT_CB_ID :
-        hcec->MspInitCallback = pCallback;
-        break;
+    case HAL_CEC_MSPINIT_CB_ID:
+      hcec->MspInitCallback = pCallback;
+      break;
 
-      case HAL_CEC_MSPDEINIT_CB_ID :
-        hcec->MspDeInitCallback = pCallback;
-        break;
+    case HAL_CEC_MSPDEINIT_CB_ID:
+      hcec->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+    default:
+      /* Update the error code */
+      hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -486,7 +486,7 @@ HAL_StatusTypeDef HAL_CEC_RegisterCallback(CEC_HandleTypeDef *hcec, HAL_CEC_Call
     /* Update the error code */
     hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -518,48 +518,48 @@ HAL_StatusTypeDef HAL_CEC_UnRegisterCallback(CEC_HandleTypeDef *hcec, HAL_CEC_Ca
   {
     switch (CallbackID)
     {
-      case HAL_CEC_TX_CPLT_CB_ID :
-        hcec->TxCpltCallback = HAL_CEC_TxCpltCallback;  /* Legacy weak  TxCpltCallback */
-        break;
+    case HAL_CEC_TX_CPLT_CB_ID:
+      hcec->TxCpltCallback = HAL_CEC_TxCpltCallback; /* Legacy weak  TxCpltCallback */
+      break;
 
-      case HAL_CEC_ERROR_CB_ID :
-        hcec->ErrorCallback = HAL_CEC_ErrorCallback;  /* Legacy weak ErrorCallback   */
-        break;
+    case HAL_CEC_ERROR_CB_ID:
+      hcec->ErrorCallback = HAL_CEC_ErrorCallback; /* Legacy weak ErrorCallback   */
+      break;
 
-      case HAL_CEC_MSPINIT_CB_ID :
-        hcec->MspInitCallback = HAL_CEC_MspInit;
-        break;
+    case HAL_CEC_MSPINIT_CB_ID:
+      hcec->MspInitCallback = HAL_CEC_MspInit;
+      break;
 
-      case HAL_CEC_MSPDEINIT_CB_ID :
-        hcec->MspDeInitCallback = HAL_CEC_MspDeInit;
-        break;
+    case HAL_CEC_MSPDEINIT_CB_ID:
+      hcec->MspDeInitCallback = HAL_CEC_MspDeInit;
+      break;
 
-      default :
-        /* Update the error code */
-        hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+    default:
+      /* Update the error code */
+      hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (hcec->gState == HAL_CEC_STATE_RESET)
   {
     switch (CallbackID)
     {
-      case HAL_CEC_MSPINIT_CB_ID :
-        hcec->MspInitCallback = HAL_CEC_MspInit;
-        break;
+    case HAL_CEC_MSPINIT_CB_ID:
+      hcec->MspInitCallback = HAL_CEC_MspInit;
+      break;
 
-      case HAL_CEC_MSPDEINIT_CB_ID :
-        hcec->MspDeInitCallback = HAL_CEC_MspDeInit;
-        break;
+    case HAL_CEC_MSPDEINIT_CB_ID:
+      hcec->MspDeInitCallback = HAL_CEC_MspDeInit;
+      break;
 
-      default :
-        /* Update the error code */
-        hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+    default:
+      /* Update the error code */
+      hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -567,7 +567,7 @@ HAL_StatusTypeDef HAL_CEC_UnRegisterCallback(CEC_HandleTypeDef *hcec, HAL_CEC_Ca
     /* Update the error code */
     hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -605,7 +605,7 @@ HAL_StatusTypeDef HAL_CEC_RegisterRxCpltCallback(CEC_HandleTypeDef *hcec, pCEC_R
     /* Update the error code */
     hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -635,7 +635,7 @@ HAL_StatusTypeDef HAL_CEC_UnRegisterRxCpltCallback(CEC_HandleTypeDef *hcec)
     /* Update the error code */
     hcec->ErrorCode |= HAL_CEC_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -702,7 +702,7 @@ HAL_StatusTypeDef HAL_CEC_Transmit_IT(CEC_HandleTypeDef *hcec, uint8_t Initiator
   {
     if ((pData == NULL) && (Size > 0U))
     {
-      return  HAL_ERROR;
+      return HAL_ERROR;
     }
 
     assert_param(IS_CEC_ADDRESS(DestinationAddress));
@@ -736,7 +736,6 @@ HAL_StatusTypeDef HAL_CEC_Transmit_IT(CEC_HandleTypeDef *hcec, uint8_t Initiator
     __HAL_UNLOCK(hcec);
 
     return HAL_OK;
-
   }
   else
   {
@@ -778,7 +777,6 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
   uint32_t reg;
   reg = hcec->Instance->ISR;
 
-
   /* ----------------------------Arbitration Lost Management----------------------------------*/
   /* CEC TX arbitration error interrupt occurred --------------------------------------*/
   if ((reg & CEC_FLAG_ARBLST) != 0U)
@@ -795,7 +793,7 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
     hcec->RxState = HAL_CEC_STATE_BUSY_RX;
     hcec->RxXferSize++;
     /* read received byte */
-    *hcec->Init.RxBuffer = (uint8_t) hcec->Instance->RXDR;
+    *hcec->Init.RxBuffer = (uint8_t)hcec->Instance->RXDR;
     hcec->Init.RxBuffer++;
     __HAL_CEC_CLEAR_FLAG(hcec, CEC_FLAG_RXBR);
   }
@@ -859,8 +857,7 @@ void HAL_CEC_IRQHandler(CEC_HandleTypeDef *hcec)
   {
     hcec->ErrorCode = reg;
     __HAL_CEC_CLEAR_FLAG(hcec, HAL_CEC_ERROR_RXOVR | HAL_CEC_ERROR_BRE | CEC_FLAG_LBPE | CEC_FLAG_SBPE |
-                         HAL_CEC_ERROR_RXACKE | HAL_CEC_ERROR_TXUDR | HAL_CEC_ERROR_TXERR | HAL_CEC_ERROR_TXACKE);
-
+                                   HAL_CEC_ERROR_RXACKE | HAL_CEC_ERROR_TXUDR | HAL_CEC_ERROR_TXERR | HAL_CEC_ERROR_TXACKE);
 
     if ((reg & (CEC_ISR_RXOVR | CEC_ISR_BRE | CEC_ISR_SBPE | CEC_ISR_LBPE | CEC_ISR_RXACKE)) != 0U)
     {
@@ -994,4 +991,4 @@ uint32_t HAL_CEC_GetError(CEC_HandleTypeDef *hcec)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

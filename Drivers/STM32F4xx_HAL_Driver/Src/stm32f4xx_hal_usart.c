@@ -184,7 +184,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -212,8 +212,8 @@
 /** @addtogroup USART_Private_Constants
   * @{
   */
-#define DUMMY_DATA           0xFFFFU
-#define USART_TIMEOUT_VALUE  22000U
+#define DUMMY_DATA 0xFFFFU
+#define USART_TIMEOUT_VALUE 22000U
 /**
   * @}
   */
@@ -458,70 +458,70 @@ HAL_StatusTypeDef HAL_USART_RegisterCallback(USART_HandleTypeDef *husart, HAL_US
   {
     switch (CallbackID)
     {
-      case HAL_USART_TX_HALFCOMPLETE_CB_ID :
-        husart->TxHalfCpltCallback = pCallback;
-        break;
+    case HAL_USART_TX_HALFCOMPLETE_CB_ID:
+      husart->TxHalfCpltCallback = pCallback;
+      break;
 
-      case HAL_USART_TX_COMPLETE_CB_ID :
-        husart->TxCpltCallback = pCallback;
-        break;
+    case HAL_USART_TX_COMPLETE_CB_ID:
+      husart->TxCpltCallback = pCallback;
+      break;
 
-      case HAL_USART_RX_HALFCOMPLETE_CB_ID :
-        husart->RxHalfCpltCallback = pCallback;
-        break;
+    case HAL_USART_RX_HALFCOMPLETE_CB_ID:
+      husart->RxHalfCpltCallback = pCallback;
+      break;
 
-      case HAL_USART_RX_COMPLETE_CB_ID :
-        husart->RxCpltCallback = pCallback;
-        break;
+    case HAL_USART_RX_COMPLETE_CB_ID:
+      husart->RxCpltCallback = pCallback;
+      break;
 
-      case HAL_USART_TX_RX_COMPLETE_CB_ID :
-        husart->TxRxCpltCallback = pCallback;
-        break;
+    case HAL_USART_TX_RX_COMPLETE_CB_ID:
+      husart->TxRxCpltCallback = pCallback;
+      break;
 
-      case HAL_USART_ERROR_CB_ID :
-        husart->ErrorCallback = pCallback;
-        break;
+    case HAL_USART_ERROR_CB_ID:
+      husart->ErrorCallback = pCallback;
+      break;
 
-      case HAL_USART_ABORT_COMPLETE_CB_ID :
-        husart->AbortCpltCallback = pCallback;
-        break;
+    case HAL_USART_ABORT_COMPLETE_CB_ID:
+      husart->AbortCpltCallback = pCallback;
+      break;
 
-      case HAL_USART_MSPINIT_CB_ID :
-        husart->MspInitCallback = pCallback;
-        break;
+    case HAL_USART_MSPINIT_CB_ID:
+      husart->MspInitCallback = pCallback;
+      break;
 
-      case HAL_USART_MSPDEINIT_CB_ID :
-        husart->MspDeInitCallback = pCallback;
-        break;
+    case HAL_USART_MSPDEINIT_CB_ID:
+      husart->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (husart->State == HAL_USART_STATE_RESET)
   {
     switch (CallbackID)
     {
-      case HAL_USART_MSPINIT_CB_ID :
-        husart->MspInitCallback = pCallback;
-        break;
+    case HAL_USART_MSPINIT_CB_ID:
+      husart->MspInitCallback = pCallback;
+      break;
 
-      case HAL_USART_MSPDEINIT_CB_ID :
-        husart->MspDeInitCallback = pCallback;
-        break;
+    case HAL_USART_MSPDEINIT_CB_ID:
+      husart->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -530,7 +530,7 @@ HAL_StatusTypeDef HAL_USART_RegisterCallback(USART_HandleTypeDef *husart, HAL_US
     husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -567,70 +567,70 @@ HAL_StatusTypeDef HAL_USART_UnRegisterCallback(USART_HandleTypeDef *husart, HAL_
   {
     switch (CallbackID)
     {
-      case HAL_USART_TX_HALFCOMPLETE_CB_ID :
-        husart->TxHalfCpltCallback = HAL_USART_TxHalfCpltCallback;               /* Legacy weak  TxHalfCpltCallback       */
-        break;
+    case HAL_USART_TX_HALFCOMPLETE_CB_ID:
+      husart->TxHalfCpltCallback = HAL_USART_TxHalfCpltCallback; /* Legacy weak  TxHalfCpltCallback       */
+      break;
 
-      case HAL_USART_TX_COMPLETE_CB_ID :
-        husart->TxCpltCallback = HAL_USART_TxCpltCallback;                       /* Legacy weak TxCpltCallback            */
-        break;
+    case HAL_USART_TX_COMPLETE_CB_ID:
+      husart->TxCpltCallback = HAL_USART_TxCpltCallback; /* Legacy weak TxCpltCallback            */
+      break;
 
-      case HAL_USART_RX_HALFCOMPLETE_CB_ID :
-        husart->RxHalfCpltCallback = HAL_USART_RxHalfCpltCallback;               /* Legacy weak RxHalfCpltCallback        */
-        break;
+    case HAL_USART_RX_HALFCOMPLETE_CB_ID:
+      husart->RxHalfCpltCallback = HAL_USART_RxHalfCpltCallback; /* Legacy weak RxHalfCpltCallback        */
+      break;
 
-      case HAL_USART_RX_COMPLETE_CB_ID :
-        husart->RxCpltCallback = HAL_USART_RxCpltCallback;                       /* Legacy weak RxCpltCallback            */
-        break;
+    case HAL_USART_RX_COMPLETE_CB_ID:
+      husart->RxCpltCallback = HAL_USART_RxCpltCallback; /* Legacy weak RxCpltCallback            */
+      break;
 
-      case HAL_USART_TX_RX_COMPLETE_CB_ID :
-        husart->TxRxCpltCallback = HAL_USART_TxRxCpltCallback;                   /* Legacy weak TxRxCpltCallback            */
-        break;
+    case HAL_USART_TX_RX_COMPLETE_CB_ID:
+      husart->TxRxCpltCallback = HAL_USART_TxRxCpltCallback; /* Legacy weak TxRxCpltCallback            */
+      break;
 
-      case HAL_USART_ERROR_CB_ID :
-        husart->ErrorCallback = HAL_USART_ErrorCallback;                         /* Legacy weak ErrorCallback             */
-        break;
+    case HAL_USART_ERROR_CB_ID:
+      husart->ErrorCallback = HAL_USART_ErrorCallback; /* Legacy weak ErrorCallback             */
+      break;
 
-      case HAL_USART_ABORT_COMPLETE_CB_ID :
-        husart->AbortCpltCallback = HAL_USART_AbortCpltCallback;                 /* Legacy weak AbortCpltCallback         */
-        break;
+    case HAL_USART_ABORT_COMPLETE_CB_ID:
+      husart->AbortCpltCallback = HAL_USART_AbortCpltCallback; /* Legacy weak AbortCpltCallback         */
+      break;
 
-      case HAL_USART_MSPINIT_CB_ID :
-        husart->MspInitCallback = HAL_USART_MspInit;                             /* Legacy weak MspInitCallback           */
-        break;
+    case HAL_USART_MSPINIT_CB_ID:
+      husart->MspInitCallback = HAL_USART_MspInit; /* Legacy weak MspInitCallback           */
+      break;
 
-      case HAL_USART_MSPDEINIT_CB_ID :
-        husart->MspDeInitCallback = HAL_USART_MspDeInit;                         /* Legacy weak MspDeInitCallback         */
-        break;
+    case HAL_USART_MSPDEINIT_CB_ID:
+      husart->MspDeInitCallback = HAL_USART_MspDeInit; /* Legacy weak MspDeInitCallback         */
+      break;
 
-      default :
-        /* Update the error code */
-        husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (husart->State == HAL_USART_STATE_RESET)
   {
     switch (CallbackID)
     {
-      case HAL_USART_MSPINIT_CB_ID :
-        husart->MspInitCallback = HAL_USART_MspInit;
-        break;
+    case HAL_USART_MSPINIT_CB_ID:
+      husart->MspInitCallback = HAL_USART_MspInit;
+      break;
 
-      case HAL_USART_MSPDEINIT_CB_ID :
-        husart->MspDeInitCallback = HAL_USART_MspDeInit;
-        break;
+    case HAL_USART_MSPDEINIT_CB_ID:
+      husart->MspDeInitCallback = HAL_USART_MspDeInit;
+      break;
 
-      default :
-        /* Update the error code */
-        husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -639,7 +639,7 @@ HAL_StatusTypeDef HAL_USART_UnRegisterCallback(USART_HandleTypeDef *husart, HAL_
     husart->ErrorCode |= HAL_USART_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -746,7 +746,7 @@ HAL_StatusTypeDef HAL_USART_UnRegisterCallback(USART_HandleTypeDef *husart, HAL_
   */
 HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, uint8_t *pTxData, uint16_t Size, uint32_t Timeout)
 {
-  uint8_t  *ptxdata8bits;
+  uint8_t *ptxdata8bits;
   uint16_t *ptxdata16bits;
   uint32_t tickstart;
 
@@ -754,7 +754,7 @@ HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, uint8_t *pTxDa
   {
     if ((pTxData == NULL) || (Size == 0))
     {
-      return  HAL_ERROR;
+      return HAL_ERROR;
     }
 
     /* Process Locked */
@@ -772,12 +772,12 @@ HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, uint8_t *pTxDa
     /* In case of 9bits/No Parity transfer, pTxData needs to be handled as a uint16_t pointer */
     if ((husart->Init.WordLength == USART_WORDLENGTH_9B) && (husart->Init.Parity == USART_PARITY_NONE))
     {
-      ptxdata8bits  = NULL;
-      ptxdata16bits = (uint16_t *) pTxData;
+      ptxdata8bits = NULL;
+      ptxdata16bits = (uint16_t *)pTxData;
     }
     else
     {
-      ptxdata8bits  = pTxData;
+      ptxdata8bits = pTxData;
       ptxdata16bits = NULL;
     }
 
@@ -835,7 +835,7 @@ HAL_StatusTypeDef HAL_USART_Transmit(USART_HandleTypeDef *husart, uint8_t *pTxDa
   */
 HAL_StatusTypeDef HAL_USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxData, uint16_t Size, uint32_t Timeout)
 {
-  uint8_t  *prxdata8bits;
+  uint8_t *prxdata8bits;
   uint16_t *prxdata16bits;
   uint32_t tickstart;
 
@@ -843,7 +843,7 @@ HAL_StatusTypeDef HAL_USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxDat
   {
     if ((pRxData == NULL) || (Size == 0))
     {
-      return  HAL_ERROR;
+      return HAL_ERROR;
     }
     /* Process Locked */
     __HAL_LOCK(husart);
@@ -860,12 +860,12 @@ HAL_StatusTypeDef HAL_USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxDat
     /* In case of 9bits/No Parity transfer, pRxData needs to be handled as a uint16_t pointer */
     if ((husart->Init.WordLength == USART_WORDLENGTH_9B) && (husart->Init.Parity == USART_PARITY_NONE))
     {
-      prxdata8bits  = NULL;
-      prxdata16bits = (uint16_t *) pRxData;
+      prxdata8bits = NULL;
+      prxdata16bits = (uint16_t *)pRxData;
     }
     else
     {
-      prxdata8bits  = pRxData;
+      prxdata8bits = pRxData;
       prxdata16bits = NULL;
     }
 
@@ -936,9 +936,9 @@ HAL_StatusTypeDef HAL_USART_Receive(USART_HandleTypeDef *husart, uint8_t *pRxDat
   */
 HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size, uint32_t Timeout)
 {
-  uint8_t  *prxdata8bits;
+  uint8_t *prxdata8bits;
   uint16_t *prxdata16bits;
-  uint8_t  *ptxdata8bits;
+  uint8_t *ptxdata8bits;
   uint16_t *ptxdata16bits;
   uint16_t rxdatacount;
   uint32_t tickstart;
@@ -947,7 +947,7 @@ HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, uint8_t
   {
     if ((pTxData == NULL) || (pRxData == NULL) || (Size == 0))
     {
-      return  HAL_ERROR;
+      return HAL_ERROR;
     }
 
     /* In case of 9bits/No Parity transfer, pTxData and pRxData buffers provided as input parameter
@@ -957,7 +957,7 @@ HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, uint8_t
     {
       if (((((uint32_t)pTxData) & 1U) != 0U) || ((((uint32_t)pRxData) & 1U) != 0U))
       {
-        return  HAL_ERROR;
+        return HAL_ERROR;
       }
     }
     /* Process Locked */
@@ -977,15 +977,15 @@ HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, uint8_t
     /* In case of 9bits/No Parity transfer, pRxData needs to be handled as a uint16_t pointer */
     if ((husart->Init.WordLength == USART_WORDLENGTH_9B) && (husart->Init.Parity == USART_PARITY_NONE))
     {
-      prxdata8bits  = NULL;
-      ptxdata8bits  = NULL;
-      ptxdata16bits = (uint16_t *) pTxData;
-      prxdata16bits = (uint16_t *) pRxData;
+      prxdata8bits = NULL;
+      ptxdata8bits = NULL;
+      ptxdata16bits = (uint16_t *)pTxData;
+      prxdata16bits = (uint16_t *)pRxData;
     }
     else
     {
-      prxdata8bits  = pRxData;
-      ptxdata8bits  = pTxData;
+      prxdata8bits = pRxData;
+      ptxdata8bits = pTxData;
       ptxdata16bits = NULL;
       prxdata16bits = NULL;
     }
@@ -1011,14 +1011,14 @@ HAL_StatusTypeDef HAL_USART_TransmitReceive(USART_HandleTypeDef *husart, uint8_t
         else
         {
           husart->Instance->DR = (uint8_t)(*ptxdata8bits & (uint8_t)0xFF);
-          ptxdata8bits++; 
+          ptxdata8bits++;
         }
 
         husart->TxXferCount--;
       }
 
       if (husart->RxXferCount > 0U)
-      {  
+      {
         /* Wait for RXNE Flag */
         if (USART_WaitOnFlagUntilTimeout(husart, USART_FLAG_RXNE, RESET, tickstart, Timeout) != HAL_OK)
         {
@@ -1176,7 +1176,7 @@ HAL_StatusTypeDef HAL_USART_Receive_IT(USART_HandleTypeDef *husart, uint8_t *pRx
   * @param  Size    Amount of data elements (u8 or u16) to be sent (same amount to be received).
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_USART_TransmitReceive_IT(USART_HandleTypeDef *husart, uint8_t *pTxData, uint8_t *pRxData,  uint16_t Size)
+HAL_StatusTypeDef HAL_USART_TransmitReceive_IT(USART_HandleTypeDef *husart, uint8_t *pTxData, uint8_t *pRxData, uint16_t Size)
 {
   if (husart->State == HAL_USART_STATE_READY)
   {
@@ -1620,7 +1620,7 @@ HAL_StatusTypeDef HAL_USART_Abort(USART_HandleTypeDef *husart)
   husart->RxXferCount = 0x00U;
 
   /* Restore husart->State to Ready */
-  husart->State  = HAL_USART_STATE_READY;
+  husart->State = HAL_USART_STATE_READY;
 
   /* Reset Handle ErrorCode to No Error */
   husart->ErrorCode = HAL_USART_ERROR_NONE;
@@ -1731,7 +1731,7 @@ HAL_StatusTypeDef HAL_USART_Abort_IT(USART_HandleTypeDef *husart)
   }
 
   /* if no DMA abort complete callback execution is required => call user Abort Complete callback */
-  if (AbortCplt  == 0x01U)
+  if (AbortCplt == 0x01U)
   {
     /* Reset Tx and Rx transfer counters */
     husart->TxXferCount = 0x00U;
@@ -1741,7 +1741,7 @@ HAL_StatusTypeDef HAL_USART_Abort_IT(USART_HandleTypeDef *husart)
     husart->ErrorCode = HAL_USART_ERROR_NONE;
 
     /* Restore husart->State to Ready */
-    husart->State  = HAL_USART_STATE_READY;
+    husart->State = HAL_USART_STATE_READY;
 
     /* As no DMA to be aborted, call directly user Abort complete callback */
 #if (USE_HAL_USART_REGISTER_CALLBACKS == 1)
@@ -1765,8 +1765,8 @@ HAL_StatusTypeDef HAL_USART_Abort_IT(USART_HandleTypeDef *husart)
 void HAL_USART_IRQHandler(USART_HandleTypeDef *husart)
 {
   uint32_t isrflags = READ_REG(husart->Instance->SR);
-  uint32_t cr1its   = READ_REG(husart->Instance->CR1);
-  uint32_t cr3its   = READ_REG(husart->Instance->CR3);
+  uint32_t cr1its = READ_REG(husart->Instance->CR1);
+  uint32_t cr3its = READ_REG(husart->Instance->CR3);
   uint32_t errorflags = 0x00U;
   uint32_t dmarequest = 0x00U;
 
@@ -2085,13 +2085,13 @@ uint32_t HAL_USART_GetError(USART_HandleTypeDef *husart)
 void USART_InitCallbacksToDefault(USART_HandleTypeDef *husart)
 {
   /* Init the USART Callback settings */
-  husart->TxHalfCpltCallback        = HAL_USART_TxHalfCpltCallback;        /* Legacy weak TxHalfCpltCallback        */
-  husart->TxCpltCallback            = HAL_USART_TxCpltCallback;            /* Legacy weak TxCpltCallback            */
-  husart->RxHalfCpltCallback        = HAL_USART_RxHalfCpltCallback;        /* Legacy weak RxHalfCpltCallback        */
-  husart->RxCpltCallback            = HAL_USART_RxCpltCallback;            /* Legacy weak RxCpltCallback            */
-  husart->TxRxCpltCallback          = HAL_USART_TxRxCpltCallback;          /* Legacy weak TxRxCpltCallback          */
-  husart->ErrorCallback             = HAL_USART_ErrorCallback;             /* Legacy weak ErrorCallback             */
-  husart->AbortCpltCallback         = HAL_USART_AbortCpltCallback;         /* Legacy weak AbortCpltCallback         */
+  husart->TxHalfCpltCallback = HAL_USART_TxHalfCpltCallback; /* Legacy weak TxHalfCpltCallback        */
+  husart->TxCpltCallback = HAL_USART_TxCpltCallback;         /* Legacy weak TxCpltCallback            */
+  husart->RxHalfCpltCallback = HAL_USART_RxHalfCpltCallback; /* Legacy weak RxHalfCpltCallback        */
+  husart->RxCpltCallback = HAL_USART_RxCpltCallback;         /* Legacy weak RxCpltCallback            */
+  husart->TxRxCpltCallback = HAL_USART_TxRxCpltCallback;     /* Legacy weak TxRxCpltCallback          */
+  husart->ErrorCallback = HAL_USART_ErrorCallback;           /* Legacy weak ErrorCallback             */
+  husart->AbortCpltCallback = HAL_USART_AbortCpltCallback;   /* Legacy weak AbortCpltCallback         */
 }
 #endif /* USE_HAL_USART_REGISTER_CALLBACKS */
 
@@ -2410,7 +2410,7 @@ static void USART_DMATxAbortCallback(DMA_HandleTypeDef *hdma)
   husart->ErrorCode = HAL_USART_ERROR_NONE;
 
   /* Restore husart->State to Ready */
-  husart->State  = HAL_USART_STATE_READY;
+  husart->State = HAL_USART_STATE_READY;
 
   /* Call user Abort complete callback */
 #if (USE_HAL_USART_REGISTER_CALLBACKS == 1)
@@ -2453,7 +2453,7 @@ static void USART_DMARxAbortCallback(DMA_HandleTypeDef *hdma)
   husart->ErrorCode = HAL_USART_ERROR_NONE;
 
   /* Restore husart->State to Ready */
-  husart->State  = HAL_USART_STATE_READY;
+  husart->State = HAL_USART_STATE_READY;
 
   /* Call user Abort complete callback */
 #if (USE_HAL_USART_REGISTER_CALLBACKS == 1)
@@ -2480,7 +2480,7 @@ static HAL_StatusTypeDef USART_Transmit_IT(USART_HandleTypeDef *husart)
   {
     if ((husart->Init.WordLength == USART_WORDLENGTH_9B) && (husart->Init.Parity == USART_PARITY_NONE))
     {
-      tmp = (uint16_t *) husart->pTxBuffPtr;
+      tmp = (uint16_t *)husart->pTxBuffPtr;
       husart->Instance->DR = (uint16_t)(*tmp & (uint16_t)0x01FF);
       husart->pTxBuffPtr += 2U;
     }
@@ -2540,22 +2540,22 @@ static HAL_StatusTypeDef USART_EndTransmit_IT(USART_HandleTypeDef *husart)
   */
 static HAL_StatusTypeDef USART_Receive_IT(USART_HandleTypeDef *husart)
 {
-  uint8_t  *pdata8bits;
+  uint8_t *pdata8bits;
   uint16_t *pdata16bits;
 
   if (husart->State == HAL_USART_STATE_BUSY_RX)
   {
     if ((husart->Init.WordLength == USART_WORDLENGTH_9B) && (husart->Init.Parity == USART_PARITY_NONE))
     {
-      pdata8bits  = NULL;
-      pdata16bits = (uint16_t *) husart->pRxBuffPtr;
+      pdata8bits = NULL;
+      pdata16bits = (uint16_t *)husart->pRxBuffPtr;
       *pdata16bits = (uint16_t)(husart->Instance->DR & (uint16_t)0x01FF);
       husart->pRxBuffPtr += 2U;
     }
     else
     {
-      pdata8bits = (uint8_t *) husart->pRxBuffPtr;
-      pdata16bits  = NULL;
+      pdata8bits = (uint8_t *)husart->pRxBuffPtr;
+      pdata16bits = NULL;
 
       if ((husart->Init.WordLength == UART_WORDLENGTH_9B) || ((husart->Init.WordLength == UART_WORDLENGTH_8B) && (husart->Init.Parity == UART_PARITY_NONE)))
       {
@@ -2616,7 +2616,7 @@ static HAL_StatusTypeDef USART_Receive_IT(USART_HandleTypeDef *husart)
   */
 static HAL_StatusTypeDef USART_TransmitReceive_IT(USART_HandleTypeDef *husart)
 {
-  uint8_t  *pdata8bits;
+  uint8_t *pdata8bits;
   uint16_t *pdata16bits;
 
   if (husart->State == HAL_USART_STATE_BUSY_TX_RX)
@@ -2627,8 +2627,8 @@ static HAL_StatusTypeDef USART_TransmitReceive_IT(USART_HandleTypeDef *husart)
       {
         if ((husart->Init.WordLength == USART_WORDLENGTH_9B) && (husart->Init.Parity == USART_PARITY_NONE))
         {
-          pdata8bits  = NULL;
-          pdata16bits = (uint16_t *) husart->pTxBuffPtr;
+          pdata8bits = NULL;
+          pdata16bits = (uint16_t *)husart->pTxBuffPtr;
           husart->Instance->DR = (uint16_t)(*pdata16bits & (uint16_t)0x01FF);
           husart->pTxBuffPtr += 2U;
         }
@@ -2653,15 +2653,15 @@ static HAL_StatusTypeDef USART_TransmitReceive_IT(USART_HandleTypeDef *husart)
       {
         if ((husart->Init.WordLength == USART_WORDLENGTH_9B) && (husart->Init.Parity == USART_PARITY_NONE))
         {
-           pdata8bits  = NULL;
-           pdata16bits = (uint16_t *) husart->pRxBuffPtr;
-           *pdata16bits = (uint16_t)(husart->Instance->DR & (uint16_t)0x01FF);
-           husart->pRxBuffPtr += 2U;
+          pdata8bits = NULL;
+          pdata16bits = (uint16_t *)husart->pRxBuffPtr;
+          *pdata16bits = (uint16_t)(husart->Instance->DR & (uint16_t)0x01FF);
+          husart->pRxBuffPtr += 2U;
         }
         else
         {
-          pdata8bits = (uint8_t *) husart->pRxBuffPtr;
-          pdata16bits  = NULL;
+          pdata8bits = (uint8_t *)husart->pRxBuffPtr;
+          pdata16bits = NULL;
           if ((husart->Init.WordLength == UART_WORDLENGTH_9B) || ((husart->Init.WordLength == UART_WORDLENGTH_8B) && (husart->Init.Parity == UART_PARITY_NONE)))
           {
             *pdata8bits = (uint8_t)(husart->Instance->DR & (uint8_t)0x00FF);
@@ -2739,7 +2739,7 @@ static void USART_SetConfig(USART_HandleTypeDef *husart)
   /*---------------------------- USART CR2 Configuration ---------------------*/
   tmpreg = husart->Instance->CR2;
   /* Clear CLKEN, CPOL, CPHA and LBCL bits */
-  tmpreg &= (uint32_t)~((uint32_t)(USART_CR2_CPHA | USART_CR2_CPOL | USART_CR2_CLKEN | USART_CR2_LBCL | USART_CR2_STOP));
+  tmpreg &= (uint32_t) ~((uint32_t)(USART_CR2_CPHA | USART_CR2_CPOL | USART_CR2_CLKEN | USART_CR2_LBCL | USART_CR2_STOP));
   /* Configure the USART Clock, CPOL, CPHA and LastBit -----------------------*/
   /* Set CPOL bit according to husart->Init.CLKPolarity value */
   /* Set CPHA bit according to husart->Init.CLKPhase value */
@@ -2754,8 +2754,8 @@ static void USART_SetConfig(USART_HandleTypeDef *husart)
   tmpreg = husart->Instance->CR1;
 
   /* Clear M, PCE, PS, TE, RE and OVER8 bits */
-  tmpreg &= (uint32_t)~((uint32_t)(USART_CR1_M | USART_CR1_PCE | USART_CR1_PS | USART_CR1_TE | \
-                                   USART_CR1_RE | USART_CR1_OVER8));
+  tmpreg &= (uint32_t) ~((uint32_t)(USART_CR1_M | USART_CR1_PCE | USART_CR1_PS | USART_CR1_TE |
+                                    USART_CR1_RE | USART_CR1_OVER8));
 
   /* Configure the USART Word Length, Parity and mode:
      Set the M bits according to husart->Init.WordLength value
@@ -2773,24 +2773,24 @@ static void USART_SetConfig(USART_HandleTypeDef *husart)
 
   /*-------------------------- USART BRR Configuration -----------------------*/
 #if defined(USART6) && defined(UART9) && defined(UART10)
-   if ((husart->Instance == USART1) || (husart->Instance == USART6) || (husart->Instance == UART9) || (husart->Instance == UART10))
-   {
+  if ((husart->Instance == USART1) || (husart->Instance == USART6) || (husart->Instance == UART9) || (husart->Instance == UART10))
+  {
     pclk = HAL_RCC_GetPCLK2Freq();
     husart->Instance->BRR = USART_BRR(pclk, husart->Init.BaudRate);
-   }
+  }
 #elif defined(USART6)
-  if((husart->Instance == USART1) || (husart->Instance == USART6))
+  if ((husart->Instance == USART1) || (husart->Instance == USART6))
   {
     pclk = HAL_RCC_GetPCLK2Freq();
     husart->Instance->BRR = USART_BRR(pclk, husart->Init.BaudRate);
   }
 #else
-  if(husart->Instance == USART1)
+  if (husart->Instance == USART1)
   {
     pclk = HAL_RCC_GetPCLK2Freq();
     husart->Instance->BRR = USART_BRR(pclk, husart->Init.BaudRate);
   }
-#endif /* USART6 || UART9 || UART10 */	
+#endif /* USART6 || UART9 || UART10 */
   else
   {
     pclk = HAL_RCC_GetPCLK1Freq();
@@ -2815,4 +2815,4 @@ static void USART_SetConfig(USART_HandleTypeDef *husart)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

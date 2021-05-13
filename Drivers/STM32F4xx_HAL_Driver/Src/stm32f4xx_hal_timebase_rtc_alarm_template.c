@@ -32,7 +32,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2017 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -51,7 +51,7 @@
 
 /** @defgroup HAL_TimeBase_RTC_Alarm_Template  HAL TimeBase RTC Alarm Template
   * @{
-  */ 
+  */
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -68,17 +68,17 @@
 /* #define RTC_CLOCK_SOURCE_LSI */
 
 #ifdef RTC_CLOCK_SOURCE_HSE
-  #define RTC_ASYNCH_PREDIV       99U
-  #define RTC_SYNCH_PREDIV        9U
-  #define RCC_RTCCLKSOURCE_1MHZ   ((uint32_t)((uint32_t)RCC_BDCR_RTCSEL | (uint32_t)((HSE_VALUE/1000000U) << 16U)))
+#define RTC_ASYNCH_PREDIV 99U
+#define RTC_SYNCH_PREDIV 9U
+#define RCC_RTCCLKSOURCE_1MHZ ((uint32_t)((uint32_t)RCC_BDCR_RTCSEL | (uint32_t)((HSE_VALUE / 1000000U) << 16U)))
 #else /* RTC_CLOCK_SOURCE_LSE || RTC_CLOCK_SOURCE_LSI */
-  #define RTC_ASYNCH_PREDIV       0U
-  #define RTC_SYNCH_PREDIV        31U
+#define RTC_ASYNCH_PREDIV 0U
+#define RTC_SYNCH_PREDIV 31U
 #endif /* RTC_CLOCK_SOURCE_HSE */
 
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
-RTC_HandleTypeDef        hRTC_Handle;
+RTC_HandleTypeDef hRTC_Handle;
 /* Private function prototypes -----------------------------------------------*/
 void RTC_Alarm_IRQHandler(void);
 /* Private functions ---------------------------------------------------------*/
@@ -96,9 +96,9 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
 {
   __IO uint32_t counter = 0U;
 
-  RCC_OscInitTypeDef        RCC_OscInitStruct;
-  RCC_PeriphCLKInitTypeDef  PeriphClkInitStruct;
-  HAL_StatusTypeDef     status;
+  RCC_OscInitTypeDef RCC_OscInitStruct;
+  RCC_PeriphCLKInitTypeDef PeriphClkInitStruct;
+  HAL_StatusTypeDef status;
 
 #ifdef RTC_CLOCK_SOURCE_LSE
   /* Configue LSE as RTC clock soucre */
@@ -106,13 +106,13 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   RCC_OscInitStruct.LSEState = RCC_LSE_ON;
   PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSE;
-#elif defined (RTC_CLOCK_SOURCE_LSI)
+#elif defined(RTC_CLOCK_SOURCE_LSI)
   /* Configue LSI as RTC clock soucre */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_LSI;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
   RCC_OscInitStruct.LSIState = RCC_LSI_ON;
   PeriphClkInitStruct.RTCClockSelection = RCC_RTCCLKSOURCE_LSI;
-#elif defined (RTC_CLOCK_SOURCE_HSE)
+#elif defined(RTC_CLOCK_SOURCE_HSE)
   /* Configue HSE as RTC clock soucre */
   RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSE;
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
@@ -171,7 +171,7 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     {
       if (counter++ == (SystemCoreClock / 48U)) /* Timeout = ~ 1s */
       {
-        status =  HAL_ERROR;
+        status = HAL_ERROR;
       }
     }
   }
@@ -226,7 +226,6 @@ HAL_StatusTypeDef HAL_InitTick(uint32_t TickPriority)
     {
       status = HAL_ERROR;
     }
-
   }
   return status;
 }
@@ -280,9 +279,9 @@ void HAL_RTC_AlarmAEventCallback(RTC_HandleTypeDef *hrtc)
   /* Set the Initialization mode */
   hrtc->Instance->ISR = (uint32_t)RTC_INIT_MASK;
 
-  while((hrtc->Instance->ISR & RTC_ISR_INITF) == (uint32_t)RESET)
+  while ((hrtc->Instance->ISR & RTC_ISR_INITF) == (uint32_t)RESET)
   {
-    if(counter++ == (SystemCoreClock /48U)) /* Timeout = ~ 1s */
+    if (counter++ == (SystemCoreClock / 48U)) /* Timeout = ~ 1s */
     {
       break;
     }
@@ -314,4 +313,4 @@ void RTC_Alarm_IRQHandler(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

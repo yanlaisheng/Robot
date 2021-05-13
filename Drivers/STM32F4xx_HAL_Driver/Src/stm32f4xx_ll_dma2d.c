@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -21,17 +21,17 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_ll_dma2d.h"
 #include "stm32f4xx_ll_bus.h"
-#ifdef  USE_FULL_ASSERT
+#ifdef USE_FULL_ASSERT
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
-#endif  /* USE_FULL_ASSERT */
+#endif /* USE_FULL_ASSERT */
 
 /** @addtogroup STM32F4xx_LL_Driver
   * @{
   */
 
-#if defined (DMA2D)
+#if defined(DMA2D)
 
 /** @addtogroup DMA2D_LL
   * @{
@@ -43,11 +43,11 @@
 /** @addtogroup DMA2D_LL_Private_Constants DMA2D Private Constants
   * @{
   */
-#define LL_DMA2D_COLOR            0xFFU                                      /*!< Maximum output color setting                   */
-#define LL_DMA2D_NUMBEROFLINES    DMA2D_NLR_NL                               /*!< Maximum number of lines                        */
-#define LL_DMA2D_NUMBEROFPIXELS   (DMA2D_NLR_PL >> DMA2D_NLR_PL_Pos)         /*!< Maximum number of pixels per lines             */
-#define LL_DMA2D_OFFSET_MAX       0x3FFFU                                    /*!< Maximum output line offset expressed in pixels */
-#define LL_DMA2D_CLUTSIZE_MAX     0xFFU                                      /*!< Maximum CLUT size                              */
+#define LL_DMA2D_COLOR 0xFFU                                       /*!< Maximum output color setting                   */
+#define LL_DMA2D_NUMBEROFLINES DMA2D_NLR_NL                        /*!< Maximum number of lines                        */
+#define LL_DMA2D_NUMBEROFPIXELS (DMA2D_NLR_PL >> DMA2D_NLR_PL_Pos) /*!< Maximum number of pixels per lines             */
+#define LL_DMA2D_OFFSET_MAX 0x3FFFU                                /*!< Maximum output line offset expressed in pixels */
+#define LL_DMA2D_CLUTSIZE_MAX 0xFFU                                /*!< Maximum CLUT size                              */
 /**
   * @}
   */
@@ -55,51 +55,47 @@
 /** @addtogroup DMA2D_LL_Private_Macros
   * @{
   */
-#define IS_LL_DMA2D_MODE(MODE)          (((MODE) == LL_DMA2D_MODE_M2M)       || \
-                                         ((MODE) == LL_DMA2D_MODE_M2M_PFC)   || \
-                                         ((MODE) == LL_DMA2D_MODE_M2M_BLEND) || \
-                                         ((MODE) == LL_DMA2D_MODE_R2M))
+#define IS_LL_DMA2D_MODE(MODE) (((MODE) == LL_DMA2D_MODE_M2M) ||       \
+                                ((MODE) == LL_DMA2D_MODE_M2M_PFC) ||   \
+                                ((MODE) == LL_DMA2D_MODE_M2M_BLEND) || \
+                                ((MODE) == LL_DMA2D_MODE_R2M))
 
-#define IS_LL_DMA2D_OCMODE(MODE_ARGB)   (((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_ARGB8888) || \
-                                         ((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_RGB888)   || \
-                                         ((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_RGB565)   || \
-                                         ((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_ARGB1555) || \
-                                         ((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_ARGB4444))
+#define IS_LL_DMA2D_OCMODE(MODE_ARGB) (((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_ARGB8888) || \
+                                       ((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_RGB888) ||   \
+                                       ((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_RGB565) ||   \
+                                       ((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_ARGB1555) || \
+                                       ((MODE_ARGB) == LL_DMA2D_OUTPUT_MODE_ARGB4444))
 
-#define IS_LL_DMA2D_GREEN(GREEN)        ((GREEN) <= LL_DMA2D_COLOR)
-#define IS_LL_DMA2D_RED(RED)            ((RED)   <= LL_DMA2D_COLOR)
-#define IS_LL_DMA2D_BLUE(BLUE)          ((BLUE)  <= LL_DMA2D_COLOR)
-#define IS_LL_DMA2D_ALPHA(ALPHA)        ((ALPHA) <= LL_DMA2D_COLOR)
+#define IS_LL_DMA2D_GREEN(GREEN) ((GREEN) <= LL_DMA2D_COLOR)
+#define IS_LL_DMA2D_RED(RED) ((RED) <= LL_DMA2D_COLOR)
+#define IS_LL_DMA2D_BLUE(BLUE) ((BLUE) <= LL_DMA2D_COLOR)
+#define IS_LL_DMA2D_ALPHA(ALPHA) ((ALPHA) <= LL_DMA2D_COLOR)
 
+#define IS_LL_DMA2D_OFFSET(OFFSET) ((OFFSET) <= LL_DMA2D_OFFSET_MAX)
 
-#define IS_LL_DMA2D_OFFSET(OFFSET)      ((OFFSET) <= LL_DMA2D_OFFSET_MAX)
+#define IS_LL_DMA2D_LINE(LINES) ((LINES) <= LL_DMA2D_NUMBEROFLINES)
+#define IS_LL_DMA2D_PIXEL(PIXELS) ((PIXELS) <= LL_DMA2D_NUMBEROFPIXELS)
 
-#define IS_LL_DMA2D_LINE(LINES)         ((LINES)  <= LL_DMA2D_NUMBEROFLINES)
-#define IS_LL_DMA2D_PIXEL(PIXELS)       ((PIXELS) <= LL_DMA2D_NUMBEROFPIXELS)
-
-
-
-#define IS_LL_DMA2D_LCMODE(MODE_ARGB)   (((MODE_ARGB) == LL_DMA2D_INPUT_MODE_ARGB8888) || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_RGB888)   || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_RGB565)   || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_ARGB1555) || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_ARGB4444) || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_L8)       || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_AL44)     || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_AL88)     || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_L4)       || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_A8)       || \
-                                         ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_A4))
+#define IS_LL_DMA2D_LCMODE(MODE_ARGB) (((MODE_ARGB) == LL_DMA2D_INPUT_MODE_ARGB8888) || \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_RGB888) ||   \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_RGB565) ||   \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_ARGB1555) || \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_ARGB4444) || \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_L8) ||       \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_AL44) ||     \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_AL88) ||     \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_L4) ||       \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_A8) ||       \
+                                       ((MODE_ARGB) == LL_DMA2D_INPUT_MODE_A4))
 
 #define IS_LL_DMA2D_CLUTCMODE(CLUTCMODE) (((CLUTCMODE) == LL_DMA2D_CLUT_COLOR_MODE_ARGB8888) || \
                                           ((CLUTCMODE) == LL_DMA2D_CLUT_COLOR_MODE_RGB888))
 
-#define IS_LL_DMA2D_CLUTSIZE(SIZE)      ((SIZE) <= LL_DMA2D_CLUTSIZE_MAX)
+#define IS_LL_DMA2D_CLUTSIZE(SIZE) ((SIZE) <= LL_DMA2D_CLUTSIZE_MAX)
 
-#define IS_LL_DMA2D_ALPHAMODE(MODE)     (((MODE) == LL_DMA2D_ALPHA_MODE_NO_MODIF) || \
-                                         ((MODE) == LL_DMA2D_ALPHA_MODE_REPLACE)  || \
-                                         ((MODE) == LL_DMA2D_ALPHA_MODE_COMBINE))
-
+#define IS_LL_DMA2D_ALPHAMODE(MODE) (((MODE) == LL_DMA2D_ALPHA_MODE_NO_MODIF) || \
+                                     ((MODE) == LL_DMA2D_ALPHA_MODE_REPLACE) ||  \
+                                     ((MODE) == LL_DMA2D_ALPHA_MODE_COMBINE))
 
 /**
   * @}
@@ -192,9 +188,6 @@ ErrorStatus LL_DMA2D_Init(DMA2D_TypeDef *DMA2Dx, LL_DMA2D_InitTypeDef *DMA2D_Ini
     regMask = DMA2D_OPFCCR_CM;
     regValue = DMA2D_InitStruct->ColorMode;
 
-
-
-
     MODIFY_REG(DMA2Dx->OPFCCR, regMask, regValue);
 
     /* DMA2D OOR register configuration ------------------------------------------*/
@@ -207,10 +200,10 @@ ErrorStatus LL_DMA2D_Init(DMA2D_TypeDef *DMA2Dx, LL_DMA2D_InitTypeDef *DMA2D_Ini
     LL_DMA2D_SetOutputMemAddr(DMA2Dx, DMA2D_InitStruct->OutputMemoryAddress);
 
     /* DMA2D OCOLR register configuration ------------------------------------------*/
-    dma2d_colorstruct.ColorMode   = DMA2D_InitStruct->ColorMode;
-    dma2d_colorstruct.OutputBlue  = DMA2D_InitStruct->OutputBlue;
+    dma2d_colorstruct.ColorMode = DMA2D_InitStruct->ColorMode;
+    dma2d_colorstruct.OutputBlue = DMA2D_InitStruct->OutputBlue;
     dma2d_colorstruct.OutputGreen = DMA2D_InitStruct->OutputGreen;
-    dma2d_colorstruct.OutputRed   = DMA2D_InitStruct->OutputRed;
+    dma2d_colorstruct.OutputRed = DMA2D_InitStruct->OutputRed;
     dma2d_colorstruct.OutputAlpha = DMA2D_InitStruct->OutputAlpha;
     LL_DMA2D_ConfigOutputColor(DMA2Dx, &dma2d_colorstruct);
 
@@ -230,15 +223,15 @@ ErrorStatus LL_DMA2D_Init(DMA2D_TypeDef *DMA2Dx, LL_DMA2D_InitTypeDef *DMA2D_Ini
 void LL_DMA2D_StructInit(LL_DMA2D_InitTypeDef *DMA2D_InitStruct)
 {
   /* Set DMA2D_InitStruct fields to default values */
-  DMA2D_InitStruct->Mode                = LL_DMA2D_MODE_M2M;
-  DMA2D_InitStruct->ColorMode           = LL_DMA2D_OUTPUT_MODE_ARGB8888;
-  DMA2D_InitStruct->NbrOfLines          = 0x0U;
+  DMA2D_InitStruct->Mode = LL_DMA2D_MODE_M2M;
+  DMA2D_InitStruct->ColorMode = LL_DMA2D_OUTPUT_MODE_ARGB8888;
+  DMA2D_InitStruct->NbrOfLines = 0x0U;
   DMA2D_InitStruct->NbrOfPixelsPerLines = 0x0U;
-  DMA2D_InitStruct->LineOffset          = 0x0U;
-  DMA2D_InitStruct->OutputBlue          = 0x0U;
-  DMA2D_InitStruct->OutputGreen         = 0x0U;
-  DMA2D_InitStruct->OutputRed           = 0x0U;
-  DMA2D_InitStruct->OutputAlpha         = 0x0U;
+  DMA2D_InitStruct->LineOffset = 0x0U;
+  DMA2D_InitStruct->OutputBlue = 0x0U;
+  DMA2D_InitStruct->OutputGreen = 0x0U;
+  DMA2D_InitStruct->OutputRed = 0x0U;
+  DMA2D_InitStruct->OutputAlpha = 0x0U;
   DMA2D_InitStruct->OutputMemoryAddress = 0x0U;
 }
 
@@ -266,7 +259,6 @@ void LL_DMA2D_ConfigLayer(DMA2D_TypeDef *DMA2Dx, LL_DMA2D_LayerCfgTypeDef *DMA2D
   assert_param(IS_LL_DMA2D_BLUE(DMA2D_LayerCfg->Blue));
   assert_param(IS_LL_DMA2D_ALPHA(DMA2D_LayerCfg->Alpha));
 
-
   if (LayerIdx == 0U)
   {
     /* Configure the background memory address */
@@ -276,10 +268,10 @@ void LL_DMA2D_ConfigLayer(DMA2D_TypeDef *DMA2Dx, LL_DMA2D_LayerCfgTypeDef *DMA2D
     LL_DMA2D_BGND_SetLineOffset(DMA2Dx, DMA2D_LayerCfg->LineOffset);
 
     /* Configure the background Alpha value, Alpha mode, CLUT size, CLUT Color mode and Color mode */
-    MODIFY_REG(DMA2Dx->BGPFCCR, \
-               (DMA2D_BGPFCCR_ALPHA | DMA2D_BGPFCCR_AM | DMA2D_BGPFCCR_CS | DMA2D_BGPFCCR_CCM | DMA2D_BGPFCCR_CM), \
-               ((DMA2D_LayerCfg->Alpha << DMA2D_BGPFCCR_ALPHA_Pos) | DMA2D_LayerCfg->AlphaMode | \
-                (DMA2D_LayerCfg->CLUTSize << DMA2D_BGPFCCR_CS_Pos) | DMA2D_LayerCfg->CLUTColorMode | \
+    MODIFY_REG(DMA2Dx->BGPFCCR,
+               (DMA2D_BGPFCCR_ALPHA | DMA2D_BGPFCCR_AM | DMA2D_BGPFCCR_CS | DMA2D_BGPFCCR_CCM | DMA2D_BGPFCCR_CM),
+               ((DMA2D_LayerCfg->Alpha << DMA2D_BGPFCCR_ALPHA_Pos) | DMA2D_LayerCfg->AlphaMode |
+                (DMA2D_LayerCfg->CLUTSize << DMA2D_BGPFCCR_CS_Pos) | DMA2D_LayerCfg->CLUTColorMode |
                 DMA2D_LayerCfg->ColorMode));
 
     /* Configure the background color */
@@ -297,10 +289,10 @@ void LL_DMA2D_ConfigLayer(DMA2D_TypeDef *DMA2Dx, LL_DMA2D_LayerCfgTypeDef *DMA2D
     LL_DMA2D_FGND_SetLineOffset(DMA2Dx, DMA2D_LayerCfg->LineOffset);
 
     /* Configure the foreground Alpha value, Alpha mode, CLUT size, CLUT Color mode and Color mode */
-    MODIFY_REG(DMA2Dx->FGPFCCR, \
-               (DMA2D_FGPFCCR_ALPHA | DMA2D_FGPFCCR_AM | DMA2D_FGPFCCR_CS | DMA2D_FGPFCCR_CCM | DMA2D_FGPFCCR_CM), \
-               ((DMA2D_LayerCfg->Alpha << DMA2D_FGPFCCR_ALPHA_Pos) | DMA2D_LayerCfg->AlphaMode | \
-                (DMA2D_LayerCfg->CLUTSize << DMA2D_FGPFCCR_CS_Pos) | DMA2D_LayerCfg->CLUTColorMode | \
+    MODIFY_REG(DMA2Dx->FGPFCCR,
+               (DMA2D_FGPFCCR_ALPHA | DMA2D_FGPFCCR_AM | DMA2D_FGPFCCR_CS | DMA2D_FGPFCCR_CCM | DMA2D_FGPFCCR_CM),
+               ((DMA2D_LayerCfg->Alpha << DMA2D_FGPFCCR_ALPHA_Pos) | DMA2D_LayerCfg->AlphaMode |
+                (DMA2D_LayerCfg->CLUTSize << DMA2D_FGPFCCR_CS_Pos) | DMA2D_LayerCfg->CLUTColorMode |
                 DMA2D_LayerCfg->ColorMode));
 
     /* Configure the foreground color */
@@ -320,17 +312,17 @@ void LL_DMA2D_ConfigLayer(DMA2D_TypeDef *DMA2Dx, LL_DMA2D_LayerCfgTypeDef *DMA2D
 void LL_DMA2D_LayerCfgStructInit(LL_DMA2D_LayerCfgTypeDef *DMA2D_LayerCfg)
 {
   /* Set DMA2D_LayerCfg fields to default values */
-  DMA2D_LayerCfg->MemoryAddress      = 0x0U;
-  DMA2D_LayerCfg->ColorMode          = LL_DMA2D_INPUT_MODE_ARGB8888;
-  DMA2D_LayerCfg->LineOffset         = 0x0U;
-  DMA2D_LayerCfg->CLUTColorMode      = LL_DMA2D_CLUT_COLOR_MODE_ARGB8888;
-  DMA2D_LayerCfg->CLUTSize           = 0x0U;
-  DMA2D_LayerCfg->AlphaMode          = LL_DMA2D_ALPHA_MODE_NO_MODIF;
-  DMA2D_LayerCfg->Alpha              = 0x0U;
-  DMA2D_LayerCfg->Blue               = 0x0U;
-  DMA2D_LayerCfg->Green              = 0x0U;
-  DMA2D_LayerCfg->Red                = 0x0U;
-  DMA2D_LayerCfg->CLUTMemoryAddress  = 0x0U;
+  DMA2D_LayerCfg->MemoryAddress = 0x0U;
+  DMA2D_LayerCfg->ColorMode = LL_DMA2D_INPUT_MODE_ARGB8888;
+  DMA2D_LayerCfg->LineOffset = 0x0U;
+  DMA2D_LayerCfg->CLUTColorMode = LL_DMA2D_CLUT_COLOR_MODE_ARGB8888;
+  DMA2D_LayerCfg->CLUTSize = 0x0U;
+  DMA2D_LayerCfg->AlphaMode = LL_DMA2D_ALPHA_MODE_NO_MODIF;
+  DMA2D_LayerCfg->Alpha = 0x0U;
+  DMA2D_LayerCfg->Blue = 0x0U;
+  DMA2D_LayerCfg->Green = 0x0U;
+  DMA2D_LayerCfg->Red = 0x0U;
+  DMA2D_LayerCfg->CLUTMemoryAddress = 0x0U;
 }
 
 /**
@@ -570,7 +562,7 @@ uint32_t LL_DMA2D_GetOutputAlphaColor(DMA2D_TypeDef *DMA2Dx, uint32_t ColorMode)
   */
 void LL_DMA2D_ConfigSize(DMA2D_TypeDef *DMA2Dx, uint32_t NbrOfLines, uint32_t NbrOfPixelsPerLines)
 {
-  MODIFY_REG(DMA2Dx->NLR, (DMA2D_NLR_PL | DMA2D_NLR_NL), \
+  MODIFY_REG(DMA2Dx->NLR, (DMA2D_NLR_PL | DMA2D_NLR_NL),
              ((NbrOfPixelsPerLines << DMA2D_NLR_PL_Pos) | NbrOfLines));
 }
 
@@ -594,5 +586,4 @@ void LL_DMA2D_ConfigSize(DMA2D_TypeDef *DMA2Dx, uint32_t NbrOfLines, uint32_t Nb
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
-
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

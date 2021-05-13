@@ -68,7 +68,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2017 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -104,7 +104,6 @@
   * @{
   */
 
-
 /** @defgroup CORTEX_Exported_Functions_Group1 Initialization and de-initialization functions
  *  @brief    Initialization and Configuration functions 
  *
@@ -119,7 +118,6 @@
 @endverbatim
   * @{
   */
-
 
 /**
   * @brief  Sets the priority grouping field (preemption priority and subpriority)
@@ -144,7 +142,7 @@ void HAL_NVIC_SetPriorityGrouping(uint32_t PriorityGroup)
 {
   /* Check the parameters */
   assert_param(IS_NVIC_PRIORITY_GROUP(PriorityGroup));
-  
+
   /* Set the PRIGROUP[10:8] bits according to the PriorityGroup parameter value */
   NVIC_SetPriorityGrouping(PriorityGroup);
 }
@@ -163,15 +161,15 @@ void HAL_NVIC_SetPriorityGrouping(uint32_t PriorityGroup)
   * @retval None
   */
 void HAL_NVIC_SetPriority(IRQn_Type IRQn, uint32_t PreemptPriority, uint32_t SubPriority)
-{ 
+{
   uint32_t prioritygroup = 0x00U;
-  
+
   /* Check the parameters */
   assert_param(IS_NVIC_SUB_PRIORITY(SubPriority));
   assert_param(IS_NVIC_PREEMPTION_PRIORITY(PreemptPriority));
-  
+
   prioritygroup = NVIC_GetPriorityGrouping();
-  
+
   NVIC_SetPriority(IRQn, NVIC_EncodePriority(prioritygroup, PreemptPriority, SubPriority));
 }
 
@@ -188,7 +186,7 @@ void HAL_NVIC_EnableIRQ(IRQn_Type IRQn)
 {
   /* Check the parameters */
   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
-  
+
   /* Enable interrupt */
   NVIC_EnableIRQ(IRQn);
 }
@@ -204,7 +202,7 @@ void HAL_NVIC_DisableIRQ(IRQn_Type IRQn)
 {
   /* Check the parameters */
   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
-  
+
   /* Disable interrupt */
   NVIC_DisableIRQ(IRQn);
 }
@@ -228,7 +226,7 @@ void HAL_NVIC_SystemReset(void)
   */
 uint32_t HAL_SYSTICK_Config(uint32_t TicksNumb)
 {
-   return SysTick_Config(TicksNumb);
+  return SysTick_Config(TicksNumb);
 }
 /**
   * @}
@@ -262,7 +260,7 @@ void HAL_MPU_Disable(void)
 
   /* Disable fault exceptions */
   SCB->SHCSR &= ~SCB_SHCSR_MEMFAULTENA_Msk;
-  
+
   /* Disable the MPU and clear the control register*/
   MPU->CTRL = 0U;
 }
@@ -282,10 +280,10 @@ void HAL_MPU_Enable(uint32_t MPU_Control)
 {
   /* Enable the MPU */
   MPU->CTRL = MPU_Control | MPU_CTRL_ENABLE_Msk;
-  
+
   /* Enable fault exceptions */
   SCB->SHCSR |= SCB_SHCSR_MEMFAULTENA_Msk;
-  
+
   /* Ensure MPU setting take effects */
   __DSB();
   __ISB();
@@ -317,17 +315,17 @@ void HAL_MPU_ConfigRegion(MPU_Region_InitTypeDef *MPU_Init)
     assert_param(IS_MPU_ACCESS_BUFFERABLE(MPU_Init->IsBufferable));
     assert_param(IS_MPU_SUB_REGION_DISABLE(MPU_Init->SubRegionDisable));
     assert_param(IS_MPU_REGION_SIZE(MPU_Init->Size));
-    
+
     MPU->RBAR = MPU_Init->BaseAddress;
-    MPU->RASR = ((uint32_t)MPU_Init->DisableExec             << MPU_RASR_XN_Pos)   |
-                ((uint32_t)MPU_Init->AccessPermission        << MPU_RASR_AP_Pos)   |
-                ((uint32_t)MPU_Init->TypeExtField            << MPU_RASR_TEX_Pos)  |
-                ((uint32_t)MPU_Init->IsShareable             << MPU_RASR_S_Pos)    |
-                ((uint32_t)MPU_Init->IsCacheable             << MPU_RASR_C_Pos)    |
-                ((uint32_t)MPU_Init->IsBufferable            << MPU_RASR_B_Pos)    |
-                ((uint32_t)MPU_Init->SubRegionDisable        << MPU_RASR_SRD_Pos)  |
-                ((uint32_t)MPU_Init->Size                    << MPU_RASR_SIZE_Pos) |
-                ((uint32_t)MPU_Init->Enable                  << MPU_RASR_ENABLE_Pos);
+    MPU->RASR = ((uint32_t)MPU_Init->DisableExec << MPU_RASR_XN_Pos) |
+                ((uint32_t)MPU_Init->AccessPermission << MPU_RASR_AP_Pos) |
+                ((uint32_t)MPU_Init->TypeExtField << MPU_RASR_TEX_Pos) |
+                ((uint32_t)MPU_Init->IsShareable << MPU_RASR_S_Pos) |
+                ((uint32_t)MPU_Init->IsCacheable << MPU_RASR_C_Pos) |
+                ((uint32_t)MPU_Init->IsBufferable << MPU_RASR_B_Pos) |
+                ((uint32_t)MPU_Init->SubRegionDisable << MPU_RASR_SRD_Pos) |
+                ((uint32_t)MPU_Init->Size << MPU_RASR_SIZE_Pos) |
+                ((uint32_t)MPU_Init->Enable << MPU_RASR_ENABLE_Pos);
   }
   else
   {
@@ -372,7 +370,7 @@ void HAL_NVIC_GetPriority(IRQn_Type IRQn, uint32_t PriorityGroup, uint32_t *pPre
 {
   /* Check the parameters */
   assert_param(IS_NVIC_PRIORITY_GROUP(PriorityGroup));
- /* Get priority for Cortex-M system or device specific interrupts */
+  /* Get priority for Cortex-M system or device specific interrupts */
   NVIC_DecodePriority(NVIC_GetPriority(IRQn), PriorityGroup, pPreemptPriority, pSubPriority);
 }
 
@@ -387,7 +385,7 @@ void HAL_NVIC_SetPendingIRQ(IRQn_Type IRQn)
 {
   /* Check the parameters */
   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
-  
+
   /* Set interrupt pending */
   NVIC_SetPendingIRQ(IRQn);
 }
@@ -405,7 +403,7 @@ uint32_t HAL_NVIC_GetPendingIRQ(IRQn_Type IRQn)
 {
   /* Check the parameters */
   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
-  
+
   /* Return 1 if pending else 0 */
   return NVIC_GetPendingIRQ(IRQn);
 }
@@ -421,7 +419,7 @@ void HAL_NVIC_ClearPendingIRQ(IRQn_Type IRQn)
 {
   /* Check the parameters */
   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
-  
+
   /* Clear pending interrupt */
   NVIC_ClearPendingIRQ(IRQn);
 }
@@ -438,7 +436,7 @@ uint32_t HAL_NVIC_GetActive(IRQn_Type IRQn)
 {
   /* Check the parameters */
   assert_param(IS_NVIC_DEVICE_IRQ(IRQn));
-  
+
   /* Return 1 if active else 0 */
   return NVIC_GetActive(IRQn);
 }
@@ -502,4 +500,4 @@ __weak void HAL_SYSTICK_Callback(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/

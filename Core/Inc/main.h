@@ -60,6 +60,7 @@ extern "C"
   void Error_Handler(void);
 
   /* USER CODE BEGIN EFP */
+  void SystemClock_Config(void);
   void Com1_RcvProcess(void);
   void Com1_SlaveSend(void);
   void Com2_RcvProcess(void);
@@ -75,6 +76,9 @@ extern "C"
   void ParLimit(void);
   void test_GPIO(void);
   void Init_EtherCAT(void);
+  void UART_TX(void);
+  void Test_EEPROM(void);
+  void TEST_WK_Uart(void);
 
 /* USER CODE END EFP */
 

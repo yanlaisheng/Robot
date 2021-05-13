@@ -153,7 +153,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -184,16 +184,16 @@
 /** @defgroup FMPSMBUS_Private_Define FMPSMBUS Private Constants
   * @{
   */
-#define TIMING_CLEAR_MASK   (0xF0FFFFFFUL)     /*!< FMPSMBUS TIMING clear register Mask */
-#define HAL_TIMEOUT_ADDR    (10000U)           /*!< 10 s  */
-#define HAL_TIMEOUT_BUSY    (25U)              /*!< 25 ms */
-#define HAL_TIMEOUT_DIR     (25U)              /*!< 25 ms */
-#define HAL_TIMEOUT_RXNE    (25U)              /*!< 25 ms */
-#define HAL_TIMEOUT_STOPF   (25U)              /*!< 25 ms */
-#define HAL_TIMEOUT_TC      (25U)              /*!< 25 ms */
-#define HAL_TIMEOUT_TCR     (25U)              /*!< 25 ms */
-#define HAL_TIMEOUT_TXIS    (25U)              /*!< 25 ms */
-#define MAX_NBYTE_SIZE      255U
+#define TIMING_CLEAR_MASK (0xF0FFFFFFUL) /*!< FMPSMBUS TIMING clear register Mask */
+#define HAL_TIMEOUT_ADDR (10000U)        /*!< 10 s  */
+#define HAL_TIMEOUT_BUSY (25U)           /*!< 25 ms */
+#define HAL_TIMEOUT_DIR (25U)            /*!< 25 ms */
+#define HAL_TIMEOUT_RXNE (25U)           /*!< 25 ms */
+#define HAL_TIMEOUT_STOPF (25U)          /*!< 25 ms */
+#define HAL_TIMEOUT_TC (25U)             /*!< 25 ms */
+#define HAL_TIMEOUT_TCR (25U)            /*!< 25 ms */
+#define HAL_TIMEOUT_TXIS (25U)           /*!< 25 ms */
+#define MAX_NBYTE_SIZE 255U
 /**
   * @}
   */
@@ -205,7 +205,7 @@
   * @{
   */
 static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag, FlagStatus Status,
-                                                      uint32_t Timeout);
+                                                         uint32_t Timeout);
 
 static void FMPSMBUS_Enable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
 static void FMPSMBUS_Disable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t InterruptRequest);
@@ -216,8 +216,8 @@ static void FMPSMBUS_ConvertOtherXferOptions(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 
 static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus);
 
-static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size, uint32_t Mode,
-                                 uint32_t Request);
+static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint8_t Size, uint32_t Mode,
+                                    uint32_t Request);
 /**
   * @}
   */
@@ -303,11 +303,11 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Init(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 #if (USE_HAL_FMPSMBUS_REGISTER_CALLBACKS == 1)
     hfmpsmbus->MasterTxCpltCallback = HAL_FMPSMBUS_MasterTxCpltCallback; /* Legacy weak MasterTxCpltCallback */
     hfmpsmbus->MasterRxCpltCallback = HAL_FMPSMBUS_MasterRxCpltCallback; /* Legacy weak MasterRxCpltCallback */
-    hfmpsmbus->SlaveTxCpltCallback  = HAL_FMPSMBUS_SlaveTxCpltCallback;  /* Legacy weak SlaveTxCpltCallback  */
-    hfmpsmbus->SlaveRxCpltCallback  = HAL_FMPSMBUS_SlaveRxCpltCallback;  /* Legacy weak SlaveRxCpltCallback  */
-    hfmpsmbus->ListenCpltCallback   = HAL_FMPSMBUS_ListenCpltCallback;   /* Legacy weak ListenCpltCallback   */
-    hfmpsmbus->ErrorCallback        = HAL_FMPSMBUS_ErrorCallback;        /* Legacy weak ErrorCallback        */
-    hfmpsmbus->AddrCallback         = HAL_FMPSMBUS_AddrCallback;         /* Legacy weak AddrCallback         */
+    hfmpsmbus->SlaveTxCpltCallback = HAL_FMPSMBUS_SlaveTxCpltCallback;   /* Legacy weak SlaveTxCpltCallback  */
+    hfmpsmbus->SlaveRxCpltCallback = HAL_FMPSMBUS_SlaveRxCpltCallback;   /* Legacy weak SlaveRxCpltCallback  */
+    hfmpsmbus->ListenCpltCallback = HAL_FMPSMBUS_ListenCpltCallback;     /* Legacy weak ListenCpltCallback   */
+    hfmpsmbus->ErrorCallback = HAL_FMPSMBUS_ErrorCallback;               /* Legacy weak ErrorCallback        */
+    hfmpsmbus->AddrCallback = HAL_FMPSMBUS_AddrCallback;                 /* Legacy weak AddrCallback         */
 
     if (hfmpsmbus->MspInitCallback == NULL)
     {
@@ -372,8 +372,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Init(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   hfmpsmbus->Instance->CR1 = (hfmpsmbus->Init.GeneralCallMode | hfmpsmbus->Init.NoStretchMode | hfmpsmbus->Init.PacketErrorCheckMode | hfmpsmbus->Init.PeripheralMode | hfmpsmbus->Init.AnalogFilter);
 
   /* Enable Slave Byte Control only in case of Packet Error Check is enabled and FMPSMBUS Peripheral is set in Slave mode */
-  if ((hfmpsmbus->Init.PacketErrorCheckMode == FMPSMBUS_PEC_ENABLE)
-      && ((hfmpsmbus->Init.PeripheralMode == FMPSMBUS_PERIPHERAL_MODE_FMPSMBUS_SLAVE) || (hfmpsmbus->Init.PeripheralMode == FMPSMBUS_PERIPHERAL_MODE_FMPSMBUS_SLAVE_ARP)))
+  if ((hfmpsmbus->Init.PacketErrorCheckMode == FMPSMBUS_PEC_ENABLE) && ((hfmpsmbus->Init.PeripheralMode == FMPSMBUS_PERIPHERAL_MODE_FMPSMBUS_SLAVE) || (hfmpsmbus->Init.PeripheralMode == FMPSMBUS_PERIPHERAL_MODE_FMPSMBUS_SLAVE_ARP)))
   {
     hfmpsmbus->Instance->CR1 |= FMPI2C_CR1_SBC;
   }
@@ -424,7 +423,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_DeInit(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 #endif /* USE_HAL_FMPSMBUS_REGISTER_CALLBACKS */
 
   hfmpsmbus->ErrorCode = HAL_FMPSMBUS_ERROR_NONE;
-  hfmpsmbus->PreviousState =  HAL_FMPSMBUS_STATE_RESET;
+  hfmpsmbus->PreviousState = HAL_FMPSMBUS_STATE_RESET;
   hfmpsmbus->State = HAL_FMPSMBUS_STATE_RESET;
 
   /* Release Lock */
@@ -583,7 +582,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_ConfigDigitalFilter(FMPSMBUS_HandleTypeDef *hfmps
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbus, HAL_FMPSMBUS_CallbackIDTypeDef CallbackID,
-                                             pFMPSMBUS_CallbackTypeDef pCallback)
+                                                pFMPSMBUS_CallbackTypeDef pCallback)
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -602,66 +601,66 @@ HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbu
   {
     switch (CallbackID)
     {
-      case HAL_FMPSMBUS_MASTER_TX_COMPLETE_CB_ID :
-        hfmpsmbus->MasterTxCpltCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_MASTER_TX_COMPLETE_CB_ID:
+      hfmpsmbus->MasterTxCpltCallback = pCallback;
+      break;
 
-      case HAL_FMPSMBUS_MASTER_RX_COMPLETE_CB_ID :
-        hfmpsmbus->MasterRxCpltCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_MASTER_RX_COMPLETE_CB_ID:
+      hfmpsmbus->MasterRxCpltCallback = pCallback;
+      break;
 
-      case HAL_FMPSMBUS_SLAVE_TX_COMPLETE_CB_ID :
-        hfmpsmbus->SlaveTxCpltCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_SLAVE_TX_COMPLETE_CB_ID:
+      hfmpsmbus->SlaveTxCpltCallback = pCallback;
+      break;
 
-      case HAL_FMPSMBUS_SLAVE_RX_COMPLETE_CB_ID :
-        hfmpsmbus->SlaveRxCpltCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_SLAVE_RX_COMPLETE_CB_ID:
+      hfmpsmbus->SlaveRxCpltCallback = pCallback;
+      break;
 
-      case HAL_FMPSMBUS_LISTEN_COMPLETE_CB_ID :
-        hfmpsmbus->ListenCpltCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_LISTEN_COMPLETE_CB_ID:
+      hfmpsmbus->ListenCpltCallback = pCallback;
+      break;
 
-      case HAL_FMPSMBUS_ERROR_CB_ID :
-        hfmpsmbus->ErrorCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_ERROR_CB_ID:
+      hfmpsmbus->ErrorCallback = pCallback;
+      break;
 
-      case HAL_FMPSMBUS_MSPINIT_CB_ID :
-        hfmpsmbus->MspInitCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_MSPINIT_CB_ID:
+      hfmpsmbus->MspInitCallback = pCallback;
+      break;
 
-      case HAL_FMPSMBUS_MSPDEINIT_CB_ID :
-        hfmpsmbus->MspDeInitCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_MSPDEINIT_CB_ID:
+      hfmpsmbus->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (HAL_FMPSMBUS_STATE_RESET == hfmpsmbus->State)
   {
     switch (CallbackID)
     {
-      case HAL_FMPSMBUS_MSPINIT_CB_ID :
-        hfmpsmbus->MspInitCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_MSPINIT_CB_ID:
+      hfmpsmbus->MspInitCallback = pCallback;
+      break;
 
-      case HAL_FMPSMBUS_MSPDEINIT_CB_ID :
-        hfmpsmbus->MspDeInitCallback = pCallback;
-        break;
+    case HAL_FMPSMBUS_MSPDEINIT_CB_ID:
+      hfmpsmbus->MspDeInitCallback = pCallback;
+      break;
 
-      default :
-        /* Update the error code */
-        hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -670,7 +669,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_RegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsmbu
     hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -707,66 +706,66 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsm
   {
     switch (CallbackID)
     {
-      case HAL_FMPSMBUS_MASTER_TX_COMPLETE_CB_ID :
-        hfmpsmbus->MasterTxCpltCallback = HAL_FMPSMBUS_MasterTxCpltCallback; /* Legacy weak MasterTxCpltCallback */
-        break;
+    case HAL_FMPSMBUS_MASTER_TX_COMPLETE_CB_ID:
+      hfmpsmbus->MasterTxCpltCallback = HAL_FMPSMBUS_MasterTxCpltCallback; /* Legacy weak MasterTxCpltCallback */
+      break;
 
-      case HAL_FMPSMBUS_MASTER_RX_COMPLETE_CB_ID :
-        hfmpsmbus->MasterRxCpltCallback = HAL_FMPSMBUS_MasterRxCpltCallback; /* Legacy weak MasterRxCpltCallback */
-        break;
+    case HAL_FMPSMBUS_MASTER_RX_COMPLETE_CB_ID:
+      hfmpsmbus->MasterRxCpltCallback = HAL_FMPSMBUS_MasterRxCpltCallback; /* Legacy weak MasterRxCpltCallback */
+      break;
 
-      case HAL_FMPSMBUS_SLAVE_TX_COMPLETE_CB_ID :
-        hfmpsmbus->SlaveTxCpltCallback = HAL_FMPSMBUS_SlaveTxCpltCallback;   /* Legacy weak SlaveTxCpltCallback  */
-        break;
+    case HAL_FMPSMBUS_SLAVE_TX_COMPLETE_CB_ID:
+      hfmpsmbus->SlaveTxCpltCallback = HAL_FMPSMBUS_SlaveTxCpltCallback; /* Legacy weak SlaveTxCpltCallback  */
+      break;
 
-      case HAL_FMPSMBUS_SLAVE_RX_COMPLETE_CB_ID :
-        hfmpsmbus->SlaveRxCpltCallback = HAL_FMPSMBUS_SlaveRxCpltCallback;   /* Legacy weak SlaveRxCpltCallback  */
-        break;
+    case HAL_FMPSMBUS_SLAVE_RX_COMPLETE_CB_ID:
+      hfmpsmbus->SlaveRxCpltCallback = HAL_FMPSMBUS_SlaveRxCpltCallback; /* Legacy weak SlaveRxCpltCallback  */
+      break;
 
-      case HAL_FMPSMBUS_LISTEN_COMPLETE_CB_ID :
-        hfmpsmbus->ListenCpltCallback = HAL_FMPSMBUS_ListenCpltCallback;     /* Legacy weak ListenCpltCallback   */
-        break;
+    case HAL_FMPSMBUS_LISTEN_COMPLETE_CB_ID:
+      hfmpsmbus->ListenCpltCallback = HAL_FMPSMBUS_ListenCpltCallback; /* Legacy weak ListenCpltCallback   */
+      break;
 
-      case HAL_FMPSMBUS_ERROR_CB_ID :
-        hfmpsmbus->ErrorCallback = HAL_FMPSMBUS_ErrorCallback;               /* Legacy weak ErrorCallback        */
-        break;
+    case HAL_FMPSMBUS_ERROR_CB_ID:
+      hfmpsmbus->ErrorCallback = HAL_FMPSMBUS_ErrorCallback; /* Legacy weak ErrorCallback        */
+      break;
 
-      case HAL_FMPSMBUS_MSPINIT_CB_ID :
-        hfmpsmbus->MspInitCallback = HAL_FMPSMBUS_MspInit;                   /* Legacy weak MspInit              */
-        break;
+    case HAL_FMPSMBUS_MSPINIT_CB_ID:
+      hfmpsmbus->MspInitCallback = HAL_FMPSMBUS_MspInit; /* Legacy weak MspInit              */
+      break;
 
-      case HAL_FMPSMBUS_MSPDEINIT_CB_ID :
-        hfmpsmbus->MspDeInitCallback = HAL_FMPSMBUS_MspDeInit;               /* Legacy weak MspDeInit            */
-        break;
+    case HAL_FMPSMBUS_MSPDEINIT_CB_ID:
+      hfmpsmbus->MspDeInitCallback = HAL_FMPSMBUS_MspDeInit; /* Legacy weak MspDeInit            */
+      break;
 
-      default :
-        /* Update the error code */
-        hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else if (HAL_FMPSMBUS_STATE_RESET == hfmpsmbus->State)
   {
     switch (CallbackID)
     {
-      case HAL_FMPSMBUS_MSPINIT_CB_ID :
-        hfmpsmbus->MspInitCallback = HAL_FMPSMBUS_MspInit;                   /* Legacy weak MspInit              */
-        break;
+    case HAL_FMPSMBUS_MSPINIT_CB_ID:
+      hfmpsmbus->MspInitCallback = HAL_FMPSMBUS_MspInit; /* Legacy weak MspInit              */
+      break;
 
-      case HAL_FMPSMBUS_MSPDEINIT_CB_ID :
-        hfmpsmbus->MspDeInitCallback = HAL_FMPSMBUS_MspDeInit;               /* Legacy weak MspDeInit            */
-        break;
+    case HAL_FMPSMBUS_MSPDEINIT_CB_ID:
+      hfmpsmbus->MspDeInitCallback = HAL_FMPSMBUS_MspDeInit; /* Legacy weak MspDeInit            */
+      break;
 
-      default :
-        /* Update the error code */
-        hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
+    default:
+      /* Update the error code */
+      hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
 
-        /* Return error status */
-        status =  HAL_ERROR;
-        break;
+      /* Return error status */
+      status = HAL_ERROR;
+      break;
     }
   }
   else
@@ -775,7 +774,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterCallback(FMPSMBUS_HandleTypeDef *hfmpsm
     hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -815,7 +814,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_RegisterAddrCallback(FMPSMBUS_HandleTypeDef *hfmp
     hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -847,7 +846,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback(FMPSMBUS_HandleTypeDef *hf
     hfmpsmbus->ErrorCode |= HAL_FMPSMBUS_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status =  HAL_ERROR;
+    status = HAL_ERROR;
   }
 
   /* Release Lock */
@@ -916,7 +915,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_UnRegisterAddrCallback(FMPSMBUS_HandleTypeDef *hf
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint8_t *pData,
-                                               uint16_t Size, uint32_t XferOptions)
+                                                  uint16_t Size, uint32_t XferOptions)
 {
   uint32_t tmp;
 
@@ -956,7 +955,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsm
     if ((hfmpsmbus->XferSize < hfmpsmbus->XferCount) && (hfmpsmbus->XferSize == MAX_NBYTE_SIZE))
     {
       FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize,
-                           FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE), FMPSMBUS_GENERATE_START_WRITE);
+                              FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE), FMPSMBUS_GENERATE_START_WRITE);
     }
     else
     {
@@ -1017,7 +1016,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsm
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint8_t *pData,
-                                              uint16_t Size, uint32_t XferOptions)
+                                                 uint16_t Size, uint32_t XferOptions)
 {
   uint32_t tmp;
 
@@ -1058,7 +1057,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
     if ((hfmpsmbus->XferSize < hfmpsmbus->XferCount) && (hfmpsmbus->XferSize == MAX_NBYTE_SIZE))
     {
       FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, (uint8_t)hfmpsmbus->XferSize,
-                           FMPSMBUS_RELOAD_MODE  | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE), FMPSMBUS_GENERATE_START_READ);
+                              FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE), FMPSMBUS_GENERATE_START_READ);
     }
     else
     {
@@ -1174,7 +1173,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Master_Abort_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t *pData, uint16_t Size,
-                                              uint32_t XferOptions)
+                                                 uint32_t XferOptions)
 {
   /* Check the parameters */
   assert_param(IS_FMPSMBUS_TRANSFER_OPTIONS_REQUEST(XferOptions));
@@ -1223,7 +1222,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
     if ((hfmpsmbus->XferSize < hfmpsmbus->XferCount) && (hfmpsmbus->XferSize == MAX_NBYTE_SIZE))
     {
       FMPSMBUS_TransferConfig(hfmpsmbus, 0, (uint8_t)hfmpsmbus->XferSize,
-                           FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE), FMPSMBUS_NO_STARTSTOP);
+                              FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE), FMPSMBUS_NO_STARTSTOP);
     }
     else
     {
@@ -1270,7 +1269,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Transmit_IT(FMPSMBUS_HandleTypeDef *hfmpsmb
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_Slave_Receive_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint8_t *pData, uint16_t Size,
-                                             uint32_t XferOptions)
+                                                uint32_t XferOptions)
 {
   /* Check the parameters */
   assert_param(IS_FMPSMBUS_TRANSFER_OPTIONS_REQUEST(XferOptions));
@@ -1429,7 +1428,7 @@ HAL_StatusTypeDef HAL_FMPSMBUS_DisableAlert_IT(FMPSMBUS_HandleTypeDef *hfmpsmbus
   * @retval HAL status
   */
 HAL_StatusTypeDef HAL_FMPSMBUS_IsDeviceReady(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint32_t Trials,
-                                          uint32_t Timeout)
+                                             uint32_t Timeout)
 {
   uint32_t tickstart;
 
@@ -1968,7 +1967,7 @@ static HAL_StatusTypeDef FMPSMBUS_Master_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, 
       if (hfmpsmbus->XferCount > MAX_NBYTE_SIZE)
       {
         FMPSMBUS_TransferConfig(hfmpsmbus, DevAddress, MAX_NBYTE_SIZE,
-                             (FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE)), FMPSMBUS_NO_STARTSTOP);
+                                (FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE)), FMPSMBUS_NO_STARTSTOP);
         hfmpsmbus->XferSize = MAX_NBYTE_SIZE;
       }
       else
@@ -2226,7 +2225,7 @@ static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, u
       else
       {
         /* Set Reload for next Bytes */
-        FMPSMBUS_TransferConfig(hfmpsmbus, 0, 1, FMPSMBUS_RELOAD_MODE  | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE), FMPSMBUS_NO_STARTSTOP);
+        FMPSMBUS_TransferConfig(hfmpsmbus, 0, 1, FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE), FMPSMBUS_NO_STARTSTOP);
 
         /* Ack last Byte Read */
         hfmpsmbus->Instance->CR2 &= ~FMPI2C_CR2_NACK;
@@ -2239,7 +2238,7 @@ static HAL_StatusTypeDef FMPSMBUS_Slave_ISR(FMPSMBUS_HandleTypeDef *hfmpsmbus, u
         if (hfmpsmbus->XferCount > MAX_NBYTE_SIZE)
         {
           FMPSMBUS_TransferConfig(hfmpsmbus, 0, MAX_NBYTE_SIZE, (FMPSMBUS_RELOAD_MODE | (hfmpsmbus->XferOptions & FMPSMBUS_SENDPEC_MODE)),
-                               FMPSMBUS_NO_STARTSTOP);
+                                  FMPSMBUS_NO_STARTSTOP);
           hfmpsmbus->XferSize = MAX_NBYTE_SIZE;
         }
         else
@@ -2426,8 +2425,7 @@ static void FMPSMBUS_Disable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Int
     /* Disable TC, STOP, NACK and TXI interrupt */
     tmpisr |= FMPSMBUS_IT_TCI | FMPSMBUS_IT_TXI;
 
-    if ((FMPSMBUS_GET_ALERT_ENABLED(hfmpsmbus) == 0UL)
-        && ((tmpstate & HAL_FMPSMBUS_STATE_LISTEN) != HAL_FMPSMBUS_STATE_LISTEN))
+    if ((FMPSMBUS_GET_ALERT_ENABLED(hfmpsmbus) == 0UL) && ((tmpstate & HAL_FMPSMBUS_STATE_LISTEN) != HAL_FMPSMBUS_STATE_LISTEN))
     {
       /* Disable ERR interrupt */
       tmpisr |= FMPSMBUS_IT_ERRI;
@@ -2445,8 +2443,7 @@ static void FMPSMBUS_Disable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Int
     /* Disable TC, STOP, NACK and RXI interrupt */
     tmpisr |= FMPSMBUS_IT_TCI | FMPSMBUS_IT_RXI;
 
-    if ((FMPSMBUS_GET_ALERT_ENABLED(hfmpsmbus) == 0UL)
-        && ((tmpstate & HAL_FMPSMBUS_STATE_LISTEN) != HAL_FMPSMBUS_STATE_LISTEN))
+    if ((FMPSMBUS_GET_ALERT_ENABLED(hfmpsmbus) == 0UL) && ((tmpstate & HAL_FMPSMBUS_STATE_LISTEN) != HAL_FMPSMBUS_STATE_LISTEN))
     {
       /* Disable ERR interrupt */
       tmpisr |= FMPSMBUS_IT_ERRI;
@@ -2484,7 +2481,7 @@ static void FMPSMBUS_Disable_IRQ(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Int
   */
 static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
 {
-  uint32_t itflags   = READ_REG(hfmpsmbus->Instance->ISR);
+  uint32_t itflags = READ_REG(hfmpsmbus->Instance->ISR);
   uint32_t itsources = READ_REG(hfmpsmbus->Instance->CR1);
   uint32_t tmpstate;
   uint32_t tmperror;
@@ -2555,8 +2552,7 @@ static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
       /* Store current volatile hfmpsmbus->State, misra rule */
       tmpstate = hfmpsmbus->State;
 
-      if (((tmpstate & HAL_FMPSMBUS_STATE_SLAVE_BUSY_TX) == HAL_FMPSMBUS_STATE_SLAVE_BUSY_TX)
-          || ((tmpstate & HAL_FMPSMBUS_STATE_SLAVE_BUSY_RX) == HAL_FMPSMBUS_STATE_SLAVE_BUSY_RX))
+      if (((tmpstate & HAL_FMPSMBUS_STATE_SLAVE_BUSY_TX) == HAL_FMPSMBUS_STATE_SLAVE_BUSY_TX) || ((tmpstate & HAL_FMPSMBUS_STATE_SLAVE_BUSY_RX) == HAL_FMPSMBUS_STATE_SLAVE_BUSY_RX))
       {
         /* Reset only HAL_FMPSMBUS_STATE_SLAVE_BUSY_XX */
         /* keep HAL_FMPSMBUS_STATE_LISTEN if set */
@@ -2584,7 +2580,7 @@ static void FMPSMBUS_ITErrorHandler(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   * @retval HAL status
   */
 static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint32_t Flag, FlagStatus Status,
-                                                      uint32_t Timeout)
+                                                         uint32_t Timeout)
 {
   uint32_t tickstart = HAL_GetTick();
 
@@ -2633,8 +2629,8 @@ static HAL_StatusTypeDef FMPSMBUS_WaitOnFlagUntilTimeout(FMPSMBUS_HandleTypeDef 
   *     @arg @ref FMPSMBUS_GENERATE_START_WRITE Generate Restart for write request.
   * @retval None
   */
-static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t DevAddress, uint8_t Size, uint32_t Mode,
-                                 uint32_t Request)
+static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus, uint16_t DevAddress, uint8_t Size, uint32_t Mode,
+                                    uint32_t Request)
 {
   /* Check the parameters */
   assert_param(IS_FMPSMBUS_ALL_INSTANCE(hfmpsmbus->Instance));
@@ -2643,10 +2639,10 @@ static void FMPSMBUS_TransferConfig(FMPSMBUS_HandleTypeDef *hfmpsmbus,  uint16_t
 
   /* update CR2 register */
   MODIFY_REG(hfmpsmbus->Instance->CR2,
-             ((FMPI2C_CR2_SADD | FMPI2C_CR2_NBYTES | FMPI2C_CR2_RELOAD | FMPI2C_CR2_AUTOEND | \
-               (FMPI2C_CR2_RD_WRN & (uint32_t)(Request >> (31UL - FMPI2C_CR2_RD_WRN_Pos))) | \
-               FMPI2C_CR2_START | FMPI2C_CR2_STOP  | FMPI2C_CR2_PECBYTE)), \
-             (uint32_t)(((uint32_t)DevAddress & FMPI2C_CR2_SADD) | \
+             ((FMPI2C_CR2_SADD | FMPI2C_CR2_NBYTES | FMPI2C_CR2_RELOAD | FMPI2C_CR2_AUTOEND |
+               (FMPI2C_CR2_RD_WRN & (uint32_t)(Request >> (31UL - FMPI2C_CR2_RD_WRN_Pos))) |
+               FMPI2C_CR2_START | FMPI2C_CR2_STOP | FMPI2C_CR2_PECBYTE)),
+             (uint32_t)(((uint32_t)DevAddress & FMPI2C_CR2_SADD) |
                         (((uint32_t)Size << FMPI2C_CR2_NBYTES_Pos) & FMPI2C_CR2_NBYTES) | (uint32_t)Mode | (uint32_t)Request));
 }
 
@@ -2706,4 +2702,4 @@ static void FMPSMBUS_ConvertOtherXferOptions(FMPSMBUS_HandleTypeDef *hfmpsmbus)
   * @}
   */
 
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
