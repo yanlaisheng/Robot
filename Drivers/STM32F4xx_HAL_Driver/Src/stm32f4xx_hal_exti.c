@@ -72,7 +72,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2018 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2018 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -189,6 +189,7 @@ HAL_StatusTypeDef HAL_EXTI_SetConfigLine(EXTI_HandleTypeDef *hexti, EXTI_ConfigT
     {
       EXTI->FTSR &= ~maskline;
     }
+
 
     /* Configure gpio port selection in case of gpio exti line */
     if ((pExtiConfig->Line & EXTI_GPIO) == EXTI_GPIO)
@@ -382,13 +383,13 @@ HAL_StatusTypeDef HAL_EXTI_RegisterCallback(EXTI_HandleTypeDef *hexti, EXTI_Call
 
   switch (CallbackID)
   {
-  case HAL_EXTI_COMMON_CB_ID:
-    hexti->PendingCallback = pPendingCbfn;
-    break;
+    case  HAL_EXTI_COMMON_CB_ID:
+      hexti->PendingCallback = pPendingCbfn;
+      break;
 
-  default:
-    status = HAL_ERROR;
-    break;
+    default:
+      status = HAL_ERROR;
+      break;
   }
 
   return status;
@@ -515,7 +516,7 @@ void HAL_EXTI_ClearPending(EXTI_HandleTypeDef *hexti, uint32_t Edge)
   maskline = (1uL << (hexti->Line & EXTI_PIN_MASK));
 
   /* Clear Pending bit */
-  EXTI->PR = maskline;
+  EXTI->PR =  maskline;
 }
 
 /**
@@ -555,4 +556,4 @@ void HAL_EXTI_GenerateSWI(EXTI_HandleTypeDef *hexti)
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

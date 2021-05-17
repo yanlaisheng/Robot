@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -22,7 +22,7 @@
 #include "stm32f4xx_ll_rng.h"
 #include "stm32f4xx_ll_bus.h"
 
-#ifdef USE_FULL_ASSERT
+#ifdef  USE_FULL_ASSERT
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
@@ -32,7 +32,7 @@
   * @{
   */
 
-#if defined(RNG)
+#if defined (RNG)
 
 /** @addtogroup RNG_LL
   * @{
@@ -64,7 +64,7 @@ ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
 {
   /* Check the parameters */
   assert_param(IS_RNG_ALL_INSTANCE(RNGx));
-#if !defined(RCC_AHB2_SUPPORT)
+#if  !defined (RCC_AHB2_SUPPORT)
   /* Enable RNG reset state */
   LL_AHB1_GRP1_ForceReset(LL_AHB1_GRP1_PERIPH_RNG);
 
@@ -100,4 +100,5 @@ ErrorStatus LL_RNG_DeInit(RNG_TypeDef *RNGx)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/
+

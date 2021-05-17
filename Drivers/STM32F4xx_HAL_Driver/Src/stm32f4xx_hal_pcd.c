@@ -43,7 +43,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -68,7 +68,7 @@
 
 #ifdef HAL_PCD_MODULE_ENABLED
 
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
 
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
@@ -77,8 +77,8 @@
 /** @defgroup PCD_Private_Macros PCD Private Macros
   * @{
   */
-#define PCD_MIN(a, b) (((a) < (b)) ? (a) : (b))
-#define PCD_MAX(a, b) (((a) > (b)) ? (a) : (b))
+#define PCD_MIN(a, b)  (((a) < (b)) ? (a) : (b))
+#define PCD_MAX(a, b)  (((a) > (b)) ? (a) : (b))
 /**
   * @}
   */
@@ -87,7 +87,7 @@
 /** @defgroup PCD_Private_Functions PCD Private Functions
   * @{
   */
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
 static HAL_StatusTypeDef PCD_WriteEmptyTxFifo(PCD_HandleTypeDef *hpcd, uint32_t epnum);
 static HAL_StatusTypeDef PCD_EP_OutXfrComplete_int(PCD_HandleTypeDef *hpcd, uint32_t epnum);
 static HAL_StatusTypeDef PCD_EP_OutSetupPacket_int(PCD_HandleTypeDef *hpcd, uint32_t epnum);
@@ -224,7 +224,7 @@ HAL_StatusTypeDef HAL_PCD_Init(PCD_HandleTypeDef *hpcd)
 
   hpcd->USB_Address = 0U;
   hpcd->State = HAL_PCD_STATE_READY;
-#if defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx) || defined(STM32F412Zx) || defined(STM32F412Vx) || defined(STM32F412Rx) || defined(STM32F412Cx) || defined(STM32F413xx) || defined(STM32F423xx)
+  #if defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx) || defined(STM32F412Zx) || defined(STM32F412Vx) || defined(STM32F412Rx) || defined(STM32F412Cx) || defined(STM32F413xx) || defined(STM32F423xx)
   /* Activate LPM */
   if (hpcd->Init.lpm_enable == 1U)
   {
@@ -343,68 +343,68 @@ HAL_StatusTypeDef HAL_PCD_RegisterCallback(PCD_HandleTypeDef *hpcd,
   {
     switch (CallbackID)
     {
-    case HAL_PCD_SOF_CB_ID:
-      hpcd->SOFCallback = pCallback;
-      break;
+      case HAL_PCD_SOF_CB_ID :
+        hpcd->SOFCallback = pCallback;
+        break;
 
-    case HAL_PCD_SETUPSTAGE_CB_ID:
-      hpcd->SetupStageCallback = pCallback;
-      break;
+      case HAL_PCD_SETUPSTAGE_CB_ID :
+        hpcd->SetupStageCallback = pCallback;
+        break;
 
-    case HAL_PCD_RESET_CB_ID:
-      hpcd->ResetCallback = pCallback;
-      break;
+      case HAL_PCD_RESET_CB_ID :
+        hpcd->ResetCallback = pCallback;
+        break;
 
-    case HAL_PCD_SUSPEND_CB_ID:
-      hpcd->SuspendCallback = pCallback;
-      break;
+      case HAL_PCD_SUSPEND_CB_ID :
+        hpcd->SuspendCallback = pCallback;
+        break;
 
-    case HAL_PCD_RESUME_CB_ID:
-      hpcd->ResumeCallback = pCallback;
-      break;
+      case HAL_PCD_RESUME_CB_ID :
+        hpcd->ResumeCallback = pCallback;
+        break;
 
-    case HAL_PCD_CONNECT_CB_ID:
-      hpcd->ConnectCallback = pCallback;
-      break;
+      case HAL_PCD_CONNECT_CB_ID :
+        hpcd->ConnectCallback = pCallback;
+        break;
 
-    case HAL_PCD_DISCONNECT_CB_ID:
-      hpcd->DisconnectCallback = pCallback;
-      break;
+      case HAL_PCD_DISCONNECT_CB_ID :
+        hpcd->DisconnectCallback = pCallback;
+        break;
 
-    case HAL_PCD_MSPINIT_CB_ID:
-      hpcd->MspInitCallback = pCallback;
-      break;
+      case HAL_PCD_MSPINIT_CB_ID :
+        hpcd->MspInitCallback = pCallback;
+        break;
 
-    case HAL_PCD_MSPDEINIT_CB_ID:
-      hpcd->MspDeInitCallback = pCallback;
-      break;
+      case HAL_PCD_MSPDEINIT_CB_ID :
+        hpcd->MspDeInitCallback = pCallback;
+        break;
 
-    default:
-      /* Update the error code */
-      hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+      default :
+        /* Update the error code */
+        hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else if (hpcd->State == HAL_PCD_STATE_RESET)
   {
     switch (CallbackID)
     {
-    case HAL_PCD_MSPINIT_CB_ID:
-      hpcd->MspInitCallback = pCallback;
-      break;
+      case HAL_PCD_MSPINIT_CB_ID :
+        hpcd->MspInitCallback = pCallback;
+        break;
 
-    case HAL_PCD_MSPDEINIT_CB_ID:
-      hpcd->MspDeInitCallback = pCallback;
-      break;
+      case HAL_PCD_MSPDEINIT_CB_ID :
+        hpcd->MspDeInitCallback = pCallback;
+        break;
 
-    default:
-      /* Update the error code */
-      hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+      default :
+        /* Update the error code */
+        hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else
@@ -412,7 +412,7 @@ HAL_StatusTypeDef HAL_PCD_RegisterCallback(PCD_HandleTypeDef *hpcd,
     /* Update the error code */
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -449,70 +449,70 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterCallback(PCD_HandleTypeDef *hpcd, HAL_PCD_Ca
   {
     switch (CallbackID)
     {
-    case HAL_PCD_SOF_CB_ID:
-      hpcd->SOFCallback = HAL_PCD_SOFCallback;
-      break;
+      case HAL_PCD_SOF_CB_ID :
+        hpcd->SOFCallback = HAL_PCD_SOFCallback;
+        break;
 
-    case HAL_PCD_SETUPSTAGE_CB_ID:
-      hpcd->SetupStageCallback = HAL_PCD_SetupStageCallback;
-      break;
+      case HAL_PCD_SETUPSTAGE_CB_ID :
+        hpcd->SetupStageCallback = HAL_PCD_SetupStageCallback;
+        break;
 
-    case HAL_PCD_RESET_CB_ID:
-      hpcd->ResetCallback = HAL_PCD_ResetCallback;
-      break;
+      case HAL_PCD_RESET_CB_ID :
+        hpcd->ResetCallback = HAL_PCD_ResetCallback;
+        break;
 
-    case HAL_PCD_SUSPEND_CB_ID:
-      hpcd->SuspendCallback = HAL_PCD_SuspendCallback;
-      break;
+      case HAL_PCD_SUSPEND_CB_ID :
+        hpcd->SuspendCallback = HAL_PCD_SuspendCallback;
+        break;
 
-    case HAL_PCD_RESUME_CB_ID:
-      hpcd->ResumeCallback = HAL_PCD_ResumeCallback;
-      break;
+      case HAL_PCD_RESUME_CB_ID :
+        hpcd->ResumeCallback = HAL_PCD_ResumeCallback;
+        break;
 
-    case HAL_PCD_CONNECT_CB_ID:
-      hpcd->ConnectCallback = HAL_PCD_ConnectCallback;
-      break;
+      case HAL_PCD_CONNECT_CB_ID :
+        hpcd->ConnectCallback = HAL_PCD_ConnectCallback;
+        break;
 
-    case HAL_PCD_DISCONNECT_CB_ID:
-      hpcd->DisconnectCallback = HAL_PCD_DisconnectCallback;
-      break;
+      case HAL_PCD_DISCONNECT_CB_ID :
+        hpcd->DisconnectCallback = HAL_PCD_DisconnectCallback;
+        break;
 
-    case HAL_PCD_MSPINIT_CB_ID:
-      hpcd->MspInitCallback = HAL_PCD_MspInit;
-      break;
+      case HAL_PCD_MSPINIT_CB_ID :
+        hpcd->MspInitCallback = HAL_PCD_MspInit;
+        break;
 
-    case HAL_PCD_MSPDEINIT_CB_ID:
-      hpcd->MspDeInitCallback = HAL_PCD_MspDeInit;
-      break;
+      case HAL_PCD_MSPDEINIT_CB_ID :
+        hpcd->MspDeInitCallback = HAL_PCD_MspDeInit;
+        break;
 
-    default:
-      /* Update the error code */
-      hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
+      default :
+        /* Update the error code */
+        hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else if (hpcd->State == HAL_PCD_STATE_RESET)
   {
     switch (CallbackID)
     {
-    case HAL_PCD_MSPINIT_CB_ID:
-      hpcd->MspInitCallback = HAL_PCD_MspInit;
-      break;
+      case HAL_PCD_MSPINIT_CB_ID :
+        hpcd->MspInitCallback = HAL_PCD_MspInit;
+        break;
 
-    case HAL_PCD_MSPDEINIT_CB_ID:
-      hpcd->MspDeInitCallback = HAL_PCD_MspDeInit;
-      break;
+      case HAL_PCD_MSPDEINIT_CB_ID :
+        hpcd->MspDeInitCallback = HAL_PCD_MspDeInit;
+        break;
 
-    default:
-      /* Update the error code */
-      hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
+      default :
+        /* Update the error code */
+        hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else
@@ -521,7 +521,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterCallback(PCD_HandleTypeDef *hpcd, HAL_PCD_Ca
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -562,7 +562,7 @@ HAL_StatusTypeDef HAL_PCD_RegisterDataOutStageCallback(PCD_HandleTypeDef *hpcd,
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -594,7 +594,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterDataOutStageCallback(PCD_HandleTypeDef *hpcd
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -636,7 +636,7 @@ HAL_StatusTypeDef HAL_PCD_RegisterDataInStageCallback(PCD_HandleTypeDef *hpcd,
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -668,7 +668,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterDataInStageCallback(PCD_HandleTypeDef *hpcd)
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -710,7 +710,7 @@ HAL_StatusTypeDef HAL_PCD_RegisterIsoOutIncpltCallback(PCD_HandleTypeDef *hpcd,
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -742,7 +742,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterIsoOutIncpltCallback(PCD_HandleTypeDef *hpcd
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -784,7 +784,7 @@ HAL_StatusTypeDef HAL_PCD_RegisterIsoInIncpltCallback(PCD_HandleTypeDef *hpcd,
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -816,7 +816,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterIsoInIncpltCallback(PCD_HandleTypeDef *hpcd)
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -857,7 +857,7 @@ HAL_StatusTypeDef HAL_PCD_RegisterBcdCallback(PCD_HandleTypeDef *hpcd, pPCD_BcdC
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -889,7 +889,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterBcdCallback(PCD_HandleTypeDef *hpcd)
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -930,7 +930,7 @@ HAL_StatusTypeDef HAL_PCD_RegisterLpmCallback(PCD_HandleTypeDef *hpcd, pPCD_LpmC
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -962,7 +962,7 @@ HAL_StatusTypeDef HAL_PCD_UnRegisterLpmCallback(PCD_HandleTypeDef *hpcd)
     hpcd->ErrorCode |= HAL_PCD_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -1042,7 +1042,7 @@ HAL_StatusTypeDef HAL_PCD_Stop(PCD_HandleTypeDef *hpcd)
   return HAL_OK;
 }
 
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
 /**
   * @brief  Handles PCD interrupt request.
   * @param  hpcd PCD handle
@@ -1080,7 +1080,7 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
 
       ep = &hpcd->OUT_ep[temp & USB_OTG_GRXSTSP_EPNUM];
 
-      if (((temp & USB_OTG_GRXSTSP_PKTSTS) >> 17) == STS_DATA_UPDT)
+      if (((temp & USB_OTG_GRXSTSP_PKTSTS) >> 17) ==  STS_DATA_UPDT)
       {
         if ((temp & USB_OTG_GRXSTSP_BCNT) != 0U)
         {
@@ -1091,7 +1091,7 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
           ep->xfer_count += (temp & USB_OTG_GRXSTSP_BCNT) >> 4;
         }
       }
-      else if (((temp & USB_OTG_GRXSTSP_PKTSTS) >> 17) == STS_SETUP_UPDT)
+      else if (((temp & USB_OTG_GRXSTSP_PKTSTS) >> 17) ==  STS_SETUP_UPDT)
       {
         (void)USB_ReadPacket(USBx, (uint8_t *)hpcd->Setup, 8U);
         ep->xfer_count += (temp & USB_OTG_GRXSTSP_BCNT) >> 4;
@@ -1427,6 +1427,7 @@ void HAL_PCD_IRQHandler(PCD_HandleTypeDef *hpcd)
   }
 }
 
+
 /**
   * @brief  Handles PCD Wakeup interrupt request.
   * @param  hpcd PCD handle
@@ -1450,6 +1451,7 @@ void HAL_PCD_WKUP_IRQHandler(PCD_HandleTypeDef *hpcd)
   }
 }
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
+
 
 /**
   * @brief  Data OUT stage callback.
@@ -1649,12 +1651,12 @@ __weak void HAL_PCD_DisconnectCallback(PCD_HandleTypeDef *hpcd)
   */
 HAL_StatusTypeDef HAL_PCD_DevConnect(PCD_HandleTypeDef *hpcd)
 {
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
   __HAL_LOCK(hpcd);
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
   if ((hpcd->Init.battery_charging_enable == 1U) &&
       (hpcd->Init.phy_itface != USB_OTG_ULPI_PHY))
   {
@@ -1675,14 +1677,14 @@ HAL_StatusTypeDef HAL_PCD_DevConnect(PCD_HandleTypeDef *hpcd)
   */
 HAL_StatusTypeDef HAL_PCD_DevDisconnect(PCD_HandleTypeDef *hpcd)
 {
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
   USB_OTG_GlobalTypeDef *USBx = hpcd->Instance;
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
   __HAL_LOCK(hpcd);
   (void)USB_DevDisconnect(hpcd->Instance);
 
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
   if ((hpcd->Init.battery_charging_enable == 1U) &&
       (hpcd->Init.phy_itface != USB_OTG_ULPI_PHY))
   {
@@ -1722,7 +1724,7 @@ HAL_StatusTypeDef HAL_PCD_SetAddress(PCD_HandleTypeDef *hpcd, uint8_t address)
 HAL_StatusTypeDef HAL_PCD_EP_Open(PCD_HandleTypeDef *hpcd, uint8_t ep_addr,
                                   uint16_t ep_mps, uint8_t ep_type)
 {
-  HAL_StatusTypeDef ret = HAL_OK;
+  HAL_StatusTypeDef  ret = HAL_OK;
   PCD_EPTypeDef *ep;
 
   if ((ep_addr & 0x80U) == 0x80U)
@@ -1778,13 +1780,14 @@ HAL_StatusTypeDef HAL_PCD_EP_Close(PCD_HandleTypeDef *hpcd, uint8_t ep_addr)
     ep = &hpcd->OUT_ep[ep_addr & EP_ADDR_MSK];
     ep->is_in = 0U;
   }
-  ep->num = ep_addr & EP_ADDR_MSK;
+  ep->num   = ep_addr & EP_ADDR_MSK;
 
   __HAL_LOCK(hpcd);
   (void)USB_DeactivateEndpoint(hpcd->Instance, ep);
   __HAL_UNLOCK(hpcd);
   return HAL_OK;
 }
+
 
 /**
   * @brief  Receive an amount of data.
@@ -2036,7 +2039,7 @@ PCD_StateTypeDef HAL_PCD_GetState(PCD_HandleTypeDef *hpcd)
 /** @addtogroup PCD_Private_Functions
   * @{
   */
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
 /**
   * @brief  Check FIFO for the next packet to be loaded.
   * @param  hpcd PCD handle
@@ -2083,7 +2086,7 @@ static HAL_StatusTypeDef PCD_WriteEmptyTxFifo(PCD_HandleTypeDef *hpcd, uint32_t 
     (void)USB_WritePacket(USBx, ep->xfer_buff, (uint8_t)epnum, (uint16_t)len,
                           (uint8_t)hpcd->Init.dma_enable);
 
-    ep->xfer_buff += len;
+    ep->xfer_buff  += len;
     ep->xfer_count += len;
   }
 
@@ -2095,6 +2098,7 @@ static HAL_StatusTypeDef PCD_WriteEmptyTxFifo(PCD_HandleTypeDef *hpcd, uint32_t 
 
   return HAL_OK;
 }
+
 
 /**
   * @brief  process EP OUT transfer complete interrupt.
@@ -2136,8 +2140,8 @@ static HAL_StatusTypeDef PCD_EP_OutXfrComplete_int(PCD_HandleTypeDef *hpcd, uint
       {
         /* out data packet received over EP0 */
         hpcd->OUT_ep[epnum].xfer_count =
-            hpcd->OUT_ep[epnum].maxpacket -
-            (USBx_OUTEP(epnum)->DOEPTSIZ & USB_OTG_DOEPTSIZ_XFRSIZ);
+          hpcd->OUT_ep[epnum].maxpacket -
+          (USBx_OUTEP(epnum)->DOEPTSIZ & USB_OTG_DOEPTSIZ_XFRSIZ);
 
         hpcd->OUT_ep[epnum].xfer_buff += hpcd->OUT_ep[epnum].maxpacket;
 
@@ -2200,6 +2204,7 @@ static HAL_StatusTypeDef PCD_EP_OutXfrComplete_int(PCD_HandleTypeDef *hpcd, uint
   return HAL_OK;
 }
 
+
 /**
   * @brief  process EP OUT setup packet received interrupt.
   * @param  hpcd PCD handle
@@ -2235,6 +2240,7 @@ static HAL_StatusTypeDef PCD_EP_OutSetupPacket_int(PCD_HandleTypeDef *hpcd, uint
 }
 #endif /* defined (USB_OTG_FS) || defined (USB_OTG_HS) */
 
+
 /**
   * @}
   */
@@ -2249,4 +2255,4 @@ static HAL_StatusTypeDef PCD_EP_OutSetupPacket_int(PCD_HandleTypeDef *hpcd, uint
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

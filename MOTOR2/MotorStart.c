@@ -105,12 +105,7 @@ void TimerDly(unsigned int Time)
 //	/*外部中断初始化，电机复位时使用*/
 //	EXTI_Configuration();
 //
-//	/*串口初始化，调试使用*/
-//	USART1_Initial();
-//	//USART2_Initial();
-//	USART1_Printfstr("APP Start\r\n");
-////	rt_ringbuffer_init(&rb_recv,(unsigned char *)USART1_RxBuffer,USART1RXSIZE);
-//
+
 //	/*单个电机启动控制*/
 ///*
 //	Start_Motor_S(1,M1_CLOCKWISE,200*70);

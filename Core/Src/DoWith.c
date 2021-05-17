@@ -530,10 +530,10 @@ void ReadWriteRealTime(void) // 读写实时时钟 ISL1208
 				w_ParLst[i + 45] = RWBuf[i];
 				RealClock[i] = RWBuf[i];
 			}
-			Pw_SetWeek = RWBuf[5];		  // 星期
-			Pw_SetYear = RWBuf[6] + 2000; // 年＋2000
-			RealClock[6] = RWBuf[5];	  //星期
-			RealClock[5] = RWBuf[6];	  //年
+			// Pw_SetWeek = RWBuf[5];		  // 星期
+			// Pw_SetYear = RWBuf[6] + 2000; // 年＋2000
+			// RealClock[6] = RWBuf[5];	  //星期
+			// RealClock[5] = RWBuf[6];	  //年
 		}
 	}
 
@@ -592,29 +592,12 @@ void Variable_Init(void) //	变量初始化
 	int i;
 	s32 *arrp;
 
-	w_SoftVer = 200;	// 软件版本号 VERSION
-	w_WriteDate = 2020; //程序编写日期
-	w_Writetime = 1219; //程序编写时间
+	w_SoftVer = 100;	// 软件版本号 VERSION
+	w_WriteDate = 2021; //程序编写日期
+	w_Writetime = 0516; //程序编写时间
 						//	w_GongSiSelect=0;               //  公司选择，0=中de美，1=三利集团
 
-	w_TestItemSel = 0; // 赋值0,双保险
-
-	Q_VfStop = 0;
 	F_ManualRunStop = 1;
-
-	//	Com1_Driver1_Queue_Rear=-1;				//队尾指针和队头指针都设为-1
-	//	Com1_Driver2_Queue_Rear=-1;
-	//	Com2_Driver3_Queue_Rear=-1;
-	//	Com2_Driver4_Queue_Rear=-1;
-	//	Com3_Driver5_Queue_Rear=-1;
-	//	Com3_Driver6_Queue_Rear=-1;
-	//
-	//	Com1_Driver1_Queue_Front=-1;
-	//	Com1_Driver2_Queue_Front=-1;
-	//	Com2_Driver3_Queue_Front=-1;
-	//	Com2_Driver4_Queue_Front=-1;
-	//	Com3_Driver5_Queue_Front=-1;
-	//	Com3_Driver6_Queue_Front=-1;
 
 	//	Rcv1Counter=0;
 	//	Txd1Counter=0;
@@ -1274,7 +1257,7 @@ void ParLimit(void) // 参数限制
 		Pw_EquipmentNo2 = 1;
 
 	if (Pw_EquipmentNo3 == 0)
-		Pw_EquipmentNo3 = 3;
+		Pw_EquipmentNo3 = 1;
 
 	if (Pw_EquipmentNo4 == 0)
 		Pw_EquipmentNo4 = 4;
@@ -1285,11 +1268,12 @@ void ParLimit(void) // 参数限制
 	if (Pw_EquipmentNo6 == 0)
 		Pw_EquipmentNo6 = 6;
 
+	//--------1# Start--------------------------------------------------------
 	if (Pw_Driver1_Pluse_HW == 0 && Pw_Driver1_Pluse == 0)
 		Pw_Driver1_Pluse = 10000; //发送的脉冲数
 
 	if (Pw_Driver1_AccTime == 0)
-		Pw_Driver1_AccTime = 10000; //加速度
+		Pw_Driver1_AccTime = 100; //加速度
 
 	if (Pw_Driver1_Speed == 0)
 		Pw_Driver1_Speed = 1000; //设定速度
@@ -1303,20 +1287,136 @@ void ParLimit(void) // 参数限制
 	if (Pw_Motor1_FRE_AA == 0)
 		Pw_Motor1_FRE_AA = 10000; //加加速度
 
-	if (Pw_Motor4SendPulse_HW == 0 && Pw_Motor4SendPulse == 0)
-		Pw_Motor4SendPulse = 10000; //发送的脉冲数
+	if (Pw_Motor1_STEP_PARA == 0)
+		Pw_Motor1_STEP_PARA = 500; //步进步数修正因子
 
-	if (Pw_Motor4_ACCSpeed_HW == 0 && Pw_Motor4_ACCSpeed == 0)
-		Pw_Motor4_ACCSpeed = 3000; //加速度
+	if (Pw_Motor1_maxposition == 0)
+		Pw_Motor1_maxposition = 8388608; //最大位置
 
-	if (Pw_Motor4_SetSpeed_HW == 0 && Pw_Motor4_SetSpeed == 0)
-		Pw_Motor4_SetSpeed = 20000; //设定速度
+	//--------2# Start--------------------------------------------------------
+	if (Pw_Driver2_Pluse_HW == 0 && Pw_Driver2_Pluse == 0)
+		Pw_Driver2_Pluse = 10000; //发送的脉冲数
+
+	if (Pw_Driver2_AccTime == 0)
+		Pw_Driver2_AccTime = 100; //加速度
+
+	if (Pw_Driver2_Speed == 0)
+		Pw_Driver2_Speed = 1000; //设定速度
+
+	if (Pw_Motor2_PULSENUM == 0)
+		Pw_Motor2_PULSENUM = 10000; //每圈脉冲数
+
+	if (Pw_Motor2_FRE_START == 0)
+		Pw_Motor2_FRE_START = 10000; //起始频率
+
+	if (Pw_Motor2_FRE_AA == 0)
+		Pw_Motor2_FRE_AA = 10000; //加加速度
+
+	if (Pw_Motor2_STEP_PARA == 0)
+		Pw_Motor2_STEP_PARA = 500; //步进步数修正因子
+
+	if (Pw_Motor2_maxposition == 0)
+		Pw_Motor2_maxposition = 8388608; //最大位置
+
+	//--------3# Start--------------------------------------------------------
+	if (Pw_Driver3_Pluse_HW == 0 && Pw_Driver3_Pluse == 0)
+		Pw_Driver3_Pluse = 10000; //发送的脉冲数
+
+	if (Pw_Driver3_AccTime == 0)
+		Pw_Driver3_AccTime = 100; //加速度
+
+	if (Pw_Driver3_Speed == 0)
+		Pw_Driver3_Speed = 1000; //设定速度
+
+	if (Pw_Motor3_PULSENUM == 0)
+		Pw_Motor3_PULSENUM = 10000; //每圈脉冲数
+
+	if (Pw_Motor3_FRE_START == 0)
+		Pw_Motor3_FRE_START = 10000; //起始频率
+
+	if (Pw_Motor3_FRE_AA == 0)
+		Pw_Motor3_FRE_AA = 10000; //加加速度
+
+	if (Pw_Motor3_STEP_PARA == 0)
+		Pw_Motor3_STEP_PARA = 500; //步进步数修正因子
+
+	if (Pw_Motor3_maxposition == 0)
+		Pw_Motor3_maxposition = 8388608; //最大位置
+
+	//--------4# Start--------------------------------------------------------
+	if (Pw_Driver4_Pluse_HW == 0 && Pw_Driver4_Pluse == 0)
+		Pw_Driver4_Pluse = 10000; //发送的脉冲数
+
+	if (Pw_Driver4_AccTime == 0)
+		Pw_Driver4_AccTime = 100; //加速度
+
+	if (Pw_Driver4_Speed == 0)
+		Pw_Driver4_Speed = 1000; //设定速度
 
 	if (Pw_Motor4_PULSENUM == 0)
 		Pw_Motor4_PULSENUM = 10000; //每圈脉冲数
 
-	if (Pw_Motor1_STEP_PARA == 0)
-		Pw_Motor1_STEP_PARA = 500; //步进步数修正因子
+	if (Pw_Motor4_FRE_START == 0)
+		Pw_Motor4_FRE_START = 10000; //起始频率
+
+	if (Pw_Motor4_FRE_AA == 0)
+		Pw_Motor4_FRE_AA = 10000; //加加速度
+
+	if (Pw_Motor4_STEP_PARA == 0)
+		Pw_Motor4_STEP_PARA = 500; //步进步数修正因子
+
+	if (Pw_Motor4_maxposition == 0)
+		Pw_Motor4_maxposition = 8388608; //最大位置
+
+	//--------5# Start--------------------------------------------------------
+	if (Pw_Driver5_Pluse_HW == 0 && Pw_Driver5_Pluse == 0)
+		Pw_Driver5_Pluse = 10000; //发送的脉冲数
+
+	if (Pw_Driver5_AccTime == 0)
+		Pw_Driver5_AccTime = 100; //加速度
+
+	if (Pw_Driver5_Speed == 0)
+		Pw_Driver5_Speed = 1000; //设定速度
+
+	if (Pw_Motor5_PULSENUM == 0)
+		Pw_Motor5_PULSENUM = 10000; //每圈脉冲数
+
+	if (Pw_Motor5_FRE_START == 0)
+		Pw_Motor5_FRE_START = 10000; //起始频率
+
+	if (Pw_Motor5_FRE_AA == 0)
+		Pw_Motor5_FRE_AA = 10000; //加加速度
+
+	if (Pw_Motor5_STEP_PARA == 0)
+		Pw_Motor5_STEP_PARA = 500; //步进步数修正因子
+
+	if (Pw_Motor5_maxposition == 0)
+		Pw_Motor5_maxposition = 8388608; //最大位置
+
+	//--------6# Start--------------------------------------------------------
+	if (Pw_Driver6_Pluse_HW == 0 && Pw_Driver6_Pluse == 0)
+		Pw_Driver6_Pluse = 10000; //发送的脉冲数
+
+	if (Pw_Driver6_AccTime == 0)
+		Pw_Driver6_AccTime = 100; //加速度
+
+	if (Pw_Driver6_Speed == 0)
+		Pw_Driver6_Speed = 1000; //设定速度
+
+	if (Pw_Motor6_PULSENUM == 0)
+		Pw_Motor6_PULSENUM = 10000; //每圈脉冲数
+
+	if (Pw_Motor6_FRE_START == 0)
+		Pw_Motor6_FRE_START = 10000; //起始频率
+
+	if (Pw_Motor6_FRE_AA == 0)
+		Pw_Motor6_FRE_AA = 10000; //加加速度
+
+	if (Pw_Motor6_STEP_PARA == 0)
+		Pw_Motor6_STEP_PARA = 500; //步进步数修正因子
+
+	if (Pw_Motor6_maxposition == 0)
+		Pw_Motor6_maxposition = 8388608; //最大位置
 }
 
 void Time_Output(void) // 软件时钟输出	 2008.10.21

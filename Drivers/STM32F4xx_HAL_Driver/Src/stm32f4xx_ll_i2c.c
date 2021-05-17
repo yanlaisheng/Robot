@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -22,7 +22,7 @@
 #include "stm32f4xx_ll_i2c.h"
 #include "stm32f4xx_ll_bus.h"
 #include "stm32f4xx_ll_rcc.h"
-#ifdef USE_FULL_ASSERT
+#ifdef  USE_FULL_ASSERT
 #include "stm32_assert.h"
 #else
 #define assert_param(expr) ((void)0U)
@@ -32,7 +32,7 @@
   * @{
   */
 
-#if defined(I2C1) || defined(I2C2) || defined(I2C3)
+#if defined (I2C1) || defined (I2C2) || defined (I2C3)
 
 /** @defgroup I2C_LL I2C
   * @{
@@ -46,30 +46,30 @@
   * @{
   */
 
-#define IS_LL_I2C_PERIPHERAL_MODE(__VALUE__) (((__VALUE__) == LL_I2C_MODE_I2C) ||          \
-                                              ((__VALUE__) == LL_I2C_MODE_SMBUS_HOST) ||   \
-                                              ((__VALUE__) == LL_I2C_MODE_SMBUS_DEVICE) || \
-                                              ((__VALUE__) == LL_I2C_MODE_SMBUS_DEVICE_ARP))
+#define IS_LL_I2C_PERIPHERAL_MODE(__VALUE__)    (((__VALUE__) == LL_I2C_MODE_I2C)          || \
+                                                 ((__VALUE__) == LL_I2C_MODE_SMBUS_HOST)   || \
+                                                 ((__VALUE__) == LL_I2C_MODE_SMBUS_DEVICE) || \
+                                                 ((__VALUE__) == LL_I2C_MODE_SMBUS_DEVICE_ARP))
 
-#define IS_LL_I2C_CLOCK_SPEED(__VALUE__) (((__VALUE__) > 0U) && ((__VALUE__) <= LL_I2C_MAX_SPEED_FAST))
+#define IS_LL_I2C_CLOCK_SPEED(__VALUE__)           (((__VALUE__) > 0U) && ((__VALUE__) <= LL_I2C_MAX_SPEED_FAST))
 
-#define IS_LL_I2C_DUTY_CYCLE(__VALUE__) (((__VALUE__) == LL_I2C_DUTYCYCLE_2) || \
-                                         ((__VALUE__) == LL_I2C_DUTYCYCLE_16_9))
+#define IS_LL_I2C_DUTY_CYCLE(__VALUE__)            (((__VALUE__) == LL_I2C_DUTYCYCLE_2) || \
+                                                 ((__VALUE__) == LL_I2C_DUTYCYCLE_16_9))
 
-#if defined(I2C_FLTR_ANOFF) && defined(I2C_FLTR_DNF)
-#define IS_LL_I2C_ANALOG_FILTER(__VALUE__) (((__VALUE__) == LL_I2C_ANALOGFILTER_ENABLE) || \
-                                            ((__VALUE__) == LL_I2C_ANALOGFILTER_DISABLE))
+#if  defined(I2C_FLTR_ANOFF)&&defined(I2C_FLTR_DNF)
+#define IS_LL_I2C_ANALOG_FILTER(__VALUE__)      (((__VALUE__) == LL_I2C_ANALOGFILTER_ENABLE) || \
+                                                 ((__VALUE__) == LL_I2C_ANALOGFILTER_DISABLE))
 
-#define IS_LL_I2C_DIGITAL_FILTER(__VALUE__) ((__VALUE__) <= 0x0000000FU)
+#define IS_LL_I2C_DIGITAL_FILTER(__VALUE__)     ((__VALUE__) <= 0x0000000FU)
 
 #endif
-#define IS_LL_I2C_OWN_ADDRESS1(__VALUE__) ((__VALUE__) <= 0x000003FFU)
+#define IS_LL_I2C_OWN_ADDRESS1(__VALUE__)       ((__VALUE__) <= 0x000003FFU)
 
-#define IS_LL_I2C_TYPE_ACKNOWLEDGE(__VALUE__) (((__VALUE__) == LL_I2C_ACK) || \
-                                               ((__VALUE__) == LL_I2C_NACK))
+#define IS_LL_I2C_TYPE_ACKNOWLEDGE(__VALUE__)   (((__VALUE__) == LL_I2C_ACK) || \
+                                                 ((__VALUE__) == LL_I2C_NACK))
 
-#define IS_LL_I2C_OWN_ADDRSIZE(__VALUE__) (((__VALUE__) == LL_I2C_OWNADDRESS1_7BIT) || \
-                                           ((__VALUE__) == LL_I2C_OWNADDRESS1_10BIT))
+#define IS_LL_I2C_OWN_ADDRSIZE(__VALUE__)       (((__VALUE__) == LL_I2C_OWNADDRESS1_7BIT) || \
+                                                 ((__VALUE__) == LL_I2C_OWNADDRESS1_10BIT))
 /**
   * @}
   */
@@ -114,6 +114,7 @@ uint32_t LL_I2C_DeInit(I2C_TypeDef *I2Cx)
 
     /* Release reset of I2C clock */
     LL_APB1_GRP1_ReleaseReset(LL_APB1_GRP1_PERIPH_I2C2);
+
   }
 #if defined(I2C3)
   else if (I2Cx == I2C3)
@@ -152,7 +153,7 @@ uint32_t LL_I2C_Init(I2C_TypeDef *I2Cx, LL_I2C_InitTypeDef *I2C_InitStruct)
   assert_param(IS_LL_I2C_PERIPHERAL_MODE(I2C_InitStruct->PeripheralMode));
   assert_param(IS_LL_I2C_CLOCK_SPEED(I2C_InitStruct->ClockSpeed));
   assert_param(IS_LL_I2C_DUTY_CYCLE(I2C_InitStruct->DutyCycle));
-#if defined(I2C_FLTR_ANOFF) && defined(I2C_FLTR_DNF)
+#if  defined(I2C_FLTR_ANOFF)&&defined(I2C_FLTR_DNF)
   assert_param(IS_LL_I2C_ANALOG_FILTER(I2C_InitStruct->AnalogFilter));
   assert_param(IS_LL_I2C_DIGITAL_FILTER(I2C_InitStruct->DigitalFilter));
 #endif
@@ -166,7 +167,7 @@ uint32_t LL_I2C_Init(I2C_TypeDef *I2Cx, LL_I2C_InitTypeDef *I2C_InitStruct)
   /* Retrieve Clock frequencies */
   LL_RCC_GetSystemClocksFreq(&rcc_clocks);
 
-#if defined(I2C_FLTR_ANOFF) && defined(I2C_FLTR_DNF)
+#if  defined(I2C_FLTR_ANOFF)&&defined(I2C_FLTR_DNF)
   /*---------------------------- I2Cx FLTR Configuration -----------------------
    * Configure the analog and digital noise filters with parameters :
    * - AnalogFilter: I2C_FLTR_ANFOFF bit
@@ -217,16 +218,16 @@ uint32_t LL_I2C_Init(I2C_TypeDef *I2Cx, LL_I2C_InitTypeDef *I2C_InitStruct)
 void LL_I2C_StructInit(LL_I2C_InitTypeDef *I2C_InitStruct)
 {
   /* Set I2C_InitStruct fields to default values */
-  I2C_InitStruct->PeripheralMode = LL_I2C_MODE_I2C;
-  I2C_InitStruct->ClockSpeed = 5000U;
-  I2C_InitStruct->DutyCycle = LL_I2C_DUTYCYCLE_2;
-#if defined(I2C_FLTR_ANOFF) && defined(I2C_FLTR_DNF)
-  I2C_InitStruct->AnalogFilter = LL_I2C_ANALOGFILTER_ENABLE;
-  I2C_InitStruct->DigitalFilter = 0U;
+  I2C_InitStruct->PeripheralMode  = LL_I2C_MODE_I2C;
+  I2C_InitStruct->ClockSpeed      = 5000U;
+  I2C_InitStruct->DutyCycle       = LL_I2C_DUTYCYCLE_2;
+#if  defined(I2C_FLTR_ANOFF)&&defined(I2C_FLTR_DNF)
+  I2C_InitStruct->AnalogFilter    = LL_I2C_ANALOGFILTER_ENABLE;
+  I2C_InitStruct->DigitalFilter   = 0U;
 #endif
-  I2C_InitStruct->OwnAddress1 = 0U;
+  I2C_InitStruct->OwnAddress1     = 0U;
   I2C_InitStruct->TypeAcknowledge = LL_I2C_NACK;
-  I2C_InitStruct->OwnAddrSize = LL_I2C_OWNADDRESS1_7BIT;
+  I2C_InitStruct->OwnAddrSize     = LL_I2C_OWNADDRESS1_7BIT;
 }
 
 /**
@@ -249,4 +250,4 @@ void LL_I2C_StructInit(LL_I2C_InitTypeDef *I2C_InitStruct)
 
 #endif /* USE_FULL_LL_DRIVER */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

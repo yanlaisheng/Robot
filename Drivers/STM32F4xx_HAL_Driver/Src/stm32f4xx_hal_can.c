@@ -198,7 +198,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -226,7 +226,7 @@
 #ifdef HAL_CAN_MODULE_ENABLED
 
 #ifdef HAL_CAN_LEGACY_MODULE_ENABLED
-#error "The CAN driver cannot be used with its legacy, Please enable only one CAN module at once"
+  #error "The CAN driver cannot be used with its legacy, Please enable only one CAN module at once"
 #endif
 
 /* Private typedef -----------------------------------------------------------*/
@@ -299,19 +299,19 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef *hcan)
   if (hcan->State == HAL_CAN_STATE_RESET)
   {
     /* Reset callbacks to legacy functions */
-    hcan->RxFifo0MsgPendingCallback = HAL_CAN_RxFifo0MsgPendingCallback;   /* Legacy weak RxFifo0MsgPendingCallback  */
-    hcan->RxFifo0FullCallback = HAL_CAN_RxFifo0FullCallback;               /* Legacy weak RxFifo0FullCallback        */
-    hcan->RxFifo1MsgPendingCallback = HAL_CAN_RxFifo1MsgPendingCallback;   /* Legacy weak RxFifo1MsgPendingCallback  */
-    hcan->RxFifo1FullCallback = HAL_CAN_RxFifo1FullCallback;               /* Legacy weak RxFifo1FullCallback        */
-    hcan->TxMailbox0CompleteCallback = HAL_CAN_TxMailbox0CompleteCallback; /* Legacy weak TxMailbox0CompleteCallback */
-    hcan->TxMailbox1CompleteCallback = HAL_CAN_TxMailbox1CompleteCallback; /* Legacy weak TxMailbox1CompleteCallback */
-    hcan->TxMailbox2CompleteCallback = HAL_CAN_TxMailbox2CompleteCallback; /* Legacy weak TxMailbox2CompleteCallback */
-    hcan->TxMailbox0AbortCallback = HAL_CAN_TxMailbox0AbortCallback;       /* Legacy weak TxMailbox0AbortCallback    */
-    hcan->TxMailbox1AbortCallback = HAL_CAN_TxMailbox1AbortCallback;       /* Legacy weak TxMailbox1AbortCallback    */
-    hcan->TxMailbox2AbortCallback = HAL_CAN_TxMailbox2AbortCallback;       /* Legacy weak TxMailbox2AbortCallback    */
-    hcan->SleepCallback = HAL_CAN_SleepCallback;                           /* Legacy weak SleepCallback              */
-    hcan->WakeUpFromRxMsgCallback = HAL_CAN_WakeUpFromRxMsgCallback;       /* Legacy weak WakeUpFromRxMsgCallback    */
-    hcan->ErrorCallback = HAL_CAN_ErrorCallback;                           /* Legacy weak ErrorCallback              */
+    hcan->RxFifo0MsgPendingCallback  =  HAL_CAN_RxFifo0MsgPendingCallback;  /* Legacy weak RxFifo0MsgPendingCallback  */
+    hcan->RxFifo0FullCallback        =  HAL_CAN_RxFifo0FullCallback;        /* Legacy weak RxFifo0FullCallback        */
+    hcan->RxFifo1MsgPendingCallback  =  HAL_CAN_RxFifo1MsgPendingCallback;  /* Legacy weak RxFifo1MsgPendingCallback  */
+    hcan->RxFifo1FullCallback        =  HAL_CAN_RxFifo1FullCallback;        /* Legacy weak RxFifo1FullCallback        */
+    hcan->TxMailbox0CompleteCallback =  HAL_CAN_TxMailbox0CompleteCallback; /* Legacy weak TxMailbox0CompleteCallback */
+    hcan->TxMailbox1CompleteCallback =  HAL_CAN_TxMailbox1CompleteCallback; /* Legacy weak TxMailbox1CompleteCallback */
+    hcan->TxMailbox2CompleteCallback =  HAL_CAN_TxMailbox2CompleteCallback; /* Legacy weak TxMailbox2CompleteCallback */
+    hcan->TxMailbox0AbortCallback    =  HAL_CAN_TxMailbox0AbortCallback;    /* Legacy weak TxMailbox0AbortCallback    */
+    hcan->TxMailbox1AbortCallback    =  HAL_CAN_TxMailbox1AbortCallback;    /* Legacy weak TxMailbox1AbortCallback    */
+    hcan->TxMailbox2AbortCallback    =  HAL_CAN_TxMailbox2AbortCallback;    /* Legacy weak TxMailbox2AbortCallback    */
+    hcan->SleepCallback              =  HAL_CAN_SleepCallback;              /* Legacy weak SleepCallback              */
+    hcan->WakeUpFromRxMsgCallback    =  HAL_CAN_WakeUpFromRxMsgCallback;    /* Legacy weak WakeUpFromRxMsgCallback    */
+    hcan->ErrorCallback              =  HAL_CAN_ErrorCallback;              /* Legacy weak ErrorCallback              */
 
     if (hcan->MspInitCallback == NULL)
     {
@@ -433,10 +433,10 @@ HAL_StatusTypeDef HAL_CAN_Init(CAN_HandleTypeDef *hcan)
   }
 
   /* Set the bit timing register */
-  WRITE_REG(hcan->Instance->BTR, (uint32_t)(hcan->Init.Mode |
-                                            hcan->Init.SyncJumpWidth |
-                                            hcan->Init.TimeSeg1 |
-                                            hcan->Init.TimeSeg2 |
+  WRITE_REG(hcan->Instance->BTR, (uint32_t)(hcan->Init.Mode           |
+                                            hcan->Init.SyncJumpWidth  |
+                                            hcan->Init.TimeSeg1       |
+                                            hcan->Init.TimeSeg2       |
                                             (hcan->Init.Prescaler - 1U)));
 
   /* Initialize the error code */
@@ -555,7 +555,7 @@ __weak void HAL_CAN_MspDeInit(CAN_HandleTypeDef *hcan)
   * @param  pCallback pointer to the Callback function
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_CAN_RegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_CallbackIDTypeDef CallbackID, void (*pCallback)(CAN_HandleTypeDef *_hcan))
+HAL_StatusTypeDef HAL_CAN_RegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_CallbackIDTypeDef CallbackID, void (* pCallback)(CAN_HandleTypeDef *_hcan))
 {
   HAL_StatusTypeDef status = HAL_OK;
 
@@ -571,94 +571,94 @@ HAL_StatusTypeDef HAL_CAN_RegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Call
   {
     switch (CallbackID)
     {
-    case HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID:
-      hcan->TxMailbox0CompleteCallback = pCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID :
+        hcan->TxMailbox0CompleteCallback = pCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX1_COMPLETE_CB_ID:
-      hcan->TxMailbox1CompleteCallback = pCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX1_COMPLETE_CB_ID :
+        hcan->TxMailbox1CompleteCallback = pCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX2_COMPLETE_CB_ID:
-      hcan->TxMailbox2CompleteCallback = pCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX2_COMPLETE_CB_ID :
+        hcan->TxMailbox2CompleteCallback = pCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX0_ABORT_CB_ID:
-      hcan->TxMailbox0AbortCallback = pCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX0_ABORT_CB_ID :
+        hcan->TxMailbox0AbortCallback = pCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX1_ABORT_CB_ID:
-      hcan->TxMailbox1AbortCallback = pCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX1_ABORT_CB_ID :
+        hcan->TxMailbox1AbortCallback = pCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX2_ABORT_CB_ID:
-      hcan->TxMailbox2AbortCallback = pCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX2_ABORT_CB_ID :
+        hcan->TxMailbox2AbortCallback = pCallback;
+        break;
 
-    case HAL_CAN_RX_FIFO0_MSG_PENDING_CB_ID:
-      hcan->RxFifo0MsgPendingCallback = pCallback;
-      break;
+      case HAL_CAN_RX_FIFO0_MSG_PENDING_CB_ID :
+        hcan->RxFifo0MsgPendingCallback = pCallback;
+        break;
 
-    case HAL_CAN_RX_FIFO0_FULL_CB_ID:
-      hcan->RxFifo0FullCallback = pCallback;
-      break;
+      case HAL_CAN_RX_FIFO0_FULL_CB_ID :
+        hcan->RxFifo0FullCallback = pCallback;
+        break;
 
-    case HAL_CAN_RX_FIFO1_MSG_PENDING_CB_ID:
-      hcan->RxFifo1MsgPendingCallback = pCallback;
-      break;
+      case HAL_CAN_RX_FIFO1_MSG_PENDING_CB_ID :
+        hcan->RxFifo1MsgPendingCallback = pCallback;
+        break;
 
-    case HAL_CAN_RX_FIFO1_FULL_CB_ID:
-      hcan->RxFifo1FullCallback = pCallback;
-      break;
+      case HAL_CAN_RX_FIFO1_FULL_CB_ID :
+        hcan->RxFifo1FullCallback = pCallback;
+        break;
 
-    case HAL_CAN_SLEEP_CB_ID:
-      hcan->SleepCallback = pCallback;
-      break;
+      case HAL_CAN_SLEEP_CB_ID :
+        hcan->SleepCallback = pCallback;
+        break;
 
-    case HAL_CAN_WAKEUP_FROM_RX_MSG_CB_ID:
-      hcan->WakeUpFromRxMsgCallback = pCallback;
-      break;
+      case HAL_CAN_WAKEUP_FROM_RX_MSG_CB_ID :
+        hcan->WakeUpFromRxMsgCallback = pCallback;
+        break;
 
-    case HAL_CAN_ERROR_CB_ID:
-      hcan->ErrorCallback = pCallback;
-      break;
+      case HAL_CAN_ERROR_CB_ID :
+        hcan->ErrorCallback = pCallback;
+        break;
 
-    case HAL_CAN_MSPINIT_CB_ID:
-      hcan->MspInitCallback = pCallback;
-      break;
+      case HAL_CAN_MSPINIT_CB_ID :
+        hcan->MspInitCallback = pCallback;
+        break;
 
-    case HAL_CAN_MSPDEINIT_CB_ID:
-      hcan->MspDeInitCallback = pCallback;
-      break;
+      case HAL_CAN_MSPDEINIT_CB_ID :
+        hcan->MspDeInitCallback = pCallback;
+        break;
 
-    default:
-      /* Update the error code */
-      hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
+      default :
+        /* Update the error code */
+        hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
 
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else if (hcan->State == HAL_CAN_STATE_RESET)
   {
     switch (CallbackID)
     {
-    case HAL_CAN_MSPINIT_CB_ID:
-      hcan->MspInitCallback = pCallback;
-      break;
+      case HAL_CAN_MSPINIT_CB_ID :
+        hcan->MspInitCallback = pCallback;
+        break;
 
-    case HAL_CAN_MSPDEINIT_CB_ID:
-      hcan->MspDeInitCallback = pCallback;
-      break;
+      case HAL_CAN_MSPDEINIT_CB_ID :
+        hcan->MspDeInitCallback = pCallback;
+        break;
 
-    default:
-      /* Update the error code */
-      hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
+      default :
+        /* Update the error code */
+        hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
 
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else
@@ -667,7 +667,7 @@ HAL_StatusTypeDef HAL_CAN_RegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Call
     hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   return status;
@@ -705,94 +705,94 @@ HAL_StatusTypeDef HAL_CAN_UnRegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Ca
   {
     switch (CallbackID)
     {
-    case HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID:
-      hcan->TxMailbox0CompleteCallback = HAL_CAN_TxMailbox0CompleteCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX0_COMPLETE_CB_ID :
+        hcan->TxMailbox0CompleteCallback = HAL_CAN_TxMailbox0CompleteCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX1_COMPLETE_CB_ID:
-      hcan->TxMailbox1CompleteCallback = HAL_CAN_TxMailbox1CompleteCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX1_COMPLETE_CB_ID :
+        hcan->TxMailbox1CompleteCallback = HAL_CAN_TxMailbox1CompleteCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX2_COMPLETE_CB_ID:
-      hcan->TxMailbox2CompleteCallback = HAL_CAN_TxMailbox2CompleteCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX2_COMPLETE_CB_ID :
+        hcan->TxMailbox2CompleteCallback = HAL_CAN_TxMailbox2CompleteCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX0_ABORT_CB_ID:
-      hcan->TxMailbox0AbortCallback = HAL_CAN_TxMailbox0AbortCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX0_ABORT_CB_ID :
+        hcan->TxMailbox0AbortCallback = HAL_CAN_TxMailbox0AbortCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX1_ABORT_CB_ID:
-      hcan->TxMailbox1AbortCallback = HAL_CAN_TxMailbox1AbortCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX1_ABORT_CB_ID :
+        hcan->TxMailbox1AbortCallback = HAL_CAN_TxMailbox1AbortCallback;
+        break;
 
-    case HAL_CAN_TX_MAILBOX2_ABORT_CB_ID:
-      hcan->TxMailbox2AbortCallback = HAL_CAN_TxMailbox2AbortCallback;
-      break;
+      case HAL_CAN_TX_MAILBOX2_ABORT_CB_ID :
+        hcan->TxMailbox2AbortCallback = HAL_CAN_TxMailbox2AbortCallback;
+        break;
 
-    case HAL_CAN_RX_FIFO0_MSG_PENDING_CB_ID:
-      hcan->RxFifo0MsgPendingCallback = HAL_CAN_RxFifo0MsgPendingCallback;
-      break;
+      case HAL_CAN_RX_FIFO0_MSG_PENDING_CB_ID :
+        hcan->RxFifo0MsgPendingCallback = HAL_CAN_RxFifo0MsgPendingCallback;
+        break;
 
-    case HAL_CAN_RX_FIFO0_FULL_CB_ID:
-      hcan->RxFifo0FullCallback = HAL_CAN_RxFifo0FullCallback;
-      break;
+      case HAL_CAN_RX_FIFO0_FULL_CB_ID :
+        hcan->RxFifo0FullCallback = HAL_CAN_RxFifo0FullCallback;
+        break;
 
-    case HAL_CAN_RX_FIFO1_MSG_PENDING_CB_ID:
-      hcan->RxFifo1MsgPendingCallback = HAL_CAN_RxFifo1MsgPendingCallback;
-      break;
+      case HAL_CAN_RX_FIFO1_MSG_PENDING_CB_ID :
+        hcan->RxFifo1MsgPendingCallback = HAL_CAN_RxFifo1MsgPendingCallback;
+        break;
 
-    case HAL_CAN_RX_FIFO1_FULL_CB_ID:
-      hcan->RxFifo1FullCallback = HAL_CAN_RxFifo1FullCallback;
-      break;
+      case HAL_CAN_RX_FIFO1_FULL_CB_ID :
+        hcan->RxFifo1FullCallback = HAL_CAN_RxFifo1FullCallback;
+        break;
 
-    case HAL_CAN_SLEEP_CB_ID:
-      hcan->SleepCallback = HAL_CAN_SleepCallback;
-      break;
+      case HAL_CAN_SLEEP_CB_ID :
+        hcan->SleepCallback = HAL_CAN_SleepCallback;
+        break;
 
-    case HAL_CAN_WAKEUP_FROM_RX_MSG_CB_ID:
-      hcan->WakeUpFromRxMsgCallback = HAL_CAN_WakeUpFromRxMsgCallback;
-      break;
+      case HAL_CAN_WAKEUP_FROM_RX_MSG_CB_ID :
+        hcan->WakeUpFromRxMsgCallback = HAL_CAN_WakeUpFromRxMsgCallback;
+        break;
 
-    case HAL_CAN_ERROR_CB_ID:
-      hcan->ErrorCallback = HAL_CAN_ErrorCallback;
-      break;
+      case HAL_CAN_ERROR_CB_ID :
+        hcan->ErrorCallback = HAL_CAN_ErrorCallback;
+        break;
 
-    case HAL_CAN_MSPINIT_CB_ID:
-      hcan->MspInitCallback = HAL_CAN_MspInit;
-      break;
+      case HAL_CAN_MSPINIT_CB_ID :
+        hcan->MspInitCallback = HAL_CAN_MspInit;
+        break;
 
-    case HAL_CAN_MSPDEINIT_CB_ID:
-      hcan->MspDeInitCallback = HAL_CAN_MspDeInit;
-      break;
+      case HAL_CAN_MSPDEINIT_CB_ID :
+        hcan->MspDeInitCallback = HAL_CAN_MspDeInit;
+        break;
 
-    default:
-      /* Update the error code */
-      hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
+      default :
+        /* Update the error code */
+        hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
 
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else if (hcan->State == HAL_CAN_STATE_RESET)
   {
     switch (CallbackID)
     {
-    case HAL_CAN_MSPINIT_CB_ID:
-      hcan->MspInitCallback = HAL_CAN_MspInit;
-      break;
+      case HAL_CAN_MSPINIT_CB_ID :
+        hcan->MspInitCallback = HAL_CAN_MspInit;
+        break;
 
-    case HAL_CAN_MSPDEINIT_CB_ID:
-      hcan->MspDeInitCallback = HAL_CAN_MspDeInit;
-      break;
+      case HAL_CAN_MSPDEINIT_CB_ID :
+        hcan->MspDeInitCallback = HAL_CAN_MspDeInit;
+        break;
 
-    default:
-      /* Update the error code */
-      hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
+      default :
+        /* Update the error code */
+        hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
 
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else
@@ -801,7 +801,7 @@ HAL_StatusTypeDef HAL_CAN_UnRegisterCallback(CAN_HandleTypeDef *hcan, HAL_CAN_Ca
     hcan->ErrorCode |= HAL_CAN_ERROR_INVALID_CALLBACK;
 
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   return status;
@@ -921,14 +921,14 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, CAN_FilterTypeDe
       /* First 16-bit identifier and First 16-bit mask */
       /* Or First 16-bit identifier and Second 16-bit identifier */
       can_ip->sFilterRegister[sFilterConfig->FilterBank].FR1 =
-          ((0x0000FFFFU & (uint32_t)sFilterConfig->FilterMaskIdLow) << 16U) |
-          (0x0000FFFFU & (uint32_t)sFilterConfig->FilterIdLow);
+        ((0x0000FFFFU & (uint32_t)sFilterConfig->FilterMaskIdLow) << 16U) |
+        (0x0000FFFFU & (uint32_t)sFilterConfig->FilterIdLow);
 
       /* Second 16-bit identifier and Second 16-bit mask */
       /* Or Third 16-bit identifier and Fourth 16-bit identifier */
       can_ip->sFilterRegister[sFilterConfig->FilterBank].FR2 =
-          ((0x0000FFFFU & (uint32_t)sFilterConfig->FilterMaskIdHigh) << 16U) |
-          (0x0000FFFFU & (uint32_t)sFilterConfig->FilterIdHigh);
+        ((0x0000FFFFU & (uint32_t)sFilterConfig->FilterMaskIdHigh) << 16U) |
+        (0x0000FFFFU & (uint32_t)sFilterConfig->FilterIdHigh);
     }
 
     if (sFilterConfig->FilterScale == CAN_FILTERSCALE_32BIT)
@@ -938,13 +938,13 @@ HAL_StatusTypeDef HAL_CAN_ConfigFilter(CAN_HandleTypeDef *hcan, CAN_FilterTypeDe
 
       /* 32-bit identifier or First 32-bit identifier */
       can_ip->sFilterRegister[sFilterConfig->FilterBank].FR1 =
-          ((0x0000FFFFU & (uint32_t)sFilterConfig->FilterIdHigh) << 16U) |
-          (0x0000FFFFU & (uint32_t)sFilterConfig->FilterIdLow);
+        ((0x0000FFFFU & (uint32_t)sFilterConfig->FilterIdHigh) << 16U) |
+        (0x0000FFFFU & (uint32_t)sFilterConfig->FilterIdLow);
 
       /* 32-bit mask or Second 32-bit identifier */
       can_ip->sFilterRegister[sFilterConfig->FilterBank].FR2 =
-          ((0x0000FFFFU & (uint32_t)sFilterConfig->FilterMaskIdHigh) << 16U) |
-          (0x0000FFFFU & (uint32_t)sFilterConfig->FilterMaskIdLow);
+        ((0x0000FFFFU & (uint32_t)sFilterConfig->FilterMaskIdHigh) << 16U) |
+        (0x0000FFFFU & (uint32_t)sFilterConfig->FilterMaskIdLow);
     }
 
     /* Filter Mode */
@@ -1193,7 +1193,8 @@ HAL_StatusTypeDef HAL_CAN_WakeUp(CAN_HandleTypeDef *hcan)
 
         return HAL_ERROR;
       }
-    } while ((hcan->Instance->MSR & CAN_MSR_SLAK) != 0U);
+    }
+    while ((hcan->Instance->MSR & CAN_MSR_SLAK) != 0U);
 
     /* Return function status */
     return HAL_OK;
@@ -1314,14 +1315,14 @@ HAL_StatusTypeDef HAL_CAN_AddTxMessage(CAN_HandleTypeDef *hcan, CAN_TxHeaderType
       /* Set up the data field */
       WRITE_REG(hcan->Instance->sTxMailBox[transmitmailbox].TDHR,
                 ((uint32_t)aData[7] << CAN_TDH0R_DATA7_Pos) |
-                    ((uint32_t)aData[6] << CAN_TDH0R_DATA6_Pos) |
-                    ((uint32_t)aData[5] << CAN_TDH0R_DATA5_Pos) |
-                    ((uint32_t)aData[4] << CAN_TDH0R_DATA4_Pos));
+                ((uint32_t)aData[6] << CAN_TDH0R_DATA6_Pos) |
+                ((uint32_t)aData[5] << CAN_TDH0R_DATA5_Pos) |
+                ((uint32_t)aData[4] << CAN_TDH0R_DATA4_Pos));
       WRITE_REG(hcan->Instance->sTxMailBox[transmitmailbox].TDLR,
                 ((uint32_t)aData[3] << CAN_TDL0R_DATA3_Pos) |
-                    ((uint32_t)aData[2] << CAN_TDL0R_DATA2_Pos) |
-                    ((uint32_t)aData[1] << CAN_TDL0R_DATA1_Pos) |
-                    ((uint32_t)aData[0] << CAN_TDL0R_DATA0_Pos));
+                ((uint32_t)aData[2] << CAN_TDL0R_DATA2_Pos) |
+                ((uint32_t)aData[1] << CAN_TDL0R_DATA1_Pos) |
+                ((uint32_t)aData[0] << CAN_TDL0R_DATA0_Pos));
 
       /* Request transmission */
       SET_BIT(hcan->Instance->sTxMailBox[transmitmailbox].TIR, CAN_TI0R_TXRQ);
@@ -2039,32 +2040,32 @@ void HAL_CAN_IRQHandler(CAN_HandleTypeDef *hcan)
       {
         switch (esrflags & CAN_ESR_LEC)
         {
-        case (CAN_ESR_LEC_0):
-          /* Set CAN error code to Stuff error */
-          errorcode |= HAL_CAN_ERROR_STF;
-          break;
-        case (CAN_ESR_LEC_1):
-          /* Set CAN error code to Form error */
-          errorcode |= HAL_CAN_ERROR_FOR;
-          break;
-        case (CAN_ESR_LEC_1 | CAN_ESR_LEC_0):
-          /* Set CAN error code to Acknowledgement error */
-          errorcode |= HAL_CAN_ERROR_ACK;
-          break;
-        case (CAN_ESR_LEC_2):
-          /* Set CAN error code to Bit recessive error */
-          errorcode |= HAL_CAN_ERROR_BR;
-          break;
-        case (CAN_ESR_LEC_2 | CAN_ESR_LEC_0):
-          /* Set CAN error code to Bit Dominant error */
-          errorcode |= HAL_CAN_ERROR_BD;
-          break;
-        case (CAN_ESR_LEC_2 | CAN_ESR_LEC_1):
-          /* Set CAN error code to CRC error */
-          errorcode |= HAL_CAN_ERROR_CRC;
-          break;
-        default:
-          break;
+          case (CAN_ESR_LEC_0):
+            /* Set CAN error code to Stuff error */
+            errorcode |= HAL_CAN_ERROR_STF;
+            break;
+          case (CAN_ESR_LEC_1):
+            /* Set CAN error code to Form error */
+            errorcode |= HAL_CAN_ERROR_FOR;
+            break;
+          case (CAN_ESR_LEC_1 | CAN_ESR_LEC_0):
+            /* Set CAN error code to Acknowledgement error */
+            errorcode |= HAL_CAN_ERROR_ACK;
+            break;
+          case (CAN_ESR_LEC_2):
+            /* Set CAN error code to Bit recessive error */
+            errorcode |= HAL_CAN_ERROR_BR;
+            break;
+          case (CAN_ESR_LEC_2 | CAN_ESR_LEC_0):
+            /* Set CAN error code to Bit Dominant error */
+            errorcode |= HAL_CAN_ERROR_BD;
+            break;
+          case (CAN_ESR_LEC_2 | CAN_ESR_LEC_1):
+            /* Set CAN error code to CRC error */
+            errorcode |= HAL_CAN_ERROR_CRC;
+            break;
+          default:
+            break;
         }
 
         /* Clear Last error code Flag */
@@ -2460,4 +2461,4 @@ HAL_StatusTypeDef HAL_CAN_ResetError(CAN_HandleTypeDef *hcan)
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

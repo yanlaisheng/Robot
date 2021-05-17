@@ -76,7 +76,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -101,7 +101,7 @@
   * @{
   */
 
-#if defined(SPI_I2S_FULLDUPLEX_SUPPORT)
+#if defined (SPI_I2S_FULLDUPLEX_SUPPORT)
 
 /* Private typedef -----------------------------------------------------------*/
 /** @defgroup I2SEx_Private_Typedef I2S Extended Private Typedef
@@ -109,8 +109,8 @@
   */
 typedef enum
 {
-  I2S_USE_I2S = 0x00U,    /*!< I2Sx should be used      */
-  I2S_USE_I2SEXT = 0x01U, /*!< I2Sx_ext should be used  */
+  I2S_USE_I2S      = 0x00U,   /*!< I2Sx should be used      */
+  I2S_USE_I2SEXT   = 0x01U,   /*!< I2Sx_ext should be used  */
 } I2S_UseTypeDef;
 /**
   * @}
@@ -222,7 +222,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive(I2S_HandleTypeDef *hi2s,
 
   if ((pTxData == NULL) || (pRxData == NULL) || (Size == 0U))
   {
-    return HAL_ERROR;
+    return  HAL_ERROR;
   }
 
   /* Process Locked */
@@ -235,16 +235,16 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive(I2S_HandleTypeDef *hi2s,
      frame is selected the Size parameter means the number of 16-bit data length. */
   if ((tmp1 == I2S_DATAFORMAT_24B) || (tmp1 == I2S_DATAFORMAT_32B))
   {
-    hi2s->TxXferSize = (Size << 1U);
+    hi2s->TxXferSize  = (Size << 1U);
     hi2s->TxXferCount = (Size << 1U);
-    hi2s->RxXferSize = (Size << 1U);
+    hi2s->RxXferSize  = (Size << 1U);
     hi2s->RxXferCount = (Size << 1U);
   }
   else
   {
-    hi2s->TxXferSize = Size;
+    hi2s->TxXferSize  = Size;
     hi2s->TxXferCount = Size;
-    hi2s->RxXferSize = Size;
+    hi2s->RxXferSize  = Size;
     hi2s->RxXferCount = Size;
   }
 
@@ -405,7 +405,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive(I2S_HandleTypeDef *hi2s,
     errorcode = HAL_ERROR;
   }
 
-error:
+error :
   hi2s->State = HAL_I2S_STATE_READY;
   __HAL_UNLOCK(hi2s);
   return errorcode;
@@ -442,7 +442,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT(I2S_HandleTypeDef *hi2s,
 
   if ((pTxData == NULL) || (pRxData == NULL) || (Size == 0U))
   {
-    return HAL_ERROR;
+    return  HAL_ERROR;
   }
 
   /* Process Locked */
@@ -458,21 +458,21 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT(I2S_HandleTypeDef *hi2s,
   frame is selected the Size parameter means the number of 16-bit data length. */
   if ((tmp1 == I2S_DATAFORMAT_24B) || (tmp1 == I2S_DATAFORMAT_32B))
   {
-    hi2s->TxXferSize = (Size << 1U);
+    hi2s->TxXferSize  = (Size << 1U);
     hi2s->TxXferCount = (Size << 1U);
-    hi2s->RxXferSize = (Size << 1U);
+    hi2s->RxXferSize  = (Size << 1U);
     hi2s->RxXferCount = (Size << 1U);
   }
   else
   {
-    hi2s->TxXferSize = Size;
+    hi2s->TxXferSize  = Size;
     hi2s->TxXferCount = Size;
-    hi2s->RxXferSize = Size;
+    hi2s->RxXferSize  = Size;
     hi2s->RxXferCount = Size;
   }
 
   hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
-  hi2s->State = HAL_I2S_STATE_BUSY_TX_RX;
+  hi2s->State     = HAL_I2S_STATE_BUSY_TX_RX;
 
   /* Set the function for IT treatment */
   if ((hi2s->Init.Mode == I2S_MODE_MASTER_TX) || (hi2s->Init.Mode == I2S_MODE_SLAVE_TX))
@@ -493,7 +493,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT(I2S_HandleTypeDef *hi2s,
       __HAL_I2S_DISABLE_IT(hi2s, (I2S_IT_TXE | I2S_IT_ERR));
     }
   }
-  else /* The I2S_MODE_MASTER_RX or I2S_MODE_SLAVE_RX Mode is selected */
+  else  /* The I2S_MODE_MASTER_RX or I2S_MODE_SLAVE_RX Mode is selected */
   {
     /* Enable I2Sext TXE and ERR interrupts */
     __HAL_I2SEXT_ENABLE_IT(hi2s, (I2S_IT_TXE | I2S_IT_ERR));
@@ -518,7 +518,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_IT(I2S_HandleTypeDef *hi2s,
   /* Enable I2S peripheral */
   __HAL_I2S_ENABLE(hi2s);
 
-error:
+error :
   __HAL_UNLOCK(hi2s);
   return errorcode;
 }
@@ -555,7 +555,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s,
 
   if ((pTxData == NULL) || (pRxData == NULL) || (Size == 0U))
   {
-    return HAL_ERROR;
+    return  HAL_ERROR;
   }
 
   /* Process Locked */
@@ -571,36 +571,36 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s,
   frame is selected the Size parameter means the number of 16-bit data length. */
   if ((tmp1 == I2S_DATAFORMAT_24B) || (tmp1 == I2S_DATAFORMAT_32B))
   {
-    hi2s->TxXferSize = (Size << 1U);
+    hi2s->TxXferSize  = (Size << 1U);
     hi2s->TxXferCount = (Size << 1U);
-    hi2s->RxXferSize = (Size << 1U);
+    hi2s->RxXferSize  = (Size << 1U);
     hi2s->RxXferCount = (Size << 1U);
   }
   else
   {
-    hi2s->TxXferSize = Size;
+    hi2s->TxXferSize  = Size;
     hi2s->TxXferCount = Size;
-    hi2s->RxXferSize = Size;
+    hi2s->RxXferSize  = Size;
     hi2s->RxXferCount = Size;
   }
 
   hi2s->ErrorCode = HAL_I2S_ERROR_NONE;
-  hi2s->State = HAL_I2S_STATE_BUSY_TX_RX;
+  hi2s->State     = HAL_I2S_STATE_BUSY_TX_RX;
 
   /* Set the I2S Rx DMA Half transfer complete callback */
   hi2s->hdmarx->XferHalfCpltCallback = I2SEx_TxRxDMAHalfCplt;
 
   /* Set the I2S Rx DMA transfer complete callback */
-  hi2s->hdmarx->XferCpltCallback = I2SEx_TxRxDMACplt;
+  hi2s->hdmarx->XferCpltCallback  = I2SEx_TxRxDMACplt;
 
   /* Set the I2S Rx DMA error callback */
   hi2s->hdmarx->XferErrorCallback = I2SEx_TxRxDMAError;
 
   /* Set the I2S Tx DMA Half transfer complete callback as NULL */
-  hi2s->hdmatx->XferHalfCpltCallback = NULL;
+  hi2s->hdmatx->XferHalfCpltCallback  = NULL;
 
   /* Set the I2S Tx DMA transfer complete callback as NULL */
-  hi2s->hdmatx->XferCpltCallback = NULL;
+  hi2s->hdmatx->XferCpltCallback  = NULL;
 
   /* Set the I2S Tx DMA error callback */
   hi2s->hdmatx->XferErrorCallback = I2SEx_TxRxDMAError;
@@ -666,7 +666,7 @@ HAL_StatusTypeDef HAL_I2SEx_TransmitReceive_DMA(I2S_HandleTypeDef *hi2s,
     }
   }
 
-error:
+error :
   __HAL_UNLOCK(hi2s);
   return errorcode;
 }
@@ -678,9 +678,9 @@ error:
   */
 void HAL_I2SEx_FullDuplex_IRQHandler(I2S_HandleTypeDef *hi2s)
 {
-  __IO uint32_t i2ssr = hi2s->Instance->SR;
-  __IO uint32_t i2sextsr = I2SxEXT(hi2s->Instance)->SR;
-  __IO uint32_t i2scr2 = hi2s->Instance->CR2;
+  __IO uint32_t i2ssr     = hi2s->Instance->SR;
+  __IO uint32_t i2sextsr  = I2SxEXT(hi2s->Instance)->SR;
+  __IO uint32_t i2scr2    = hi2s->Instance->CR2;
   __IO uint32_t i2sextcr2 = I2SxEXT(hi2s->Instance)->CR2;
 
   /* Check if the I2S_MODE_MASTER_TX or I2S_MODE_SLAVE_TX Mode is selected */
@@ -890,7 +890,7 @@ static void I2SEx_TxRxDMACplt(DMA_HandleTypeDef *hdma)
   /* If DMA is configured in DMA_NORMAL mode */
   if (hdma->Init.Mode == DMA_NORMAL)
   {
-    if (((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_MASTER_TX) ||
+    if (((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_MASTER_TX) || \
         ((hi2s->Instance->I2SCFGR & SPI_I2SCFGR_I2SCFG) == I2S_MODE_SLAVE_TX))
     /* Disable Tx & Rx DMA Requests */
     {
@@ -1135,4 +1135,4 @@ static HAL_StatusTypeDef I2SEx_FullDuplexWaitFlagStateUntilTimeout(I2S_HandleTyp
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

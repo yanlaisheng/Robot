@@ -1,6 +1,5 @@
 //头文件
 #include "include.h"
-//#include "ringbuffer.h"
 #include "bsp_MOTOR1.h"
 #include "bsp_MOTOR2.h"
 #include "bsp_MOTOR3.h"
@@ -10,25 +9,6 @@
 #include "GlobalConst.h"
 // #include "GlobalV.h"
 #include "Macro.h"
-
-volatile uint8_t USART1_TxBuffer[USART1TXSIZE];	  //串口1发送缓冲区
-volatile uint16_t PTxBufferUSART11 = 0;			  //串口1发送前向位置
-volatile uint16_t PTxBufferUSART12 = 0;			  //串口1发送后向位置，后向-前向=未发送的数据
-volatile uint16_t USART1_TxCounter = 0;			  //串口1发送计数
-volatile uint16_t USART1_RxCounter = 0;			  //串口1接收计数
-volatile uint16_t USART1_NbrOfDataToTransfer = 0; //串口1要发送的数据个数
-volatile uint8_t USART1_RxBuffer[USART1RXSIZE];	  //串口1接收缓冲区
-volatile uint16_t PRxBufferUSART11 = 0;
-volatile uint16_t PRxBufferUSART12 = 0;
-volatile uint8_t USART1_NbrOfDataReceived = 0; //串口1要接收的数据个数
-volatile uint8_t USART1_Received_Flag = 0;	   //串口1收到数据标志，1：接收到数据，0：没有接收到数据
-//struct rt_ringbuffer rb_recv;
-
-//以下是SPTA参数
-#define STEP_SPTA 100		//SPTA最大速度等级	20
-#define MAXSPEED_SPTA 20000 //SPTA最大速度	80000
-#define ACCSPEED_SPTA 3000	//SPTA加速度	  150000
-//static unsigned char MY_Cmd_Buff[16];
 
 uint16_t Motor1TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
 uint16_t Motor1StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
@@ -43,10 +23,6 @@ uint16_t Motor5StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
 uint16_t Motor6TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
 uint16_t Motor6StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
 
-int i_M1;
-float fi_M1[2 * (STEP_AA + STEP_UA + STEP_RA) + 1] = {0};
-float tua_temp1;
-
 unsigned long long Get_Time_Cost(unsigned char MotorID);
 extern void MOTOR1_GPIO_Init(void);
 extern void MOTOR2_GPIO_Init(void);
@@ -56,273 +32,6 @@ extern void MOTOR5_GPIO_Init(void);
 extern void MOTOR6_GPIO_Init(void);
 
 extern uint16_t w_ParLst[840]; // 参数字列表区
-////USART1时钟初始化
-///*入口参数：无******************************/
-///*函数功能：USART1时钟初始化*/
-///*返回参数：无******************************/
-///**********************Start****************/
-//void USART1_RCC_Configuration(void)
-//{
-//  /*******************串口1的时钟初始化********************/
-//  RCC_APB2PeriphClockCmd(RCC_APB2Periph_USART1 | RCC_APB2Periph_GPIOA|RCC_APB2Periph_AFIO,ENABLE);
-//}
-///**********************End****************/
-//
-////USART1引脚初始化
-///*入口参数：无******************************/
-///*函数功能：USART1引脚初始化*/
-///*返回参数：无******************************/
-///**********************Start****************/
-//void USART1_GPIO_Configuration(void)
-//{
-//  GPIO_InitTypeDef GPIO_InitStructure;
-//
-//  /* Enable the USART2 Pins Software Remapping */
-//  //GPIO_PinRemapConfig(GPIO_Remap_USART1, ENABLE);
-//
-//  /* Configure USART1 Rx as input floating */
-//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_10;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-//  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-//  GPIO_Init(GPIOA, &GPIO_InitStructure);
-//
-//  /* Configure USART1 Tx as alternate function push-pull */
-//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_9;
-//  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-//  GPIO_Init(GPIOA, &GPIO_InitStructure);
-//}
-///**********************End****************/
-//
-//
-////USART1中断函数初始化
-///*入口参数：无******************************/
-///*函数功能：USART1中断函数初始化*/
-///*返回参数：无******************************/
-///**********************Start****************/
-//void USART1_NVIC_Configuration(void)
-//{
-//  NVIC_InitTypeDef NVIC_InitStructure;
-//
-//  /* Configure the NVIC Preemption Priority Bits */
-//  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_3);
-//
-//  /* Enable the USART1 Interrupt */
-//  NVIC_InitStructure.NVIC_IRQChannel = USART1_IRQn;
-//  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority =4;
-//  NVIC_InitStructure.NVIC_IRQChannelSubPriority =1;
-//  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-//  NVIC_Init(&NVIC_InitStructure);
-//
-//}
-///**********************End****************/
-//
-////USART1寄存器初始化
-///*入口参数：无******************************/
-///*函数功能：USART1寄存器初始化*/
-///*返回参数：无******************************/
-///**********************Start****************/
-//void USART1_Initial(void)
-//{
-//  USART_InitTypeDef USART_InitStructure;
-//  USART1_RCC_Configuration();
-//  USART1_GPIO_Configuration();
-//  USART1_NVIC_Configuration();
-//  USART_InitStructure.USART_BaudRate =115200;
-//  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-//  USART_InitStructure.USART_StopBits = USART_StopBits_1;
-//  USART_InitStructure.USART_Parity = USART_Parity_No;
-//  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-//  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-//  USART_Init(USART1, &USART_InitStructure);
-//
-//  //USART1_NbrOfDataToTransfer=0;
-//
-//  USART_ITConfig(USART1, USART_IT_RXNE, ENABLE);
-//  USART_ITConfig(USART1, USART_IT_TXE, ENABLE);
-//  USART_Cmd(USART1, ENABLE);
-//}
-////USART1发送数据
-///*入口参数：要发送的buffer指针，要发送的数据长度****/
-///*函数功能：USART1发送数据**************************/
-///*返回参数：无**************************************/
-///*对于不定长的发送，可以采用先判断要发送的数据长度和
-//  剩余缓冲区大小，再决定如何拷贝的方法，以减少
-//  PTxBufferUSART12是否越界的判断，但是之前处理的方式
-//  是默认不会溢出，后期可能会将调试信息删除，所以就不
-//  改了，下同
-//*********************Start************************/
-//void USART1_Printf(unsigned char *q,unsigned char len)
-//{
-//  u8 i=0;
-//
-//  for(i=0;i<len;i++)
-//  {
-//    USART1_TxBuffer[PTxBufferUSART12++]=q[i];
-//		if(PTxBufferUSART12>=USART1TXSIZE)
-//		{
-//			PTxBufferUSART12=0;
-//		}
-//  }
-//  USART_ITConfig(USART1, USART_IT_TXE, ENABLE);
-//}
-//
-////USART1发送数据
-///*入口参数：要发送的buffer指针，一般是字符数组***/
-///*函数功能：USART1发送数据***********************/
-///*返回参数：无***********************************/
-///**********************Start*********************/
-//void USART1_Printfstr(unsigned char *p)
-//{
-//
-//  while((*p)!=0)
-//  {
-//		USART1_TxBuffer[PTxBufferUSART12++]=*p;
-//		p++;
-//		if(PTxBufferUSART12>=USART1TXSIZE)
-//		{
-//			PTxBufferUSART12=0;
-//		}
-//  }
-//  USART_ITConfig(USART1, USART_IT_TXE, ENABLE);
-//}
-///**********************End****************/
-//
-////USART2时钟初始化
-///*入口参数：无******************************/
-///*函数功能：USART1时钟初始化*/
-///*返回参数：无******************************/
-///**********************Start****************/
-//void USART2_RCC_Configuration(void)
-//{
-//  /*******************串口1的时钟初始化********************/
-//  RCC_APB1PeriphClockCmd(RCC_APB1Periph_USART2,ENABLE);
-//}
-///**********************End****************/
-//
-////USART2引脚初始化
-///*入口参数：无******************************/
-///*函数功能：USART1引脚初始化*/
-///*返回参数：无******************************/
-///**********************Start****************/
-//void USART2_GPIO_Configuration(void)
-//{
-//  GPIO_InitTypeDef GPIO_InitStructure;
-//
-//  /* Enable the USART2 Pins Software Remapping */
-//  //GPIO_PinRemapConfig(GPIO_Remap_USART1, ENABLE);
-//
-//  /* Configure USART2 Rx as input floating */
-//  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-//  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-//  GPIO_Init(GPIOA, &GPIO_InitStructure);
-//
-//  /* Configure USART2 Tx as alternate function push-pull */
-//  //GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-//  //GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-//  //GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-//  //GPIO_Init(GPIOA, &GPIO_InitStructure);
-//}
-///**********************End****************/
-//
-//
-////USART2中断函数初始化
-///*入口参数：无******************************/
-///*函数功能：USART2中断函数初始化*/
-///*返回参数：无******************************/
-///**********************Start****************/
-//void USART2_NVIC_Configuration(void)
-//{
-//  NVIC_InitTypeDef NVIC_InitStructure;
-//
-//  /* Configure the NVIC Preemption Priority Bits */
-//  NVIC_PriorityGroupConfig(NVIC_PriorityGroup_3);
-//
-//  /* Enable the USART1 Interrupt */
-//  NVIC_InitStructure.NVIC_IRQChannel = USART2_IRQn;
-//  NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority =4;
-//  NVIC_InitStructure.NVIC_IRQChannelSubPriority =1;
-//  NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-//  NVIC_Init(&NVIC_InitStructure);
-//
-//}
-///**********************End****************/
-//
-////USART2寄存器初始化
-///*入口参数：无******************************/
-///*函数功能：USART1寄存器初始化*/
-///*返回参数：无******************************/
-///**********************Start****************/
-//void USART2_Initial(void)
-//{
-//  USART_InitTypeDef USART_InitStructure;
-//  USART2_RCC_Configuration();
-//  USART2_GPIO_Configuration();
-//  USART2_NVIC_Configuration();
-//  USART_InitStructure.USART_BaudRate =9600;
-//  USART_InitStructure.USART_WordLength = USART_WordLength_8b;
-//  USART_InitStructure.USART_StopBits = USART_StopBits_1;
-//  USART_InitStructure.USART_Parity = USART_Parity_No;
-//  USART_InitStructure.USART_HardwareFlowControl = USART_HardwareFlowControl_None;
-//  USART_InitStructure.USART_Mode = USART_Mode_Rx | USART_Mode_Tx;
-//  USART_Init(USART2, &USART_InitStructure);
-//
-//  //USART1_NbrOfDataToTransfer=0;
-//
-//  USART_ITConfig(USART2, USART_IT_RXNE, ENABLE);
-//  //USART_ITConfig(USART2, USART_IT_TXE, ENABLE);
-//  USART_Cmd(USART2, ENABLE);
-//}
-
-/*
-电机1：PA8(pwm),PE9(CW),PE8(ENABLE),MXX:PA11,PA12,PE7
-电机2：PA0(pwm),PA1(CW),PC3(ENABLE),MXX:PC0,PC1,PC2
-电机3：PA6(pwm),PA7(CW),PC4(ENABLE),MXX:PA3,PA4,PA5
-电机4：PB6(pwm,gpio),PB9(CW),PB8(ENABLE),MXX:PD7,PB5,PB7
-*/
-//void Initial_MotorIO(void)
-//{
-//  GPIO_InitTypeDef  GPIO_InitStructure;
-//  RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA|RCC_APB2Periph_GPIOB|RCC_APB2Periph_GPIOC|RCC_APB2Periph_GPIOD|RCC_APB2Periph_GPIOE, ENABLE);
-//
-//  GPIO_InitStructure.GPIO_Pin =GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_7|GPIO_Pin_11|GPIO_Pin_12;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-//  GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
-//  GPIO_Init(GPIOA, &GPIO_InitStructure);
-//  GPIO_ResetBits(GPIOA,GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5|GPIO_Pin_7|GPIO_Pin_11|GPIO_Pin_12);
-//
-//  GPIO_InitStructure.GPIO_Pin =GPIO_Pin_5|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-//  GPIO_Init(GPIOB, &GPIO_InitStructure);
-//  GPIO_ResetBits(GPIOB,GPIO_Pin_5|GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);
-//
-//  GPIO_InitStructure.GPIO_Pin =GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-//  GPIO_Init(GPIOC, &GPIO_InitStructure);
-//  GPIO_ResetBits(GPIOC,GPIO_Pin_0|GPIO_Pin_1|GPIO_Pin_2|GPIO_Pin_3|GPIO_Pin_4|GPIO_Pin_5);
-//
-//	GPIO_InitStructure.GPIO_Pin =GPIO_Pin_7;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-//  GPIO_Init(GPIOD, &GPIO_InitStructure);
-//  GPIO_ResetBits(GPIOD,GPIO_Pin_7);
-//
-//  GPIO_InitStructure.GPIO_Pin =GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-//  GPIO_Init(GPIOE, &GPIO_InitStructure);
-//  GPIO_ResetBits(GPIOE,GPIO_Pin_7|GPIO_Pin_8|GPIO_Pin_9);
-//
-//
-//  GPIO_InitStructure.GPIO_Pin =GPIO_Pin_0|GPIO_Pin_8|GPIO_Pin_6;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF_PP;
-//  GPIO_Init(GPIOA, &GPIO_InitStructure);
-//  GPIO_ResetBits(GPIOA,GPIO_Pin_0|GPIO_Pin_8|GPIO_Pin_6);
-//
-//	GPIO_InitStructure.GPIO_Pin =GPIO_Pin_6;
-//  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_Out_PP;
-//  GPIO_Init(GPIOB, &GPIO_InitStructure);
-//  GPIO_ResetBits(GPIOB,GPIO_Pin_6);
-//}
 
 /**************************************************************************************
  初始化电机的参数，主要是细分选择，使用的定时器，顺时针方向值，电机ID等
@@ -331,7 +40,6 @@ void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int m
 {
 	unsigned int i = 0;
 	MOTOR_CONTROL_S *pmotor = NULL;
-	MOTOR_CONTROL_SPTA *pmotor_spta = NULL;
 	uint16_t *MotorTimeTable;
 	uint16_t *MotorStepTable;
 
@@ -373,7 +81,7 @@ void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int m
 		pmotor = &motor5;
 		motor5.id = 5;
 		motor5.clockwise = M5_CLOCKWISE;
-		motor5.TIMx = TIM3;
+		motor5.TIMx = TIM1;
 		MotorTimeTable = Motor5TimeTable;
 		MotorStepTable = Motor5StepTable;
 		break;
@@ -381,7 +89,7 @@ void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int m
 		pmotor = &motor6;
 		motor6.id = 6;
 		motor6.clockwise = M6_CLOCKWISE;
-		motor6.TIMx = TIM3;
+		motor6.TIMx = TIM5;
 		MotorTimeTable = Motor6TimeTable;
 		MotorStepTable = Motor6StepTable;
 		break;
@@ -415,33 +123,33 @@ void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int m
 		// pmotor->TIMx->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
 		if (pmotor->TIMx == TIM2)
 		{
-			pmotor->TIMx->CCR2 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-			pmotor->TIMx->CNT = 0;
+			TIM2->CCR2 = pmotor->Counter_Table[0] >> 1; //设置占空比
+			TIM2->CNT = 0;
 		}
 		else if (pmotor->TIMx == TIM4)
 		{
-			pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-			pmotor->TIMx->CNT = 0;
+			TIM4->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
+			TIM4->CNT = 0;
 		}
 		else if (pmotor->TIMx == TIM8)
 		{
-			pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-			pmotor->TIMx->CNT = 0;
+			TIM8->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
+			TIM8->CNT = 0;
 		}
 		else if (pmotor->TIMx == TIM3)
 		{
-			pmotor->TIMx->CCR4 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-			pmotor->TIMx->CNT = 0;
+			TIM3->CCR4 = pmotor->Counter_Table[0] >> 1; //设置占空比
+			TIM3->CNT = 0;
 		}
 		else if (pmotor->TIMx == TIM1)
 		{
-			pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-			pmotor->TIMx->CNT = 0;
+			TIM1->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
+			TIM1->CNT = 0;
 		}
 		else if (pmotor->TIMx == TIM5)
 		{
-			pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-			pmotor->TIMx->CNT = 0;
+			TIM5->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
+			TIM5->CNT = 0;
 		}
 	}
 }
@@ -588,33 +296,33 @@ void Motor_Reinitial(unsigned char MotorID)
 	// pmotor->TIMx->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
 	if (pmotor->TIMx == TIM2)
 	{
-		pmotor->TIMx->CCR2 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
+		TIM2->CCR2 = pmotor->Counter_Table[0] >> 1; //设置占空比
+		TIM2->CNT = 0;
 	}
 	else if (pmotor->TIMx == TIM4)
 	{
-		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
+		TIM4->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
+		TIM4->CNT = 0;
 	}
 	else if (pmotor->TIMx == TIM8)
 	{
-		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
+		TIM8->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
+		TIM8->CNT = 0;
 	}
 	else if (pmotor->TIMx == TIM3)
 	{
-		pmotor->TIMx->CCR4 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
+		TIM3->CCR4 = pmotor->Counter_Table[0] >> 1; //设置占空比
+		TIM3->CNT = 0;
 	}
 	else if (pmotor->TIMx == TIM1)
 	{
-		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
+		TIM1->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
+		TIM1->CNT = 0;
 	}
 	else if (pmotor->TIMx == TIM5)
 	{
-		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
+		TIM5->CCR1 = pmotor->Counter_Table[0] >> 1; //设置占空比
+		TIM5->CNT = 0;
 	}
 	pmotor->Time_Cost_Act = pmotor->TIMx->ARR;
 	Get_TimeCost_ReverDot_S(MotorID);
@@ -627,61 +335,63 @@ float GetFreAtTime(float fstart, float faa, float taa, float tua, float tra, flo
 	if (t >= 0 && t <= taa)
 	{
 		//加加速阶段
-		return fstart + M_XiShu_1 * faa * t * t; //抛物线方
+		return fstart + Motor1_XiShu_1 * faa * t * t; //抛物线方
 	}
 	else if (taa < t && t <= (taa + tua))
 	{
 		//匀加速阶段
-		return fstart + M_XiShu_1 * faa * taa * taa + (t - taa) * faa * taa;
+		return fstart + Motor1_XiShu_1 * faa * taa * taa + (t - taa) * faa * taa;
 	}
 	else if ((taa + tua) < t && t <= (taa + tua + tra))
 	{
 		//减加速阶段
-		return fstart + M_XiShu_1 * faa * taa * taa + (tua)*faa * taa + M_XiShu_1 * faa * taa * tra - M_XiShu_1 * faa * taa * (taa + tua + tra - t) * (taa + tua + tra - t) / (tra);
+		return fstart + Motor1_XiShu_1 * faa * taa * taa + (tua)*faa * taa + Motor1_XiShu_1 * faa * taa * tra - Motor1_XiShu_1 * faa * taa * (taa + tua + tra - t) * (taa + tua + tra - t) / (tra);
 	}
 	return 0;
 }
 
-//根据设定速度反推加速度
-float GetFaaPara(float fstart, float taa, float tua, float tra, float SetSpeed)
-{
-	float temp1;
-	temp1 = (SetSpeed * PULSENUM / 60 - fstart) / (M_XiShu_1 * taa * taa + taa * tua + M_XiShu_1 * taa * tra);
-	return temp1;
-}
-
 /*计算S型曲线算法的每一步定时器周期及步进数*/
-void CalcMotorPeriStep_CPF(float fstart, float faa, float taa, float tua, float tra, uint16_t MotorTimeTable[], uint16_t MotorStepTable[])
+/*输入：
+fstart:起始频率
+faa:加速度
+step_para:加速度调节
+taa:加加速段数
+tua:匀加速段数
+tra:减加速段数
+MotorTimeTable[]:间隔时间表
+MotorStepTable[]:步进步数表
+*/
+void CalcMotorPeriStep_CPF(float fstart, float faa, uint16_t step_para, float taa, float tua, float tra, uint16_t MotorTimeTable[], uint16_t MotorStepTable[])
 {
-	// int i;
-	// float fi;
+	int i;
+	float fi;
 
-	for (i_M1 = 0; i_M1 < STEP_AA; i_M1++)
+	for (i = 0; i < STEP_AA; i++)
 	{
-		fi_M1[i_M1] = GetFreAtTime(fstart, faa, taa, tua, tra, taa / STEP_AA * i_M1);
-		MotorTimeTable[i_M1] = F2TIME_PARA / fi_M1[i_M1];							//每步的时间周期，这个地方要注意，容易溢出！——YLS 2021.05.07
-		MotorStepTable[i_M1] = fi_M1[i_M1] * (taa / STEP_AA) / Pw_Motor1_STEP_PARA; //每个时钟周期运行的步数
+		fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa / STEP_AA * i);
+		MotorTimeTable[i] = F2TIME_PARA / fi;				  //每步的时间周期，这个地方要注意，容易溢出！——YLS 2021.05.07
+		MotorStepTable[i] = fi * (taa / STEP_AA) / step_para; //每个时钟周期运行的步数
 	}
-	for (i_M1 = STEP_AA; i_M1 < STEP_AA + STEP_UA; i_M1++)
+	for (i = STEP_AA; i < STEP_AA + STEP_UA; i++)
 	{
-		fi_M1[i_M1] = GetFreAtTime(fstart, faa, taa, tua, tra, taa + (tua / STEP_UA) * (i_M1 - STEP_AA));
-		MotorTimeTable[i_M1] = F2TIME_PARA / fi_M1[i_M1];
-		MotorStepTable[i_M1] = fi_M1[i_M1] * (tua / STEP_UA) / Pw_Motor1_STEP_PARA;
+		fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa + (tua / STEP_UA) * (i - STEP_AA));
+		MotorTimeTable[i] = F2TIME_PARA / fi;
+		MotorStepTable[i] = fi * (tua / STEP_UA) / step_para;
 	}
-	for (i_M1 = STEP_AA + STEP_UA; i_M1 < STEP_AA + STEP_UA + STEP_RA; i_M1++)
+	for (i = STEP_AA + STEP_UA; i < STEP_AA + STEP_UA + STEP_RA; i++)
 	{
-		fi_M1[i_M1] = GetFreAtTime(fstart, faa, taa, tua, tra, taa + tua + tra / STEP_RA * (i_M1 - STEP_AA - STEP_UA));
-		MotorTimeTable[i_M1] = F2TIME_PARA / fi_M1[i_M1];
-		MotorStepTable[i_M1] = fi_M1[i_M1] * (tra / STEP_RA) / Pw_Motor1_STEP_PARA;
+		fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa + tua + tra / STEP_RA * (i - STEP_AA - STEP_UA));
+		MotorTimeTable[i] = F2TIME_PARA / fi;
+		MotorStepTable[i] = fi * (tra / STEP_RA) / step_para;
 	}
-	fi_M1[i_M1] = GetFreAtTime(fstart, faa, taa, tua, tra, taa + tua + tra);
-	MotorTimeTable[STEP_AA + STEP_UA + STEP_RA] = F2TIME_PARA / fi_M1[i_M1];
-	MotorStepTable[STEP_AA + STEP_UA + STEP_RA] = fi_M1[i_M1] * (tra / STEP_RA) / Pw_Motor1_STEP_PARA;
+	fi = GetFreAtTime(fstart, faa, taa, tua, tra, taa + tua + tra);
+	MotorTimeTable[STEP_AA + STEP_UA + STEP_RA] = F2TIME_PARA / fi;
+	MotorStepTable[STEP_AA + STEP_UA + STEP_RA] = fi * (tra / STEP_RA) / step_para;
 
-	for (i_M1 = STEP_AA + STEP_UA + STEP_RA + 1; i_M1 < 2 * (STEP_AA + STEP_UA + STEP_RA) + 1; i_M1++)
+	for (i = STEP_AA + STEP_UA + STEP_RA + 1; i < 2 * (STEP_AA + STEP_UA + STEP_RA) + 1; i++)
 	{
-		MotorTimeTable[i_M1] = MotorTimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) - i_M1];
-		MotorStepTable[i_M1] = MotorStepTable[2 * (STEP_AA + STEP_UA + STEP_RA) - i_M1];
+		MotorTimeTable[i] = MotorTimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) - i];
+		MotorStepTable[i] = MotorStepTable[2 * (STEP_AA + STEP_UA + STEP_RA) - i];
 	}
 }
 
@@ -690,13 +400,12 @@ void CalcMotorPeriStep_CPF(float fstart, float faa, float taa, float tua, float 
 void MotorRunParaInitial(void)
 {
 	/*FIXME:用户可以改变该参数实现S型曲线的升降特性*/
-	// CalcMotorPeriStep_CPF(Pw_Motor1_FRE_START, Pw_Motor1_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor1TimeTable, Motor1StepTable);
-	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor1TimeTable, Motor1StepTable);
-	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor2TimeTable, Motor2StepTable);
-	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor3TimeTable, Motor3StepTable);
-	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor4TimeTable, Motor4StepTable);
-	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor5TimeTable, Motor5StepTable);
-	CalcMotorPeriStep_CPF(M_FRE_START, M_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor6TimeTable, Motor6StepTable);
+	CalcMotorPeriStep_CPF(Pw_Motor1_FRE_START, Pw_Motor1_FRE_AA, Pw_Motor1_STEP_PARA, M_T_AA, M_T_UA, M_T_RA, Motor1TimeTable, Motor1StepTable);
+	CalcMotorPeriStep_CPF(Pw_Motor2_FRE_START, Pw_Motor2_FRE_AA, Pw_Motor2_STEP_PARA, M_T_AA, M_T_UA, M_T_RA, Motor2TimeTable, Motor2StepTable);
+	CalcMotorPeriStep_CPF(Pw_Motor3_FRE_START, Pw_Motor3_FRE_AA, Pw_Motor3_STEP_PARA, M_T_AA, M_T_UA, M_T_RA, Motor3TimeTable, Motor3StepTable);
+	CalcMotorPeriStep_CPF(Pw_Motor4_FRE_START, Pw_Motor4_FRE_AA, Pw_Motor4_STEP_PARA, M_T_AA, M_T_UA, M_T_RA, Motor4TimeTable, Motor4StepTable);
+	CalcMotorPeriStep_CPF(Pw_Motor5_FRE_START, Pw_Motor5_FRE_AA, Pw_Motor5_STEP_PARA, M_T_AA, M_T_UA, M_T_RA, Motor5TimeTable, Motor5StepTable);
+	CalcMotorPeriStep_CPF(Pw_Motor6_FRE_START, Pw_Motor6_FRE_AA, Pw_Motor6_STEP_PARA, M_T_AA, M_T_UA, M_T_RA, Motor6TimeTable, Motor6StepTable);
 }
 
 /**************************************************************************************
@@ -739,11 +448,11 @@ void Find_BestTimeCost(unsigned char ID, unsigned long long time_cost, unsigned 
 	{
 		if (cal_ij)
 		{
-			CalcMotorPeriStep_CPF(M_FRE_START, (i + j) / 2.0, M_T_AA, M_T_UA, M_T_RA, MotorTimeTable, MotorStepTable);
+			CalcMotorPeriStep_CPF(M_FRE_START, (i + j) / 2.0, 100, M_T_AA, M_T_UA, M_T_RA, MotorTimeTable, MotorStepTable);
 		}
 		else
 		{
-			CalcMotorPeriStep_CPF((fi + fj) / 2, 0, M_T_AA, M_T_UA, M_T_RA, MotorTimeTable, MotorStepTable);
+			CalcMotorPeriStep_CPF((fi + fj) / 2, 0, 100, M_T_AA, M_T_UA, M_T_RA, MotorTimeTable, MotorStepTable);
 		}
 		pmotor->en = 1;
 		pmotor->dir = dir;
@@ -826,12 +535,12 @@ void Find_BestTimeCost(unsigned char ID, unsigned long long time_cost, unsigned 
 			}
 		}
 	}
-	CalcMotorPeriStep_CPF((fi_o + fj_o) / 2, (i_o + j_o) / 2.0, M_T_AA, M_T_UA, M_T_RA, MotorTimeTable, MotorStepTable);
+	CalcMotorPeriStep_CPF((fi_o + fj_o) / 2, (i_o + j_o) / 2.0, 100, M_T_AA, M_T_UA, M_T_RA, MotorTimeTable, MotorStepTable);
 }
 
 /**************************************************************************************
 启动电机按照S型曲线参数运行*/
-void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_S, uint32_t AccSpeed_S)
+void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree)
 {
 	unsigned int PulsesGiven = 0;
 	MOTOR_CONTROL_S *pmotor = NULL;
@@ -847,6 +556,16 @@ void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, ui
 			MOTOR1_DIR_FORWARD();
 		else
 			MOTOR1_DIR_REVERSAL();
+
+		pmotor->en = 1;
+		pmotor->dir = dir;
+		pmotor->running = 1;
+		pmotor->PulsesHaven = 0;
+		PulsesGiven = Degree;
+		pmotor->Time_Cost_Act = 0;
+		pmotor->PulsesGiven = PulsesGiven * pmotor->divnum;
+		Motor_Reinitial(MotorID);
+		TIM2->CR1 |= (TIM_CR1_CEN); //启动定时器
 		break;
 	case 2:
 		pmotor = &motor2;
@@ -854,6 +573,16 @@ void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, ui
 			MOTOR2_DIR_FORWARD();
 		else
 			MOTOR2_DIR_REVERSAL();
+
+		pmotor->en = 1;
+		pmotor->dir = dir;
+		pmotor->running = 1;
+		pmotor->PulsesHaven = 0;
+		PulsesGiven = Degree;
+		pmotor->Time_Cost_Act = 0;
+		pmotor->PulsesGiven = PulsesGiven * pmotor->divnum;
+		Motor_Reinitial(MotorID);
+		TIM4->CR1 |= (TIM_CR1_CEN);
 		break;
 	case 3:
 		pmotor = &motor3;
@@ -861,6 +590,16 @@ void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, ui
 			MOTOR3_DIR_FORWARD();
 		else
 			MOTOR3_DIR_REVERSAL();
+
+		pmotor->en = 1;
+		pmotor->dir = dir;
+		pmotor->running = 1;
+		pmotor->PulsesHaven = 0;
+		PulsesGiven = Degree;
+		pmotor->Time_Cost_Act = 0;
+		pmotor->PulsesGiven = PulsesGiven * pmotor->divnum;
+		Motor_Reinitial(MotorID);
+		TIM8->CR1 |= (TIM_CR1_CEN);
 		break;
 	case 4:
 		pmotor = &motor4;
@@ -868,6 +607,16 @@ void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, ui
 			MOTOR4_DIR_FORWARD();
 		else
 			MOTOR4_DIR_REVERSAL();
+
+		pmotor->en = 1;
+		pmotor->dir = dir;
+		pmotor->running = 1;
+		pmotor->PulsesHaven = 0;
+		PulsesGiven = Degree;
+		pmotor->Time_Cost_Act = 0;
+		pmotor->PulsesGiven = PulsesGiven * pmotor->divnum;
+		Motor_Reinitial(MotorID);
+		TIM3->CR1 |= (TIM_CR1_CEN);
 		break;
 	case 5:
 		pmotor = &motor5;
@@ -875,6 +624,16 @@ void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, ui
 			MOTOR5_DIR_FORWARD();
 		else
 			MOTOR5_DIR_REVERSAL();
+
+		pmotor->en = 1;
+		pmotor->dir = dir;
+		pmotor->running = 1;
+		pmotor->PulsesHaven = 0;
+		PulsesGiven = Degree;
+		pmotor->Time_Cost_Act = 0;
+		pmotor->PulsesGiven = PulsesGiven * pmotor->divnum;
+		Motor_Reinitial(MotorID);
+		TIM1->CR1 |= (TIM_CR1_CEN);
 		break;
 	case 6:
 		pmotor = &motor6;
@@ -882,151 +641,19 @@ void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, ui
 			MOTOR6_DIR_FORWARD();
 		else
 			MOTOR6_DIR_REVERSAL();
+
+		pmotor->en = 1;
+		pmotor->dir = dir;
+		pmotor->running = 1;
+		pmotor->PulsesHaven = 0;
+		PulsesGiven = Degree;
+		pmotor->Time_Cost_Act = 0;
+		pmotor->PulsesGiven = PulsesGiven * pmotor->divnum;
+		Motor_Reinitial(MotorID);
+		TIM5->CR1 |= (TIM_CR1_CEN);
 		break;
 	default:
 		return;
-	}
-	pmotor->en = 1;
-	pmotor->dir = dir;
-	pmotor->running = 1;
-	pmotor->PulsesHaven = 0;
-	PulsesGiven = Degree;
-	pmotor->Time_Cost_Act = 0;
-	pmotor->PulsesGiven = PulsesGiven * pmotor->divnum;
-	Motor_Reinitial(MotorID);
-	pmotor->CurrentIndex = 0;
-	pmotor->speedenbale = 0;
-
-	pmotor->TIMx->ARR = Motor1TimeTable[0]; //设置周期
-	// pmotor->TIMx->CCR1 = Motor1TimeTable[0] >> 1; //设置占空比
-	if (pmotor->TIMx == TIM2)
-	{
-		pmotor->TIMx->CCR2 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
-	}
-	else if (pmotor->TIMx == TIM4)
-	{
-		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
-	}
-	else if (pmotor->TIMx == TIM8)
-	{
-		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
-	}
-	else if (pmotor->TIMx == TIM3)
-	{
-		pmotor->TIMx->CCR4 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
-	}
-	else if (pmotor->TIMx == TIM1)
-	{
-		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
-	}
-	else if (pmotor->TIMx == TIM5)
-	{
-		pmotor->TIMx->CCR1 = (pmotor->Counter_Table[pmotor->CurrentIndex]) >> 1; //设置占空比
-		pmotor->TIMx->CNT = 0;
-	}
-	// TIM_Cmd(pmotor->TIMx, ENABLE);				  //DISABLE
-	switch (MotorID)
-	{
-	case 1:
-		pmotor = &motor1;
-		htim2_MOTOR1.Instance = pmotor->TIMx;
-		HAL_TIM_Base_Start(&htim2_MOTOR1);
-		break;
-	case 2:
-		pmotor = &motor2;
-		htim4_MOTOR2.Instance = pmotor->TIMx;
-		HAL_TIM_Base_Start(&htim4_MOTOR2);
-		break;
-	case 3:
-		pmotor = &motor3;
-		htim8_MOTOR3.Instance = pmotor->TIMx;
-		HAL_TIM_Base_Start(&htim8_MOTOR3);
-		break;
-	case 4:
-		pmotor = &motor4;
-		htim3_MOTOR4.Instance = pmotor->TIMx;
-		HAL_TIM_Base_Start(&htim3_MOTOR4);
-		break;
-	case 5:
-		pmotor = &motor5;
-		htim1_MOTOR5.Instance = pmotor->TIMx;
-		HAL_TIM_Base_Start(&htim1_MOTOR5);
-		break;
-	case 6:
-		pmotor = &motor6;
-		htim5_MOTOR6.Instance = pmotor->TIMx;
-		HAL_TIM_Base_Start(&htim5_MOTOR6);
-		break;
-	default:
-		return;
-	}; // 禁止使能定时器     YLS 04.22
-}
-
-// /*启动电机按照SPTA方式运行*/
-// void Start_Motor_SPTA(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA)
-// {
-// 	unsigned int PulsesGiven = 0;
-// 	MOTOR_CONTROL_SPTA *pmotor = NULL;
-// 	if (Degree == 0)
-// 	{
-// 		return;
-// 	}
-// 	switch (MotorID)
-// 	{
-// 	case 4:
-// 		pmotor = &motor4;
-// 		if (0 == dir)
-// 		{
-// 			//		    GPIO_SetBits(GPIOB,GPIO_Pin_9);
-// 			MOTOR4_DIR_FORWARD();
-// 		}
-// 		else
-// 		{
-// 			//		    GPIO_ResetBits(GPIOB,GPIO_Pin_9);
-// 			MOTOR4_DIR_REVERSAL();
-// 		}
-// 		break;
-// 	default:
-// 		return;
-// 	}
-
-// 	pmotor->en = 1;
-// 	pmotor->dir = dir;
-// 	pmotor->running = 1;
-// 	pmotor->speedenbale = 0;
-// 	PulsesGiven = Degree;
-// 	pmotor->step_move = PulsesGiven * pmotor->divnum;
-// 	pmotor->step_middle = pmotor->step_move >> 1;
-// 	/*FIXME:这两个参数可以由用户自行改变测试*/
-// 	pmotor->step_spmax = MaxSpeed_SPTA; //SPTA最大速度 MAXSPEED_SPTA
-// 	pmotor->step_accel = AccSpeed_SPTA; //SPTA加速度 ACCSPEED_SPTA
-// 	pmotor->step_state = ACCELERATING;
-// 	pmotor->step_frac = 0;
-// 	pmotor->speed_frac = 0;
-// 	pmotor->step_acced = 0;
-// 	pmotor->step_speed = 0;
-// 	pmotor->step_count = 0;
-
-// 	// TIM_Cmd(pmotor->TIMx, ENABLE);
-// 	htim3_MOTOR4.Instance = pmotor->TIMx;
-// 	HAL_TIM_Base_Start(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.22
-// }
-
-/*启动电机，根据电机号决定调用哪个*/
-void Start_Motor(unsigned char MotorID, unsigned char dir, unsigned int Degree, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA)
-{
-	if (MotorID > 3)
-	{
-		// Start_Motor_S(MotorID, dir, Degree);
-	}
-	else
-	{
-		Start_Motor_SPTA(MotorID, dir, Degree, MaxSpeed_SPTA, AccSpeed_SPTA);
 	}
 }
 
@@ -1034,7 +661,6 @@ void Start_Motor(unsigned char MotorID, unsigned char dir, unsigned int Degree, 
 void Reposition_Motor(unsigned char MotorID, unsigned int NewPos, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA)
 {
 	MOTOR_CONTROL_S *pmotor_s = NULL;
-	MOTOR_CONTROL_SPTA *pmotor_spta = NULL;
 	switch (MotorID)
 	{
 	case 1:
@@ -1124,38 +750,31 @@ void SetSpeed(unsigned char MotorID, signed char speedindex)
 	unsigned int destspeed;
 	unsigned int stepstostop = 0;
 	MOTOR_CONTROL_S *pmotor_s = NULL;
-	MOTOR_CONTROL_SPTA *pmotor_spta = NULL;
 	switch (MotorID)
 	{
 	case 1:
 		pmotor_s = &motor1;
-		htim2_MOTOR1.Instance = pmotor_s->TIMx;
-		HAL_TIM_Base_Stop(&htim2_MOTOR1); // 禁止使能定时器     YLS 04.29
+		TIM2->CR1 &= ~(TIM_CR1_CEN); //停止定時器
 		break;
 	case 2:
 		pmotor_s = &motor2;
-		htim4_MOTOR2.Instance = pmotor_s->TIMx;
-		HAL_TIM_Base_Stop(&htim4_MOTOR2); // 禁止使能定时器     YLS 04.29
+		TIM4->CR1 &= ~(TIM_CR1_CEN);
 		break;
 	case 3:
 		pmotor_s = &motor3;
-		htim8_MOTOR3.Instance = pmotor_s->TIMx;
-		HAL_TIM_Base_Stop(&htim8_MOTOR3); // 禁止使能定时器     YLS 04.29
+		TIM8->CR1 &= ~(TIM_CR1_CEN);
 		break;
 	case 4:
 		pmotor_s = &motor4;
-		htim3_MOTOR4.Instance = pmotor_s->TIMx;
-		HAL_TIM_Base_Stop(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.29
+		TIM3->CR1 &= ~(TIM_CR1_CEN);
 		break;
 	case 5:
 		pmotor_s = &motor5;
-		htim1_MOTOR5.Instance = pmotor_s->TIMx;
-		HAL_TIM_Base_Stop(&htim1_MOTOR5); // 禁止使能定时器     YLS 04.29
+		TIM1->CR1 &= ~(TIM_CR1_CEN);
 		break;
 	case 6:
 		pmotor_s = &motor6;
-		htim5_MOTOR6.Instance = pmotor_s->TIMx;
-		HAL_TIM_Base_Stop(&htim5_MOTOR6); // 禁止使能定时器     YLS 04.29
+		TIM5->CR1 &= ~(TIM_CR1_CEN);
 		break;
 	default:
 		return;
@@ -1163,8 +782,6 @@ void SetSpeed(unsigned char MotorID, signed char speedindex)
 	if (pmotor_s != NULL)
 	{
 		// TIM_Cmd(pmotor_s->TIMx, DISABLE);
-		// htim_MOTOR_G.Instance = pmotor_s->TIMx;
-		// HAL_TIM_Base_Stop(&htim_MOTOR_G); // 禁止使能定时器     YLS 04.22
 		if (speedindex >= 0 && speedindex <= STEP_AA + STEP_UA + STEP_RA)
 		{
 			//直接向下一速度
@@ -1230,34 +847,22 @@ void SetSpeed(unsigned char MotorID, signed char speedindex)
 		switch (MotorID)
 		{
 		case 1:
-			pmotor_s = &motor1;
-			htim2_MOTOR1.Instance = pmotor_s->TIMx;
-			HAL_TIM_Base_Start(&htim2_MOTOR1); // 禁止使能定时器     YLS 04.29
+			TIM2->CR1 |= (TIM_CR1_CEN);
 			break;
 		case 2:
-			pmotor_s = &motor2;
-			htim4_MOTOR2.Instance = pmotor_s->TIMx;
-			HAL_TIM_Base_Start(&htim4_MOTOR2); // 禁止使能定时器     YLS 04.29
+			TIM4->CR1 |= (TIM_CR1_CEN);
 			break;
 		case 3:
-			pmotor_s = &motor3;
-			htim8_MOTOR3.Instance = pmotor_s->TIMx;
-			HAL_TIM_Base_Start(&htim8_MOTOR3); // 禁止使能定时器     YLS 04.29
+			TIM8->CR1 |= (TIM_CR1_CEN);
 			break;
 		case 4:
-			pmotor_s = &motor4;
-			htim3_MOTOR4.Instance = pmotor_s->TIMx;
-			HAL_TIM_Base_Start(&htim3_MOTOR4); // 禁止使能定时器     YLS 04.29
+			TIM3->CR1 |= (TIM_CR1_CEN);
 			break;
 		case 5:
-			pmotor_s = &motor5;
-			htim1_MOTOR5.Instance = pmotor_s->TIMx;
-			HAL_TIM_Base_Start(&htim1_MOTOR5); // 禁止使能定时器     YLS 04.29
+			TIM1->CR1 |= (TIM_CR1_CEN);
 			break;
 		case 6:
-			pmotor_s = &motor6;
-			htim5_MOTOR6.Instance = pmotor_s->TIMx;
-			HAL_TIM_Base_Start(&htim5_MOTOR6); // 禁止使能定时器     YLS 04.29
+			TIM5->CR1 |= (TIM_CR1_CEN);
 			break;
 		default:
 			return;
@@ -1269,7 +874,6 @@ void SetSpeed(unsigned char MotorID, signed char speedindex)
 void SetPosition(unsigned char MotorID, unsigned int dest, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA)
 {
 	MOTOR_CONTROL_S *pmotor_s = NULL;
-	MOTOR_CONTROL_SPTA *pmotor_spta = NULL;
 	switch (MotorID)
 	{
 	case 1:
@@ -1315,7 +919,6 @@ void SetPosition(unsigned char MotorID, unsigned int dest, uint32_t MaxSpeed_SPT
 void Do_Reset(unsigned char MotorID)
 {
 	MOTOR_CONTROL_S *pmotor_s = NULL;
-	MOTOR_CONTROL_SPTA *pmotor_spta = NULL;
 	switch (MotorID)
 	{
 	case 1:
@@ -1411,7 +1014,7 @@ void Deal_Cmd(void)
 	} 
 }
   */
-/*电机1的PWM输出初始化，使用的是定时器4*/
+/*电机1的PWM输出初始化*/
 void Initial_PWM_Motor1(void)
 {
 	TIM_OC_InitTypeDef sConfigOC; // 定时器通道比较输出
@@ -1435,7 +1038,7 @@ void Initial_PWM_Motor1(void)
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
 	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
-	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
+	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平TIM_OCIDLESTATE_RESET
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
 	HAL_TIM_PWM_ConfigChannel(&htim2_MOTOR1, &sConfigOC, MOTOR1_TIM2_CHANNEL_x);
 	/* 使能比较输出通道 */
@@ -1447,7 +1050,7 @@ void Initial_PWM_Motor1(void)
 
 	//清中断，以免一启用中断后立即产生中断
 	// TIM_ClearFlag(TIM1, TIM_FLAG_Update);
-	__HAL_TIM_CLEAR_FLAG(&htim2_MOTOR1, MOTOR1_TIM2_FLAG_CCx);
+	// __HAL_TIM_CLEAR_FLAG(&htim2_MOTOR1, MOTOR1_TIM2_FLAG_CCx);
 	__HAL_TIM_CLEAR_FLAG(&htim2_MOTOR1, TIM_IT_UPDATE);
 
 	//使能TIM1中断源
@@ -1485,7 +1088,7 @@ void Initial_PWM_Motor2(void)
 	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
 	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
-	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
+	sConfigOC.OCIdleState = TIM_OCIDLESTATE_SET;	 // 空闲电平TIM_OCIDLESTATE_RESET
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
 	HAL_TIM_PWM_ConfigChannel(&htim4_MOTOR2, &sConfigOC, MOTOR2_TIM4_CHANNEL_x);
 	/* 使能比较输出通道 */
@@ -1496,7 +1099,7 @@ void Initial_PWM_Motor2(void)
 	HAL_NVIC_EnableIRQ(MOTOR2_TIM4_IRQn);
 
 	//清中断，以免一启用中断后立即产生中断
-	__HAL_TIM_CLEAR_FLAG(&htim4_MOTOR2, MOTOR2_TIM4_FLAG_CCx);
+	// __HAL_TIM_CLEAR_FLAG(&htim4_MOTOR2, MOTOR2_TIM4_FLAG_CCx);
 	__HAL_TIM_CLEAR_FLAG(&htim4_MOTOR2, TIM_IT_UPDATE);
 
 	//使能TIM1中断源
@@ -1546,7 +1149,7 @@ void Initial_PWM_Motor3(void)
 
 	//清中断，以免一启用中断后立即产生中断
 	// TIM_ClearFlag(TIM8, TIM_FLAG_Update);
-	__HAL_TIM_CLEAR_FLAG(&htim8_MOTOR3, MOTOR3_TIM8_FLAG_CCx);
+	// __HAL_TIM_CLEAR_FLAG(&htim8_MOTOR3, MOTOR3_TIM8_FLAG_CCx);
 	__HAL_TIM_CLEAR_FLAG(&htim8_MOTOR3, TIM_IT_UPDATE);
 
 	//使能TIM8中断源
@@ -1646,7 +1249,7 @@ void Initial_PWM_Motor5(void)
 
 	//清中断，以免一启用中断后立即产生中断
 	// TIM_ClearFlag(TIM1, TIM_FLAG_Update);
-	__HAL_TIM_CLEAR_FLAG(&htim1_MOTOR5, MOTOR5_TIM1_FLAG_CCx);
+	// __HAL_TIM_CLEAR_FLAG(&htim1_MOTOR5, MOTOR5_TIM1_FLAG_CCx);
 	__HAL_TIM_CLEAR_FLAG(&htim1_MOTOR5, TIM_IT_UPDATE);
 
 	//使能TIM1中断源
@@ -1696,7 +1299,7 @@ void Initial_PWM_Motor6(void)
 
 	//清中断，以免一启用中断后立即产生中断
 	// TIM_ClearFlag(TIM5, TIM_FLAG_Update);
-	__HAL_TIM_CLEAR_FLAG(&htim5_MOTOR6, MOTOR6_TIM5_FLAG_CCx);
+	// __HAL_TIM_CLEAR_FLAG(&htim5_MOTOR6, MOTOR6_TIM5_FLAG_CCx);
 	__HAL_TIM_CLEAR_FLAG(&htim5_MOTOR6, TIM_IT_UPDATE);
 
 	//使能TIM5中断源
@@ -1710,33 +1313,49 @@ void Initial_PWM_Motor6(void)
 	HAL_TIM_Base_Stop(&htim5_MOTOR6); // 使能定时器
 	__HAL_TIM_MOE_ENABLE(&htim5_MOTOR6);
 }
-//void EXTI_Configuration(void)
-//{
-//  EXTI_InitTypeDef EXTI_InitStructure;        //EXTI初始化结构定义
-//   GPIO_InitTypeDef  GPIO_InitStructure;
-//   NVIC_InitTypeDef NVIC_InitStructure;
-//
-//   RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOE | RCC_APB2Periph_AFIO, ENABLE);	 //E0-E5  时针使能
-//
-//   GPIO_InitStructure.GPIO_Pin =GPIO_Pin_4;//选择引脚
-//   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_IN_FLOATING;
-//   GPIO_Init(GPIOE, &GPIO_InitStructure);
-//
-//
-//	NVIC_InitStructure.NVIC_IRQChannel = EXTI4_IRQn;
-//	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;
-//	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;
-//	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
-//	NVIC_Init(&NVIC_InitStructure);
-//
-//
-//   EXTI_ClearITPendingBit(EXTI_Line4);//清除中断标志
-//   GPIO_EXTILineConfig(GPIO_PortSourceGPIOE, GPIO_PinSource4);
-//
-//    EXTI_InitStructure.EXTI_Mode = EXTI_Mode_Interrupt;//事件选择
-//   EXTI_InitStructure.EXTI_Trigger = EXTI_Trigger_Falling;//触发模式
-//   EXTI_InitStructure.EXTI_Line = EXTI_Line4; //线路选择
-//   EXTI_InitStructure.EXTI_LineCmd = ENABLE;//启动中断
-//   EXTI_Init(&EXTI_InitStructure);//初始化
-//
-//}
+
+//启动电机运行
+void Run_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_S, uint32_t AccSpeed_Para)
+{
+	switch (MotorID)
+	{
+	case 1:
+		Pw_Motor1_FRE_AA = (MaxSpeed_S * Pw_Motor1_PULSENUM / 60 - Pw_Motor1_FRE_START) / (Motor1_XiShu_1 * M_T_AA * M_T_AA + M_T_AA * M_T_UA + Motor1_XiShu_1 * M_T_AA * M_T_RA);
+		CalcMotorPeriStep_CPF(Pw_Motor1_FRE_START, Pw_Motor1_FRE_AA, AccSpeed_Para, M_T_AA, M_T_UA, M_T_RA, Motor1TimeTable, Motor1StepTable);
+		Initial_Motor(1, M1DIV, MAX_POSITION);
+		Start_Motor_S(1, M1_CLOCKWISE, Degree);
+		break;
+	case 2:
+		Pw_Motor2_FRE_AA = (MaxSpeed_S * Pw_Motor2_PULSENUM / 60 - Pw_Motor2_FRE_START) / (Motor2_XiShu_1 * M_T_AA * M_T_AA + M_T_AA * M_T_UA + Motor2_XiShu_1 * M_T_AA * M_T_RA);
+		CalcMotorPeriStep_CPF(Pw_Motor2_FRE_START, Pw_Motor2_FRE_AA, AccSpeed_Para, M_T_AA, M_T_UA, M_T_RA, Motor2TimeTable, Motor2StepTable);
+		Initial_Motor(2, M2DIV, MAX_POSITION);
+		Start_Motor_S(2, M2_CLOCKWISE, Degree);
+		break;
+	case 3:
+		Pw_Motor3_FRE_AA = (MaxSpeed_S * Pw_Motor3_PULSENUM / 60 - Pw_Motor3_FRE_START) / (Motor3_XiShu_1 * M_T_AA * M_T_AA + M_T_AA * M_T_UA + Motor3_XiShu_1 * M_T_AA * M_T_RA);
+		CalcMotorPeriStep_CPF(Pw_Motor3_FRE_START, Pw_Motor3_FRE_AA, AccSpeed_Para, M_T_AA, M_T_UA, M_T_RA, Motor3TimeTable, Motor3StepTable);
+		Initial_Motor(3, M3DIV, MAX_POSITION);
+		Start_Motor_S(3, M3_CLOCKWISE, Degree);
+		break;
+	case 4:
+		Pw_Motor4_FRE_AA = (MaxSpeed_S * Pw_Motor4_PULSENUM / 60 - Pw_Motor4_FRE_START) / (Motor4_XiShu_1 * M_T_AA * M_T_AA + M_T_AA * M_T_UA + Motor4_XiShu_1 * M_T_AA * M_T_RA);
+		CalcMotorPeriStep_CPF(Pw_Motor4_FRE_START, Pw_Motor4_FRE_AA, AccSpeed_Para, M_T_AA, M_T_UA, M_T_RA, Motor4TimeTable, Motor4StepTable);
+		Initial_Motor(4, M4DIV, MAX_POSITION);
+		Start_Motor_S(4, M4_CLOCKWISE, Degree);
+		break;
+	case 5:
+		Pw_Motor5_FRE_AA = (MaxSpeed_S * Pw_Motor5_PULSENUM / 60 - Pw_Motor5_FRE_START) / (Motor5_XiShu_1 * M_T_AA * M_T_AA + M_T_AA * M_T_UA + Motor5_XiShu_1 * M_T_AA * M_T_RA);
+		CalcMotorPeriStep_CPF(Pw_Motor5_FRE_START, Pw_Motor5_FRE_AA, AccSpeed_Para, M_T_AA, M_T_UA, M_T_RA, Motor5TimeTable, Motor5StepTable);
+		Initial_Motor(5, M5DIV, MAX_POSITION);
+		Start_Motor_S(5, M5_CLOCKWISE, Degree);
+		break;
+	case 6:
+		Pw_Motor6_FRE_AA = (MaxSpeed_S * Pw_Motor6_PULSENUM / 60 - Pw_Motor6_FRE_START) / (Motor6_XiShu_1 * M_T_AA * M_T_AA + M_T_AA * M_T_UA + Motor6_XiShu_1 * M_T_AA * M_T_RA);
+		CalcMotorPeriStep_CPF(Pw_Motor6_FRE_START, Pw_Motor6_FRE_AA, AccSpeed_Para, M_T_AA, M_T_UA, M_T_RA, Motor6TimeTable, Motor6StepTable);
+		Initial_Motor(6, M6DIV, MAX_POSITION);
+		Start_Motor_S(6, M6_CLOCKWISE, Degree);
+		break;
+	default:
+		return;
+	}
+}

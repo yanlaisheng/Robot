@@ -15,7 +15,6 @@
 /* Includes ------------------------------------------------------------------*/
 //#include "stm32f40x.h"
 
-#define TERMADDR 240               // 模拟量端子配置地址。（开关量端子配置的部分删除，周成磊 2007.10.29）
 #define SECTORWORDNUM 256          // 扇区字数量
 #define FLASH_PAR_SIZE 255         // NV参数数量
 #define FLASH_ID_SIZE 128          // ID参数数量
@@ -43,25 +42,6 @@
 #define FMADD_FLASH_REC_NUM 514
 #define FMADD_FAULT_REC_NUM 516 //定义在前，为了跟SM510对应起来
 #define FMADD_FAULT_REC_NO 518
-
-#define FMADD_PUMP_RUN_TIME 520 // (15个字,30个字节) 水泵运行时间
-#define FMADD_PUMP1_RUN_NUM 550 // (5个字,10个字节) 水泵运行次数
-#define FMADD_PUMP2_RUN_NUM 552
-#define FMADD_PUMP3_RUN_NUM 554
-#define FMADD_PUMP4_RUN_NUM 556
-#define FMADD_PUMP5_RUN_NUM 558
-#define FMADD_PUMP1_FAULT_NUM 560 // (5个字,10个字节)	水泵故障次数
-#define FMADD_PUMP2_FAULT_NUM 562
-#define FMADD_PUMP3_FAULT_NUM 564
-#define FMADD_PUMP4_FAULT_NUM 566
-#define FMADD_PUMP5_FAULT_NUM 568
-
-#define FMADD_PLUSE_NUM 580
-#define FMADD_DDBPLUSE_NUM 584
-
-#define FMADD_VOICE_VALUE 44 * 2
-#define FMADD_SETP 2 * 2
-#define FMADD_FAULT 1536 //故障内容记录地址 存入FMRAM
 
 #define TXD1_MAX 255 // 最大发送数量
 #define RCV1_MAX 255 // 接收缓冲区长度 //256*8.5
@@ -120,11 +100,6 @@
 
 #define PGout(n) BIT_ADDR(GPIOG_ODR_Addr, n) //输出
 #define PGin(n) BIT_ADDR(GPIOG_IDR_Addr, n)  //输入
-
-#define RS485_CON PAout(0)   //RS485控制端		//ZCL 2018.12.8 V2版这个口没有使用控制端
-#define RS485_2_CON PBout(9) //RS485 2控制端	//ZCL 2018.12.8 V2版这个口没有使用控制端
-
-#define RS485_5_CON PAout(1) //RS485 5控制端	//ZCL 2018.12.8 V2版这个口使用
 
 #define COM1_DATA PDout(8)  //=1,灭；=0,亮	就是：Data 指示灯 ！！！
 #define COM0_DATA PDout(15) //=1,灭；=0,亮
@@ -195,122 +170,86 @@
 #define FRE_MAX 35000                //最高的运行频率，调这个参数调节匀速时的最高速度35000
 
 // 定义设定参数
-#define Pw_Motor1SendPulse w_ParLst[0]    // 电机1发送脉冲数
-#define Pw_Motor1SendPulse_HW w_ParLst[1] // 电机1发送脉冲数高字
-#define Pw_Motor1_ACCSpeed w_ParLst[2]    // 电机1加速度
-#define Pw_Motor1_ACCSpeed_HW w_ParLst[3] // 电机1加速度高字
-#define Pw_Motor1_SetSpeed w_ParLst[4]    // 电机1设定速度
-#define Pw_Motor1_SetSpeed_HW w_ParLst[5] // 电机1设定速度高字
-#define Pw_Motor1_PULSENUM w_ParLst[6]    // 电机1每圈脉冲数
-#define Pw_VfToGpDelay w_ParLst[7]        // 变频转工频延时时间
-#define Pw_GpExitDelay w_ParLst[8]        // 工频退出延时时间
-#define Pw_ModPar w_ParLst[9]             // 修改参数
-#define Pw_MinRunFreqDec w_ParLst[10]     // 频率运行下降限制值(约15HZ)
-//#define	Pw_EquipmentNo			w_ParLst[11]	// 设备通讯地址
-#define Pw_PumpNum w_ParLst[12]          // 水泵数量
-#define Pw_TimeChangeMin w_ParLst[13]    // 定时交换分钟数
-#define Pw_VvvfResetMax w_ParLst[14]     // 变频器复位次数：初始化值5次
-#define Pw_CheckCycleMinute w_ParLst[15] // 巡检周期时间（分钟数）
-#define Pw_CheckRunFreq w_ParLst[16]     // 巡检运行频率：初始化值200，对应约20.0Hz
-#define Pw_CheckRunSec w_ParLst[17]      // 巡检泵运行时间：初始化值30秒
-#define Pw_EnableCheck w_ParLst[18]      // 使能巡检功能
-#define Pw_EnablePlayV w_ParLst[19]      // 允许放音
-#define Pw_BetweenPlaySec w_ParLst[20]   // 放音间隔时间
-#define Pw_VvvfComAddr w_ParLst[21]      // 变频器通讯地址
-#define Pw_Initial_F w_ParLst[22]        // 初始化标志，=0x5A，表示已经初始化
-#define Pw_ParInitial w_ParLst[23]       // 参数初始化
-#define Pos_Group_Select w_ParLst[24]    // 联动位置控制命令组选择（1-5组）
-#define Group_Select w_ParLst[25]        //参数组号选择
-#define Pw_Driver_PosDely w_ParLst[26]   // 位置写入后的延时，250ms
+#define Pw_Motor1SendPulse w_ParLst[0]     // 电机1发送脉冲数
+#define Pw_Motor1SendPulse_HW w_ParLst[1]  // 电机1发送脉冲数高字
+#define Pw_Motor1_ACCSpeed w_ParLst[2]     // 电机1加速度
+#define Pw_Motor1_ACCSpeed_HW w_ParLst[3]  // 电机1加速度高字
+#define Pw_Motor1_SetSpeed w_ParLst[4]     // 电机1设定速度
+#define Pw_Motor1_SetSpeed_HW w_ParLst[5]  // 电机1设定速度高字
+#define Pw_Motor1_PULSENUM w_ParLst[6]     // 电机1每圈脉冲数
+#define Pw_Motor1_FRE_START w_ParLst[7]    // 电机1启动频率
+#define Pw_Motor1_FRE_AA w_ParLst[8]       // 电机1加加速度
+#define Pw_ModPar w_ParLst[9]              // 修改参数
+#define Pw_Motor1_STEP_PARA w_ParLst[10]   // 电机1步进步数修正因子
+#define Pw_Motor1_maxposition w_ParLst[11] // 电机1最大位置
 
-#define Pw_EnableSmall w_ParLst[34]         // 小流量保压功能使能
-#define Pw_SmallHoldP w_ParLst[35]          // 小流量保压值
-#define Pw_InSmallFreqMinValue w_ParLst[36] // 小流量进入的最小频率值 (50)
-#define Pw_SmallRiseSec w_ParLst[37]        // 小流量上升时间(30)
-#define Pw_BetweenSmallSec w_ParLst[38]     // 小流量间隔时间 秒 (60秒)
-#define Pw_ExitSmallEk w_ParLst[39]         // 小流量退出偏差：初始化值3，对应0.03MP
-#define Pw_SmallStablePEk w_ParLst[40]      // 小流量恒压偏差  Invariable:恒定的
-#define Pw_SmallJudgeDelay w_ParLst[41]     // 小流量判断延时
-#define Pw_SoftOverPDelay w_ParLst[42]
-#define Pw_AlarmEn w_ParLst[43]
-#define Pw_VoiceValue w_ParLst[44] // 音量大小控制
-#define Pw_SetSecond w_ParLst[45]  // 设置秒	// 注意:地址不能随便改动,被数组使用  ZCL
-#define Pw_SetMinute w_ParLst[46]  // 设置分
-#define Pw_SetHour w_ParLst[47]    // 设置时
-#define Pw_SetDay w_ParLst[48]     // 设置日
-#define Pw_SetMonth w_ParLst[49]   // 设置月
-#define Pw_SetYear w_ParLst[50]    // 设置年
-#define Pw_SetWeek w_ParLst[51]    // 设置星期
-#define Pw_PID_Kc w_ParLst[52]     // 设置PID比例系数
-#define Pw_PID_Ts w_ParLst[53]     // 设置PID采样时间
-#define Pw_PID_Ti w_ParLst[54]     // 设置PID积分时间
-#define Pw_PID_Td w_ParLst[55]     // 设置PID微分时间
-//#define	Pw_SelCorpVoiceCont		w_ParLst[56]	// 选择公司简介放音内容
+#define Pw_Motor2SendPulse w_ParLst[16]    // 电机2发送脉冲数
+#define Pw_Motor2SendPulse_HW w_ParLst[17] // 电机2发送脉冲数高字
+#define Pw_Motor2_ACCSpeed w_ParLst[18]    // 电机2加速度
+#define Pw_Motor2_ACCSpeed_HW w_ParLst[19] // 电机2加速度高字
+#define Pw_Motor2_SetSpeed w_ParLst[20]    // 电机2设定速度
+#define Pw_Motor2_SetSpeed_HW w_ParLst[21] // 电机2设定速度高字
+#define Pw_Motor2_PULSENUM w_ParLst[22]    // 电机2每圈脉冲数
+#define Pw_Motor2_FRE_START w_ParLst[23]   // 电机2启动频率
+#define Pw_Motor2_FRE_AA w_ParLst[24]      // 电机2加加速度
+#define Pw_Motor2_STEP_PARA w_ParLst[25]   // 电机2步进步数修正因子
+#define Pw_Motor2_maxposition w_ParLst[26] // 电机2最大位置
 
-#define Pw_Module1Add w_ParLst[57] // SM510模块1地址       //子模块数量
-//#define	Pw_SelAnologStrobo		w_ParLst[58]	// 选择模拟量频闪灯指示
+#define Pw_Initial_F w_ParLst[40]      // 初始化标志，=0x5A，表示已经初始化
+#define Pw_ParInitial w_ParLst[41]     // 参数初始化
+#define Pos_Group_Select w_ParLst[42]  // 联动位置控制命令组选择（1-5组）
+#define Group_Select w_ParLst[43]      //参数组号选择
+#define Pw_Driver_PosDely w_ParLst[44] // 位置写入后的延时，250ms
 
-#define Pw_Module2Add w_ParLst[59] // SM510模块2地址		//控制MD304L画面
+#define Pw_Motor3SendPulse w_ParLst[51]    // 电机3发送脉冲数
+#define Pw_Motor3SendPulse_HW w_ParLst[52] // 电机3发送脉冲数高字
+#define Pw_Motor3_ACCSpeed w_ParLst[53]    // 电机3加速度
+#define Pw_Motor3_ACCSpeed_HW w_ParLst[54] // 电机3加速度高字
+#define Pw_Motor3_SetSpeed w_ParLst[55]    // 电机3设定速度
+#define Pw_Motor3_SetSpeed_HW w_ParLst[56] // 电机3设定速度高字
+#define Pw_Motor3_PULSENUM w_ParLst[57]    // 电机3每圈脉冲数
+#define Pw_Motor3_FRE_START w_ParLst[58]   // 电机3启动频率
+#define Pw_Motor3_FRE_AA w_ParLst[59]      // 电机3加加速度
+#define Pw_Motor3_STEP_PARA w_ParLst[60]   // 电机3步进步数修正因子
+#define Pw_Motor3_maxposition w_ParLst[61] // 电机3最大位置
 
-#define Pw_Motor4SendPulse w_ParLst[60]    // 电机4发送脉冲数
-#define Pw_Motor4SendPulse_HW w_ParLst[61] // 电机4发送脉冲数高字
-#define Pw_Motor4_ACCSpeed w_ParLst[62]    // 电机4加速度
-#define Pw_Motor4_ACCSpeed_HW w_ParLst[63] // 电机4加速度高字
-#define Pw_Motor4_SetSpeed w_ParLst[64]    // 电机4设定速度
-#define Pw_Motor4_SetSpeed_HW w_ParLst[65] // 电机4设定速度高字
-#define Pw_Motor4_PULSENUM w_ParLst[66]    // 电机4每圈脉冲数
+#define Pw_Motor4SendPulse w_ParLst[66]    // 电机4发送脉冲数
+#define Pw_Motor4SendPulse_HW w_ParLst[67] // 电机4发送脉冲数高字
+#define Pw_Motor4_ACCSpeed w_ParLst[68]    // 电机4加速度
+#define Pw_Motor4_ACCSpeed_HW w_ParLst[69] // 电机4加速度高字
+#define Pw_Motor4_SetSpeed w_ParLst[70]    // 电机4设定速度
+#define Pw_Motor4_SetSpeed_HW w_ParLst[71] // 电机4设定速度高字
+#define Pw_Motor4_PULSENUM w_ParLst[72]    // 电机4每圈脉冲数
+#define Pw_Motor4_FRE_START w_ParLst[73]   // 电机4启动频率
+#define Pw_Motor4_FRE_AA w_ParLst[74]      // 电机4加加速度
+#define Pw_Motor4_STEP_PARA w_ParLst[75]   // 电机4步进步数修正因子
+#define Pw_Motor4_maxposition w_ParLst[76] // 电机4最大位置
 
-#define Pw_Time1Run w_ParLst[67]  // 定时1启动
-#define Pw_Time1Stop w_ParLst[68] // 定时1停止
-#define Pw_Time1SetP w_ParLst[69] // 定时1设定压力
-#define Pw_Time2Run w_ParLst[70]  // 定时2启动
-#define Pw_Time2Stop w_ParLst[71] // 定时2停止
-#define Pw_Time2SetP w_ParLst[72] // 定时2设定压力
-#define Pw_Time3Run w_ParLst[73]  // 定时3启动
-#define Pw_Time3Stop w_ParLst[74] // 定时3停止
-#define Pw_Time3SetP w_ParLst[75] // 定时3设定压力
-#define Pw_Time4Run w_ParLst[76]  // 定时4启动
-#define Pw_Time4Stop w_ParLst[77] // 定时4停止
-#define Pw_Time4SetP w_ParLst[78] // 定时4设定压力
-#define Pw_Time5Run w_ParLst[79]  // 定时5启动
-#define Pw_Time5Stop w_ParLst[80] // 定时5停止
-#define Pw_Time5SetP w_ParLst[81] // 定时5设定压力
-#define Pw_Time6Run w_ParLst[82]  // 定时6启动
-#define Pw_Time6Stop w_ParLst[83] // 定时6停止
-#define Pw_Time6SetP w_ParLst[84] // 定时6设定压力
+#define Pw_Motor5SendPulse w_ParLst[81]    // 电机5发送脉冲数
+#define Pw_Motor5SendPulse_HW w_ParLst[82] // 电机5发送脉冲数高字
+#define Pw_Motor5_ACCSpeed w_ParLst[83]    // 电机5加速度
+#define Pw_Motor5_ACCSpeed_HW w_ParLst[84] // 电机5加速度高字
+#define Pw_Motor5_SetSpeed w_ParLst[85]    // 电机5设定速度
+#define Pw_Motor5_SetSpeed_HW w_ParLst[86] // 电机5设定速度高字
+#define Pw_Motor5_PULSENUM w_ParLst[87]    // 电机5每圈脉冲数
+#define Pw_Motor5_FRE_START w_ParLst[88]   // 电机5启动频率
+#define Pw_Motor5_FRE_AA w_ParLst[89]      // 电机5加加速度
+#define Pw_Motor5_STEP_PARA w_ParLst[90]   // 电机5步进步数修正因子
+#define Pw_Motor5_maxposition w_ParLst[91] // 电机5最大位置
 
-#define Pw_TimePwdStopPwd w_ParLst[85]        // 定时密码停机口令
-#define Pw_TimePwdStopMD w_ParLst[86]         // 定时密码停机月日
-#define Pw_InPSensorZero w_ParLst[87]         // 进水口压力传感器初值
-#define Pw_OutPSensorZero w_ParLst[88]        // 出水口压力传感器初值
-#define Pw_SmallNoStableSubOneEn w_ParLst[89] // 小流量不恒压减1使能
-#define Pw_InPSelect w_ParLst[90]             // 进水压力采集选择，=1通讯读取水泵，=0采集模拟量AI1
-#define Pw_ZhuoDuSelcet w_ParLst[91]
-#define Pw_YVLUSelcet w_ParLst[92]
-#define Pw_PHSelcet w_ParLst[93]
-#define Pw_InPBigOutDelay w_ParLst[94]  // 进水口大于出水口压力延时
-#define Pw_MaxSupplyDelay w_ParLst[95]  // 最大供水能力延时
-#define Pw_InPBigSetEn w_ParLst[96]     // 进水口大于设定压力使能
-#define Pw_InPBigOutEn w_ParLst[97]     // 进水口大于出水口压力使能
-#define Pw_MaxSupplyEn w_ParLst[98]     // 最大供水能力使能
-#define Pw_TimeChangeEn w_ParLst[99]    // 定时交换使能
-#define Pw_MaxFreqHex w_ParLst[100]     // 最大频率显示Hex值，校对频率
-#define Pw_VADelay w_ParLst[101]        // 电压电流显示延时MS，每隔此时间换算一次。 2007.11.1
-#define Pw_MaxPIDHex w_ParLst[102]      // 最大PID运算Hex值，控制电压最大值，暂用
-#define Pw_MaxAIHex w_ParLst[103]       // 最大模拟输入Hex值，校对模拟输入，一般不用调整
-#define Pw_AIFilterSetNum w_ParLst[104] // 模拟量过滤采样数目
-#define Pw_DIStableSetNum w_ParLst[105] // 开关量稳定数目
-#define Pw_SmallStart1 w_ParLst[106]
-#define Pw_SmallStop1 w_ParLst[107]
-#define Pw_SmallStart2 w_ParLst[108]
-#define Pw_SmallStop2 w_ParLst[109]
-#define Pw_SmallStart3 w_ParLst[110]
-#define Pw_SmallStop3 w_ParLst[111]
-#define Pw_HavewaterYeWei w_ParLst[112]
-#define Pw_NowaterYeWei w_ParLst[113]
-#define Pw_PowErrSwitchSel w_ParLst[114] // 电源故障开关选择  0=开点，1=闭点
-#define Pw_EquipType w_ParLst[115]       // 设备类型选择
+#define Pw_Motor6SendPulse w_ParLst[96]     // 电机6发送脉冲数
+#define Pw_Motor6SendPulse_HW w_ParLst[97]  // 电机6发送脉冲数高字
+#define Pw_Motor6_ACCSpeed w_ParLst[98]     // 电机6加速度
+#define Pw_Motor6_ACCSpeed_HW w_ParLst[99]  // 电机6加速度高字
+#define Pw_Motor6_SetSpeed w_ParLst[100]    // 电机6设定速度
+#define Pw_Motor6_SetSpeed_HW w_ParLst[101] // 电机6设定速度高字
+#define Pw_Motor6_PULSENUM w_ParLst[102]    // 电机6每圈脉冲数
+#define Pw_Motor6_FRE_START w_ParLst[103]   // 电机6启动频率
+#define Pw_Motor6_FRE_AA w_ParLst[104]      // 电机6加加速度
+#define Pw_Motor6_STEP_PARA w_ParLst[105]   // 电机6步进步数修正因子
+#define Pw_Motor6_maxposition w_ParLst[106] // 电机6最大位置
 
+#define Pw_DIStableSetNum w_ParLst[115]       // 开关量稳定数目
 #define Pr_Driver1_Control_OK_F w_ParLst[116] //1#伺服控制命令OK标志
 #define Pr_Driver2_Control_OK_F w_ParLst[117] //2#伺服控制命令OK标志
 #define Pr_Driver3_Control_OK_F w_ParLst[118] //3#伺服控制命令OK标志
@@ -318,26 +257,9 @@
 #define Pr_Driver5_Control_OK_F w_ParLst[120] //5#伺服控制命令OK标志
 #define Pr_Driver6_Control_OK_F w_ParLst[121] //6#伺服控制命令OK标志
 
-#define Pw_SendPWM w_ParLst[122]          // 发PWM波命令
-#define Pw_S_ParaInitial w_ParLst[123]    // S曲线初始化命令
-#define Pw_Motor1_FRE_START w_ParLst[124] // 电机1启动频率
-#define Pw_Motor1_FRE_AA w_ParLst[125]    // 电机1加加速度
-#define Pw_Motor1_STEP_PARA w_ParLst[126] // 电机1步进步数修正因子
+#define Pw_SendPWM w_ParLst[122]       // 发PWM波命令
+#define Pw_S_ParaInitial w_ParLst[123] // S曲线初始化命令
 
-//#define	Pw_Time1ChangeHM		w_ParLst[127]	// 定时1交换 小时分钟
-//#define	Pw_Time2ChangeHM		w_ParLst[128]	// 定时2交换 小时分钟
-//#define	Pw_Time3ChangeHM		w_ParLst[129]	// 定时3交换 小时分钟
-//#define	Pw_VfToGpEk					w_ParLst[130]	// 变频转工频 偏差
-//#define	Pw_GpExitEk					w_ParLst[131]	// 工频退出  偏差
-//#define	Pw_PowZCStartDelay		w_ParLst[132]	//电源正常 启泵延时  陈园园2018.12.12
-//#define	Pw_SedLLJAdd	        w_ParLst[133]	// 查询流量计瞬时流量地址
-//#define	Pw_SedLLJNum	        w_ParLst[134]	// 查询个数
-//#define	Pw_RecNo1	            w_ParLst[135]	//瞬时流量
-//#define	Pw_RecNo2	            w_ParLst[136]	//累计流量
-//#define	Pw_waterYeWeiHigh	    w_ParLst[137]	//水箱液位超高
-//#define	Pw_VfToGpEn				w_ParLst[138]	// 变频转工频使能
-//#define	Pw_CpuHotOffect			w_ParLst[139]	// Cpu自热效应温度
-//#define	Pw_PSensorProtectDelay	w_ParLst[140]	// 压力传感器保护延时 秒
 #define Pw_BaudRate1 w_ParLst[141] // 波特率1
 #define Pw_BaudRate2 w_ParLst[142] // 波特率2
 #define Pw_BaudRate3 w_ParLst[143] // 波特率3

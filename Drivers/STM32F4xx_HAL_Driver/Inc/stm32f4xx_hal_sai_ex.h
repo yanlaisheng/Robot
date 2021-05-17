@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -22,18 +22,17 @@
 #define __STM32F4xx_HAL_SAI_EX_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal_def.h"
 
-  /** @addtogroup STM32F4xx_HAL_Driver
+/** @addtogroup STM32F4xx_HAL_Driver
   * @{
   */
 
-  /** @addtogroup SAIEx
+/** @addtogroup SAIEx
   * @{
   */
 
@@ -47,33 +46,34 @@ extern "C"
   * @{
   */
 #if defined(STM32F413xx) || defined(STM32F423xx)
-#define SAI_CLKSOURCE_PLLI2S 0x00000000U
-#define SAI_CLKSOURCE_EXT 0x00100000U
-#define SAI_CLKSOURCE_PLLR 0x00200000U
-#define SAI_CLKSOURCE_HS 0x00300000U
+#define SAI_CLKSOURCE_PLLI2S             0x00000000U
+#define SAI_CLKSOURCE_EXT                0x00100000U
+#define SAI_CLKSOURCE_PLLR               0x00200000U
+#define SAI_CLKSOURCE_HS                 0x00300000U
 #else
-#define SAI_CLKSOURCE_PLLSAI 0x00000000U
-#define SAI_CLKSOURCE_PLLI2S 0x00100000U
-#define SAI_CLKSOURCE_EXT 0x00200000U
-#define SAI_CLKSOURCE_NA 0x00400000U /*!< No applicable for STM32F446xx */
+#define SAI_CLKSOURCE_PLLSAI             0x00000000U
+#define SAI_CLKSOURCE_PLLI2S             0x00100000U
+#define SAI_CLKSOURCE_EXT                0x00200000U
+#define SAI_CLKSOURCE_NA                 0x00400000U /*!< No applicable for STM32F446xx */
 #endif
 
-  /**
+
+/**
   * @}
   */
 
-  /* Exported functions --------------------------------------------------------*/
-  /** @addtogroup SAIEx_Exported_Functions
+/* Exported functions --------------------------------------------------------*/
+/** @addtogroup SAIEx_Exported_Functions
   * @{
   */
 
-  /** @addtogroup SAIEx_Exported_Functions_Group1
+/** @addtogroup SAIEx_Exported_Functions_Group1
   * @{
   */
 
-  /* Extended features functions ************************************************/
-  void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai);
-  uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai);
+/* Extended features functions ************************************************/
+void SAI_BlockSynchroConfig(SAI_HandleTypeDef *hsai);
+uint32_t SAI_GetInputClock(SAI_HandleTypeDef *hsai);
 /**
   * @}
   */
@@ -86,24 +86,24 @@ extern "C"
 /* Private constants ---------------------------------------------------------*/
 /* Private macros ------------------------------------------------------------*/
 #if defined(STM32F413xx) || defined(STM32F423xx)
-#define IS_SAI_CLK_SOURCE(SOURCE) (((SOURCE) == SAI_CLKSOURCE_PLLI2S) || \
-                                   ((SOURCE) == SAI_CLKSOURCE_EXT) ||    \
-                                   ((SOURCE) == SAI_CLKSOURCE_PLLR) ||   \
+#define IS_SAI_CLK_SOURCE(SOURCE) (((SOURCE) == SAI_CLKSOURCE_PLLI2S) ||\
+                                   ((SOURCE) == SAI_CLKSOURCE_EXT)||\
+                                   ((SOURCE) == SAI_CLKSOURCE_PLLR)||\
                                    ((SOURCE) == SAI_CLKSOURCE_HS))
 #else
-#define IS_SAI_CLK_SOURCE(SOURCE) (((SOURCE) == SAI_CLKSOURCE_PLLSAI) || \
-                                   ((SOURCE) == SAI_CLKSOURCE_EXT) ||    \
-                                   ((SOURCE) == SAI_CLKSOURCE_PLLI2S) || \
+#define IS_SAI_CLK_SOURCE(SOURCE) (((SOURCE) == SAI_CLKSOURCE_PLLSAI) ||\
+                                   ((SOURCE) == SAI_CLKSOURCE_EXT)||\
+                                   ((SOURCE) == SAI_CLKSOURCE_PLLI2S)||\
                                    ((SOURCE) == SAI_CLKSOURCE_NA))
 #endif
-  /* Private functions ---------------------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 
 #endif /* STM32F427xx || STM32F437xx || STM32F429xx || STM32F439xx || STM32F446xx || STM32F469xx || STM32F479xx || STM32F413xx || STM32F423xx */
-  /**
+/**
   * @}
   */
 
-  /**
+/**
   * @}
   */
 
@@ -113,4 +113,4 @@ extern "C"
 
 #endif /* __STM32F4xx_HAL_SAI_EX_H */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

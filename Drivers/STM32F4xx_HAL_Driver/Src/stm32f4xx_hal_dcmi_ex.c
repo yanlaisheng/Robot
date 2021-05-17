@@ -25,7 +25,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -49,7 +49,7 @@
 
 #ifdef HAL_DCMI_MODULE_ENABLED
 
-#if defined(STM32F407xx) || defined(STM32F417xx) || defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || \
+#if defined(STM32F407xx) || defined(STM32F417xx) || defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) ||\
     defined(STM32F439xx) || defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -80,9 +80,9 @@
 HAL_StatusTypeDef HAL_DCMI_Init(DCMI_HandleTypeDef *hdcmi)
 {
   /* Check the DCMI peripheral state */
-  if (hdcmi == NULL)
+  if(hdcmi == NULL)
   {
-    return HAL_ERROR;
+     return HAL_ERROR;
   }
 
   /* Check function parameters */
@@ -100,19 +100,19 @@ HAL_StatusTypeDef HAL_DCMI_Init(DCMI_HandleTypeDef *hdcmi)
   assert_param(IS_DCMI_LINE_SELECT_MODE(hdcmi->Init.LineSelectMode));
   assert_param(IS_DCMI_LINE_SELECT_START(hdcmi->Init.LineSelectStart));
 #endif /* STM32F446xx || STM32F469xx || STM32F479xx */
-  if (hdcmi->State == HAL_DCMI_STATE_RESET)
+  if(hdcmi->State == HAL_DCMI_STATE_RESET)
   {
     /* Allocate lock resource and initialize it */
     hdcmi->Lock = HAL_UNLOCKED;
     /* Init the low level hardware */
-    /* Init the DCMI Callback settings */
+  /* Init the DCMI Callback settings */
 #if (USE_HAL_DCMI_REGISTER_CALLBACKS == 1)
     hdcmi->FrameEventCallback = HAL_DCMI_FrameEventCallback; /* Legacy weak FrameEventCallback  */
     hdcmi->VsyncEventCallback = HAL_DCMI_VsyncEventCallback; /* Legacy weak VsyncEventCallback  */
-    hdcmi->LineEventCallback = HAL_DCMI_LineEventCallback;   /* Legacy weak LineEventCallback   */
-    hdcmi->ErrorCallback = HAL_DCMI_ErrorCallback;           /* Legacy weak ErrorCallback       */
+    hdcmi->LineEventCallback  = HAL_DCMI_LineEventCallback;  /* Legacy weak LineEventCallback   */
+    hdcmi->ErrorCallback      = HAL_DCMI_ErrorCallback;      /* Legacy weak ErrorCallback       */
 
-    if (hdcmi->MspInitCallback == NULL)
+    if(hdcmi->MspInitCallback == NULL)
     {
       /* Legacy weak MspInit Callback        */
       hdcmi->MspInitCallback = HAL_DCMI_MspInit;
@@ -128,31 +128,32 @@ HAL_StatusTypeDef HAL_DCMI_Init(DCMI_HandleTypeDef *hdcmi)
 
   /* Change the DCMI state */
   hdcmi->State = HAL_DCMI_STATE_BUSY;
-  /* Configures the HS, VS, DE and PC polarity */
-  hdcmi->Instance->CR &= ~(DCMI_CR_PCKPOL | DCMI_CR_HSPOL | DCMI_CR_VSPOL | DCMI_CR_EDM_0 |
-                           DCMI_CR_EDM_1 | DCMI_CR_FCRC_0 | DCMI_CR_FCRC_1 | DCMI_CR_JPEG |
+                          /* Configures the HS, VS, DE and PC polarity */
+  hdcmi->Instance->CR &= ~(DCMI_CR_PCKPOL | DCMI_CR_HSPOL  | DCMI_CR_VSPOL  | DCMI_CR_EDM_0 |\
+                           DCMI_CR_EDM_1  | DCMI_CR_FCRC_0 | DCMI_CR_FCRC_1 | DCMI_CR_JPEG  |\
                            DCMI_CR_ESS
 #if defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
-                           | DCMI_CR_BSM_0 | DCMI_CR_BSM_1 | DCMI_CR_OEBS |
+                           | DCMI_CR_BSM_0 | DCMI_CR_BSM_1 | DCMI_CR_OEBS |\
                            DCMI_CR_LSM | DCMI_CR_OELS
 #endif /* STM32F446xx || STM32F469xx || STM32F479xx */
-  );
-  hdcmi->Instance->CR |= (uint32_t)(hdcmi->Init.SynchroMode | hdcmi->Init.CaptureRate |
-                                    hdcmi->Init.VSPolarity | hdcmi->Init.HSPolarity |
-                                    hdcmi->Init.PCKPolarity | hdcmi->Init.ExtendedDataMode |
-                                    hdcmi->Init.JPEGMode
+                           );
+  hdcmi->Instance->CR |=  (uint32_t)(hdcmi->Init.SynchroMode | hdcmi->Init.CaptureRate |\
+                                     hdcmi->Init.VSPolarity  | hdcmi->Init.HSPolarity  |\
+                                     hdcmi->Init.PCKPolarity | hdcmi->Init.ExtendedDataMode |\
+                                     hdcmi->Init.JPEGMode
 #if defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
-                                    | hdcmi->Init.ByteSelectMode |
-                                    hdcmi->Init.ByteSelectStart | hdcmi->Init.LineSelectMode |
-                                    hdcmi->Init.LineSelectStart
+                                     | hdcmi->Init.ByteSelectMode |\
+                                     hdcmi->Init.ByteSelectStart | hdcmi->Init.LineSelectMode |\
+                                     hdcmi->Init.LineSelectStart
 #endif /* STM32F446xx || STM32F469xx || STM32F479xx */
-  );
-  if (hdcmi->Init.SynchroMode == DCMI_SYNCHRO_EMBEDDED)
+                                     );
+  if(hdcmi->Init.SynchroMode == DCMI_SYNCHRO_EMBEDDED)
   {
-    hdcmi->Instance->ESCR = (((uint32_t)hdcmi->Init.SyncroCode.FrameStartCode) |
-                             ((uint32_t)hdcmi->Init.SyncroCode.LineStartCode << DCMI_POSITION_ESCR_LSC) |
+    hdcmi->Instance->ESCR = (((uint32_t)hdcmi->Init.SyncroCode.FrameStartCode)    |
+                             ((uint32_t)hdcmi->Init.SyncroCode.LineStartCode << DCMI_POSITION_ESCR_LSC)|
                              ((uint32_t)hdcmi->Init.SyncroCode.LineEndCode << DCMI_POSITION_ESCR_LEC) |
                              ((uint32_t)hdcmi->Init.SyncroCode.FrameEndCode << DCMI_POSITION_ESCR_FEC));
+
   }
 
   /* Enable the Line, Vsync, Error and Overrun interrupts */
@@ -162,7 +163,7 @@ HAL_StatusTypeDef HAL_DCMI_Init(DCMI_HandleTypeDef *hdcmi)
   hdcmi->ErrorCode = HAL_DCMI_ERROR_NONE;
 
   /* Initialize the DCMI state*/
-  hdcmi->State = HAL_DCMI_STATE_READY;
+  hdcmi->State  = HAL_DCMI_STATE_READY;
 
   return HAL_OK;
 }
@@ -170,7 +171,7 @@ HAL_StatusTypeDef HAL_DCMI_Init(DCMI_HandleTypeDef *hdcmi)
 /**
   * @}
   */
-#endif /* STM32F407xx || STM32F417xx || STM32F427xx || STM32F437xx || STM32F429xx || \
+#endif /* STM32F407xx || STM32F417xx || STM32F427xx || STM32F437xx || STM32F429xx ||\
           STM32F439xx || STM32F446xx || STM32F469xx || STM32F479xx */
 #endif /* HAL_DCMI_MODULE_ENABLED */
 /**
@@ -181,4 +182,4 @@ HAL_StatusTypeDef HAL_DCMI_Init(DCMI_HandleTypeDef *hdcmi)
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -22,8 +22,7 @@
 #define __STM32F4xx_HAL_CRYP_EX_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -102,37 +101,37 @@ extern "C"
 /** @defgroup CRYPEx_Exported_Functions CRYPEx Exported Functions
   * @{
   */
-#if defined(CRYP) || defined(AES)
-  /** @addtogroup CRYPEx_Exported_Functions_Group1
+#if defined (CRYP) || defined (AES)
+/** @addtogroup CRYPEx_Exported_Functions_Group1
   * @{
   */
-  HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
-  HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
+HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout);
 /**
   * @}
   */
 #endif /* CRYP||AES */
 
-#if defined(AES)
-  /** @addtogroup CRYPEx_Exported_Functions_Group2
+#if defined (AES)
+/** @addtogroup CRYPEx_Exported_Functions_Group2
   * @{
   */
-  void HAL_CRYPEx_EnableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp);
-  void HAL_CRYPEx_DisableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp);
+void  HAL_CRYPEx_EnableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp);
+void  HAL_CRYPEx_DisableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp);
 /**
   * @}
   */
 #endif /* AES */
 
-  /**
+/**
   * @}
   */
 
-  /**
+/**
   * @}
   */
 
-  /**
+/**
   * @}
   */
 
@@ -142,4 +141,4 @@ extern "C"
 
 #endif /* __STM32F4xx_HAL_CRYP_EX_H */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

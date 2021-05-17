@@ -15,10 +15,13 @@
 #define M_T_UA 5          //电机频率的匀加速时间	   6
 #define M_T_RA 2          //电机频率的减加速时间 2
 
-#define M_XiShu_1 0.5  //系数1
-#define PULSENUM 10000 //每圈脉冲数
-
-// #define M_XiShu_2
+#define Motor1_XiShu_1 0.5 //系数1
+#define Motor2_XiShu_1 0.5 //系数1
+#define Motor3_XiShu_1 0.5 //系数1
+#define Motor4_XiShu_1 0.5 //系数1
+#define Motor5_XiShu_1 0.5 //系数1
+#define Motor6_XiShu_1 0.5 //系数1
+#define PULSENUM 10000     //每圈脉冲数
 
 //以下是S型参数
 #define F2TIME_PARA 10500000 //将频率值转换为定时器寄存器值得转换参数
@@ -27,7 +30,6 @@
 #define STEP_UA 31           //匀加速阶段，离散化点数
 #define STEP_RA 31           //减加速阶段，离散化点数
 
-#define USART1TXSIZE 1200
-#define USART1RXSIZE 128
+#define MAX_POSITION 8388608 //最大位置
 
 #endif

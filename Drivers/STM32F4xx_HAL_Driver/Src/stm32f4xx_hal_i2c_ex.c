@@ -28,7 +28,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -53,7 +53,7 @@
 
 #ifdef HAL_I2C_MODULE_ENABLED
 
-#if defined(I2C_FLTR_ANOFF) && defined(I2C_FLTR_DNF)
+#if  defined(I2C_FLTR_ANOFF)&&defined(I2C_FLTR_DNF)
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -63,6 +63,7 @@
 /** @defgroup I2CEx_Exported_Functions I2C Exported Functions
   * @{
   */
+
 
 /** @defgroup I2CEx_Exported_Functions_Group1 Extension features functions
  *  @brief   Extension features functions
@@ -180,4 +181,4 @@ HAL_StatusTypeDef HAL_I2CEx_ConfigDigitalFilter(I2C_HandleTypeDef *hi2c, uint32_
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -78,25 +78,19 @@ uint8_t bNetworkMap[42] = {DRIVE, None, None, None, None, None, None, None};
 #define NUM 1000
 uint32_t send_Buf[NUM] = {0};
 
-// 加速度和减速度选取一般根据实际需要，值越大速度变化越快，加减速阶段比较抖动
-// 所以加速度和减速度值一般是在实际应用中多尝试出来的结果
-__IO uint32_t step_accel = 10; // 加速度 单位为0.1rad/sec^2
-__IO uint32_t step_decel = 10; // 减速度 单位为0.1rad/sec^2
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
+void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 static int startflag = 0;
 int32_t targetp;
 
 int32_t current_Pos;
 int32_t current_Pos2;
-int32_t temp1;
-int32_t temp2, temp3, temp4;
-uint16_t Master_CMD;
-uint16_t Master_state;
-uint16_t current_state;
+// uint16_t Master_CMD;
+// uint16_t Master_state;
+// uint16_t current_state;
 int32_t distance; //运行距离
 uint8_t dir = 0;  //方向
 uint16_t asc;	  //加速计数
@@ -177,12 +171,12 @@ int main(void)
 	MX_SPI1_Init();
 	MX_SPI2_Init();
 	MX_SPI3_Init();
-	MX_TIM1_Init();
-	MX_TIM2_Init();
-	MX_TIM3_Init();
-	MX_TIM4_Init();
-	MX_TIM5_Init();
-	MX_TIM8_Init();
+	// MX_TIM1_Init();
+	// MX_TIM2_Init();
+	// MX_TIM3_Init();
+	// MX_TIM4_Init();
+	// MX_TIM5_Init();
+	// MX_TIM8_Init();
 	MX_UART4_Init();
 	MX_UART5_Init();
 	MX_USART1_UART_Init();
@@ -198,27 +192,13 @@ int main(void)
 	//EtherCAT初始化
 	// Init_EtherCAT();
 
-	Initial_PWM_Motor1(); //初始化电机1的PWM
-	Initial_PWM_Motor2(); //初始化电机2的PWM
-	Initial_PWM_Motor3(); //初始化电机3的PWM
-	Initial_PWM_Motor4(); //初始化电机4的PWM
-	Initial_PWM_Motor5(); //初始化电机5的PWM
-	Initial_PWM_Motor6(); //初始化电机6的PWM
+	//初始化电机的PWM
+	Initial_PWM_Motors();
 
 	ParLst_Init();	 // RAM中设定参数表列初始化，FLASH——>RAM
 	Boot_ParLst();	 // 初始化STM32设定参数
 	Variable_Init(); // Initialize VARIABLE
 	ParLimit();		 // 参数限制
-	/*初始化电机运行参数，主要是根据S型曲线参数生成表格*/
-	MotorRunParaInitial();
-
-	//指定各个电机使用的定时器，GPIO，电机顺时针方向数值等参数
-	Initial_Motor(1, M1DIV, 73600);
-	Initial_Motor(2, M2DIV, 73600);
-	Initial_Motor(3, M3DIV, 73600);
-	Initial_Motor(4, M4DIV, 73600);
-	Initial_Motor(5, M5DIV, 73600);
-	Initial_Motor(6, M6DIV, 73600);
 
 	/* USER CODE END 2 */
 
@@ -231,26 +211,10 @@ int main(void)
 		//测试WK扩展串口
 		// TEST_WK_Uart();
 		// test_GPIO();
-
-		if (Pw_Driver1_Enable == 1)
-		{
-			Pw_Driver1_Enable = 0;
-			HAL_Delay(100);
-			Pw_Motor1_FRE_AA = (Pw_Driver1_Speed * PULSENUM / 60 - Pw_Motor1_FRE_START) / (M_XiShu_1 * M_T_AA * M_T_AA + M_T_AA * M_T_UA + M_XiShu_1 * M_T_AA * M_T_RA);
-			CalcMotorPeriStep_CPF(Pw_Motor1_FRE_START, Pw_Motor1_FRE_AA, M_T_AA, M_T_UA, M_T_RA, Motor1TimeTable, Motor1StepTable);
-			Initial_Motor(1, M1DIV, 73600);
-
-			Start_Motor_S(1, M1_CLOCKWISE, (Pw_Driver1_Pluse_HW << 16) + Pw_Driver1_Pluse, Pw_Driver1_Speed, Pw_Driver1_AccTime);
-			//void Start_Motor_SPTA(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA);
-			// Start_Motor_SPTA(4, M4_CLOCKWISE, (Pw_Motor4SendPulse_HW << 16) + Pw_Motor4SendPulse, (Pw_Motor4_SetSpeed_HW << 16) + Pw_Motor4_SetSpeed, (Pw_Motor4_ACCSpeed_HW << 16) + Pw_Motor4_ACCSpeed);
-		}
-
+		TEST_Send_Pwm();
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
-
-		//测试TIM DMA发送PWM脉冲
-		// HAL_TIM_PWM_Start_DMA(&htim1, TIM_CHANNEL_1, (uint32_t *)send_Buf, NUM);
 	}
 	/* USER CODE END 3 */
 }
@@ -289,7 +253,7 @@ void SystemClock_Config(void)
 	RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
 	RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
 	RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV4;
+	RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
 	if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_5) != HAL_OK)
 	{
@@ -879,6 +843,33 @@ void UART_TX(void)
 	Com6_SlaveSend();  // 串口6从机发送
 }
 
+//测试发PWM波
+void TEST_Send_Pwm(void)
+{
+	if (Pw_Driver1_Enable == 1)
+	{
+		Pw_Driver1_Enable = 0;
+		HAL_Delay(100);
+
+		Run_Motor_S(1, M1_CLOCKWISE, (Pw_Driver1_Pluse_HW << 16) + Pw_Driver1_Pluse, Pw_Driver1_Speed, Pw_Driver1_AccTime);
+		Run_Motor_S(2, M2_CLOCKWISE, (Pw_Driver2_Pluse_HW << 16) + Pw_Driver2_Pluse, Pw_Driver2_Speed, Pw_Driver2_AccTime);
+		Run_Motor_S(3, M3_CLOCKWISE, (Pw_Driver3_Pluse_HW << 16) + Pw_Driver3_Pluse, Pw_Driver3_Speed, Pw_Driver3_AccTime);
+		Run_Motor_S(4, M4_CLOCKWISE, (Pw_Driver4_Pluse_HW << 16) + Pw_Driver4_Pluse, Pw_Driver4_Speed, Pw_Driver4_AccTime);
+		Run_Motor_S(5, M5_CLOCKWISE, (Pw_Driver5_Pluse_HW << 16) + Pw_Driver5_Pluse, Pw_Driver5_Speed, Pw_Driver5_AccTime);
+		Run_Motor_S(6, M6_CLOCKWISE, (Pw_Driver6_Pluse_HW << 16) + Pw_Driver6_Pluse, Pw_Driver6_Speed, Pw_Driver6_AccTime);
+	}
+}
+
+//初始化电机的PWM
+void Initial_PWM_Motors(void)
+{
+	Initial_PWM_Motor1(); //初始化电机1的PWM
+	Initial_PWM_Motor2(); //初始化电机2的PWM
+	Initial_PWM_Motor3(); //初始化电机3的PWM
+	Initial_PWM_Motor4(); //初始化电机4的PWM
+	Initial_PWM_Motor5(); //初始化电机5的PWM
+	Initial_PWM_Motor6(); //初始化电机6的PWM
+}
 /* USER CODE END 4 */
 
 /**
@@ -913,4 +904,4 @@ void assert_failed(uint8_t *file, uint32_t line)
 }
 #endif /* USE_FULL_ASSERT */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

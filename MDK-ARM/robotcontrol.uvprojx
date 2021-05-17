@@ -404,11 +404,6 @@
               <FilePath>..\Core\Src\com1_232.c</FilePath>
             </File>
             <File>
-              <FileName>led.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Core\Src\led.c</FilePath>
-            </File>
-            <File>
               <FileName>wk_port1.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\Core\Src\wk_port1.c</FilePath>

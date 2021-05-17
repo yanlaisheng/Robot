@@ -114,7 +114,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -217,6 +217,7 @@ HAL_StatusTypeDef HAL_WWDG_Init(WWDG_HandleTypeDef *hwwdg)
   return HAL_OK;
 }
 
+
 /**
   * @brief  Initialize the WWDG MSP.
   * @param  hwwdg  pointer to a WWDG_HandleTypeDef structure that contains
@@ -235,6 +236,7 @@ __weak void HAL_WWDG_MspInit(WWDG_HandleTypeDef *hwwdg)
            the HAL_WWDG_MspInit could be implemented in the user file
    */
 }
+
 
 #if (USE_HAL_WWDG_REGISTER_CALLBACKS == 1)
 /**
@@ -261,22 +263,23 @@ HAL_StatusTypeDef HAL_WWDG_RegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWDG_
   {
     switch (CallbackID)
     {
-    case HAL_WWDG_EWI_CB_ID:
-      hwwdg->EwiCallback = pCallback;
-      break;
+      case HAL_WWDG_EWI_CB_ID:
+        hwwdg->EwiCallback = pCallback;
+        break;
 
-    case HAL_WWDG_MSPINIT_CB_ID:
-      hwwdg->MspInitCallback = pCallback;
-      break;
+      case HAL_WWDG_MSPINIT_CB_ID:
+        hwwdg->MspInitCallback = pCallback;
+        break;
 
-    default:
-      status = HAL_ERROR;
-      break;
+      default:
+        status = HAL_ERROR;
+        break;
     }
   }
 
   return status;
 }
+
 
 /**
   * @brief  Unregister a WWDG Callback
@@ -294,17 +297,17 @@ HAL_StatusTypeDef HAL_WWDG_UnRegisterCallback(WWDG_HandleTypeDef *hwwdg, HAL_WWD
 
   switch (CallbackID)
   {
-  case HAL_WWDG_EWI_CB_ID:
-    hwwdg->EwiCallback = HAL_WWDG_EarlyWakeupCallback;
-    break;
+    case HAL_WWDG_EWI_CB_ID:
+      hwwdg->EwiCallback = HAL_WWDG_EarlyWakeupCallback;
+      break;
 
-  case HAL_WWDG_MSPINIT_CB_ID:
-    hwwdg->MspInitCallback = HAL_WWDG_MspInit;
-    break;
+    case HAL_WWDG_MSPINIT_CB_ID:
+      hwwdg->MspInitCallback = HAL_WWDG_MspInit;
+      break;
 
-  default:
-    status = HAL_ERROR;
-    break;
+    default:
+      status = HAL_ERROR;
+      break;
   }
 
   return status;
@@ -382,6 +385,7 @@ void HAL_WWDG_IRQHandler(WWDG_HandleTypeDef *hwwdg)
   }
 }
 
+
 /**
   * @brief  WWDG Early Wakeup callback.
   * @param  hwwdg  pointer to a WWDG_HandleTypeDef structure that contains
@@ -415,4 +419,4 @@ __weak void HAL_WWDG_EarlyWakeupCallback(WWDG_HandleTypeDef *hwwdg)
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

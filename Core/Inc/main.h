@@ -79,6 +79,8 @@ extern "C"
   void UART_TX(void);
   void Test_EEPROM(void);
   void TEST_WK_Uart(void);
+  void TEST_Send_Pwm(void);
+  void Initial_PWM_Motors(void);
 
 /* USER CODE END EFP */
 

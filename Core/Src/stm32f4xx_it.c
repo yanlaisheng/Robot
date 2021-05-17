@@ -245,18 +245,19 @@ void EXTI0_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles TIM1 capture compare interrupt.
+  * @brief This function handles TIM1 update interrupt and TIM10 global interrupt.
   */
-// void TIM1_CC_IRQHandler(void)
-// {
-//   /* USER CODE BEGIN TIM1_CC_IRQn 0 */
+void TIM1_UP_TIM10_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 0 */
 
-//   /* USER CODE END TIM1_CC_IRQn 0 */
-//   HAL_TIM_IRQHandler(&htim1);
-//   /* USER CODE BEGIN TIM1_CC_IRQn 1 */
-
-//   /* USER CODE END TIM1_CC_IRQn 1 */
-// }
+  /* USER CODE END TIM1_UP_TIM10_IRQn 0 */
+  // HAL_TIM_IRQHandler(&htim1);
+  /* USER CODE BEGIN TIM1_UP_TIM10_IRQn 1 */
+  TIM1->SR = (u16)~TIM_FLAG_UPDATE;
+  TIMX_UP_IRQHandler_S(&motor5);
+  /* USER CODE END TIM1_UP_TIM10_IRQn 1 */
+}
 
 /**
   * @brief This function handles TIM2 global interrupt.
@@ -270,10 +271,10 @@ void TIM2_IRQHandler(void)
     加入任何多余的代码,都会影响电机运动的实时性
     */
   /* USER CODE END TIM2_IRQn 0 */
-  //  HAL_TIM_IRQHandler(&htim2);
+  // HAL_TIM_IRQHandler(&htim2);
   /* USER CODE BEGIN TIM2_IRQn 1 */
   TIM2->SR = (u16)~TIM_FLAG_UPDATE;
-  TIMX_UP_IRQHandler_S(&motor1); //YLS-04.22
+  TIMX_UP_IRQHandler_S(&motor1);
   /* USER CODE END TIM2_IRQn 1 */
 }
 
@@ -289,9 +290,10 @@ void TIM3_IRQHandler(void)
     加入任何多余的代码,都会影响电机运动的实时性
     */
   /* USER CODE END TIM3_IRQn 0 */
-
+  // HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
   TIM3->SR = (u16)~TIM_FLAG_UPDATE;
+  // TIM3->SR = (u16)~TIM_FLAG_CC4;
   TIMX_UP_IRQHandler_S(&motor4); //YLS-04.22
   /* USER CODE END TIM3_IRQn 1 */
 }
@@ -299,16 +301,17 @@ void TIM3_IRQHandler(void)
 /**
   * @brief This function handles TIM4 global interrupt.
   */
-//void TIM4_IRQHandler(void)
-//{
-//  /* USER CODE BEGIN TIM4_IRQn 0 */
-//
-//  /* USER CODE END TIM4_IRQn 0 */
-//  HAL_TIM_IRQHandler(&htim4);
-//  /* USER CODE BEGIN TIM4_IRQn 1 */
-//
-//  /* USER CODE END TIM4_IRQn 1 */
-//}
+void TIM4_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM4_IRQn 0 */
+
+  /* USER CODE END TIM4_IRQn 0 */
+  // HAL_TIM_IRQHandler(&htim4);
+  /* USER CODE BEGIN TIM4_IRQn 1 */
+  TIM4->SR = (u16)~TIM_FLAG_UPDATE;
+  TIMX_UP_IRQHandler_S(&motor2);
+  /* USER CODE END TIM4_IRQn 1 */
+}
 
 /**
   * @brief This function handles USART1 global interrupt.
@@ -353,32 +356,34 @@ void USART3_IRQHandler(void)
 }
 
 /**
-  * @brief This function handles TIM8 capture compare interrupt.
+  * @brief This function handles TIM8 update interrupt and TIM13 global interrupt.
   */
-// void TIM8_CC_IRQHandler(void)
-// {
-//   /* USER CODE BEGIN TIM8_CC_IRQn 0 */
-// ////
-//   /* USER CODE END TIM8_CC_IRQn 0 */
-//   HAL_TIM_IRQHandler(&htim8);
-//   /* USER CODE BEGIN TIM8_CC_IRQn 1 */
-// ////
-//   /* USER CODE END TIM8_CC_IRQn 1 */
-// }
+void TIM8_UP_TIM13_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM8_UP_TIM13_IRQn 0 */
+
+  /* USER CODE END TIM8_UP_TIM13_IRQn 0 */
+  // HAL_TIM_IRQHandler(&htim8);
+  /* USER CODE BEGIN TIM8_UP_TIM13_IRQn 1 */
+  TIM8->SR = (u16)~TIM_FLAG_UPDATE;
+  TIMX_UP_IRQHandler_S(&motor3);
+  /* USER CODE END TIM8_UP_TIM13_IRQn 1 */
+}
 
 /**
   * @brief This function handles TIM5 global interrupt.
   */
-// void TIM5_IRQHandler(void)
-// {
-//   /* USER CODE BEGIN TIM5_IRQn 0 */
+void TIM5_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM5_IRQn 0 */
 
-//   /* USER CODE END TIM5_IRQn 0 */
-//   HAL_TIM_IRQHandler(&htim5);
-//   /* USER CODE BEGIN TIM5_IRQn 1 */
-
-//   /* USER CODE END TIM5_IRQn 1 */
-// }
+  /* USER CODE END TIM5_IRQn 0 */
+  // HAL_TIM_IRQHandler(&htim5);
+  /* USER CODE BEGIN TIM5_IRQn 1 */
+  TIM5->SR = (u16)~TIM_FLAG_UPDATE;
+  TIMX_UP_IRQHandler_S(&motor6);
+  /* USER CODE END TIM5_IRQn 1 */
+}
 
 /**
   * @brief This function handles UART4 global interrupt.
@@ -425,4 +430,4 @@ void USART6_IRQHandler(void)
 /* USER CODE BEGIN 1 */
 
 /* USER CODE END 1 */
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

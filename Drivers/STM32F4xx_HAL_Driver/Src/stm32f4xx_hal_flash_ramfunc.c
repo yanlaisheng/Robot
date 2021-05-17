@@ -34,7 +34,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2017 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -43,7 +43,7 @@
   *                        opensource.org/licenses/BSD-3-Clause
   *
   ******************************************************************************
-  */
+  */ 
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
@@ -97,9 +97,9 @@ __RAM_FUNC HAL_StatusTypeDef HAL_FLASHEx_StopFlashInterfaceClk(void)
 {
   /* Enable Power ctrl clock */
   __HAL_RCC_PWR_CLK_ENABLE();
-  /* Stop the flash interface while System Run */
+  /* Stop the flash interface while System Run */  
   SET_BIT(PWR->CR, PWR_CR_FISSR);
-
+   
   return HAL_OK;
 }
 
@@ -150,7 +150,7 @@ __RAM_FUNC HAL_StatusTypeDef HAL_FLASHEx_DisableFlashSleepMode(void)
   __HAL_RCC_PWR_CLK_ENABLE();
   /* Disable the flash sleep while System Run */
   CLEAR_BIT(PWR->CR, PWR_CR_FMSSR);
-
+  
   return HAL_OK;
 }
 
@@ -172,4 +172,4 @@ __RAM_FUNC HAL_StatusTypeDef HAL_FLASHEx_DisableFlashSleepMode(void)
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

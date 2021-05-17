@@ -46,9 +46,9 @@ void MOTOR4_GPIO_Init(void)
 
   /* 驱动器脉冲控制引脚IO初始化 */
   GPIO_InitStruct.Pin = MOTOR4_TIM3_PUL_PIN;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP; //GPIO_MODE_AF_PP
+  GPIO_InitStruct.Mode = GPIO_MODE_AF_PP; //GPIO_MODE_AF_PP
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
-  // GPIO_InitStruct.Alternate = GPIO_AF2_TIM3; // GPIO引脚用做TIM复用功能
+   GPIO_InitStruct.Alternate = GPIO_AF2_TIM3; // GPIO引脚用做TIM复用功能
   HAL_GPIO_Init(MOTOR4_TIM3_PUL_PORT, &GPIO_InitStruct);
 
   /* 驱动器方向控制引脚IO初始化 */

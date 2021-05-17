@@ -46,7 +46,7 @@
 #define MOTOR2_OUTPUT_DISABLE() HAL_GPIO_WritePin(MOTOR2_ENA_PORT, MOTOR2_ENA_PIN, GPIO_PIN_SET)
 
 // 定义定时器预分频，定时器实际时钟频率为：168MHz/（STEPMOTOR_TIMx_PRESCALER+1）
-#define MOTOR2_TIM_PRESCALER 15 // 步进电机驱动器细分设置为：   64  细分
+#define MOTOR2_TIM_PRESCALER 7 // 步进电机驱动器细分设置为：   64  细分
 
 // 定义定时器周期，输出比较模式周期设置为0xFFFF
 #define MOTOR2_TIM_PERIOD 0xFFFF

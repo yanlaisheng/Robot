@@ -148,7 +148,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -168,12 +168,13 @@
 
 #ifdef HAL_LTDC_MODULE_ENABLED
 
-#if defined(LTDC)
+#if defined (LTDC)
 
 /** @defgroup LTDC LTDC
   * @brief LTDC HAL module driver
   * @{
   */
+
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
@@ -240,9 +241,9 @@ HAL_StatusTypeDef HAL_LTDC_Init(LTDC_HandleTypeDef *hltdc)
     hltdc->Lock = HAL_UNLOCKED;
 
     /* Reset the LTDC callback to the legacy weak callbacks */
-    hltdc->LineEventCallback = HAL_LTDC_LineEventCallback;     /* Legacy weak LineEventCallback    */
-    hltdc->ReloadEventCallback = HAL_LTDC_ReloadEventCallback; /* Legacy weak ReloadEventCallback  */
-    hltdc->ErrorCallback = HAL_LTDC_ErrorCallback;             /* Legacy weak ErrorCallback        */
+    hltdc->LineEventCallback   = HAL_LTDC_LineEventCallback;    /* Legacy weak LineEventCallback    */
+    hltdc->ReloadEventCallback = HAL_LTDC_ReloadEventCallback;  /* Legacy weak ReloadEventCallback  */
+    hltdc->ErrorCallback       = HAL_LTDC_ErrorCallback;        /* Legacy weak ErrorCallback        */
 
     if (hltdc->MspInitCallback == NULL)
     {
@@ -266,7 +267,7 @@ HAL_StatusTypeDef HAL_LTDC_Init(LTDC_HandleTypeDef *hltdc)
 
   /* Configure the HS, VS, DE and PC polarity */
   hltdc->Instance->GCR &= ~(LTDC_GCR_HSPOL | LTDC_GCR_VSPOL | LTDC_GCR_DEPOL | LTDC_GCR_PCPOL);
-  hltdc->Instance->GCR |= (uint32_t)(hltdc->Init.HSPolarity | hltdc->Init.VSPolarity |
+  hltdc->Instance->GCR |= (uint32_t)(hltdc->Init.HSPolarity | hltdc->Init.VSPolarity | \
                                      hltdc->Init.DEPolarity | hltdc->Init.PCPolarity);
 
   /* Set Synchronization size */
@@ -408,52 +409,52 @@ HAL_StatusTypeDef HAL_LTDC_RegisterCallback(LTDC_HandleTypeDef *hltdc, HAL_LTDC_
   {
     switch (CallbackID)
     {
-    case HAL_LTDC_LINE_EVENT_CB_ID:
-      hltdc->LineEventCallback = pCallback;
-      break;
+      case HAL_LTDC_LINE_EVENT_CB_ID :
+        hltdc->LineEventCallback = pCallback;
+        break;
 
-    case HAL_LTDC_RELOAD_EVENT_CB_ID:
-      hltdc->ReloadEventCallback = pCallback;
-      break;
+      case HAL_LTDC_RELOAD_EVENT_CB_ID :
+        hltdc->ReloadEventCallback = pCallback;
+        break;
 
-    case HAL_LTDC_ERROR_CB_ID:
-      hltdc->ErrorCallback = pCallback;
-      break;
+      case HAL_LTDC_ERROR_CB_ID :
+        hltdc->ErrorCallback = pCallback;
+        break;
 
-    case HAL_LTDC_MSPINIT_CB_ID:
-      hltdc->MspInitCallback = pCallback;
-      break;
+      case HAL_LTDC_MSPINIT_CB_ID :
+        hltdc->MspInitCallback = pCallback;
+        break;
 
-    case HAL_LTDC_MSPDEINIT_CB_ID:
-      hltdc->MspDeInitCallback = pCallback;
-      break;
+      case HAL_LTDC_MSPDEINIT_CB_ID :
+        hltdc->MspDeInitCallback = pCallback;
+        break;
 
-    default:
-      /* Update the error code */
-      hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+      default :
+        /* Update the error code */
+        hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else if (hltdc->State == HAL_LTDC_STATE_RESET)
   {
     switch (CallbackID)
     {
-    case HAL_LTDC_MSPINIT_CB_ID:
-      hltdc->MspInitCallback = pCallback;
-      break;
+      case HAL_LTDC_MSPINIT_CB_ID :
+        hltdc->MspInitCallback = pCallback;
+        break;
 
-    case HAL_LTDC_MSPDEINIT_CB_ID:
-      hltdc->MspDeInitCallback = pCallback;
-      break;
+      case HAL_LTDC_MSPDEINIT_CB_ID :
+        hltdc->MspDeInitCallback = pCallback;
+        break;
 
-    default:
-      /* Update the error code */
-      hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+      default :
+        /* Update the error code */
+        hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else
@@ -461,7 +462,7 @@ HAL_StatusTypeDef HAL_LTDC_RegisterCallback(LTDC_HandleTypeDef *hltdc, HAL_LTDC_
     /* Update the error code */
     hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -494,52 +495,52 @@ HAL_StatusTypeDef HAL_LTDC_UnRegisterCallback(LTDC_HandleTypeDef *hltdc, HAL_LTD
   {
     switch (CallbackID)
     {
-    case HAL_LTDC_LINE_EVENT_CB_ID:
-      hltdc->LineEventCallback = HAL_LTDC_LineEventCallback; /* Legacy weak LineEventCallback    */
-      break;
+      case HAL_LTDC_LINE_EVENT_CB_ID :
+        hltdc->LineEventCallback = HAL_LTDC_LineEventCallback;      /* Legacy weak LineEventCallback    */
+        break;
 
-    case HAL_LTDC_RELOAD_EVENT_CB_ID:
-      hltdc->ReloadEventCallback = HAL_LTDC_ReloadEventCallback; /* Legacy weak ReloadEventCallback  */
-      break;
+      case HAL_LTDC_RELOAD_EVENT_CB_ID :
+        hltdc->ReloadEventCallback = HAL_LTDC_ReloadEventCallback;  /* Legacy weak ReloadEventCallback  */
+        break;
 
-    case HAL_LTDC_ERROR_CB_ID:
-      hltdc->ErrorCallback = HAL_LTDC_ErrorCallback; /* Legacy weak ErrorCallback        */
-      break;
+      case HAL_LTDC_ERROR_CB_ID :
+        hltdc->ErrorCallback       = HAL_LTDC_ErrorCallback;        /* Legacy weak ErrorCallback        */
+        break;
 
-    case HAL_LTDC_MSPINIT_CB_ID:
-      hltdc->MspInitCallback = HAL_LTDC_MspInit; /* Legcay weak MspInit Callback     */
-      break;
+      case HAL_LTDC_MSPINIT_CB_ID :
+        hltdc->MspInitCallback = HAL_LTDC_MspInit;                  /* Legcay weak MspInit Callback     */
+        break;
 
-    case HAL_LTDC_MSPDEINIT_CB_ID:
-      hltdc->MspDeInitCallback = HAL_LTDC_MspDeInit; /* Legcay weak MspDeInit Callback     */
-      break;
+      case HAL_LTDC_MSPDEINIT_CB_ID :
+        hltdc->MspDeInitCallback = HAL_LTDC_MspDeInit;              /* Legcay weak MspDeInit Callback     */
+        break;
 
-    default:
-      /* Update the error code */
-      hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+      default :
+        /* Update the error code */
+        hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else if (hltdc->State == HAL_LTDC_STATE_RESET)
   {
     switch (CallbackID)
     {
-    case HAL_LTDC_MSPINIT_CB_ID:
-      hltdc->MspInitCallback = HAL_LTDC_MspInit; /* Legcay weak MspInit Callback     */
-      break;
+      case HAL_LTDC_MSPINIT_CB_ID :
+        hltdc->MspInitCallback = HAL_LTDC_MspInit;                  /* Legcay weak MspInit Callback     */
+        break;
 
-    case HAL_LTDC_MSPDEINIT_CB_ID:
-      hltdc->MspDeInitCallback = HAL_LTDC_MspDeInit; /* Legcay weak MspDeInit Callback     */
-      break;
+      case HAL_LTDC_MSPDEINIT_CB_ID :
+        hltdc->MspDeInitCallback = HAL_LTDC_MspDeInit;              /* Legcay weak MspDeInit Callback     */
+        break;
 
-    default:
-      /* Update the error code */
-      hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
-      /* Return error status */
-      status = HAL_ERROR;
-      break;
+      default :
+        /* Update the error code */
+        hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
+        /* Return error status */
+        status =  HAL_ERROR;
+        break;
     }
   }
   else
@@ -547,7 +548,7 @@ HAL_StatusTypeDef HAL_LTDC_UnRegisterCallback(LTDC_HandleTypeDef *hltdc, HAL_LTD
     /* Update the error code */
     hltdc->ErrorCode |= HAL_LTDC_ERROR_INVALID_CALLBACK;
     /* Return error status */
-    status = HAL_ERROR;
+    status =  HAL_ERROR;
   }
 
   /* Release Lock */
@@ -582,7 +583,7 @@ HAL_StatusTypeDef HAL_LTDC_UnRegisterCallback(LTDC_HandleTypeDef *hltdc, HAL_LTD
   */
 void HAL_LTDC_IRQHandler(LTDC_HandleTypeDef *hltdc)
 {
-  uint32_t isrflags = READ_REG(hltdc->Instance->ISR);
+  uint32_t isrflags  = READ_REG(hltdc->Instance->ISR);
   uint32_t itsources = READ_REG(hltdc->Instance->IER);
 
   /* Transfer Error Interrupt management ***************************************/
@@ -812,7 +813,7 @@ HAL_StatusTypeDef HAL_LTDC_ConfigLayer(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgT
   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
 
   /* Initialize the LTDC state*/
-  hltdc->State = HAL_LTDC_STATE_READY;
+  hltdc->State  = HAL_LTDC_STATE_READY;
 
   /* Process unlocked */
   __HAL_UNLOCK(hltdc);
@@ -842,8 +843,8 @@ HAL_StatusTypeDef HAL_LTDC_ConfigColorKeying(LTDC_HandleTypeDef *hltdc, uint32_t
   hltdc->State = HAL_LTDC_STATE_BUSY;
 
   /* Configure the default color values */
-  LTDC_LAYER(hltdc, LayerIdx)->CKCR &= ~(LTDC_LxCKCR_CKBLUE | LTDC_LxCKCR_CKGREEN | LTDC_LxCKCR_CKRED);
-  LTDC_LAYER(hltdc, LayerIdx)->CKCR = RGBValue;
+  LTDC_LAYER(hltdc, LayerIdx)->CKCR &=  ~(LTDC_LxCKCR_CKBLUE | LTDC_LxCKCR_CKGREEN | LTDC_LxCKCR_CKRED);
+  LTDC_LAYER(hltdc, LayerIdx)->CKCR  = RGBValue;
 
   /* Set the Immediate Reload type */
   hltdc->Instance->SRCR = LTDC_SRCR_IMR;
@@ -886,17 +887,17 @@ HAL_StatusTypeDef HAL_LTDC_ConfigCLUT(LTDC_HandleTypeDef *hltdc, uint32_t *pCLUT
   {
     if (hltdc->LayerCfg[LayerIdx].PixelFormat == LTDC_PIXEL_FORMAT_AL44)
     {
-      tmp = (((counter + (16U * counter)) << 24U) | ((uint32_t)(*pcolorlut) & 0xFFU) | ((uint32_t)(*pcolorlut) & 0xFF00U) | ((uint32_t)(*pcolorlut) & 0xFF0000U));
+      tmp  = (((counter + (16U*counter)) << 24U) | ((uint32_t)(*pcolorlut) & 0xFFU) | ((uint32_t)(*pcolorlut) & 0xFF00U) | ((uint32_t)(*pcolorlut) & 0xFF0000U));
     }
     else
     {
-      tmp = ((counter << 24U) | ((uint32_t)(*pcolorlut) & 0xFFU) | ((uint32_t)(*pcolorlut) & 0xFF00U) | ((uint32_t)(*pcolorlut) & 0xFF0000U));
+      tmp  = ((counter << 24U) | ((uint32_t)(*pcolorlut) & 0xFFU) | ((uint32_t)(*pcolorlut) & 0xFF00U) | ((uint32_t)(*pcolorlut) & 0xFF0000U));
     }
 
     pcolorlut++;
 
     /* Specifies the C-LUT address and RGB value */
-    LTDC_LAYER(hltdc, LayerIdx)->CLUTWR = tmp;
+    LTDC_LAYER(hltdc, LayerIdx)->CLUTWR  = tmp;
   }
 
   /* Change the LTDC state*/
@@ -1382,9 +1383,9 @@ HAL_StatusTypeDef HAL_LTDC_SetPitch(LTDC_HandleTypeDef *hltdc, uint32_t LinePitc
   {
     tmp = 3U;
   }
-  else if ((pixelFormat == LTDC_PIXEL_FORMAT_ARGB4444) ||
-           (pixelFormat == LTDC_PIXEL_FORMAT_RGB565) ||
-           (pixelFormat == LTDC_PIXEL_FORMAT_ARGB1555) ||
+  else if ((pixelFormat == LTDC_PIXEL_FORMAT_ARGB4444) || \
+           (pixelFormat == LTDC_PIXEL_FORMAT_RGB565)   || \
+           (pixelFormat == LTDC_PIXEL_FORMAT_ARGB1555) || \
            (pixelFormat == LTDC_PIXEL_FORMAT_AL88))
   {
     tmp = 2U;
@@ -1464,7 +1465,7 @@ HAL_StatusTypeDef HAL_LTDC_ProgramLineEvent(LTDC_HandleTypeDef *hltdc, uint32_t 
   * @note   User application may resort to HAL_LTDC_ReloadEventCallback() at reload interrupt generation.
   * @retval  HAL status
   */
-HAL_StatusTypeDef HAL_LTDC_Reload(LTDC_HandleTypeDef *hltdc, uint32_t ReloadType)
+HAL_StatusTypeDef  HAL_LTDC_Reload(LTDC_HandleTypeDef *hltdc, uint32_t ReloadType)
 {
   /* Check the parameters */
   assert_param(IS_LTDC_RELOAD(ReloadType));
@@ -1532,7 +1533,7 @@ HAL_StatusTypeDef HAL_LTDC_ConfigLayer_NoReload(LTDC_HandleTypeDef *hltdc, LTDC_
   LTDC_SetConfig(hltdc, pLayerCfg, LayerIdx);
 
   /* Initialize the LTDC state*/
-  hltdc->State = HAL_LTDC_STATE_READY;
+  hltdc->State  = HAL_LTDC_STATE_READY;
 
   /* Process unlocked */
   __HAL_UNLOCK(hltdc);
@@ -1812,9 +1813,9 @@ HAL_StatusTypeDef HAL_LTDC_SetPitch_NoReload(LTDC_HandleTypeDef *hltdc, uint32_t
   {
     tmp = 3U;
   }
-  else if ((pixelFormat == LTDC_PIXEL_FORMAT_ARGB4444) ||
-           (pixelFormat == LTDC_PIXEL_FORMAT_RGB565) ||
-           (pixelFormat == LTDC_PIXEL_FORMAT_ARGB1555) ||
+  else if ((pixelFormat == LTDC_PIXEL_FORMAT_ARGB4444) || \
+           (pixelFormat == LTDC_PIXEL_FORMAT_RGB565)   || \
+           (pixelFormat == LTDC_PIXEL_FORMAT_ARGB1555) || \
            (pixelFormat == LTDC_PIXEL_FORMAT_AL88))
   {
     tmp = 2U;
@@ -1841,6 +1842,7 @@ HAL_StatusTypeDef HAL_LTDC_SetPitch_NoReload(LTDC_HandleTypeDef *hltdc, uint32_t
   return HAL_OK;
 }
 
+
 /**
   * @brief  Configure the color keying without reloading.
   *         Variant of the function HAL_LTDC_ConfigColorKeying without immediate reload.
@@ -1864,8 +1866,8 @@ HAL_StatusTypeDef HAL_LTDC_ConfigColorKeying_NoReload(LTDC_HandleTypeDef *hltdc,
   hltdc->State = HAL_LTDC_STATE_BUSY;
 
   /* Configure the default color values */
-  LTDC_LAYER(hltdc, LayerIdx)->CKCR &= ~(LTDC_LxCKCR_CKBLUE | LTDC_LxCKCR_CKGREEN | LTDC_LxCKCR_CKRED);
-  LTDC_LAYER(hltdc, LayerIdx)->CKCR = RGBValue;
+  LTDC_LAYER(hltdc, LayerIdx)->CKCR &=  ~(LTDC_LxCKCR_CKBLUE | LTDC_LxCKCR_CKGREEN | LTDC_LxCKCR_CKRED);
+  LTDC_LAYER(hltdc, LayerIdx)->CKCR  = RGBValue;
 
   /* Change the LTDC state*/
   hltdc->State = HAL_LTDC_STATE_READY;
@@ -2085,7 +2087,7 @@ static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLay
   /* Configure the vertical start and stop position */
   tmp = ((pLayerCfg->WindowY1 + (hltdc->Instance->BPCR & LTDC_BPCR_AVBP)) << 16U);
   LTDC_LAYER(hltdc, LayerIdx)->WVPCR &= ~(LTDC_LxWVPCR_WVSTPOS | LTDC_LxWVPCR_WVSPPOS);
-  LTDC_LAYER(hltdc, LayerIdx)->WVPCR = ((pLayerCfg->WindowY0 + (hltdc->Instance->BPCR & LTDC_BPCR_AVBP) + 1U) | tmp);
+  LTDC_LAYER(hltdc, LayerIdx)->WVPCR  = ((pLayerCfg->WindowY0 + (hltdc->Instance->BPCR & LTDC_BPCR_AVBP) + 1U) | tmp);
 
   /* Specifies the pixel format */
   LTDC_LAYER(hltdc, LayerIdx)->PFCR &= ~(LTDC_LxPFCR_PF);
@@ -2118,9 +2120,9 @@ static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLay
   {
     tmp = 3U;
   }
-  else if ((pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB4444) ||
-           (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_RGB565) ||
-           (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB1555) ||
+  else if ((pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB4444) || \
+           (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_RGB565)   || \
+           (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_ARGB1555) || \
            (pLayerCfg->PixelFormat == LTDC_PIXEL_FORMAT_AL88))
   {
     tmp = 2U;
@@ -2131,11 +2133,11 @@ static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLay
   }
 
   /* Configure the color frame buffer pitch in byte */
-  LTDC_LAYER(hltdc, LayerIdx)->CFBLR &= ~(LTDC_LxCFBLR_CFBLL | LTDC_LxCFBLR_CFBP);
-  LTDC_LAYER(hltdc, LayerIdx)->CFBLR = (((pLayerCfg->ImageWidth * tmp) << 16U) | (((pLayerCfg->WindowX1 - pLayerCfg->WindowX0) * tmp) + 3U));
+  LTDC_LAYER(hltdc, LayerIdx)->CFBLR  &= ~(LTDC_LxCFBLR_CFBLL | LTDC_LxCFBLR_CFBP);
+  LTDC_LAYER(hltdc, LayerIdx)->CFBLR  = (((pLayerCfg->ImageWidth * tmp) << 16U) | (((pLayerCfg->WindowX1 - pLayerCfg->WindowX0) * tmp)  + 3U));
   /* Configure the frame buffer line number */
-  LTDC_LAYER(hltdc, LayerIdx)->CFBLNR &= ~(LTDC_LxCFBLNR_CFBLNBR);
-  LTDC_LAYER(hltdc, LayerIdx)->CFBLNR = (pLayerCfg->ImageHeight);
+  LTDC_LAYER(hltdc, LayerIdx)->CFBLNR  &= ~(LTDC_LxCFBLNR_CFBLNBR);
+  LTDC_LAYER(hltdc, LayerIdx)->CFBLNR  = (pLayerCfg->ImageHeight);
 
   /* Enable LTDC_Layer by setting LEN bit */
   LTDC_LAYER(hltdc, LayerIdx)->CR |= (uint32_t)LTDC_LxCR_LEN;
@@ -2144,6 +2146,7 @@ static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLay
 /**
   * @}
   */
+
 
 /**
   * @}
@@ -2157,4 +2160,4 @@ static void LTDC_SetConfig(LTDC_HandleTypeDef *hltdc, LTDC_LayerCfgTypeDef *pLay
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

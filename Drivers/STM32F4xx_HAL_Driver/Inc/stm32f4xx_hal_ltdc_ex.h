@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -22,57 +22,56 @@
 #define STM32F4xx_HAL_LTDC_EX_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal_def.h"
 
-#if defined(LTDC) && defined(DSI)
+#if defined (LTDC) && defined (DSI)
 
 #include "stm32f4xx_hal_dsi.h"
 
-  /** @addtogroup STM32F4xx_HAL_Driver
+/** @addtogroup STM32F4xx_HAL_Driver
   * @{
   */
 
-  /** @addtogroup LTDCEx
+/** @addtogroup LTDCEx
   * @{
   */
 
-  /* Exported types ------------------------------------------------------------*/
-  /* Exported constants --------------------------------------------------------*/
-  /* Exported macro ------------------------------------------------------------*/
-  /* Exported functions --------------------------------------------------------*/
-  /** @addtogroup LTDCEx_Exported_Functions
+/* Exported types ------------------------------------------------------------*/
+/* Exported constants --------------------------------------------------------*/
+/* Exported macro ------------------------------------------------------------*/
+/* Exported functions --------------------------------------------------------*/
+/** @addtogroup LTDCEx_Exported_Functions
   * @{
   */
 
-  /** @addtogroup LTDCEx_Exported_Functions_Group1
+/** @addtogroup LTDCEx_Exported_Functions_Group1
   * @{
   */
-  HAL_StatusTypeDef HAL_LTDCEx_StructInitFromVideoConfig(LTDC_HandleTypeDef *hltdc, DSI_VidCfgTypeDef *VidCfg);
-  HAL_StatusTypeDef HAL_LTDCEx_StructInitFromAdaptedCommandConfig(LTDC_HandleTypeDef *hltdc, DSI_CmdCfgTypeDef *CmdCfg);
-  /**
+HAL_StatusTypeDef HAL_LTDCEx_StructInitFromVideoConfig(LTDC_HandleTypeDef *hltdc, DSI_VidCfgTypeDef *VidCfg);
+HAL_StatusTypeDef HAL_LTDCEx_StructInitFromAdaptedCommandConfig(LTDC_HandleTypeDef *hltdc, DSI_CmdCfgTypeDef *CmdCfg);
+/**
   * @}
   */
 
-  /**
+/**
   * @}
   */
 
-  /* Private types -------------------------------------------------------------*/
-  /* Private variables ---------------------------------------------------------*/
-  /* Private constants ---------------------------------------------------------*/
-  /* Private macros ------------------------------------------------------------*/
-  /* Private functions ---------------------------------------------------------*/
+/* Private types -------------------------------------------------------------*/
+/* Private variables ---------------------------------------------------------*/
+/* Private constants ---------------------------------------------------------*/
+/* Private macros ------------------------------------------------------------*/
+/* Private functions ---------------------------------------------------------*/
 
-  /**
+/**
   * @}
   */
 
-  /**
+/**
   * @}
   */
 
@@ -84,4 +83,4 @@ extern "C"
 
 #endif /* STM32F4xx_HAL_LTDC_EX_H */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

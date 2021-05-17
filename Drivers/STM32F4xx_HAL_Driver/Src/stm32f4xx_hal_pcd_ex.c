@@ -10,7 +10,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -35,7 +35,7 @@
 
 #ifdef HAL_PCD_MODULE_ENABLED
 
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
 /* Private types -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private constants ---------------------------------------------------------*/
@@ -60,7 +60,7 @@
 @endverbatim
   * @{
   */
-#if defined(USB_OTG_FS) || defined(USB_OTG_HS)
+#if defined (USB_OTG_FS) || defined (USB_OTG_HS)
 /**
   * @brief  Set Tx FIFO
   * @param  hpcd PCD handle
@@ -195,9 +195,9 @@ void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd)
 
   /*Primary detection: checks if connected to Standard Downstream Port
   (without charging capability) */
-  USBx->GCCFG &= ~USB_OTG_GCCFG_DCDEN;
+  USBx->GCCFG &= ~ USB_OTG_GCCFG_DCDEN;
   HAL_Delay(50U);
-  USBx->GCCFG |= USB_OTG_GCCFG_PDEN;
+  USBx->GCCFG |=  USB_OTG_GCCFG_PDEN;
   HAL_Delay(50U);
 
   if ((USBx->GCCFG & USB_OTG_GCCFG_PDET) == 0U)
@@ -213,9 +213,9 @@ void HAL_PCDEx_BCD_VBUSDetect(PCD_HandleTypeDef *hpcd)
   {
     /* start secondary detection to check connection to Charging Downstream
     Port or Dedicated Charging Port */
-    USBx->GCCFG &= ~USB_OTG_GCCFG_PDEN;
+    USBx->GCCFG &= ~ USB_OTG_GCCFG_PDEN;
     HAL_Delay(50U);
-    USBx->GCCFG |= USB_OTG_GCCFG_SDEN;
+    USBx->GCCFG |=  USB_OTG_GCCFG_SDEN;
     HAL_Delay(50U);
 
     if ((USBx->GCCFG & USB_OTG_GCCFG_SDET) == USB_OTG_GCCFG_SDET)
@@ -345,4 +345,4 @@ __weak void HAL_PCDEx_BCD_Callback(PCD_HandleTypeDef *hpcd, PCD_BCD_MsgTypeDef m
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

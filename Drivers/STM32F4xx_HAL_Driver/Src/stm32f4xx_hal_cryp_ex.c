@@ -22,7 +22,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -39,12 +39,13 @@
 /** @addtogroup STM32F4xx_HAL_Driver
   * @{
   */
-#if defined(AES) || defined(CRYP)
-#if defined(CRYP_CR_ALGOMODE_AES_GCM) || defined(AES)
+#if defined (AES)  || defined (CRYP)
+#if defined (CRYP_CR_ALGOMODE_AES_GCM)|| defined (AES)
 /** @defgroup CRYPEx CRYPEx
   * @brief CRYP Extension HAL module driver.
   * @{
   */
+
 
 #ifdef HAL_CRYP_MODULE_ENABLED
 
@@ -54,33 +55,34 @@
   * @{
   */
 #if defined(AES)
-#define CRYP_PHASE_INIT 0x00000000U       /*!< GCM/GMAC (or CCM) init phase */
-#define CRYP_PHASE_HEADER AES_CR_GCMPH_0  /*!< GCM/GMAC or CCM header phase */
-#define CRYP_PHASE_PAYLOAD AES_CR_GCMPH_1 /*!< GCM(/CCM) payload phase   */
-#define CRYP_PHASE_FINAL AES_CR_GCMPH     /*!< GCM/GMAC or CCM  final phase  */
+#define CRYP_PHASE_INIT                              0x00000000U             /*!< GCM/GMAC (or CCM) init phase */
+#define CRYP_PHASE_HEADER                            AES_CR_GCMPH_0          /*!< GCM/GMAC or CCM header phase */
+#define CRYP_PHASE_PAYLOAD                           AES_CR_GCMPH_1          /*!< GCM(/CCM) payload phase   */
+#define CRYP_PHASE_FINAL                             AES_CR_GCMPH            /*!< GCM/GMAC or CCM  final phase  */
 
-#define CRYP_OPERATINGMODE_ENCRYPT 0x00000000U               /*!< Encryption mode   */
-#define CRYP_OPERATINGMODE_KEYDERIVATION AES_CR_MODE_0       /*!< Key derivation mode  only used when performing ECB and CBC decryptions  */
-#define CRYP_OPERATINGMODE_DECRYPT AES_CR_MODE_1             /*!< Decryption       */
-#define CRYP_OPERATINGMODE_KEYDERIVATION_DECRYPT AES_CR_MODE /*!< Key derivation and decryption only used when performing ECB and CBC decryptions  */
+#define CRYP_OPERATINGMODE_ENCRYPT                   0x00000000U             /*!< Encryption mode   */
+#define CRYP_OPERATINGMODE_KEYDERIVATION             AES_CR_MODE_0           /*!< Key derivation mode  only used when performing ECB and CBC decryptions  */
+#define CRYP_OPERATINGMODE_DECRYPT                   AES_CR_MODE_1           /*!< Decryption       */
+#define CRYP_OPERATINGMODE_KEYDERIVATION_DECRYPT     AES_CR_MODE             /*!< Key derivation and decryption only used when performing ECB and CBC decryptions  */
 
 #else /* CRYP */
 
-#define CRYP_PHASE_INIT 0x00000000U
-#define CRYP_PHASE_HEADER CRYP_CR_GCM_CCMPH_0
-#define CRYP_PHASE_PAYLOAD CRYP_CR_GCM_CCMPH_1
-#define CRYP_PHASE_FINAL CRYP_CR_GCM_CCMPH
+#define CRYP_PHASE_INIT                 0x00000000U
+#define CRYP_PHASE_HEADER               CRYP_CR_GCM_CCMPH_0
+#define CRYP_PHASE_PAYLOAD              CRYP_CR_GCM_CCMPH_1
+#define CRYP_PHASE_FINAL                CRYP_CR_GCM_CCMPH
 
-#define CRYP_OPERATINGMODE_ENCRYPT 0x00000000U
-#define CRYP_OPERATINGMODE_DECRYPT CRYP_CR_ALGODIR
+#define CRYP_OPERATINGMODE_ENCRYPT      0x00000000U
+#define CRYP_OPERATINGMODE_DECRYPT      CRYP_CR_ALGODIR
 #endif /* End AES or CRYP */
 
-#define CRYPEx_PHASE_PROCESS 0x02U /*!< CRYP peripheral is in processing phase */
-#define CRYPEx_PHASE_FINAL 0x03U   /*!< CRYP peripheral is in final phase this is relevant only with CCM and GCM modes */
+#define  CRYPEx_PHASE_PROCESS       0x02U     /*!< CRYP peripheral is in processing phase */
+#define  CRYPEx_PHASE_FINAL         0x03U     /*!< CRYP peripheral is in final phase this is relevant only with CCM and GCM modes */
 
 /*  CTR0 information to use in CCM algorithm */
-#define CRYP_CCM_CTR0_0 0x07FFFFFFU
-#define CRYP_CCM_CTR0_3 0xFFFFFF00U
+#define CRYP_CCM_CTR0_0            0x07FFFFFFU
+#define CRYP_CCM_CTR0_3            0xFFFFFF00U
+
 
 /**
   * @}
@@ -89,6 +91,8 @@
 /* Private macro -------------------------------------------------------------*/
 /* Private variables ---------------------------------------------------------*/
 /* Private function prototypes -----------------------------------------------*/
+
+
 
 /* Exported functions---------------------------------------------------------*/
 /** @addtogroup CRYPEx_Exported_Functions
@@ -112,6 +116,7 @@
   * @{
   */
 
+
 /**
   * @brief  generate the GCM authentication TAG.
   * @param  hcryp: pointer to a CRYP_HandleTypeDef structure that contains
@@ -125,7 +130,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
   uint32_t tickstart;
   /* Assume first Init.HeaderSize is in words */
   uint64_t headerlength = (uint64_t)(hcryp->Init.HeaderSize) * 32U; /* Header length in bits */
-  uint64_t inputlength = (uint64_t)hcryp->SizesSum * 8U;            /* Input length in bits */
+  uint64_t inputlength = (uint64_t)hcryp->SizesSum * 8U; /* Input length in bits */
   uint32_t tagaddr = (uint32_t)AuthTag;
 
   /* Correct headerlength if Init.HeaderSize is actually in bytes */
@@ -172,8 +177,8 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
     /* Select final phase */
     MODIFY_REG(hcryp->Instance->CR, CRYP_CR_GCM_CCMPH, CRYP_PHASE_FINAL);
 
-    /*ALGODIR bit must be set to ?0?.*/
-    hcryp->Instance->CR &= ~CRYP_CR_ALGODIR;
+    /*ALGODIR bit must be set to ‘0’.*/
+    hcryp->Instance->CR &=  ~CRYP_CR_ALGODIR;
 
     /* Enable the CRYP peripheral */
     __HAL_CRYP_ENABLE(hcryp);
@@ -351,7 +356,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESGCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
 HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, uint32_t *AuthTag, uint32_t Timeout)
 {
   uint32_t tagaddr = (uint32_t)AuthTag;
-  uint32_t ctr0[4] = {0};
+  uint32_t ctr0 [4] = {0};
   uint32_t ctr0addr = (uint32_t)ctr0;
   uint32_t tickstart;
 
@@ -390,7 +395,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
     /* Disable CRYP to start the final phase */
     __HAL_CRYP_DISABLE(hcryp);
 
-    /* Select final phase & ALGODIR bit must be set to ?0?. */
+    /* Select final phase & ALGODIR bit must be set to ‘0’. */
     MODIFY_REG(hcryp->Instance->CR, CRYP_CR_GCM_CCMPH | CRYP_CR_ALGODIR, CRYP_PHASE_FINAL | CRYP_OPERATINGMODE_ENCRYPT);
 
     /* Enable the CRYP peripheral */
@@ -401,7 +406,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
     ctr0[0] = (hcryp->Init.B0[0]) & CRYP_CCM_CTR0_0;
     ctr0[1] = hcryp->Init.B0[1];
     ctr0[2] = hcryp->Init.B0[2];
-    ctr0[3] = hcryp->Init.B0[3] & CRYP_CCM_CTR0_3;
+    ctr0[3] = hcryp->Init.B0[3] &  CRYP_CCM_CTR0_3;
 
     if (hcryp->Init.DataType == CRYP_DATATYPE_8B)
     {
@@ -487,7 +492,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
       ctr0[0] = (__REV(hcryp->Init.B0[0]) & CRYP_CCM_CTR0_0);
       ctr0[1] = __REV(hcryp->Init.B0[1]);
       ctr0[2] = __REV(hcryp->Init.B0[2]);
-      ctr0[3] = (__REV(hcryp->Init.B0[3]) & CRYP_CCM_CTR0_3);
+      ctr0[3] = (__REV(hcryp->Init.B0[3])& CRYP_CCM_CTR0_3);
 
       hcryp->Instance->DINR = __REV(*(uint32_t *)(ctr0addr));
       ctr0addr += 4U;
@@ -499,10 +504,10 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
     }
     else if (hcryp->Init.DataType == CRYP_DATATYPE_16B)
     {
-      ctr0[0] = (__ROR((hcryp->Init.B0[0]), 16U) & CRYP_CCM_CTR0_0);
-      ctr0[1] = __ROR((hcryp->Init.B0[1]), 16U);
-      ctr0[2] = __ROR((hcryp->Init.B0[2]), 16U);
-      ctr0[3] = (__ROR((hcryp->Init.B0[3]), 16U) & CRYP_CCM_CTR0_3);
+      ctr0[0] = (__ROR((hcryp->Init.B0[0]), 16U)& CRYP_CCM_CTR0_0);
+      ctr0[1] =   __ROR((hcryp->Init.B0[1]), 16U);
+      ctr0[2] =   __ROR((hcryp->Init.B0[2]), 16U);
+      ctr0[3] = (__ROR((hcryp->Init.B0[3]), 16U)& CRYP_CCM_CTR0_3);
 
       hcryp->Instance->DINR = __ROR(*(uint32_t *)(ctr0addr), 16U);
       ctr0addr += 4U;
@@ -514,10 +519,10 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
     }
     else if (hcryp->Init.DataType == CRYP_DATATYPE_1B)
     {
-      ctr0[0] = (__RBIT(hcryp->Init.B0[0]) & CRYP_CCM_CTR0_0);
+      ctr0[0] = (__RBIT(hcryp->Init.B0[0])& CRYP_CCM_CTR0_0);
       ctr0[1] = __RBIT(hcryp->Init.B0[1]);
       ctr0[2] = __RBIT(hcryp->Init.B0[2]);
-      ctr0[3] = (__RBIT(hcryp->Init.B0[3]) & CRYP_CCM_CTR0_3);
+      ctr0[3] = (__RBIT(hcryp->Init.B0[3])& CRYP_CCM_CTR0_3);
 
       hcryp->Instance->DINR = __RBIT(*(uint32_t *)(ctr0addr));
       ctr0addr += 4U;
@@ -532,7 +537,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
       ctr0[0] = (hcryp->Init.B0[0]) & CRYP_CCM_CTR0_0;
       ctr0[1] = hcryp->Init.B0[1];
       ctr0[2] = hcryp->Init.B0[2];
-      ctr0[3] = hcryp->Init.B0[3] & CRYP_CCM_CTR0_3;
+      ctr0[3] = hcryp->Init.B0[3] &  CRYP_CCM_CTR0_3;
 
       hcryp->Instance->DINR = *(uint32_t *)(ctr0addr);
       ctr0addr += 4U;
@@ -603,7 +608,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
   * @}
   */
 
-#if defined(AES)
+#if defined (AES)
 /** @defgroup CRYPEx_Exported_Functions_Group2 Key Derivation functions
   *  @brief   AutoKeyDerivation functions
   *
@@ -624,7 +629,7 @@ HAL_StatusTypeDef HAL_CRYPEx_AESCCM_GenerateAuthTAG(CRYP_HandleTypeDef *hcryp, u
   * @param  hcryp: pointer to a CRYP_HandleTypeDef structure.
   * @retval None
   */
-void HAL_CRYPEx_EnableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp)
+void  HAL_CRYPEx_EnableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp)
 {
   if (hcryp->State == HAL_CRYP_STATE_READY)
   {
@@ -641,7 +646,7 @@ void HAL_CRYPEx_EnableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp)
   * @param  hcryp: pointer to a CRYP_HandleTypeDef structure.
   * @retval None
   */
-void HAL_CRYPEx_DisableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp)
+void  HAL_CRYPEx_DisableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp)
 {
   if (hcryp->State == HAL_CRYP_STATE_READY)
   {
@@ -673,4 +678,4 @@ void HAL_CRYPEx_DisableAutoKeyDerivation(CRYP_HandleTypeDef *hcryp)
   * @}
   */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

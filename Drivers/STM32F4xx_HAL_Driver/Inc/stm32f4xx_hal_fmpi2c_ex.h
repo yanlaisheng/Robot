@@ -6,7 +6,7 @@
   ******************************************************************************
   * @attention
   *
-  * <h2><center>&copy; Copyright (c) 2016 QINGDAO SANLI.
+  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
   * All rights reserved.</center></h2>
   *
   * This software component is licensed by ST under BSD 3-Clause license,
@@ -22,8 +22,7 @@
 #define STM32F4xx_HAL_FMPI2C_EX_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 #if defined(FMPI2C_CR1_PE)
@@ -47,8 +46,8 @@ extern "C"
 /** @defgroup FMPI2CEx_Analog_Filter FMPI2C Extended Analog Filter
   * @{
   */
-#define FMPI2C_ANALOGFILTER_ENABLE 0x00000000U
-#define FMPI2C_ANALOGFILTER_DISABLE FMPI2C_CR1_ANFOFF
+#define FMPI2C_ANALOGFILTER_ENABLE         0x00000000U
+#define FMPI2C_ANALOGFILTER_DISABLE        FMPI2C_CR1_ANFOFF
 /**
   * @}
   */
@@ -56,55 +55,56 @@ extern "C"
 /** @defgroup FMPI2CEx_FastModePlus FMPI2C Extended Fast Mode Plus
   * @{
   */
-#define FMPI2C_FASTMODEPLUS_SCL SYSCFG_CFGR_FMPI2C1_SCL /*!< Enable Fast Mode Plus on FMPI2C1 SCL pins       */
-#define FMPI2C_FASTMODEPLUS_SDA SYSCFG_CFGR_FMPI2C1_SDA /*!< Enable Fast Mode Plus on FMPI2C1 SDA pins       */
-  /**
-  * @}
-  */
-
-  /**
-  * @}
-  */
-
-  /* Exported macro ------------------------------------------------------------*/
-  /** @defgroup FMPI2CEx_Exported_Macros FMPI2C Extended Exported Macros
-  * @{
-  */
-
-  /**
-  * @}
-  */
-
-  /* Exported functions --------------------------------------------------------*/
-  /** @addtogroup FMPI2CEx_Exported_Functions FMPI2C Extended Exported Functions
-  * @{
-  */
-
-  /** @addtogroup FMPI2CEx_Exported_Functions_Group1 FMPI2C Extended Filter Mode Functions
-  * @{
-  */
-  /* Peripheral Control functions  ************************************************/
-  HAL_StatusTypeDef HAL_FMPI2CEx_ConfigAnalogFilter(FMPI2C_HandleTypeDef *hfmpi2c, uint32_t AnalogFilter);
-  HAL_StatusTypeDef HAL_FMPI2CEx_ConfigDigitalFilter(FMPI2C_HandleTypeDef *hfmpi2c, uint32_t DigitalFilter);
-  /**
-  * @}
-  */
-
-  /** @addtogroup FMPI2CEx_Exported_Functions_Group2 FMPI2C Extended WakeUp Mode Functions
-  * @{
-  */
-  /**
-  * @}
-  */
-
-  /** @addtogroup FMPI2CEx_Exported_Functions_Group3 FMPI2C Extended FastModePlus Functions
-  * @{
-  */
-  void HAL_FMPI2CEx_EnableFastModePlus(uint32_t ConfigFastModePlus);
-  void HAL_FMPI2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
+#define FMPI2C_FASTMODEPLUS_SCL            SYSCFG_CFGR_FMPI2C1_SCL  /*!< Enable Fast Mode Plus on FMPI2C1 SCL pins       */
+#define FMPI2C_FASTMODEPLUS_SDA            SYSCFG_CFGR_FMPI2C1_SDA  /*!< Enable Fast Mode Plus on FMPI2C1 SDA pins       */
 /**
   * @}
   */
+
+/**
+  * @}
+  */
+
+/* Exported macro ------------------------------------------------------------*/
+/** @defgroup FMPI2CEx_Exported_Macros FMPI2C Extended Exported Macros
+  * @{
+  */
+
+/**
+  * @}
+  */
+
+/* Exported functions --------------------------------------------------------*/
+/** @addtogroup FMPI2CEx_Exported_Functions FMPI2C Extended Exported Functions
+  * @{
+  */
+
+/** @addtogroup FMPI2CEx_Exported_Functions_Group1 FMPI2C Extended Filter Mode Functions
+  * @{
+  */
+/* Peripheral Control functions  ************************************************/
+HAL_StatusTypeDef HAL_FMPI2CEx_ConfigAnalogFilter(FMPI2C_HandleTypeDef *hfmpi2c, uint32_t AnalogFilter);
+HAL_StatusTypeDef HAL_FMPI2CEx_ConfigDigitalFilter(FMPI2C_HandleTypeDef *hfmpi2c, uint32_t DigitalFilter);
+/**
+  * @}
+  */
+
+/** @addtogroup FMPI2CEx_Exported_Functions_Group2 FMPI2C Extended WakeUp Mode Functions
+  * @{
+  */
+/**
+  * @}
+  */
+
+/** @addtogroup FMPI2CEx_Exported_Functions_Group3 FMPI2C Extended FastModePlus Functions
+  * @{
+  */
+void HAL_FMPI2CEx_EnableFastModePlus(uint32_t ConfigFastModePlus);
+void HAL_FMPI2CEx_DisableFastModePlus(uint32_t ConfigFastModePlus);
+/**
+  * @}
+  */
+
 
 /**
   * @}
@@ -123,31 +123,31 @@ extern "C"
 /** @defgroup FMPI2CEx_Private_Macro FMPI2C Extended Private Macros
   * @{
   */
-#define IS_FMPI2C_ANALOG_FILTER(FILTER) (((FILTER) == FMPI2C_ANALOGFILTER_ENABLE) || \
+#define IS_FMPI2C_ANALOG_FILTER(FILTER)    (((FILTER) == FMPI2C_ANALOGFILTER_ENABLE) || \
                                          ((FILTER) == FMPI2C_ANALOGFILTER_DISABLE))
 
-#define IS_FMPI2C_DIGITAL_FILTER(FILTER) ((FILTER) <= 0x0000000FU)
+#define IS_FMPI2C_DIGITAL_FILTER(FILTER)   ((FILTER) <= 0x0000000FU)
 
 #define IS_FMPI2C_FASTMODEPLUS(__CONFIG__) ((((__CONFIG__) & (FMPI2C_FASTMODEPLUS_SCL)) == FMPI2C_FASTMODEPLUS_SCL) || \
-                                            (((__CONFIG__) & (FMPI2C_FASTMODEPLUS_SDA)) == FMPI2C_FASTMODEPLUS_SDA))
-  /**
+                                         (((__CONFIG__) & (FMPI2C_FASTMODEPLUS_SDA)) == FMPI2C_FASTMODEPLUS_SDA))
+/**
   * @}
   */
 
-  /* Private Functions ---------------------------------------------------------*/
-  /** @defgroup FMPI2CEx_Private_Functions FMPI2C Extended Private Functions
+/* Private Functions ---------------------------------------------------------*/
+/** @defgroup FMPI2CEx_Private_Functions FMPI2C Extended Private Functions
   * @{
   */
-  /* Private functions are defined in stm32f4xx_hal_fmpfmpi2c_ex.c file */
-  /**
+/* Private functions are defined in stm32f4xx_hal_fmpfmpi2c_ex.c file */
+/**
   * @}
   */
 
-  /**
+/**
   * @}
   */
 
-  /**
+/**
   * @}
   */
 
@@ -158,4 +158,4 @@ extern "C"
 
 #endif /* STM32F4xx_HAL_FMPI2C_EX_H */
 
-/************************ (C) COPYRIGHT QINGDAO SANLI *****END OF FILE****/
+/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

@@ -281,152 +281,152 @@ extern unsigned short period_MOTOR3[ACCELERATED_SPEED_LENGTH]; //Êı×é´¢´æ¼ÓËÙ¹ı³
   * ·µ »Ø Öµ: ÎŞ
   * Ëµ    Ã÷: ÊµÏÖ¼Ó¼õËÙ¹ı³Ì
   */
-void MOTOR3_TIM8_IRQHandler(void) //¶¨Ê±Æ÷ÖĞ¶Ï´¦Àí
-{
-  __IO uint16_t tim_count = 0;
-  // ±£´æĞÂ£¨ÏÂ£©Ò»¸öÑÓÊ±ÖÜÆÚ
-  //  uint16_t new_step_delay = 0;
-  // ¼ÓËÙ¹ı³ÌÖĞ×îºóÒ»´ÎÑÓÊ±£¨Âö³åÖÜÆÚ£©.
-  __IO static uint16_t last_accel_delay = 0;
-  // ×ÜÒÆ¶¯²½Êı¼ÆÊıÆ÷
-  __IO static uint32_t step_count = 0;
-  // ¼ÇÂ¼new_step_delayÖĞµÄÓàÊı£¬Ìá¸ßÏÂÒ»²½¼ÆËãµÄ¾«¶È
-  __IO static int32_t rest = 0;
-  //¶¨Ê±Æ÷Ê¹ÓÃ·­×ªÄ£Ê½£¬ĞèÒª½øÈëÁ½´ÎÖĞ¶Ï²ÅÊä³öÒ»¸öÍêÕûÂö³å
-  __IO static uint32_t i = 0;
+// void MOTOR3_TIM8_IRQHandler(void) //¶¨Ê±Æ÷ÖĞ¶Ï´¦Àí
+// {
+//   __IO uint16_t tim_count = 0;
+//   // ±£´æĞÂ£¨ÏÂ£©Ò»¸öÑÓÊ±ÖÜÆÚ
+//   //  uint16_t new_step_delay = 0;
+//   // ¼ÓËÙ¹ı³ÌÖĞ×îºóÒ»´ÎÑÓÊ±£¨Âö³åÖÜÆÚ£©.
+//   __IO static uint16_t last_accel_delay = 0;
+//   // ×ÜÒÆ¶¯²½Êı¼ÆÊıÆ÷
+//   __IO static uint32_t step_count = 0;
+//   // ¼ÇÂ¼new_step_delayÖĞµÄÓàÊı£¬Ìá¸ßÏÂÒ»²½¼ÆËãµÄ¾«¶È
+//   __IO static int32_t rest = 0;
+//   //¶¨Ê±Æ÷Ê¹ÓÃ·­×ªÄ£Ê½£¬ĞèÒª½øÈëÁ½´ÎÖĞ¶Ï²ÅÊä³öÒ»¸öÍêÕûÂö³å
+//   __IO static uint32_t i = 0;
 
-  if (__HAL_TIM_GET_IT_SOURCE(&htim8_MOTOR3, MOTOR3_TIM8_IT_CCx) != RESET)
-  {
-    // Çå³ı¶¨Ê±Æ÷ÖĞ¶Ï
-    __HAL_TIM_CLEAR_IT(&htim8_MOTOR3, MOTOR3_TIM8_IT_CCx);
-    i++;
-#if S_ACCEL
-    if (i % 2 == 0) //Ã¿½øÈëÁ½´ÎÖĞ¶Ï²ÅÊÇÒ»¸öÍêÕûÂö³å
-    {
-      switch (Motor3_status)
-      {
-      case ACCEL: //¼ÓËÙ
-        __HAL_TIM_SET_AUTORELOAD(&htim8_MOTOR3, period_MOTOR3[Motor3_num]);
-        __HAL_TIM_SET_COMPARE(&htim8_MOTOR3, MOTOR3_TIM8_CHANNEL_x, period_MOTOR3[Motor3_num] / 2);
-        Motor3_num++;
-        if (Motor3_num >= ACCELERATED_SPEED_LENGTH)
-        {
-          Motor3_status = 3;
-        }
-        break;
-      case RUN: //ÔÈËÙ
-        step_to_run_MOTOR3--;
-        if (step_to_run_MOTOR3 < 1)
-          Motor3_status = 2;
-        break;
-      case DECEL: //¼õËÙ
-        Motor3_num--;
-        __HAL_TIM_SET_AUTORELOAD(&htim8_MOTOR3, period_MOTOR3[Motor3_num]);
-        __HAL_TIM_SET_COMPARE(&htim8_MOTOR3, MOTOR3_TIM8_CHANNEL_x, period_MOTOR3[Motor3_num] / 2);
-        if (Motor3_num < 1)
-          Motor3_status = 0;
-        break;
-      case STOP: //Í£Ö¹
-                 // ¹Ø±ÕÍ¨µÀ
-        TIM_CCxChannelCmd(MOTOR3_TIM8, MOTOR3_TIM8_CHANNEL_x, TIM_CCx_DISABLE);
-        __HAL_TIM_CLEAR_FLAG(&htim8_MOTOR3, MOTOR3_TIM8_FLAG_CCx);
-        MOTOR3_OUTPUT_DISABLE();
-        break;
-      }
-    }
-#endif
+//   if (__HAL_TIM_GET_IT_SOURCE(&htim8_MOTOR3, MOTOR3_TIM8_IT_CCx) != RESET)
+//   {
+//     // Çå³ı¶¨Ê±Æ÷ÖĞ¶Ï
+//     __HAL_TIM_CLEAR_IT(&htim8_MOTOR3, MOTOR3_TIM8_IT_CCx);
+//     i++;
+// #if S_ACCEL
+//     if (i % 2 == 0) //Ã¿½øÈëÁ½´ÎÖĞ¶Ï²ÅÊÇÒ»¸öÍêÕûÂö³å
+//     {
+//       switch (Motor3_status)
+//       {
+//       case ACCEL: //¼ÓËÙ
+//         __HAL_TIM_SET_AUTORELOAD(&htim8_MOTOR3, period_MOTOR3[Motor3_num]);
+//         __HAL_TIM_SET_COMPARE(&htim8_MOTOR3, MOTOR3_TIM8_CHANNEL_x, period_MOTOR3[Motor3_num] / 2);
+//         Motor3_num++;
+//         if (Motor3_num >= ACCELERATED_SPEED_LENGTH)
+//         {
+//           Motor3_status = 3;
+//         }
+//         break;
+//       case RUN: //ÔÈËÙ
+//         step_to_run_MOTOR3--;
+//         if (step_to_run_MOTOR3 < 1)
+//           Motor3_status = 2;
+//         break;
+//       case DECEL: //¼õËÙ
+//         Motor3_num--;
+//         __HAL_TIM_SET_AUTORELOAD(&htim8_MOTOR3, period_MOTOR3[Motor3_num]);
+//         __HAL_TIM_SET_COMPARE(&htim8_MOTOR3, MOTOR3_TIM8_CHANNEL_x, period_MOTOR3[Motor3_num] / 2);
+//         if (Motor3_num < 1)
+//           Motor3_status = 0;
+//         break;
+//       case STOP: //Í£Ö¹
+//                  // ¹Ø±ÕÍ¨µÀ
+//         TIM_CCxChannelCmd(MOTOR3_TIM8, MOTOR3_TIM8_CHANNEL_x, TIM_CCx_DISABLE);
+//         __HAL_TIM_CLEAR_FLAG(&htim8_MOTOR3, MOTOR3_TIM8_FLAG_CCx);
+//         MOTOR3_OUTPUT_DISABLE();
+//         break;
+//       }
+//     }
+// #endif
 
-#if T_ACCEL
-    // ÉèÖÃ±È½ÏÖµ
-    tim_count = __HAL_TIM_GET_COUNTER(&htim8_MOTOR3);
-    __HAL_TIM_SET_COMPARE(&htim8_MOTOR3, MOTOR3_TIM8_CHANNEL_x, tim_count + Motor3_srd.step_delay);
+// #if T_ACCEL
+//     // ÉèÖÃ±È½ÏÖµ
+//     tim_count = __HAL_TIM_GET_COUNTER(&htim8_MOTOR3);
+//     __HAL_TIM_SET_COMPARE(&htim8_MOTOR3, MOTOR3_TIM8_CHANNEL_x, tim_count + Motor3_srd.step_delay);
 
-    i++;        // ¶¨Ê±Æ÷ÖĞ¶Ï´ÎÊı¼ÆÊıÖµ
-    if (i == 2) // 2´Î£¬ËµÃ÷ÒÑ¾­Êä³öÒ»¸öÍêÕûÂö³å
-    {
-      i = 0;                        // ÇåÁã¶¨Ê±Æ÷ÖĞ¶Ï´ÎÊı¼ÆÊıÖµ
-      switch (Motor3_srd.run_state) // ¼Ó¼õËÙÇúÏß½×¶Î
-      {
-      case STOP:
-        step_count = 0; // ÇåÁã²½Êı¼ÆÊıÆ÷
-        rest = 0;       // ÇåÁãÓàÖµ
-        // ¹Ø±ÕÍ¨µÀ
-        TIM_CCxChannelCmd(MOTOR3_TIM8, MOTOR3_TIM8_CHANNEL_x, TIM_CCx_DISABLE);
-        __HAL_TIM_CLEAR_FLAG(&htim8_MOTOR3, MOTOR3_TIM8_FLAG_CCx);
-        MOTOR3_OUTPUT_DISABLE();
-        Motor3_MotionStatus = 0; //  µç»úÎªÍ£Ö¹×´Ì¬
-        break;
+//     i++;        // ¶¨Ê±Æ÷ÖĞ¶Ï´ÎÊı¼ÆÊıÖµ
+//     if (i == 2) // 2´Î£¬ËµÃ÷ÒÑ¾­Êä³öÒ»¸öÍêÕûÂö³å
+//     {
+//       i = 0;                        // ÇåÁã¶¨Ê±Æ÷ÖĞ¶Ï´ÎÊı¼ÆÊıÖµ
+//       switch (Motor3_srd.run_state) // ¼Ó¼õËÙÇúÏß½×¶Î
+//       {
+//       case STOP:
+//         step_count = 0; // ÇåÁã²½Êı¼ÆÊıÆ÷
+//         rest = 0;       // ÇåÁãÓàÖµ
+//         // ¹Ø±ÕÍ¨µÀ
+//         TIM_CCxChannelCmd(MOTOR3_TIM8, MOTOR3_TIM8_CHANNEL_x, TIM_CCx_DISABLE);
+//         __HAL_TIM_CLEAR_FLAG(&htim8_MOTOR3, MOTOR3_TIM8_FLAG_CCx);
+//         MOTOR3_OUTPUT_DISABLE();
+//         Motor3_MotionStatus = 0; //  µç»úÎªÍ£Ö¹×´Ì¬
+//         break;
 
-      case ACCEL:
-        step_count++; // ²½Êı¼Ó1
-        if (Motor3_srd.dir == CW)
-        {
-          Motor3_step_position++; // ¾ø¶ÔÎ»ÖÃ¼Ó1
-        }
-        else
-        {
-          Motor3_step_position--; // ¾ø¶ÔÎ»ÖÃ¼õ1
-        }
-        Motor3_srd.accel_count++;                                                                                           // ¼ÓËÙ¼ÆÊıÖµ¼Ó1
-        new_step_delay = Motor3_srd.step_delay - (((2 * Motor3_srd.step_delay) + rest) / (4 * Motor3_srd.accel_count + 1)); //¼ÆËãĞÂ(ÏÂ)Ò»²½Âö³åÖÜÆÚ(Ê±¼ä¼ä¸ô)
-        rest = ((2 * Motor3_srd.step_delay) + rest) % (4 * Motor3_srd.accel_count + 1);                                     // ¼ÆËãÓàÊı£¬ÏÂ´Î¼ÆËã²¹ÉÏÓàÊı£¬¼õÉÙÎó²î
-        if (step_count >= Motor3_srd.decel_start)                                                                           // ¼ì²éÊÇ¹»Ó¦¸Ã¿ªÊ¼¼õËÙ
-        {
-          Motor3_srd.accel_count = Motor3_srd.decel_val; // ¼ÓËÙ¼ÆÊıÖµÎª¼õËÙ½×¶Î¼ÆÊıÖµµÄ³õÊ¼Öµ
-          Motor3_srd.run_state = DECEL;                  // ÏÂ¸öÂö³å½øÈë¼õËÙ½×¶Î
-        }
-        else if (new_step_delay <= Motor3_srd.min_delay) // ¼ì²éÊÇ·ñµ½´ïÆÚÍûµÄ×î´óËÙ¶È
-        {
-          last_accel_delay = new_step_delay;     // ±£´æ¼ÓËÙ¹ı³ÌÖĞ×îºóÒ»´ÎÑÓÊ±£¨Âö³åÖÜÆÚ£©
-          new_step_delay = Motor3_srd.min_delay; // Ê¹ÓÃmin_delay£¨¶ÔÓ¦×î´óËÙ¶Èspeed£©
-          rest = 0;                              // ÇåÁãÓàÖµ
-          Motor3_srd.run_state = RUN;            // ÉèÖÃÎªÔÈËÙÔËĞĞ×´Ì¬
-        }
-        break;
+//       case ACCEL:
+//         step_count++; // ²½Êı¼Ó1
+//         if (Motor3_srd.dir == CW)
+//         {
+//           Motor3_step_position++; // ¾ø¶ÔÎ»ÖÃ¼Ó1
+//         }
+//         else
+//         {
+//           Motor3_step_position--; // ¾ø¶ÔÎ»ÖÃ¼õ1
+//         }
+//         Motor3_srd.accel_count++;                                                                                           // ¼ÓËÙ¼ÆÊıÖµ¼Ó1
+//         new_step_delay = Motor3_srd.step_delay - (((2 * Motor3_srd.step_delay) + rest) / (4 * Motor3_srd.accel_count + 1)); //¼ÆËãĞÂ(ÏÂ)Ò»²½Âö³åÖÜÆÚ(Ê±¼ä¼ä¸ô)
+//         rest = ((2 * Motor3_srd.step_delay) + rest) % (4 * Motor3_srd.accel_count + 1);                                     // ¼ÆËãÓàÊı£¬ÏÂ´Î¼ÆËã²¹ÉÏÓàÊı£¬¼õÉÙÎó²î
+//         if (step_count >= Motor3_srd.decel_start)                                                                           // ¼ì²éÊÇ¹»Ó¦¸Ã¿ªÊ¼¼õËÙ
+//         {
+//           Motor3_srd.accel_count = Motor3_srd.decel_val; // ¼ÓËÙ¼ÆÊıÖµÎª¼õËÙ½×¶Î¼ÆÊıÖµµÄ³õÊ¼Öµ
+//           Motor3_srd.run_state = DECEL;                  // ÏÂ¸öÂö³å½øÈë¼õËÙ½×¶Î
+//         }
+//         else if (new_step_delay <= Motor3_srd.min_delay) // ¼ì²éÊÇ·ñµ½´ïÆÚÍûµÄ×î´óËÙ¶È
+//         {
+//           last_accel_delay = new_step_delay;     // ±£´æ¼ÓËÙ¹ı³ÌÖĞ×îºóÒ»´ÎÑÓÊ±£¨Âö³åÖÜÆÚ£©
+//           new_step_delay = Motor3_srd.min_delay; // Ê¹ÓÃmin_delay£¨¶ÔÓ¦×î´óËÙ¶Èspeed£©
+//           rest = 0;                              // ÇåÁãÓàÖµ
+//           Motor3_srd.run_state = RUN;            // ÉèÖÃÎªÔÈËÙÔËĞĞ×´Ì¬
+//         }
+//         break;
 
-      case RUN:
-        step_count++; // ²½Êı¼Ó1
-        if (Motor3_srd.dir == CW)
-        {
-          Motor3_step_position++; // ¾ø¶ÔÎ»ÖÃ¼Ó1
-        }
-        else
-        {
-          Motor3_step_position--; // ¾ø¶ÔÎ»ÖÃ¼õ1
-        }
-        new_step_delay = Motor3_srd.min_delay;    // Ê¹ÓÃmin_delay£¨¶ÔÓ¦×î´óËÙ¶Èspeed£©
-        if (step_count >= Motor3_srd.decel_start) // ĞèÒª¿ªÊ¼¼õËÙ
-        {
-          Motor3_srd.accel_count = Motor3_srd.decel_val; // ¼õËÙ²½Êı×öÎª¼ÓËÙ¼ÆÊıÖµ
-          new_step_delay = last_accel_delay;             // ¼Ó½×¶Î×îºóµÄÑÓÊ±×öÎª¼õËÙ½×¶ÎµÄÆğÊ¼ÑÓÊ±(Âö³åÖÜÆÚ)
-          Motor3_srd.run_state = DECEL;                  // ×´Ì¬¸Ä±äÎª¼õËÙ
-        }
-        break;
+//       case RUN:
+//         step_count++; // ²½Êı¼Ó1
+//         if (Motor3_srd.dir == CW)
+//         {
+//           Motor3_step_position++; // ¾ø¶ÔÎ»ÖÃ¼Ó1
+//         }
+//         else
+//         {
+//           Motor3_step_position--; // ¾ø¶ÔÎ»ÖÃ¼õ1
+//         }
+//         new_step_delay = Motor3_srd.min_delay;    // Ê¹ÓÃmin_delay£¨¶ÔÓ¦×î´óËÙ¶Èspeed£©
+//         if (step_count >= Motor3_srd.decel_start) // ĞèÒª¿ªÊ¼¼õËÙ
+//         {
+//           Motor3_srd.accel_count = Motor3_srd.decel_val; // ¼õËÙ²½Êı×öÎª¼ÓËÙ¼ÆÊıÖµ
+//           new_step_delay = last_accel_delay;             // ¼Ó½×¶Î×îºóµÄÑÓÊ±×öÎª¼õËÙ½×¶ÎµÄÆğÊ¼ÑÓÊ±(Âö³åÖÜÆÚ)
+//           Motor3_srd.run_state = DECEL;                  // ×´Ì¬¸Ä±äÎª¼õËÙ
+//         }
+//         break;
 
-      case DECEL:
-        step_count++; // ²½Êı¼Ó1
-        if (Motor3_srd.dir == CW)
-        {
-          Motor3_step_position++; // ¾ø¶ÔÎ»ÖÃ¼Ó1
-        }
-        else
-        {
-          Motor3_step_position--; // ¾ø¶ÔÎ»ÖÃ¼õ1
-        }
-        Motor3_srd.accel_count++;
-        new_step_delay = Motor3_srd.step_delay - (((2 * Motor3_srd.step_delay) + rest) / (4 * Motor3_srd.accel_count + 1)); //¼ÆËãĞÂ(ÏÂ)Ò»²½Âö³åÖÜÆÚ(Ê±¼ä¼ä¸ô)
-        rest = ((2 * Motor3_srd.step_delay) + rest) % (4 * Motor3_srd.accel_count + 1);                                     // ¼ÆËãÓàÊı£¬ÏÂ´Î¼ÆËã²¹ÉÏÓàÊı£¬¼õÉÙÎó²î
+//       case DECEL:
+//         step_count++; // ²½Êı¼Ó1
+//         if (Motor3_srd.dir == CW)
+//         {
+//           Motor3_step_position++; // ¾ø¶ÔÎ»ÖÃ¼Ó1
+//         }
+//         else
+//         {
+//           Motor3_step_position--; // ¾ø¶ÔÎ»ÖÃ¼õ1
+//         }
+//         Motor3_srd.accel_count++;
+//         new_step_delay = Motor3_srd.step_delay - (((2 * Motor3_srd.step_delay) + rest) / (4 * Motor3_srd.accel_count + 1)); //¼ÆËãĞÂ(ÏÂ)Ò»²½Âö³åÖÜÆÚ(Ê±¼ä¼ä¸ô)
+//         rest = ((2 * Motor3_srd.step_delay) + rest) % (4 * Motor3_srd.accel_count + 1);                                     // ¼ÆËãÓàÊı£¬ÏÂ´Î¼ÆËã²¹ÉÏÓàÊı£¬¼õÉÙÎó²î
 
-        //¼ì²éÊÇ·ñÎª×îºóÒ»²½
-        if (Motor3_srd.accel_count >= 0)
-        {
-          Motor3_srd.run_state = STOP;
-        }
-        break;
-      }
-      Motor3_srd.step_delay = new_step_delay; // ÎªÏÂ¸ö(ĞÂµÄ)ÑÓÊ±(Âö³åÖÜÆÚ)¸³Öµ
-    }
-#endif
-  }
-}
+//         //¼ì²éÊÇ·ñÎª×îºóÒ»²½
+//         if (Motor3_srd.accel_count >= 0)
+//         {
+//           Motor3_srd.run_state = STOP;
+//         }
+//         break;
+//       }
+//       Motor3_srd.step_delay = new_step_delay; // ÎªÏÂ¸ö(ĞÂµÄ)ÑÓÊ±(Âö³åÖÜÆÚ)¸³Öµ
+//     }
+// #endif
+//   }
+// }
 /******************* (C) COPYRIGHT 2015-2020 Ó²Ê¯Ç¶ÈëÊ½¿ª·¢ÍÅ¶Ó *****END OF FILE****/

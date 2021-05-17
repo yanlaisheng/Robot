@@ -142,24 +142,18 @@ extern MOTOR_CONTROL_S motor5;
 extern MOTOR_CONTROL_S motor6;
 // extern MOTOR_CONTROL_SPTA motor4;
 
-extern volatile uint8_t USART1_TxBuffer[USART1TXSIZE]; //串口1发送缓冲区
-extern volatile uint16_t PTxBufferUSART11;			   //串口1发送前向位置
-extern volatile uint16_t PTxBufferUSART12;			   //串口1发送后向位置，后向-前向=未发送的数据
-extern volatile uint16_t USART1_TxCounter;			   //串口1发送计数
-extern volatile uint16_t USART1_RxCounter;			   //串口1接收计数
-extern volatile uint16_t USART1_NbrOfDataToTransfer;   //串口1要发送的数据个数
-extern volatile uint8_t USART1_RxBuffer[USART1RXSIZE]; //串口1接收缓冲区
-extern volatile uint16_t PRxBufferUSART11;
-extern volatile uint16_t PRxBufferUSART12;
-extern volatile uint8_t USART1_NbrOfDataReceived; //串口1要接收的数据个数
-extern volatile uint8_t USART1_Received_Flag;
-
 extern uint16_t Motor1TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
 extern uint16_t Motor1StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
 extern uint16_t Motor2TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
 extern uint16_t Motor2StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
 extern uint16_t Motor3TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
 extern uint16_t Motor3StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
+extern uint16_t Motor4TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
+extern uint16_t Motor4StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
+extern uint16_t Motor5TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
+extern uint16_t Motor5StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
+extern uint16_t Motor6TimeTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
+extern uint16_t Motor6StepTable[2 * (STEP_AA + STEP_UA + STEP_RA) + 1];
 //extern struct rt_ringbuffer rb_recv;
 
 void USART1_Initial(void);
@@ -169,7 +163,7 @@ void Initial_MotorIO(void);
 void Initial_Motor(unsigned char MotorID, unsigned char StepDive, unsigned int maxposition);
 void MotorRunParaInitial(void);
 void Start_Motor12(unsigned char dir1, unsigned int Degree1, unsigned char dir2, unsigned int Degree2);
-void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_S, uint32_t AccSpeed_S);
+void Start_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree);
 void Start_Motor_SPTA(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_SPTA, uint32_t AccSpeed_SPTA);
 void SetSpeed(unsigned char MotorID, signed char speedindex);
 void Do_Reset(unsigned char MotorID);
@@ -179,6 +173,6 @@ void Initial_PWM_Motor2(void);
 void Initial_PWM_Motor3(void);
 void Initial_PWM_Motor4(void);
 void EXTI_Configuration(void);
-float GetFaaPara(float fstart, float taa, float tua, float tra, float SetSpeed);
-void CalcMotorPeriStep_CPF(float fstart, float faa, float taa, float tua, float tra, uint16_t MotorTimeTable[], uint16_t MotorStepTable[]);
+void CalcMotorPeriStep_CPF(float fstart, float faa, uint16_t step_para, float taa, float tua, float tra, uint16_t MotorTimeTable[], uint16_t MotorStepTable[]);
+void Run_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_S, uint32_t AccSpeed_Para);
 #endif
