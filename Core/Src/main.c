@@ -850,7 +850,7 @@ void TEST_Send_Pwm(void)
 	{
 		Pw_Driver1_Enable = 0;
 		HAL_Delay(100);
-
+		//·¢ËÍÂö³å
 		Run_Motor_S(1, M1_CLOCKWISE, (Pw_Driver1_Pluse_HW << 16) + Pw_Driver1_Pluse, Pw_Driver1_Speed, Pw_Driver1_AccTime);
 		Run_Motor_S(2, M2_CLOCKWISE, (Pw_Driver2_Pluse_HW << 16) + Pw_Driver2_Pluse, Pw_Driver2_Speed, Pw_Driver2_AccTime);
 		Run_Motor_S(3, M3_CLOCKWISE, (Pw_Driver3_Pluse_HW << 16) + Pw_Driver3_Pluse, Pw_Driver3_Speed, Pw_Driver3_AccTime);
