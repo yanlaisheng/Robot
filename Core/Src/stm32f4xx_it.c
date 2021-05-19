@@ -67,6 +67,7 @@ extern TIM_HandleTypeDef htim2;
 extern TIM_HandleTypeDef htim3;
 extern TIM_HandleTypeDef htim4;
 extern TIM_HandleTypeDef htim5;
+extern TIM_HandleTypeDef htim6;
 extern TIM_HandleTypeDef htim8;
 extern UART_HandleTypeDef huart4;
 extern UART_HandleTypeDef huart5;
@@ -284,11 +285,7 @@ void TIM2_IRQHandler(void)
 void TIM3_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM3_IRQn 0 */
-  /*
-    请不要在此处加入多余的代码,那怕是if判断语句!!!
-    此处只打开了一种中断类型,所以无需判断!!!
-    加入任何多余的代码,都会影响电机运动的实时性
-    */
+
   /* USER CODE END TIM3_IRQn 0 */
   // HAL_TIM_IRQHandler(&htim3);
   /* USER CODE BEGIN TIM3_IRQn 1 */
@@ -411,6 +408,22 @@ void UART5_IRQHandler(void)
   /* USER CODE BEGIN UART5_IRQn 1 */
 
   /* USER CODE END UART5_IRQn 1 */
+}
+
+/**
+  * @brief This function handles TIM6 global interrupt, DAC1 and DAC2 underrun error interrupts.
+  */
+void TIM6_DAC_IRQHandler(void)
+{
+  /* USER CODE BEGIN TIM6_DAC_IRQn 0 */
+
+  /* USER CODE END TIM6_DAC_IRQn 0 */
+  // HAL_TIM_IRQHandler(&htim6);
+  /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
+  TIM6->SR = (u16)~TIM_FLAG_UPDATE;
+
+  // TIMX_UP_IRQHandler_S(&motor6);
+  /* USER CODE END TIM6_DAC_IRQn 1 */
 }
 
 /**

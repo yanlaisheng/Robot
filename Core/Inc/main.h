@@ -24,8 +24,7 @@
 #define __MAIN_H
 
 #ifdef __cplusplus
-extern "C"
-{
+extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -35,31 +34,31 @@ extern "C"
 /* USER CODE BEGIN Includes */
 //#include "wk_port1.h"
 #include "GlobalConst.h"
-  /* USER CODE END Includes */
+/* USER CODE END Includes */
 
-  /* Exported types ------------------------------------------------------------*/
-  /* USER CODE BEGIN ET */
+/* Exported types ------------------------------------------------------------*/
+/* USER CODE BEGIN ET */
   extern uint8_t WkPort1_RcvBuffer[RCV1_MAX]; // 接收缓冲区
   extern uint8_t WkPort2_RcvBuffer[RCV1_MAX]; // 接收缓冲区
   extern uint8_t WkPort3_RcvBuffer[RCV1_MAX]; // 接收缓冲区
   extern uint8_t WkPort4_RcvBuffer[RCV1_MAX]; // 接收缓冲区
 
-  /* USER CODE END ET */
+/* USER CODE END ET */
 
-  /* Exported constants --------------------------------------------------------*/
-  /* USER CODE BEGIN EC */
+/* Exported constants --------------------------------------------------------*/
+/* USER CODE BEGIN EC */
 
-  /* USER CODE END EC */
+/* USER CODE END EC */
 
-  /* Exported macro ------------------------------------------------------------*/
-  /* USER CODE BEGIN EM */
+/* Exported macro ------------------------------------------------------------*/
+/* USER CODE BEGIN EM */
 
-  /* USER CODE END EM */
+/* USER CODE END EM */
 
-  /* Exported functions prototypes ---------------------------------------------*/
-  void Error_Handler(void);
+/* Exported functions prototypes ---------------------------------------------*/
+void Error_Handler(void);
 
-  /* USER CODE BEGIN EFP */
+/* USER CODE BEGIN EFP */
   void SystemClock_Config(void);
   void Com1_RcvProcess(void);
   void Com1_SlaveSend(void);
@@ -215,12 +214,12 @@ extern "C"
 #define DO6_GPIO_Port GPIOE
 #define DO5_Pin GPIO_PIN_1
 #define DO5_GPIO_Port GPIOE
-  /* USER CODE BEGIN Private defines */
+/* USER CODE BEGIN Private defines */
 
 #define SPI_CS_ON HAL_GPIO_WritePin(SPI3_CS_GPIO_Port, SPI3_CS_Pin, GPIO_PIN_RESET)
 #define SPI_CS_OFF HAL_GPIO_WritePin(SPI3_CS_GPIO_Port, SPI3_CS_Pin, GPIO_PIN_SET)
 
-  /* USER CODE END Private defines */
+/* USER CODE END Private defines */
 
 #ifdef __cplusplus
 }
