@@ -459,13 +459,6 @@ uint8_t Driver4_Cmd_Data[9];
 uint8_t Driver5_Cmd_Data[9];
 uint8_t Driver6_Cmd_Data[9];
 
-uint8_t Driver1_Pos_Start_Sort; //1#伺服，=0，表示还未写入到命令缓冲区；=1，表示已经写入到命令缓冲区；=2，表示已经发送
-uint8_t Driver2_Pos_Start_Sort;
-uint8_t Driver3_Pos_Start_Sort;
-uint8_t Driver4_Pos_Start_Sort;
-uint8_t Driver5_Pos_Start_Sort;
-uint8_t Driver6_Pos_Start_Sort;
-
 uint8_t Driver1_Status_Sort; //1#伺服，=2，表示已经发送；=3，表示已经接收
 uint8_t Driver2_Status_Sort;
 uint8_t Driver3_Status_Sort;
@@ -582,29 +575,28 @@ uint8_t B_Com6Cmd06;
 uint16_t T_NoRcv6Count; // 没有接收计数器
 uint16_t C_NoRcv6Count;
 
-uint32_t step_to_run_MOTOR1;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-float fre_MOTOR1[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-unsigned short period_MOTOR1[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
+// uint32_t step_to_run_MOTOR1;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
+// float fre_MOTOR1[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
+// unsigned short period_MOTOR1[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 
-uint32_t step_to_run_MOTOR2;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-float fre_MOTOR2[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-unsigned short period_MOTOR2[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
+// uint32_t step_to_run_MOTOR2;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
+// float fre_MOTOR2[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
+// unsigned short period_MOTOR2[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 
-uint32_t step_to_run_MOTOR3;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR3
-float fre_MOTOR3[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-unsigned short period_MOTOR3[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
+// uint32_t step_to_run_MOTOR3;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR3
+// float fre_MOTOR3[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
+// unsigned short period_MOTOR3[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 
-uint32_t step_to_run_MOTOR4;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-float fre_MOTOR4[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-unsigned short period_MOTOR4[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
+// uint32_t step_to_run_MOTOR4;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
+// float fre_MOTOR4[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
+// unsigned short period_MOTOR4[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 
-uint32_t step_to_run_MOTOR5;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-float fre_MOTOR5[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-unsigned short period_MOTOR5[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
+// uint32_t step_to_run_MOTOR5;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
+// float fre_MOTOR5[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
+// unsigned short period_MOTOR5[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 
-uint32_t step_to_run_MOTOR6;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-float fre_MOTOR6[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-unsigned short period_MOTOR6[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
+// uint32_t step_to_run_MOTOR6;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
+// float fre_MOTOR6[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
+// unsigned short period_MOTOR6[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
 
 #endif /* __GLOBALV_H */
-

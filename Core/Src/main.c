@@ -35,7 +35,6 @@
 #include "GlobalV_Extern.h" // 全局变量声明
 #include "typedef.h"
 #include "wk2xxx.h"
-#include "led.h"
 #include "w25qxx.h"
 #include "bsp_MOTOR3.h"
 #include "bsp_MOTOR1.h"

@@ -355,10 +355,10 @@
                     <state>$PROJ_DIR$/../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Device/ST/STM32F4xx/Include</state>
                     <state>$PROJ_DIR$/../Drivers/CMSIS/Include</state>
-                    <state>D:\YLS\TT\Robot\HARDWARE\Ethercat</state>
-                    <state>D:\YLS\TT\Robot\HARDWARE\W25QXX</state>
-                    <state>D:\YLS\TT\Robot\HARDWARE\WK2124</state>
-                    <state>D:\YLS\TT\Robot\MOTOR2</state>
+                    <state>D:\YLS\WORKING\Robot\HARDWARE\Ethercat</state>
+                    <state>D:\YLS\WORKING\Robot\HARDWARE\W25QXX</state>
+                    <state>D:\YLS\WORKING\Robot\HARDWARE\WK2124</state>
+                    <state>D:\YLS\WORKING\Robot\MOTOR2</state>
                 </option>
                 <option>
                     <name>CCStdIncCheck</name>

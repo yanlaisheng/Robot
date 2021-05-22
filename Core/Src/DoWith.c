@@ -21,24 +21,9 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
-//ADC1:		0x4001 2400 - 0x4001 27FF
-//ADC规则数据寄存器	地址偏移：0x4C
-#define ADC1_DR_Address ((uint32_t)0x4001244C)
-//DAC : 	0x4000 7400 - 0x4000 77FF
-//DAC通道 1的 12位右对齐数据保持寄存器	地址偏移：0x08
-#define DAC_DHR12R1_Address 0x40007408
-//DAC通道 2的 12位右对齐数据保持寄存器	地址偏移：0x14
-#define DAC_DHR12R2_Address 0x40007414
-
-/* Init Structure definition */
-//ADC_InitTypeDef ADC_InitStructure;				//ADC初始化结构体
-//DMA_InitTypeDef DMA_InitStructure;				//DMA初始化结构体
-//DAC_InitTypeDef            DAC_InitStructure;
-//TIM_TimeBaseInitTypeDef    TIM_TimeBaseStructure;
 
 /* Private variables ---------------------------------------------------------*/
 uint8_t FilterNo; // 过滤序号
-uint8_t AI_Sel;
 //
 uint8_t T_BootParLst; // 初始化参数表列
 uint16_t C_BootParLst;
@@ -61,17 +46,7 @@ uint16_t C_TimeWriteRec;
 uint8_t T_ForceSavPar;	// 强制保存参数
 uint8_t B_ForceSavPar;	// 标志
 uint16_t C_ForceSavPar; // 使用次数较大，使用pdata
-//
 
-uint16_t w_SaveAI[352]; // 模拟量输入过滤用
-
-uint16_t w_SaveAI1[32]; // 模拟量输入过滤用
-uint16_t w_SaveAI2[32]; // 模拟量输入过滤用
-uint16_t w_SaveAI3[32]; // 模拟量输入过滤用
-uint16_t w_SaveAI4[32]; // 模拟量输入过滤用
-uint16_t w_SaveAI5[32]; // 模拟量输入过滤用
-
-//
 uint16_t w_DIStableCounter; // 开关量输入PE稳定记数器
 
 uint8_t T_DoWith; // 处理
@@ -214,30 +189,11 @@ extern uint8_t F_Driver5_notBrake;
 extern uint8_t F_Driver6_notBrake;
 extern uint8_t F_Driver_All_notBrake;
 
-extern uint8_t Driver1_Pos_Start_Sort; //1#伺服，=0，表示还未写入到命令缓冲区；=1，表示已经写入到命令缓冲区；=2，表示已经发送
-extern uint8_t Driver2_Pos_Start_Sort;
-extern uint8_t Driver3_Pos_Start_Sort;
-extern uint8_t Driver4_Pos_Start_Sort;
-extern uint8_t Driver5_Pos_Start_Sort;
-extern uint8_t Driver6_Pos_Start_Sort;
-
-extern uint8_t Driver1_Status_Sort; //1#伺服，=2，表示已经发送；=3，表示已经接收
-extern uint8_t Driver2_Status_Sort;
-extern uint8_t Driver3_Status_Sort;
-extern uint8_t Driver4_Status_Sort;
-extern uint8_t Driver5_Status_Sort;
-extern uint8_t Driver6_Status_Sort;
-
 /* Private function prototypes -----------------------------------------------*/
 void I2C_EE_ByteWrite(uint8_t *pBuffer, uint8_t WriteAddr);
 void I2C_EE_BufferRead(uint8_t *pBuffer, uint8_t ReadAddr, uint16_t NumByteToRead);
 void ParArrayRead_DWord(uint32_t *p_Top, uc32 *p_Base, uint16_t w_ReadSize);
 
-void Com1_config(void);
-void Com2_config(void);
-void Com3_config(void);
-void Com4_config(void);
-void Com5_config(void);
 uint16_t CRC16(uint8_t *pCrcData, uint8_t CrcDataLen);
 
 //uint16_t STMFLASH_ReadHalfWord(uint32_t faddr);		  //读出半字
@@ -599,15 +555,6 @@ void Variable_Init(void) //	变量初始化
 
 	F_ManualRunStop = 1;
 
-	//	Rcv1Counter=0;
-	//	Txd1Counter=0;
-	//	Rcv2Counter=0;
-	//	Txd2Counter=0;
-	//	Rcv3Counter=0;
-	//	Txd3Counter=0;
-	//	Rcv4Counter=0;
-	//	Txd4Counter=0;
-
 	F_Starting = 0;
 	F_Stoping = 0;
 	F_AskReset = 0;
@@ -626,7 +573,6 @@ void Variable_Init(void) //	变量初始化
 
 	arr_p1 = &w_ParLst_Pos_CMD; //指向位置命令队列头
 	arrp_p1_Last = arr_p1;
-	//	arr_p1[37]=0;						//发送标志清0，可以发送位置
 	Pr_Driver_Running_No = 0;
 	Pr_Driver_Previous_No = 0; //前一个执行指令号
 
@@ -715,15 +661,6 @@ void Variable_Init(void) //	变量初始化
 	Pr_Driver4_NeverRun = 1;
 	Pr_Driver5_NeverRun = 1;
 	Pr_Driver6_NeverRun = 1;
-
-	Driver1_Pos_Start_Sort = 0;
-	Driver2_Pos_Start_Sort = 0;
-	Driver3_Pos_Start_Sort = 0;
-	Driver4_Pos_Start_Sort = 0;
-	Driver5_Pos_Start_Sort = 0;
-	Driver6_Pos_Start_Sort = 0;
-
-	Driver1_Status_Sort = 0;
 
 	Pr_Driver1_Control_OK_F = 0;
 	Pr_Driver2_Control_OK_F = 0;
