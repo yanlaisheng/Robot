@@ -7,20 +7,24 @@
             "compilerPath": "",
             "browse": {
                 "path": [
-                    "D:\\YLS\\TT\\Robot\\EWARM\\",
-                    "D:\\YLS\\TT\\Robot\\MOTOR2\\",
-                    "D:\\YLS\\TT\\Robot\\Core\\Src\\",
-                    "D:\\YLS\\TT\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Src\\",
-                    "D:\\YLS\\TT\\Robot\\HARDWARE\\Ethercat\\",
-                    "D:\\YLS\\TT\\Robot\\HARDWARE\\W25QXX\\",
-                    "D:\\YLS\\TT\\Robot\\HARDWARE\\WK2124\\",
+                    "D:\\YLS\\test\\Robot\\EWARM\\",
+                    "D:\\YLS\\test\\Robot\\MOTOR2\\",
+                    "D:\\YLS\\test\\Robot\\Core\\Src\\",
+                    "D:\\YLS\\test\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Src\\",
+                    "D:\\YLS\\test\\Robot\\HARDWARE\\Ethercat\\",
+                    "D:\\YLS\\test\\Robot\\HARDWARE\\W25QXX\\",
+                    "D:\\YLS\\test\\Robot\\HARDWARE\\WK2124\\",
                     "D:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.2\\arm\\inc\\c",
                     "D:\\Program Files (x86)\\IAR Systems\\Embedded Workbench 8.2\\arm\\inc",
-                    "D:\\YLS\\TT\\Robot\\Drivers\\CMSIS\\Include\\",
-                    "D:\\YLS\\TT\\Robot\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\",
-                    "D:\\YLS\\TT\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy\\",
-                    "D:\\YLS\\TT\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\",
-                    "D:\\YLS\\TT\\Robot\\Core\\Inc\\"
+                    "D:\\YLS\\TT\\Robot\\MOTOR2\\",
+                    "D:\\YLS\\TT\\Robot\\HARDWARE\\WK2124\\",
+                    "D:\\YLS\\TT\\Robot\\HARDWARE\\W25QXX\\",
+                    "D:\\YLS\\TT\\Robot\\HARDWARE\\Ethercat\\",
+                    "D:\\YLS\\test\\Robot\\Drivers\\CMSIS\\Include\\",
+                    "D:\\YLS\\test\\Robot\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\",
+                    "D:\\YLS\\test\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy\\",
+                    "D:\\YLS\\test\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\",
+                    "D:\\YLS\\test\\Robot\\Core\\Inc\\"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ".vscode/browse.db"
@@ -32,11 +36,11 @@
                 "D:\\YLS\\TT\\Robot\\HARDWARE\\WK2124\\",
                 "D:\\YLS\\TT\\Robot\\HARDWARE\\W25QXX\\",
                 "D:\\YLS\\TT\\Robot\\HARDWARE\\Ethercat\\",
-                "D:\\YLS\\TT\\Robot\\Drivers\\CMSIS\\Include\\",
-                "D:\\YLS\\TT\\Robot\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\",
-                "D:\\YLS\\TT\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy\\",
-                "D:\\YLS\\TT\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\",
-                "D:\\YLS\\TT\\Robot\\Core\\Inc\\"
+                "D:\\YLS\\test\\Robot\\Drivers\\CMSIS\\Include\\",
+                "D:\\YLS\\test\\Robot\\Drivers\\CMSIS\\Device\\ST\\STM32F4xx\\Include\\",
+                "D:\\YLS\\test\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\Legacy\\",
+                "D:\\YLS\\test\\Robot\\Drivers\\STM32F4xx_HAL_Driver\\Inc\\",
+                "D:\\YLS\\test\\Robot\\Core\\Inc\\"
             ],
             "defines": [
                 "_Pragma(x) =",

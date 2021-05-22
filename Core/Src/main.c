@@ -215,7 +215,9 @@ int main(void)
 		TEST_Send_Pwm();
 
 		// HAL_GPIO_TogglePin(DO8_GPIO_Port, DO8_Pin);
+
 		// HAL_Delay(200);
+
 		/* USER CODE END WHILE */
 
 		/* USER CODE BEGIN 3 */
