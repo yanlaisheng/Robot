@@ -25,7 +25,7 @@ if not "%~1" == "" goto debugFile
 
 @echo on 
 
-"D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\YLS\robotcontrol - 05.16\Robot\EWARM\settings\robotcontrol.robotcontrol.general.xcl" --backend -f "D:\YLS\robotcontrol - 05.16\Robot\EWARM\settings\robotcontrol.robotcontrol.driver.xcl" 
+"D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\YLS\TT\Robot\EWARM\settings\robotcontrol.robotcontrol.general.xcl" --backend -f "D:\YLS\TT\Robot\EWARM\settings\robotcontrol.robotcontrol.driver.xcl" 
 
 @echo off 
 goto end 
@@ -34,7 +34,7 @@ goto end
 
 @echo on 
 
-"D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\YLS\robotcontrol - 05.16\Robot\EWARM\settings\robotcontrol.robotcontrol.general.xcl" "--debug_file=%~1" --backend -f "D:\YLS\robotcontrol - 05.16\Robot\EWARM\settings\robotcontrol.robotcontrol.driver.xcl" 
+"D:\Program Files (x86)\IAR Systems\Embedded Workbench 8.2\common\bin\cspybat" -f "D:\YLS\TT\Robot\EWARM\settings\robotcontrol.robotcontrol.general.xcl" "--debug_file=%~1" --backend -f "D:\YLS\TT\Robot\EWARM\settings\robotcontrol.robotcontrol.driver.xcl" 
 
 @echo off 
 :end

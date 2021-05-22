@@ -1033,10 +1033,19 @@ void Initial_PWM_Motor1(void)
 	HAL_TIM_Base_Init(&htim2_MOTOR1);
 
 	/* 定时器比较输出配置 */
-	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
-	sConfigOC.Pulse = 500;							 // 脉冲数
-	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
-	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+#ifdef TIM_Idle_HIGH
+	//不工作时输出高电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM1;			 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 0;						 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;	 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_LOW; // 互补通道输出极性
+#else
+	//不工作时输出低电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;			  // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;						  // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;	  // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH; // 互补通道输出极性
+#endif
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
 	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平TIM_OCIDLESTATE_RESET
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
@@ -1083,10 +1092,19 @@ void Initial_PWM_Motor2(void)
 	HAL_TIM_Base_Init(&htim4_MOTOR2);
 
 	/* 定时器比较输出配置 */
-	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
-	sConfigOC.Pulse = 500;							 // 脉冲数
-	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
-	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+#ifdef TIM_Idle_HIGH
+	//不工作时输出高电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM1;			 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 0;						 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;	 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_LOW; // 互补通道输出极性
+#else
+	//不工作时输出低电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;			  // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;						  // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;	  // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH; // 互补通道输出极性
+#endif
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
 	sConfigOC.OCIdleState = TIM_OCIDLESTATE_SET;	 // 空闲电平TIM_OCIDLESTATE_RESET
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
@@ -1132,10 +1150,19 @@ void Initial_PWM_Motor3(void)
 	HAL_TIM_Base_Init(&htim8_MOTOR3);
 
 	/* 定时器比较输出配置 */
-	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
-	sConfigOC.Pulse = 500;							 // 脉冲数
-	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
-	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+#ifdef TIM_Idle_HIGH
+	//不工作时输出高电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM1;			 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 0;						 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;	 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_LOW; // 互补通道输出极性
+#else
+	//不工作时输出低电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;			  // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;						  // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;	  // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH; // 互补通道输出极性
+#endif
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
 	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
@@ -1182,10 +1209,19 @@ void Initial_PWM_Motor4(void)
 	HAL_TIM_Base_Init(&htim3_MOTOR4);
 
 	/* 定时器比较输出配置 */
-	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
-	sConfigOC.Pulse = 500;							 // 脉冲数
-	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
-	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+#ifdef TIM_Idle_HIGH
+	//不工作时输出高电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM1;			 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 0;						 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;	 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_LOW; // 互补通道输出极性
+#else
+	//不工作时输出低电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;			  // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;						  // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;	  // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH; // 互补通道输出极性
+#endif
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
 	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
@@ -1232,10 +1268,19 @@ void Initial_PWM_Motor5(void)
 	HAL_TIM_Base_Init(&htim1_MOTOR5);
 
 	/* 定时器比较输出配置 */
-	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
-	sConfigOC.Pulse = 500;							 // 脉冲数
-	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
-	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+#ifdef TIM_Idle_HIGH
+	//不工作时输出高电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM1;			 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 0;						 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;	 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_LOW; // 互补通道输出极性
+#else
+	//不工作时输出低电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;			  // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;						  // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;	  // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH; // 互补通道输出极性
+#endif
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
 	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平
@@ -1282,10 +1327,19 @@ void Initial_PWM_Motor6(void)
 	HAL_TIM_Base_Init(&htim5_MOTOR6);
 
 	/* 定时器比较输出配置 */
-	sConfigOC.OCMode = TIM_OCMODE_PWM2;				 // 比较输出模式：PWM2输出
-	sConfigOC.Pulse = 500;							 // 脉冲数
-	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;		 // 输出极性
-	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH;	 // 互补通道输出极性
+#ifdef TIM_Idle_HIGH
+	//不工作时输出高电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM1;			 // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 0;						 // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;	 // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_LOW; // 互补通道输出极性
+#else
+	//不工作时输出低电平
+	sConfigOC.OCMode = TIM_OCMODE_PWM2;			  // 比较输出模式：PWM2输出
+	sConfigOC.Pulse = 500;						  // 脉冲数
+	sConfigOC.OCPolarity = TIM_OCPOLARITY_LOW;	  // 输出极性
+	sConfigOC.OCNPolarity = TIM_OCNPOLARITY_HIGH; // 互补通道输出极性
+#endif
 	sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;		 // 快速模式
 	sConfigOC.OCIdleState = TIM_OCIDLESTATE_RESET;	 // 空闲电平
 	sConfigOC.OCNIdleState = TIM_OCNIDLESTATE_RESET; // 互补通道空闲电平

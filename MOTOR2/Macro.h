@@ -31,5 +31,6 @@
 #define STEP_RA 31           //减加速阶段，离散化点数
 
 #define MAX_POSITION 8388608 //最大位置
+#define TIM_Idle_HIGH 1      //定时器不工作时输出高电平
 
 #endif
