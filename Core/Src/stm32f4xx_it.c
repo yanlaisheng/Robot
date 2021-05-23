@@ -38,7 +38,6 @@
 /* USER CODE BEGIN PD */
 extern MOTOR_CONTROL_S motor1;
 extern void TIMX_UP_IRQHandler_S(MOTOR_CONTROL_S *pmotor);
-extern void TIMX_IRQHandler_SPTA(MOTOR_CONTROL_SPTA *pmotor);
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -220,7 +219,7 @@ void SysTick_Handler(void)
   /* USER CODE END SysTick_IRQn 0 */
   HAL_IncTick();
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+  HAL_SYSTICK_IRQHandler(); //YLS 调用定时中断函数
   /* USER CODE END SysTick_IRQn 1 */
 }
 

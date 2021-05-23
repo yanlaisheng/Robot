@@ -30,6 +30,11 @@ void TIMX_UP_IRQHandler_S(MOTOR_CONTROL_S *pmotor)
 			{
 				pmotor->CurrentPosition_Pulse = 0;
 			}
+			pmotor->target_pos++;
+			if (pmotor->target_pos >= pmotor->MaxPosition_Pulse)
+			{
+				pmotor->target_pos = 0;
+			}
 		}
 		else
 		{
@@ -37,6 +42,11 @@ void TIMX_UP_IRQHandler_S(MOTOR_CONTROL_S *pmotor)
 			if (pmotor->CurrentPosition_Pulse == 0xffffffff)
 			{
 				pmotor->CurrentPosition_Pulse = pmotor->MaxPosition_Pulse - 1;
+			}
+			pmotor->target_pos--;
+			if (pmotor->target_pos == 0xffffffff)
+			{
+				pmotor->target_pos = pmotor->MaxPosition_Pulse - 1;
 			}
 		}
 		pmotor->CurrentPosition = pmotor->CurrentPosition_Pulse / pmotor->divnum;

@@ -575,28 +575,18 @@ uint8_t B_Com6Cmd06;
 uint16_t T_NoRcv6Count; // 没有接收计数器
 uint16_t C_NoRcv6Count;
 
-// uint32_t step_to_run_MOTOR1;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-// float fre_MOTOR1[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-// unsigned short period_MOTOR1[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
+uint32_t Motor1_current_pos; //当前位置
+uint32_t Motor2_current_pos;
+uint32_t Motor3_current_pos;
+uint32_t Motor4_current_pos;
+uint32_t Motor5_current_pos;
+uint32_t Motor6_current_pos;
 
-// uint32_t step_to_run_MOTOR2;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-// float fre_MOTOR2[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-// unsigned short period_MOTOR2[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
-
-// uint32_t step_to_run_MOTOR3;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR3
-// float fre_MOTOR3[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-// unsigned short period_MOTOR3[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
-
-// uint32_t step_to_run_MOTOR4;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-// float fre_MOTOR4[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-// unsigned short period_MOTOR4[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
-
-// uint32_t step_to_run_MOTOR5;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-// float fre_MOTOR5[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-// unsigned short period_MOTOR5[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
-
-// uint32_t step_to_run_MOTOR6;                            //要匀速运行的步数       总共运行步数 = ACCELERATED_SPEED_LENGTH*2 + step_to_run_MOTOR1
-// float fre_MOTOR6[ACCELERATED_SPEED_LENGTH];             //数组存储加速过程中每一步的频率
-// unsigned short period_MOTOR6[ACCELERATED_SPEED_LENGTH]; //数组储存加速过程中每一步定时器的自动装载值
+int Motor1_startflag; //启动运行标志
+int Motor2_startflag;
+int Motor3_startflag;
+int Motor4_startflag;
+int Motor5_startflag;
+int Motor6_startflag;
 
 #endif /* __GLOBALV_H */

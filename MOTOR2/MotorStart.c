@@ -8,7 +8,6 @@ MOTOR_CONTROL_S motor3;
 MOTOR_CONTROL_S motor4;
 MOTOR_CONTROL_S motor5;
 MOTOR_CONTROL_S motor6;
-// MOTOR_CONTROL_SPTA motor4;
 
 /*简单的延时函数*/
 void TimerDly(unsigned int Time)
