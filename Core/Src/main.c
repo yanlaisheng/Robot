@@ -286,6 +286,7 @@ void HAL_SYSTICK_Callback(void)
 	if (startflag)
 	{
 		//		targetp+=1000;
+
 		time++;
 		if (time > 0)
 		{
