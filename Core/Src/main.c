@@ -44,6 +44,7 @@
 #include "bsp_MOTOR6.h"
 #include "Macro.h"
 #include "global_varial.h"
+#include "Dowith.h"
 
 /* USER CODE END Includes */
 
@@ -126,10 +127,10 @@ GETCHAR_PROTOTYPE
 }
 int ECMSPIReadWrite(uint8_t *rdata, uint8_t *wdata, int rwlength)
 {
-	uint8_t *pTxBuffPtr; /*!< Pointer to SPI Tx transfer Buffer        */
-	uint8_t *pRxBuffPtr; /*!< Pointer to SPI Rx transfer Buffer        */
-	pRxBuffPtr = (uint8_t *)rdata;
-	pTxBuffPtr = (uint8_t *)wdata;
+	// uint8_t *pTxBuffPtr; /*!< Pointer to SPI Tx transfer Buffer        */
+	// uint8_t *pRxBuffPtr; /*!< Pointer to SPI Rx transfer Buffer        */
+	// pRxBuffPtr = (uint8_t *)rdata;
+	// pTxBuffPtr = (uint8_t *)wdata;
 	while (HAL_GPIO_ReadPin(BUSY_GPIO_Port, BUSY_Pin))
 		;
 	HAL_GPIO_WritePin(SPI3_CS_GPIO_Port, SPI3_CS_Pin, GPIO_PIN_RESET);
@@ -371,12 +372,8 @@ void HAL_SYSTICK_Callback(void)
 
 void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
-	//	 u8 gifr,sier,sifr;
-	//	 int txlen,rxlen,len,num,i;
 	u8 gifr;
 	int rxlen;
-	//  printf("IN EXTI1_IRQ");
-	//	printf("\n\r\n\r");
 	switch (GPIO_Pin)
 	{
 	case GPIO_PIN_0:

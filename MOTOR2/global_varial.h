@@ -137,6 +137,8 @@ void Initial_PWM_Motor1(void);
 void Initial_PWM_Motor2(void);
 void Initial_PWM_Motor3(void);
 void Initial_PWM_Motor4(void);
+void Initial_PWM_Motor5(void);
+void Initial_PWM_Motor6(void);
 void EXTI_Configuration(void);
 void CalcMotorPeriStep_CPF(float fstart, float faa, uint16_t step_para, float taa, float tua, float tra, uint16_t MotorTimeTable[], uint16_t MotorStepTable[]);
 void Run_Motor_S(unsigned char MotorID, unsigned char dir, uint32_t Degree, uint32_t MaxSpeed_S, uint32_t AccSpeed_Para);
